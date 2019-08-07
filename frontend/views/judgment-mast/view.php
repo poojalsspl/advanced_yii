@@ -19,7 +19,7 @@ $this->title = $model->judgment_code;
         <div class="col-md-12">
             <div class="row">
                     <!--Content Section-->
-                <div class="col-md-9 border-green">
+                <div class="col-md-12 border-green">
                     <div class="row">
                         <div class="box box-v2">
                        

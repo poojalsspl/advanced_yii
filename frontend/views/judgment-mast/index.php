@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\grid\ActionColumn;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\JudgmentMastSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -15,9 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Judgment Mast', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+   <!--  <p>
+        <?php// Html::a('Create Judgment Mast', ['create'], ['class' => 'btn btn-success']) ?>
+    </p> -->
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -58,7 +59,8 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'overrule_judgment',
             // 'overruled_by_judgment',
             // 'judgment_ext_remark_flag',
-           ['class' => 'yii\grid\ActionColumn'],
+           //['class' => 'yii\grid\ActionColumn'],
+           ['class' => ActionColumn::className(),'template'=>'{view} {update}' ],
 
 //            ['class' => 'yii\grid\ActionColumn'],
         ],
