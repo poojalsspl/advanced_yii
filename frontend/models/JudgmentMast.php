@@ -156,6 +156,10 @@ class JudgmentMast extends \yii\db\ActiveRecord
     {
       return $this->hasOne(JudgmentJurisdiction::className(), ['judgment_jurisdiction_id' => 'judgment_jurisdiction_id']);
     }
+    public function getCourtNameCode()
+    {
+        return $this->hasOne(CourtMast::className(), ['court_name' => 'court_name']);
+    }
 
    
    

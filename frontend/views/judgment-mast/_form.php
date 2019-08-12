@@ -26,39 +26,30 @@ $cache = Yii::$app->cache;
         <?php $form = ActiveForm::begin(); ?>
         <div class="col-md-12">
 
-            
+            <?php
+  if(!$model->isNewRecord){
+      $model->judgment_title       =  htmlspecialchars_decode($model->judgment_title);
+      $model->court_name           =  htmlspecialchars_decode($model->court_name);
+      $model->appellant_name       =  htmlspecialchars_decode($model->appellant_name);
+      $model->appellant_adv        =  htmlspecialchars_decode($model->appellant_adv);
+      $model->respondant_adv       =  htmlspecialchars_decode($model->respondant_adv);
+      $model->judges_name          =  htmlspecialchars_decode($model->judges_name);
+      $model->judgment_source_name =  htmlspecialchars_decode($model->judgment_source_name);
+
+  }
+
+ ?>
             <div class="row">
                 <div class="box box-blue">
                    
                     <div class="box-body">
                         <div class="col-md-12">
                             <div class="col-md-4 col-xs-12">
-                            <?php
-        $courtMast  = ArrayHelper::map(CourtMast::find()->all(), 'court_code', 'court_name'); ?>
-        <?= $form->field($model, 'court_name')->widget(Select2::classname(), [            
-            'data' => $courtMast,
-
-            'options' => ['placeholder' => 'Select Court', 'value' => (!$model->isNewRecord) ? $model->court_code : '', ],
-            'pluginEvents'=>[
-            "select2:select" => "function() { var val = $(this).val();                
-              $('#judgmentmast-court_code').val(val);
-                    $.ajax({
-                      url      : '/advanced_yii/judgment-mast/court?id='+val,
-                      dataType : 'json',
-                      success  : function(data) {                                 
-                        $('#judgmentmast-hearing_place option').remove();
-                        //$('#judgmentmast-hearing_place').append('<option>Select State</option>');
-                        $.each(data, function(i, item){
-                      $('#judgmentmast-hearing_place').append('<option value='+item.city_code+'>'+item.city_name+'</option>');
-                      });
-                          },
-                      error: function(xhr, textStatus, errorThrown){
-                           alert('No states for this contry');
-                        }                                                         
-                      });
-             }"
-            ]
-            ]); ?>        
+                            
+                            
+                            <?= $form->field($model, 'court_name')->textInput(['readonly'=> true]);?> 
+                           
+       
 
 <?= $form->field($model, 'court_code')->hiddenInput(['readonly'=>true])->label(false); ?>
      <?=  $form->field($model, 'appeal_numb')->textInput() ?>  

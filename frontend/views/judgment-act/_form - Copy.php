@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\models\JudgmentMast;
-use frontend\models\BareactGroupMast;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 
@@ -45,19 +44,10 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     <?php /*$form->field($model, 'judgment_title')->textInput(['maxlength' => true]) */?>
 
     <?= $form->field($model, 'doc_id')->textInput(['maxlength' => true]) ?>
- <?php  $bareactgroupmast  = ArrayHelper::map(BareactGroupMast::find()->all(), 'act_group_code', 'act_group_desc'); ?>
 
     <?= $form->field($model, 'act_group_code')->textInput() ?>
 
-    <?php //echo  $form->field($model, 'act_group_desc')->textInput(['maxlength' => true]) ?>
-     <?= $form->field($model, 'act_group_desc')->widget(Select2::classname(), [
-          
-          'data' => $bareactgroupmast,
-          //'language' => '',
-          'options' => ['placeholder' => 'Select Act Group'],
-          'pluginEvents'=>[
-            ]
-          ]); ?>  
+    <?= $form->field($model, 'act_group_desc')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'act_catg_code')->textInput() ?>
 

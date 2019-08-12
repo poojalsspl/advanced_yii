@@ -7,6 +7,7 @@ use frontend\models\JudgmentMast;
 use frontend\models\CourtMast;
 use frontend\models\CityMast;
 use frontend\models\JudgmentMastSearch;
+use frontend\models\JudgmentAdvocate;
 use yii\web\Controller;
 use frontend\models\JcatgMast ;
 use frontend\models\JsubCatgMast;
@@ -90,7 +91,7 @@ class JudgmentMastController extends Controller
     //$cache->set('jsub_catg_description', $jsub_catg_description);
            
         if ($model->load(Yii::$app->request->post()) ) {
-            //$model->court_name                 =  $model->courtCode->court_name;
+            $model->court_name                 =  $model->courtCode->court_name;
             //$model->jcatg_description          =  $model->jcatg->jcatg_description;
             //$model->jsub_catg_description      =  $model->jsubCatg->jsub_catg_description;
             $model->bench_type_text            =  $model->judgmentBenchType->bench_type_text;

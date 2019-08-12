@@ -76,8 +76,6 @@ class JudgmentActController extends Controller
             }   
 
         if ($model->load(Yii::$app->request->post()) ) {
-             $model->act_group_desc                 =  $model->bareactGroupMast->act_group_desc;
-
             $model->judgment_code = $jcode;
             $model->save(false);
             if($jyear!="" && $jcount!=""){ 

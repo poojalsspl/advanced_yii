@@ -118,4 +118,8 @@ class CourtMast extends \yii\db\ActiveRecord
     {
         return $this->hasOne(CityMast::className(), ['city_code' => 'city_code']);
     }
+    public function getJudgmentMasts()
+    {
+        return $this->hasMany(JudgmentMast::className(), ['court_code' => 'court_code']);
+    }
 }

@@ -29,26 +29,17 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
+                        
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    
                 ],
             ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
+      
         ];
     }
 
@@ -87,7 +78,7 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect(['site/index']);
+            return $this->redirect(['judgment-mast/index']);
         }
 
         $model = new LoginForm();
@@ -97,7 +88,7 @@ class SiteController extends Controller
             if($userdata->status!='')
              {
                
-               return $this->redirect(['pooja/index']);
+               return $this->redirect(['judgment-mast/index']);
 
              }
             

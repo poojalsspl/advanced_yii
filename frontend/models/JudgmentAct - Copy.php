@@ -87,11 +87,4 @@ class JudgmentAct extends \yii\db\ActiveRecord
             'level' => 'Level',
         ];
     }
-
-     public function getBareactGroupMast()
-    {
-      return $this->hasOne(BareactGroupMast::className(), ['act_group_desc' => 'act_group_desc']);
-    }
-
-
 }
