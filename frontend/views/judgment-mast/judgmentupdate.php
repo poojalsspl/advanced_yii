@@ -26,7 +26,7 @@ $code = $_GET['code'];
 }
 $master = JudgmentMast::find()->where(['judgment_code'=>$code])->one();
 	//$JudgmentAct         = $master->judgmentActs;
-	//$JudgmentAdvocate    = $master->judgmentAdvocates;
+	$JudgmentAdvocate    = $master->judgmentAdvocates;
 	$JudgmentCitation    = $master->citation;
 	//$JudgmentExtRemark   = $master->judgmentExtRemark;
 	$JudgmentJudge       = $master->judges_name;
@@ -37,8 +37,8 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$code])->one();
 	$judgmentCitedby = $master->judgmentCitedby;*/
 
 	$mastcls = "btn-success";
-	/*if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }
-	if(!empty($JudgmentAdvocate)){ $advocate =  '/judgment-advocate/update'; $advocatecls = "btn-success"; } else { $advocate =  '/judgment-advocate/create'; $advocatecls = "btn-warning";}*/
+	/*if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }*/
+	if(!empty($JudgmentAdvocate)){ $advocate =  '/judgment-advocate/update'; $advocatecls = "btn-success"; } else { $advocate =  '/judgment-advocate/create'; $advocatecls = "btn-warning";}
 	if(!empty($JudgmentCitation)){ $citation =  '/judgment-citation/update'; $citationcls = "btn-success";} else { $citation =  '/judgment-citation/create';  $citationcls = "btn-warning"; }	
 	/*if(!empty($JudgmentExtRemark)){ $ext     =  '/judgment-ext-remark/update'; $extcls = "btn-success";} else { $ext =  '/judgment-ext-remark/create'; $extcls = "btn-warning"; }*/
 	if(!empty($JudgmentJudge)){  $judge      =  '/judgment-judge/update';  $judgecls = "btn-success";} else { $judge =  '/judgment-judge/create'; $judgecls = "btn-warning"; }
@@ -58,7 +58,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$code])->one();
 <tr data-key="8"><td style="float:left; width:300px" data-col-seq="0">
 <?= Html::a('Mast',['/judgment-mast/update','id'=>$code],["class"=>"btn btn-block  ".$mastcls ]) ?>
 <?php //Html::a('Act',[$act,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$actcls ]) ?>
-<?php // Html::a('Advocate',[$advocate,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$advocatecls ]) ?>
+<?php echo Html::a('Advocate',[$advocate,'jcode'=>$code],["class"=>"btn btn-block  ".$advocatecls ]) ?>
 <?php //Html::a('Citations',[$citation,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$citationcls ]) ?>
 <?= Html::a('Citations',[$citation,'id'=>$code],["class"=>"btn btn-block  ".$citationcls ]) ?>
 <?php //Html::a('Ext-Ref',[$ext,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$extcls ]) ?>
@@ -76,10 +76,10 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$code])->one();
 </table>
 </div>      
 <?php
-$customScript = <<< SCRIPT
+/*$customScript = <<< SCRIPT
 	$("body").removeClass('sidebar-collapse');
 SCRIPT;
-$this->registerJs($customScript, \yii\web\View::POS_READY);
+$this->registerJs($customScript, \yii\web\View::POS_READY);*/
  ?>
 </div>
 

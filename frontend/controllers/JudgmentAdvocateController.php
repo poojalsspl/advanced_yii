@@ -4,10 +4,12 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\JudgmentAdvocate;
+use frontend\models\JudgmentMast;
 use frontend\models\JudgmentAdvocateSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * JudgmentAdvocateController implements the CRUD actions for JudgmentAdvocate model.
@@ -24,6 +26,8 @@ class JudgmentAdvocateController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                      'view' => ['POST'],
+                      'view' => ['GET'],
                 ],
             ],
         ];
@@ -62,11 +66,22 @@ class JudgmentAdvocateController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($jcode="")
     {
         $model = new JudgmentAdvocate();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        if ($model->load(Yii::$app->request->post())) {
+             $count =  count($_POST['JudgmentAdvocate']['advocate_flag']);
+              for($i=0;$i<$count;$i++)
+            {
+            $model = new JudgmentAdvocate();
+            $model->judgment_code = $jcode;
+            $model->advocate_flag = $_POST['JudgmentAdvocate']['advocate_flag'][$i];
+            $model->advocate_name = $_POST['JudgmentAdvocate']['advocate_name'][$i];
+            // $judgment_code = $_POST['JudgmentAdvocate']['judgment_code']; 
+            $model->save(); 
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -95,18 +110,39 @@ class JudgmentAdvocateController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($jcode)
     {
-        $model = $this->findModel($id);
+         $model =  JudgmentAdvocate::find()->where(['judgment_code'=>$jcode])->one();
+         $judgmentAdvocate =$model->judgment_code;
+         $adv = new JudgmentAdvocate();
+         if($adv->load(Yii::$app->request->post())) {
+          
+            \Yii::$app
+            ->db
+            ->createCommand()
+            ->delete('judgment_advocate', ['judgment_code' => $jcode])
+            ->execute();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $count =  count($_POST['JudgmentAdvocate']['advocate_flag']);                
+            for($i=0;$i<$count;$i++)
+            {
+          
+            $advocate = new JudgmentAdvocate();
+            $advocate->judgment_code  = $judgmentAdvocate;
+            $advocate->advocate_flag = $_POST['JudgmentAdvocate']['advocate_flag'][$i];
+            $advocate->advocate_name = $_POST['JudgmentAdvocate']['advocate_name'][$i];                        
+            $advocate->save(); 
+     
+            }
+          
         }
+        else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+             }
+    }         
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
 
     /**
      * Deletes an existing JudgmentAdvocate model.
@@ -120,6 +156,14 @@ class JudgmentAdvocateController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionAdvocate($id)
+    {
+     $state = JudgmentMast::find()->select(['respondant_adv','respondant_adv_count','appellant_adv','appellant_adv_count'])->where(['judgment_code'=>$id])->asArray()->one();
+     $result = Json::encode($state);
+     return $result;       
+        //return $this->redirect(['index']);
     }
 
     /**

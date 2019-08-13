@@ -4,6 +4,17 @@ namespace frontend\models;
 
 use Yii;
 
+//use app\models\JudgmentRefCount;
+
+use yii\db\Query;
+use frontend\models\JudgmentAct;
+use frontend\models\JudgmentActCount;
+use frontend\models\JudgmentRefByCount;
+use frontend\models\JudgmentRefBy;
+use frontend\models\JudgmentJudge;
+use frontend\models\JudgmentAdvocate;
+use yii\data\SqlDataProvider;
+
 /**
  * This is the model class for table "judgment_mast".
  *
@@ -159,6 +170,11 @@ class JudgmentMast extends \yii\db\ActiveRecord
     public function getCourtNameCode()
     {
         return $this->hasOne(CourtMast::className(), ['court_name' => 'court_name']);
+    }
+
+     public function getJudgmentAdvocates()
+    {
+        return $this->hasMany(JudgmentAdvocate::className(), ['judgment_code' => 'judgment_code']);
     }
 
    
