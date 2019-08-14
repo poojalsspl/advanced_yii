@@ -3,8 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use app\models\BareactMast;
-use app\models\BareactMastSearch;
+use frontend\models\BareactMast;
+use frontend\models\BareactMastSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

@@ -272,7 +272,7 @@ class JudgmentMastController extends Controller
     }
 
 
-    public function actionJudgmentupdate($code='')
+    public function actionJudgmentupdate($code='',$doc_id='')
     {
         
             return $this->render('judgmentupdate');

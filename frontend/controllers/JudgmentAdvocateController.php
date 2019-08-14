@@ -66,7 +66,7 @@ class JudgmentAdvocateController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="")
+    public function actionCreate($jcode="",$doc_id="")
     {
         $model = new JudgmentAdvocate();
 
@@ -77,6 +77,7 @@ class JudgmentAdvocateController extends Controller
             {
             $model = new JudgmentAdvocate();
             $model->judgment_code = $jcode;
+            $model->doc_id = $doc_id;
             $model->advocate_flag = $_POST['JudgmentAdvocate']['advocate_flag'][$i];
             $model->advocate_name = $_POST['JudgmentAdvocate']['advocate_name'][$i];
             // $judgment_code = $_POST['JudgmentAdvocate']['judgment_code']; 
@@ -110,7 +111,7 @@ class JudgmentAdvocateController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($jcode)
+    public function actionUpdate($jcode,$doc_id)
     {
          $model =  JudgmentAdvocate::find()->where(['judgment_code'=>$jcode])->one();
          $judgmentAdvocate =$model->judgment_code;

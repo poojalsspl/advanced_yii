@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\BareactMast */
+/* @var $model frontend\models\BareactMast */
 
 $this->title = 'Update Bareact Mast: ' . $model->bareact_code;
 $this->params['breadcrumbs'][] = ['label' => 'Bareact Masts', 'url' => ['index']];

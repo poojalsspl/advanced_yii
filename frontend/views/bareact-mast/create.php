@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\BareactMast */
+/* @var $model frontend\models\BareactMast */
 
 $this->title = 'Create Bareact Mast';
 $this->params['breadcrumbs'][] = ['label' => 'Bareact Masts', 'url' => ['index']];

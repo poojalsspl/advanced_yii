@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id'=>$model->judgment_code]);
                 },
                'Edit' => function ($url, $model, $key) {
-                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['judgmentupdate', 'code'=>$model->judgment_code]);
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['judgmentupdate', 'jcode'=>$model->judgment_code,'doc_id'=>$model->doc_id]);
             },
              
                 'format' => 'raw',

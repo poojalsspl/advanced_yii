@@ -1,13 +1,13 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\BareactMast;
+use frontend\models\BareactMast;
 
 /**
- * BareactMastSearch represents the model behind the search form of `app\models\BareactMast`.
+ * BareactMastSearch represents the model behind the search form of `frontend\models\BareactMast`.
  */
 class BareactMastSearch extends BareactMast
 {

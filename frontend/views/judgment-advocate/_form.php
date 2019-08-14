@@ -25,6 +25,8 @@ foreach ($judgmentAdvocate as $code) {
 if($_GET)
 {
 	$jcode = $_GET['jcode'];
+	$doc_id = $_GET['doc_id'];
+
     
 }
 
@@ -55,6 +57,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
 
      ]); ?>
+     <?php echo $form->field($model, 'doc_id')->hiddenInput(['value' => $doc_id])->label(false);?>
      <div class="dynamic-rows rows col-xs-12">	
 	  <div class="dynamic-rows-field row">
     
@@ -80,7 +83,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     <div class="col-xs-8">
     	<?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
     
-    <?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
+    
 
     <?= Html::button('Show Data', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info generate-row']) ?>
     <?php if(!$model->isNewRecord) { ?>
@@ -152,7 +155,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     </div>
     <div class="col-xs-8">
     <?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
-    <?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
+    
   	<?= Html::a('Delete All', ['judgment-advocate/deleteall', 'jcode' => $jcode], ['class' => 'btn btn-danger pull-right']) ?>
 
     </div>
@@ -169,10 +172,7 @@ if($model->isNewRecord){
 	$('.addr-row').on('click',function(){
 		$('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-4"><div class="form-group field-judgmentadvocate-advocate_flag has-success"><label class="control-label" for="judgmentadvocate-advocate_flag">Advocate Flag</label><select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false"><option value="1">Appellant</option><option value="2">Respondent</option><option value="3">intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentadvocate-advocate_name has-success"><label class="control-label" for="judgmentadvocate-advocate_name">Advocate Name</label><input type="text" id="judgmentadvocate-advocate_name" class="form-control judgmentadvocate-advocate_name" name="JudgmentAdvocate[advocate_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');	
 	});
-	$('.deleted-row').on('click',function(){
-		console.log('test');
-		$('.dynamic-rows-field').last().remove();
-	});
+
 	$('#submit-button').on("click",function(){
  	$('.judgmentadvocate-advocate_name').each(function(){
  		if($(this).val()=='')
@@ -196,12 +196,7 @@ else{
 		$('.judgmentadvocate-advocate_name').attr('name','JudgmentAdvocate[advocate_name][]')
 		$('.dynamic-rows').append('<div class="dynamic-rows-field row"  data-id=""><div class="col-xs-4"><div class="form-group field-judgmentadvocate-advocate_flag has-success"><label class="control-label" for="judgmentadvocate-advocate_flag">Advocate Flag</label><select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false"><option value="1">Appellant</option><option value="2">Respondent</option><option value="3">intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentadvocate-advocate_name has-success"><label class="control-label" for="judgmentadvocate-advocate_name">Advocate Name</label><input type="text" id="judgmentadvocate-advocate_name" class="form-control judgmentadvocate-advocate_name" name="JudgmentAdvocate[advocate_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div><input type="hidden" name="JudgmentAdvocate[id][]"></div></div></div>');	
 	});
-	$('.deleted-row').on('click',function(){
-		//console.log('test');
-		var data_id = $('.dynamic-rows-field').last().attr('data-id');
-				$('.dynamic-rows-field').last().remove();
-		
-	});
+
 	$('#submit-button').on("click",function(){
 		console.log('test');
  	$('.judgmentadvocate-advocate_name').each(function(){

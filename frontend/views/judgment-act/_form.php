@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\models\JudgmentMast;
-use frontend\models\BareactGroupMast;
+use frontend\models\BareactDetl;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 
@@ -17,8 +17,7 @@ use kartik\select2\Select2;
     if($_GET)
 {
     $jcode = $_GET['jcode'];
-    $jcount = $_GET['jcount'];
-    $jyear = $_GET['jyear'];
+   
     $doc_id = $_GET['doc_id'];
 }
 $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcode])->all(),
@@ -45,22 +44,13 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     <?php /*$form->field($model, 'judgment_title')->textInput(['maxlength' => true]) */?>
 
     <?= $form->field($model, 'doc_id')->textInput(['maxlength' => true]) ?>
- <?php  $bareactgroupmast  = ArrayHelper::map(BareactGroupMast::find()->all(), 'act_group_code', 'act_group_desc'); ?>
-
+ 
     <?= $form->field($model, 'act_group_code')->textInput() ?>
 
-    <?php //echo  $form->field($model, 'act_group_desc')->textInput(['maxlength' => true]) ?>
-     <?= $form->field($model, 'act_group_desc')->widget(Select2::classname(), [
-          
-          'data' => $bareactgroupmast,
-          //'language' => '',
-          'options' => ['placeholder' => 'Select Act Group'],
-          'pluginEvents'=>[
-            ]
-          ]); ?>  
-
+    <?= $form->field($model, 'act_group_desc')->textInput(['maxlength' => true]) ?>
+   
     <?= $form->field($model, 'act_catg_code')->textInput() ?>
-
+    
     <?= $form->field($model, 'act_catg_desc')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'act_sub_catg_code')->textInput() ?>
@@ -75,7 +65,28 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 
     <?= $form->field($model, 'bareact_code')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'bareact_desc')->textInput(['maxlength' => true]) ?>
+    <?php  $bareactdtlmast  = ArrayHelper::map(BareactDetl::find()->all(), 'bareact_code', 'bareact_desc'); ?>
+    
+
+      <?= $form->field($model, 'bareact_desc')->widget(Select2::classname(), [            
+            'data' => $bareactdtlmast,
+
+            'options' => ['placeholder' => 'Select Barect', 'value' => $model->bareact_code, ],
+            'pluginEvents'=>[
+            "select2:select" => "function() { var val = $(this).val();                
+              $('#judgmentact-bareact_code').val(val);
+                    $.ajax({
+                      url      : '/advanced_yii/judgment-act/bareact?id='+val,
+                      dataType : 'json',
+                      success  : function(data) {                                 
+                       
+                         },
+                                                                             
+                      });
+             }"
+            ]
+            ]); ?>        
+
 
     <?= $form->field($model, 'court_code')->textInput() ?>
 

@@ -63,33 +63,13 @@ class JudgmentActController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcount="",$jyear="",$jcode="",$doc_id="")
+    public function actionCreate($jcode="",$doc_id="")
     {
         $model = new JudgmentAct();
-        $cache = Yii::$app->cache;
-        $cache->set('judgment_code', $jcode);
-        $check = JudgmentMast::find()->select('jcount,jyear,judgment_code,doc_id')->where(['!=','jcount','completed'])->andWhere(['jyear'=>$jyear])->one();
-         if(!empty($check))
-            {
-                $count = $check->jcount;
-                $year = $check->jyear;
-            }   
-
         if ($model->load(Yii::$app->request->post()) ) {
-             $model->act_group_desc                 =  $model->bareactGroupMast->act_group_desc;
-
             $model->judgment_code = $jcode;
             $model->save(false);
-            if($jyear!="" && $jcount!=""){ 
-                Yii::$app->db->createCommand("UPDATE judgment_mast SET jcount=2 WHERE judgment_code=".$jcode."")->execute();
-                Yii::$app->session->setFlash('Created successfully!!'); 
-                return $this->redirect(['judgment-advocate/create', 'jcount' => 2,'jyear'=>$year,'jcode'=>$jcode ]);
-            }
-            else{
-                return $this->redirect(['judgment-mast/judgmentupdate', 'code'=>$jcode ]);                    
-                } 
-
-            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }else{
 
         return $this->render('create', [

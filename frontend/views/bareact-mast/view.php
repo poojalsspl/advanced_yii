@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\BareactMast */
+/* @var $model frontend\models\BareactMast */
 
 $this->title = $model->bareact_code;
 $this->params['breadcrumbs'][] = ['label' => 'Bareact Masts', 'url' => ['index']];
