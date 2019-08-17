@@ -182,6 +182,15 @@ class JudgmentMast extends \yii\db\ActiveRecord
         return $this->hasMany(JudgmentAct::className(), ['judgment_code' => 'judgment_code']);
     }
 
+      public function getJudgmentJudges()
+    {
+        return $this->hasMany(JudgmentJudge::className(), ['judgment_code' => 'judgment_code']);
+    }
+       public function getJudgmentCitations()
+    {
+        return $this->hasMany(JudgmentCitation::className(), ['judgment_code' => 'judgment_code']);
+    }
+
    
    
     

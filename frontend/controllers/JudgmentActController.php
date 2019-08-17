@@ -6,9 +6,11 @@ use Yii;
 use frontend\models\JudgmentAct;
 use frontend\models\JudgmentMast;
 use frontend\models\JudgmentActSearch;
+use frontend\models\BareactDetl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * JudgmentActController implements the CRUD actions for JudgmentAct model.
@@ -111,6 +113,18 @@ class JudgmentActController extends Controller
 
         return $this->redirect(['index']);
     }
+
+
+    public function actionAdvocate($id)
+    {
+
+     $state = JudgmentMast::find()->select(['respondant_adv','respondant_adv_count','appellant_adv','appellant_adv_count'])->where(['judgment_code'=>$id])->asArray()->one();
+     $result = Json::encode($state);
+     return $result;       
+        //return $this->redirect(['index']);
+    }
+
+
 
     /**
      * Finds the JudgmentAct model based on its primary key value.

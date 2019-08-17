@@ -33,7 +33,7 @@
         "kartik-v/yii2-widget-fileinput": "@dev",
         "kartik-v/yii2-tree-manager": "@dev",
         "creocoder/yii2-nested-sets": "^0.9.0",
-       "wbraganca/yii2-dynamicform": "*",
+        "wbraganca/yii2-dynamicform": "*",
         "fedemotta/yii2-widget-datatables": "*",
         "mpdf/mpdf":"*",
         "2amigos/yii2-tinymce-widget" : "~1.1",

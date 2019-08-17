@@ -44,7 +44,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 
     <?= $form->field($model, 'j_doc_id')->textInput(['maxlength' => true ,'readonly'=>true,'value' => $doc_id]) ?>
 
-    <?= $form->field($model, 'act_group_code')->textInput() ?>
+    <?= $form->field($model, 'judgment_code')->textInput(['readonly'=>true,'value' => $jcode]) ?>
 
     <?php /*$form->field($model, 'judgment_title')->textInput(['maxlength' => true]) */?>
 
@@ -52,8 +52,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 </div>
  <div class="col-md-4 col-xs-12">
  
-    
-    <?= $form->field($model, 'judgment_code')->textInput(['readonly'=>true,'value' => $jcode]) ?>
+    <?= $form->field($model, 'act_group_code')->textInput() ?>
 
     <?= $form->field($model, 'act_group_desc')->textInput(['maxlength' => true]) ?>
    
@@ -89,8 +88,8 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
             "select2:select" => "function() { var val = $(this).val();                
               $('#judgmentact-bareact_code').val(val);
                     $.ajax({
-                      url      : '/advanced_yii/bareact-detl/bareact?id='+val,
-                      //dataType : 'json',
+                      url      : '/advanced_yii/judgment-act/bareactdetl?id='+val,
+                      dataType : 'json',
                       success  : function(data) {  
                       console.log(data);                               
                        

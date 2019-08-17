@@ -93,5 +93,16 @@ class JudgmentAct extends \yii\db\ActiveRecord
       return $this->hasOne(BareactGroupMast::className(), ['act_group_desc' => 'act_group_desc']);
     }
 
+     public function getBareact($id){
+        echo "hello";
+      $sql="Select judgment_ref.court_code,judgment_ref.court_name,judgment_ref.judgment_title_ref,judgment_ref.judgment_title,judgment_ref.judgment_code 
+            FROM judgment_ref
+            where judgment_ref.doc_id = $docid";
+        $command = Yii::$app->getDb()->createCommand($sql);
+        return $records = $command->queryAll();
+    }
+
+
+
 
 }

@@ -3,19 +3,17 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\JudgmentCitation;
-use frontend\models\JudgmentCitationSearch;
-use frontend\models\JudgmentMast;
+use frontend\models\BareactDetl;
+use frontend\models\BareactDetlSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
-use frontend\models\JournalMast;
 
 /**
- * JudgmentCitationController implements the CRUD actions for JudgmentCitation model.
+ * BareactDetlController implements the CRUD actions for BareactDetl model.
  */
-class JudgmentCitationController extends Controller
+class BareactDetlController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -33,12 +31,12 @@ class JudgmentCitationController extends Controller
     }
 
     /**
-     * Lists all JudgmentCitation models.
+     * Lists all BareactDetl models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new JudgmentCitationSearch();
+        $searchModel = new BareactDetlSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +46,7 @@ class JudgmentCitationController extends Controller
     }
 
     /**
-     * Displays a single JudgmentCitation model.
+     * Displays a single BareactDetl model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,51 +59,45 @@ class JudgmentCitationController extends Controller
     }
 
     /**
-     * Creates a new JudgmentCitation model.
+     * Creates a new BareactDetl model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="",$doc_id="")
+    public function actionCreate()
     {
-        $model = new JudgmentCitation();
+        $model = new BareactDetl();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->judgment_code = $jcode; 
-            //$model->doc_id = $doc_id;                
-                $model->save();  
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-          else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
 
-       
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Updates an existing JudgmentCitation model.
+     * Updates an existing BareactDetl model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($jcode="",$doc_id="")
+    public function actionUpdate($id)
     {
-        $model =  JudgmentCitation::find()->where(['judgment_code'=>$jcode])->one();    
-        if($model->load(Yii::$app->request->post())) {
-            $model->save();
-        return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
-     * Deletes an existing JudgmentCitation model.
+     * Deletes an existing BareactDetl model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -118,24 +110,26 @@ class JudgmentCitationController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionJournal($id)
+    public function actionBareact($id)
     {
-       $journal = JournalMast::find()->select('shrt_name')->where(['journal_code'=>$id])->asArray()->one();
-       $result = Json::encode($journal);
-       return $result;       
-        //return $this->redirect(['index']);
+        echo "hello";
+     
+
+         $state = BareactDetl::find()->select(['doc_id','act_group_desc','act_group_code','act_catg_desc'])->where(['bareact_code'=>$id])->asArray()->one();
+     $result = Json::encode($state);
+     return $result;   
     }
 
     /**
-     * Finds the JudgmentCitation model based on its primary key value.
+     * Finds the BareactDetl model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return JudgmentCitation the loaded model
+     * @return BareactDetl the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = JudgmentCitation::findOne($id)) !== null) {
+        if (($model = BareactDetl::findOne($id)) !== null) {
             return $model;
         }
 

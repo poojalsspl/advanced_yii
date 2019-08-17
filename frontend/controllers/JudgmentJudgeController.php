@@ -5,9 +5,11 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\JudgmentJudge;
 use frontend\models\JudgmentJudgeSearch;
+use frontend\models\JudgmentMast;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * JudgmentJudgeController implements the CRUD actions for JudgmentJudge model.
@@ -62,11 +64,20 @@ class JudgmentJudgeController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($jcode="",$doc_id="")
     {
         $model = new JudgmentJudge();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $count =  count($_POST['JudgmentJudge']['judge_name']);
+            for($i=0;$i<$count;$i++)
+            {
+                $model = new JudgmentJudge();
+                $model->judgment_code = $jcode;
+                $model->doc_id = $doc_id;
+                $model->judge_name = $_POST['JudgmentJudge']['judge_name'][$i];
+                $model->save(false); 
+            }  
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -82,18 +93,34 @@ class JudgmentJudgeController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($jcode="",$doc_id="")
     {
         $model = $this->findModel($id);
+        $model =  JudgmentJudge::find()->where(['judgment_code'=>$jcode])->andWhere(['doc_id'=>$doc_id])->one();
+        if($model->load(Yii::$app->request->post())) {
+            $count = count($_POST['JudgmentJudge']['judge_name']);
+            \Yii::$app
+            ->db
+            ->createCommand()
+            ->delete('judgment_judge', ['judgment_code' => $jcode])
+            ->execute();
+            for($i=0;$i<$count;$i++)
+            {        
+                $judgment                = new JudgmentJudge();
+                $judgment->judgment_code = $jcode;
+                $judgment->judge_name    = $_POST['JudgmentJudge']['judge_name'][$i];                        
+                $judgment->save(); 
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+           return $this->redirect(['view', 'id' => $model->id]);
+       
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
+     }
 
     /**
      * Deletes an existing JudgmentJudge model.
@@ -107,6 +134,14 @@ class JudgmentJudgeController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+       public function actionJudge($id)
+    {
+     $state = JudgmentMast::find()->select(['judges_name','judges_count'])->where(['judgment_code'=>$id])->asArray()->one();
+     $result = Json::encode($state);
+     return $result;       
+        //return $this->redirect(['index']);
     }
 
     /**

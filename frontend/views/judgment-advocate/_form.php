@@ -6,6 +6,7 @@ use frontend\models\JudgmentMast;
 use frontend\models\JudgmentAdvocate;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
+use yii\helpers\Json;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentAdvocate */
