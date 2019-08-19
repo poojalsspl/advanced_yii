@@ -80,6 +80,37 @@ class JudgmentActController extends Controller
             }
     }
 
+     public function actionCreate1()
+    {
+        $model = new JudgmentAct();
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->judgment_code = $jcode;
+            $model->save(false);
+            return $this->redirect(['view', 'id' => $model->id]);
+        }else{
+
+        return $this->render('create1', [
+            'model' => $model,
+        ]);
+            }
+    }
+
+
+    public function actionCreateBkup($jcode="",$doc_id="")//19/08/2019 pooja
+    {
+        $model = new JudgmentAct();
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->judgment_code = $jcode;
+            $model->save(false);
+            return $this->redirect(['view', 'id' => $model->id]);
+        }else{
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+            }
+    }
+
     /**
      * Updates an existing JudgmentAct model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -119,9 +150,18 @@ class JudgmentActController extends Controller
     {
 
      $state = JudgmentMast::find()->select(['respondant_adv','respondant_adv_count','appellant_adv','appellant_adv_count'])->where(['judgment_code'=>$id])->asArray()->one();
+     
      $result = Json::encode($state);
      return $result;       
         //return $this->redirect(['index']);
+    }
+
+    public function actionBareact($id)
+    {
+        
+         $bareact = BareactDetl::find()->select(['doc_id','act_group_desc','act_group_code','act_catg_desc','act_title'])->where(['bareact_code'=>$id])->asArray()->all();
+     $result = Json::encode($bareact);
+     return $result;   
     }
 
 

@@ -112,9 +112,7 @@ class BareactDetlController extends Controller
 
     public function actionBareact($id)
     {
-        echo "hello";
-     
-
+        
          $state = BareactDetl::find()->select(['doc_id','act_group_desc','act_group_code','act_catg_desc'])->where(['bareact_code'=>$id])->asArray()->one();
      $result = Json::encode($state);
      return $result;   
