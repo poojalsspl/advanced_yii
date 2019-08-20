@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\data\ActiveDataProvider;
 
 /**
  * JudgmentActController implements the CRUD actions for JudgmentAct model.
@@ -68,6 +69,7 @@ class JudgmentActController extends Controller
     public function actionCreate($jcode="",$doc_id="")
     {
         $model = new JudgmentAct();
+
         if ($model->load(Yii::$app->request->post()) ) {
             $model->judgment_code = $jcode;
             $model->save(false);
@@ -80,17 +82,68 @@ class JudgmentActController extends Controller
             }
     }
 
-     public function actionCreate1()
+     public function actionCreate1($jcode="",$doc_id="")
     {
+         //$user_id = Yii::$app->user->identity->id;
         $model = new JudgmentAct();
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->judgment_code = $jcode;
-            $model->save(false);
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model->judgment_code = $jcode;
+            $modelsBareact = [new BareactDetl];
+            if ($model->load(Yii::$app->request->post())) {
+            $modelsBareact = JudgmentAct::createMultiple(BareactDetl::classname());
+            //print_r($modelsBareact);die;
+            JudgmentAct::loadMultiple($modelsBareact, Yii::$app->request->post());
+
+            /*if (Yii::$app->request->isAjax) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ArrayHelper::merge(
+                    ActiveForm::validateMultiple($modelsBareact),
+                    ActiveForm::validate($model)
+                );
+            }
+*/
+             $valid = $model->validate();
+                         if ($valid) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+                        foreach ($modelsBareact as $modelBareact) {
+                        //$modelBareact->invc_numb = $model->invc_numb;
+                        $act_group_desc = $modelBareact->act_group_desc;
+                        $act_catg_desc = $modelBareact->act_catg_desc;
+                        $act_title = $modelBareact->act_title;
+                        $doc_id = $modelBareact->doc_id;
+                        
+                       
+                        
+
+                        if (! ($flag = $modelBareact->save(false))) {
+                                $transaction->rollBack();
+                                break;
+                            }
+                        }
+                    }
+                   
+ 
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    }
+
+                  
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
+
+
+
+           // $model->save(false);
+           // return $this->redirect(['view', 'id' => $model->id]);
         }else{
 
-        return $this->render('create1', [
+            return $this->render('create1', [
             'model' => $model,
+            'modelsBareact' => (empty($modelsBareact)) ? [new BareactDetl] : $modelsBareact,
         ]);
             }
     }

@@ -69,7 +69,9 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 </div>
  <div class="col-md-4 col-xs-12">
 
-    <?= $form->field($model, 'act_title')->textInput(['maxlength' => true]) ?>
+    <div class="my_dropdown">
+        <?= $form->field($model, 'act_title[]')->textInput(['maxlength' => true]) ?>
+    </div>
 
     <?= $form->field($model, 'country_code')->textInput() ?>
 
@@ -88,14 +90,23 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
             'pluginEvents'=>[
             "select2:select" => "function() { var val = $(this).val();                
               $('#judgmentact-bareact_code').val(val);
+
                     $.ajax({
                       url      : '/advanced_yii/judgment-act/bareact?id='+val,
                       
                       success  : function(data) {  
-                      console.log(data); 
-                   //var judgmentact-doc_id = $('#judgmentact-doc_id').value(); 
+                        x='<div>tets</div>';
+                        y = JSON.parse(data);
+                    $.each(y, function(index, value) {
+                      x += '<br><input value='+value.act_title+' >';
 
-                                                  
+
+                    });
+                        console.log(data); 
+                        $('.my_dropdown').html(x); 
+
+
+                                                     
                        
                          },
                                                                              
