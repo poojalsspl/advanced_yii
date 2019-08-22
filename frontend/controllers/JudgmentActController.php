@@ -72,6 +72,7 @@ class JudgmentActController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
             $model->judgment_code = $jcode;
+            
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }else{
@@ -149,6 +150,23 @@ class JudgmentActController extends Controller
     }
 
 
+     public function actionCreate2($jcode="",$doc_id="")
+    {
+        $model = new JudgmentAct();
+
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->judgment_code = $jcode;
+            $model->save(false);
+            return $this->redirect(['view', 'id' => $model->id]);
+        }else{
+
+        return $this->render('create2', [
+            'model' => $model,
+        ]);
+            }
+    }
+
+
     public function actionCreateBkup($jcode="",$doc_id="")//19/08/2019 pooja
     {
         $model = new JudgmentAct();
@@ -212,9 +230,15 @@ class JudgmentActController extends Controller
     public function actionBareact($id)
     {
         
-         $bareact = BareactDetl::find()->select(['doc_id','act_group_desc','act_group_code','act_catg_desc','act_title'])->where(['bareact_code'=>$id])->asArray()->all();
+         $bareact = BareactDetl::find()->select(['*'])->where(['bareact_code'=>$id])->asArray()->all();
      $result = Json::encode($bareact);
-     return $result;   
+
+     // return 'test';
+     
+      return $this->render('view1', [
+            'model' => $bareact,
+        ]);
+     // //return $result;   
     }
 
 
