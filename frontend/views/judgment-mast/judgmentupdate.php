@@ -46,8 +46,8 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 	/*if(!empty($JudgmentExtRemark)){ $ext     =  '/judgment-ext-remark/update'; $extcls = "btn-success";} else { $ext =  '/judgment-ext-remark/create'; $extcls = "btn-warning"; }*/
 	if(!empty($JudgmentJudge)){  $judge      =  '/judgment-judge/update';  $judgecls = "btn-success";} else { $judge =  '/judgment-judge/create'; $judgecls = "btn-warning"; }
 
-	/*if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-success";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-warning"; }
-	if(!empty($judgmentOverrules)){ $overrules   =  '/judgment-overrules/update'; $overrulescls = "btn-success"; } else { $overrules =  '/judgment-overrules/create'; $overrulescls = "btn-warning"; }
+	if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-success";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-warning"; }
+	/*if(!empty($judgmentOverrules)){ $overrules   =  '/judgment-overrules/update'; $overrulescls = "btn-success"; } else { $overrules =  '/judgment-overrules/create'; $overrulescls = "btn-warning"; }
 	if(!empty($judgmentOverruledby)){ $overruledby   =  '/judgment-overruledby/update'; $overruledbycls = "btn-success";} else { $overruledby =  '/judgment-overruledby/create'; $overruledbycls = "btn-warning"; }
 	if(!empty($judgmentRef)){ $jdgref   =  '/judgment-ref/update'; $jdgrefcls = "btn-success";} else { $jdgref =  '/judgment-ref/create'; $jdgrefcls = "btn-warning"; }
 	if(!empty($judgmentCitedby)){ $citedby   =  '/judgment-cited-by/update'; $citedbycls = "btn-success";} else { $citedby =  '/judgment-cited-by/create'; $citedbycls = "btn-warning"; }*/
@@ -69,7 +69,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?php //Html::a('Ext-Ref',[$ext,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$extcls ]) ?>
 <?php //Html::a('Coram',[$judge,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$judgecls ]) ?>
 <?= Html::a('Coram',[$judge,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$judgecls ]) ?>
-<?php //Html::a('Parties',[$parties,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$partiescls ]) ?>
+<?= Html::a('Parties',[$parties,'jcode'=>$jcode],["class"=>"btn btn-block  ".$partiescls ]) ?>
 <?php //Html::a('Overrules',[$overrules,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$overrulescls ]) ?>
 <?php //Html::a('Overruledby',[$overruledby,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$overruledbycls ]) ?>
 <?php //Html::a('JudgmentRef',[$jdgref,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$jdgrefcls ]) ?>

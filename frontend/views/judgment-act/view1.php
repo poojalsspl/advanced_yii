@@ -9,11 +9,12 @@ use yii\grid\GridView;
 
 //echo '<pre>';print_r($model); die;
 \yii\web\YiiAsset::register($this);
-/*echo "<pre>";
-print_r($bareact);die;
-//print_r(json_decode($model));
-echo "</pre>";*/
+// echo "<pre>";
+// // print_r($bareact);die;
+// print_r(json_decode($model));
+// echo "</pre>";
 ?>
+<div class="model_array"><?php  echo json_encode($model) ?></div>
 
 <table id="list" class="display nowrap" style="width:100%;" border="1">
   <thead>

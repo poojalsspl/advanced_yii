@@ -5,9 +5,11 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\JudgmentParties;
 use frontend\models\JudgmentPartiesSearch;
+use frontend\models\JudgmentMast;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * JudgmentPartiesController implements the CRUD actions for JudgmentParties model.
@@ -62,17 +64,38 @@ class JudgmentPartiesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($jcode="")
     {
         $model = new JudgmentParties();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->judgment_party_id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $count =  count($_POST['JudgmentParties']['party_flag']);
+            $judgmentParties = $jcode;
+            $judgment_code = $jcode;
+            for($i=0;$i<$count;$i++)
+            {
+            $model = new JudgmentParties();
+            if($_POST['JudgmentParties']['party_name'][$i] !='')
+            {
+            $model->judgment_code  = $judgmentParties;
+            $model->party_flag = $_POST['JudgmentParties']['party_flag'][$i];
+            $model->party_name = $_POST['JudgmentParties']['party_name'][$i];            
+            $model->save(); 
+            }
+            } 
+            if($jcode!=""){ 
+                return $this->redirect(['judgment-mast/judgmentupdate', 'code'=>$jcode ]); 
+                }
+            
+        }
+        else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+       
     }
 
     /**
@@ -107,6 +130,14 @@ class JudgmentPartiesController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionParty($id)
+    {
+     $state = JudgmentMast::find()->select(['respondant_name','appellant_name'])->where(['judgment_code'=>$id])->asArray()->one();
+     $result = Json::encode($state);
+     return $result;       
+        //return $this->redirect(['index']);
     }
 
     /**

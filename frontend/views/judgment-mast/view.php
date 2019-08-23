@@ -10,6 +10,9 @@ use yii\helpers\ArrayHelper;
 /* @var $model backend\models\JudgmentMast */
 
 $this->title = $model->judgment_code;
+//$this->params['breadcrumbs'][] = ['label' => 'Judgment Masts', 'url' => ['judgmentupdate']];
+//$this->params['breadcrumbs'][] = $this->title;
+
 
 ?>
 
@@ -57,7 +60,16 @@ $this->title = $model->judgment_code;
                                         <div class="col-md-8"> 
                                              <span class="judgement-detail-item-description"><?php echo $dateText;?></span>
                                         </div>
-                                    </div>     
+                                    </div>    
+
+                                     <div class=" col-md-12 judgment-detail-item">
+                                        <div class="col-md-3">
+                                            <label class="judgement-detail-item-label"><?='Court Name: '?></label>
+                                         </div>
+                                        <div class="col-md-8">  
+                                        <span class="judgement-detail-item-description"><?php echo $model->court_name;?></span>
+                                        </div>
+                                    </div> 
                             
                       
                                      <div class=" col-md-12 judgment-detail-item">

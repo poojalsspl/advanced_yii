@@ -111,7 +111,7 @@ class JudgmentAdvocateController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($jcode,$doc_id)
+    public function actionUpdate($jcode="",$doc_id="")
     {
          $model =  JudgmentAdvocate::find()->where(['judgment_code'=>$jcode])->one();
          $judgmentAdvocate =$model->judgment_code;
@@ -135,6 +135,12 @@ class JudgmentAdvocateController extends Controller
             $advocate->save(); 
      
             }
+
+             if($jcode!="" && $doc_id!=""){ 
+              Yii::$app->getSession()->setFlash('success',' Updated Successfully'); 
+                        $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);    
+                }
+                
           
         }
         else {

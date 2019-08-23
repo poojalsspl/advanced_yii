@@ -38,44 +38,40 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
 
 ]); ?>
-<div class="col-md-6 col-md-offset-3" id="all_sublist">
-
-        
-    </div>
 </div>
 
  <div class="col-md-4 col-xs-12">
 
-    <?= $form->field($model, 'j_doc_id')->textInput(['maxlength' => true ,'readonly'=>true,'value' => $doc_id]) ?>
+    <?= $form->field($model, 'j_doc_id')->hiddenInput(['maxlength' => true ,'readonly'=>true,'value' => $doc_id])->label(false) ?>
 
     <?= $form->field($model, 'act_group_code')->textInput() ?>
 
     <?php /*$form->field($model, 'judgment_title')->textInput(['maxlength' => true]) */?>
 
     <?= $form->field($model, 'doc_id')->textInput(['maxlength' => true]) ?>
+
 </div>
  <div class="col-md-4 col-xs-12">
  
     
-    <?= $form->field($model, 'judgment_code')->textInput(['readonly'=>true,'value' => $jcode]) ?>
+    <?= $form->field($model, 'judgment_code')->hiddenInput(['readonly'=>true,'value' => $jcode])->label(false) ?>
 
     <?= $form->field($model, 'act_group_desc')->textInput(['maxlength' => true]) ?>
    
     <?= $form->field($model, 'act_catg_code')->textInput() ?>
 </div>
   <div class="col-md-4 col-xs-12">
+     <?= $form->field($model, 'act_sub_catg_code')->hiddenInput()->label(false) ?>
     
     <?= $form->field($model, 'act_catg_desc')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'act_sub_catg_code')->textInput() ?>
-
-    <?= $form->field($model, 'act_sub_catg_desc')->textInput(['maxlength' => true]) ?>
+       <?= $form->field($model, 'act_sub_catg_desc')->textInput(['maxlength' => true]) ?>
 </div>
  <div class="col-md-4 col-xs-12">
 
-    
+    <div class="my_dropdown">
         <?= $form->field($model, 'act_title[]')->textInput(['maxlength' => true]) ?>
-  
+    </div>
 
     <?= $form->field($model, 'country_code')->textInput() ?>
 
@@ -86,7 +82,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 
     <?php  $bareactdtlmast  = ArrayHelper::map(BareactDetl::find()->all(), 'bareact_code', 'bareact_desc'); ?>
     
-<!-- /advanced_yii/judgment-act/bareact?id -->
+
       <?= $form->field($model, 'bareact_desc')->widget(Select2::classname(), [            
             'data' => $bareactdtlmast,
 
@@ -95,15 +91,14 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
             "select2:select" => "function() { var val = $(this).val();                
               $('#judgmentact-bareact_code').val(val);
 
-                    $.post('/advanced_yii/judgment-act/bareact?id='+val, {'val': val}, function(data) {
-                        data = JSON.parse(data);
-                $('#all_sublist').html(data);
-                /*$('#list').dataTable({
-            
-           
-          });*/
-   
-            });
+                    $.ajax({
+                      url      : '/advanced_yii/judgment-act/bareact?id='+val,
+                      
+                      success  : function(data) {  
+                        $('.judgment-act-form').html(data);
+                      //console.log(data)
+                                }                                             
+                      });
              }"
             ]
             ]); ?>        
