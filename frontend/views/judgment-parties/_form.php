@@ -12,22 +12,16 @@ use kartik\select2\Select2;
 /* @var $form yii\widgets\ActiveForm */
 
   $jcode  = '';
+   $doc_id = ''; 
   if($_GET)
 {
     $jcode = $_GET['jcode'];
+     $doc_id = $_GET['doc_id'];
   
 }
 
-$judgmentAdvocate = JudgmentParties::find()->select('judgment_code')->groupBy('judgment_code')->all();
-$j_code[] = "";
-foreach ($judgmentAdvocate as $code) {
-    $j_code[]= $code->judgment_code; 
-}
 
-$judgment = ArrayHelper::map(JudgmentMast::find()
-    ->where(['not in','judgment_code',$j_code])
-    ->andWhere(['judgment_code'=>$jcode])
-    ->all(),
+$judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcode])->all(),
     'judgment_code',
     function($result) {
         return $result['court_name'].'::'.$result['judgment_title'];

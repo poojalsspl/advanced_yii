@@ -31,6 +31,9 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 	$JudgmentJudge       = $master->judgmentJudges;
 	$JudgmentAct         = $master->judgmentActs;
 	$JudgmentCitation    = $master->judgmentCitations;
+	$JudgmentParties     = $master->judgmentParties;
+	//$JudgmentParties     = $master->judgmentParties;
+
 	
 	//$JudgmentExtRemark   = $master->judgmentExtRemark;
 	
@@ -73,7 +76,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?php //Html::a('Ext-Ref',[$ext,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$extcls ]) ?>
 <?php //Html::a('Coram',[$judge,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$judgecls ]) ?>
 <?php echo Html::a('Act',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
-<?= Html::a('Parties',[$parties,'jcode'=>$jcode],["class"=>"btn btn-block  ".$partiescls ]) ?>
+<?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
 <?php //Html::a('Overrules',[$overrules,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$overrulescls ]) ?>
 <?php //Html::a('Overruledby',[$overruledby,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$overruledbycls ]) ?>
 <?php //Html::a('JudgmentRef',[$jdgref,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$jdgrefcls ]) ?>

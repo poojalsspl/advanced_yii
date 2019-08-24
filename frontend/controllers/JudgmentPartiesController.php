@@ -64,7 +64,7 @@ class JudgmentPartiesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="")
+    public function actionCreate($jcode="",$doc_id="")
     {
         $model = new JudgmentParties();
 
@@ -79,13 +79,14 @@ class JudgmentPartiesController extends Controller
             if($_POST['JudgmentParties']['party_name'][$i] !='')
             {
             $model->judgment_code  = $judgmentParties;
+            $model->doc_id  = $doc_id;
             $model->party_flag = $_POST['JudgmentParties']['party_flag'][$i];
             $model->party_name = $_POST['JudgmentParties']['party_name'][$i];            
             $model->save(); 
             }
             } 
             if($jcode!=""){ 
-                return $this->redirect(['judgment-mast/judgmentupdate', 'code'=>$jcode ]); 
+                return $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode,'doc_id'=>$doc_id ]); 
                 }
             
         }
@@ -105,13 +106,36 @@ class JudgmentPartiesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($jcode="",$doc_id="")
     {
-        $model = $this->findModel($id);
+        $model =  JudgmentParties::find()->where(['judgment_code'=>$jcode])->one();
+        $judgmentAdvocate =$model->judgment_code;  
+        $adv = new JudgmentParties();
+         if ($model->load(Yii::$app->request->post())) {
+            $count =  count($_POST['JudgmentParties']['party_flag']);
+            \Yii::$app
+            ->db
+            ->createCommand()
+            ->delete('judgment_parties', ['judgment_code' => $jcode])
+            ->execute(); 
+            for($i=0;$i<$count;$i++)
+            {
+            if($_POST['JudgmentParties']['party_name'][$i] !='')
+            {  
+            $parties = new JudgmentParties();
+            $parties->judgment_code  = $judgmentAdvocate;
+            $parties->doc_id = $doc_id;
+            $parties->party_flag = $_POST['JudgmentParties']['party_flag'][$i];
+            $parties->party_name = $_POST['JudgmentParties']['party_name'][$i];                        
+            $parties->save();
+             }
+            }
+             if($jcode!="" && $doc_id!=""){ 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->judgment_party_id]);
+             Yii::$app->getSession()->setFlash('success',' Updated Successfully'); 
+             $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);
         }
+       }
 
         return $this->render('update', [
             'model' => $model,
