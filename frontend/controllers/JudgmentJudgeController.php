@@ -78,7 +78,7 @@ class JudgmentJudgeController extends Controller
                 $model->judge_name = $_POST['JudgmentJudge']['judge_name'][$i];
                 $model->save(false); 
             }  
-            return $this->redirect(['view', 'id' => $model->id]);
+           return $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);    
         }
 
         return $this->render('create', [
@@ -95,7 +95,7 @@ class JudgmentJudgeController extends Controller
      */
     public function actionUpdate($jcode="",$doc_id="")
     {
-        $model = $this->findModel($id);
+        
         $model =  JudgmentJudge::find()->where(['judgment_code'=>$jcode])->andWhere(['doc_id'=>$doc_id])->one();
         if($model->load(Yii::$app->request->post())) {
             $count = count($_POST['JudgmentJudge']['judge_name']);
@@ -108,11 +108,16 @@ class JudgmentJudgeController extends Controller
             {        
                 $judgment                = new JudgmentJudge();
                 $judgment->judgment_code = $jcode;
+                $judgment->doc_id = $doc_id;
                 $judgment->judge_name    = $_POST['JudgmentJudge']['judge_name'][$i];                        
                 $judgment->save(); 
             }
 
-           return $this->redirect(['view', 'id' => $model->id]);
+              Yii::$app->session->setFlash('Updated successfully!!');
+                 $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);                    
+              
+
+          
        
         } else {
             return $this->render('update', [

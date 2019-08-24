@@ -85,7 +85,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             $usermodel = new UserMast();
             $userdata = UserMast::find()->where(['id'=>Yii::$app->user->id])->one();
-            if($userdata->status!='')
+            if($userdata->status==0)
              {
                
                return $this->redirect(['judgment-mast/index']);
@@ -167,6 +167,8 @@ class SiteController extends Controller
                 $usermodel->status    = 0;
                 $usermodel->save(false);
             Yii::$app->session->setFlash('success', 'Thank you for registration.');
+            //return $this->render('login'); 
+            return $this->refresh();
                }
         }
            

@@ -133,5 +133,7 @@ $this->title = $model->judgment_code;
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->judgment_code], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Back', ['judgmentupdate', 'jcode' => $model->judgment_code,'doc_id' =>$model->doc_id], ['class' => 'btn btn-primary']) ?>
         
     </p>
+      

@@ -28,10 +28,12 @@ if($_GET){
 $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 	//$JudgmentAct         = $master->judgmentActs;
 	$JudgmentAdvocate    = $master->judgmentAdvocates;
+	$JudgmentJudge       = $master->judgmentJudges;
 	$JudgmentAct         = $master->judgmentActs;
 	$JudgmentCitation    = $master->judgmentCitations;
+	
 	//$JudgmentExtRemark   = $master->judgmentExtRemark;
-	$JudgmentJudge       = $master->judgmentJudges;
+	
 	//$JudgmentParties     = $master->judgmentParties;
 	/*$judgmentOverrules   = $master->judgmentOverrules;
 	$judgmentOverruledby = $master->judgmentOverruledby;
@@ -41,10 +43,11 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 	$mastcls = "btn-success";
 	/*if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }*/
 	if(!empty($JudgmentAdvocate)){ $advocate =  '/judgment-advocate/update'; $advocatecls = "btn-success"; } else { $advocate =  '/judgment-advocate/create'; $advocatecls = "btn-warning";}
+	if(!empty($JudgmentJudge)){  $judge      =  '/judgment-judge/update';  $judgecls = "btn-success";} else { $judge =  '/judgment-judge/create'; $judgecls = "btn-warning"; }
 	if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }
 	if(!empty($JudgmentCitation)){ $citation =  '/judgment-citation/update'; $citationcls = "btn-success";} else { $citation =  '/judgment-citation/create';  $citationcls = "btn-warning"; }	
 	/*if(!empty($JudgmentExtRemark)){ $ext     =  '/judgment-ext-remark/update'; $extcls = "btn-success";} else { $ext =  '/judgment-ext-remark/create'; $extcls = "btn-warning"; }*/
-	if(!empty($JudgmentJudge)){  $judge      =  '/judgment-judge/update';  $judgecls = "btn-success";} else { $judge =  '/judgment-judge/create'; $judgecls = "btn-warning"; }
+	
 
 	if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-success";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-warning"; }
 	/*if(!empty($judgmentOverrules)){ $overrules   =  '/judgment-overrules/update'; $overrulescls = "btn-success"; } else { $overrules =  '/judgment-overrules/create'; $overrulescls = "btn-warning"; }

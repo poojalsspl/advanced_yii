@@ -120,11 +120,9 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     <?= Html::button('Generate Data', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info generate-row']) ?>
   <?php if($jcount != '' && $jyear != ''){ ?>
 
-        <?= Html::a('Next', ['next-page','jcode'=>$jcode,"jcount"=>$jcount,'jyear'=>$jyear],['class' =>  'btn btn-danger pull-right']) ?>
+        <?= Html::a('Next', ['next-page','jcode'=>$jcode],['class' =>  'btn btn-danger pull-right']) ?>
     <?php } } ?>  
-     <?php if(!$model->isNewRecord) { ?>
- <?= Html::a('Delete All', ['judgment-judge/deleteall', 'jcode' => $jcode], ['class' => 'btn btn-danger pull-right']) ?>
- <?php } ?>    
+   
       </div>
     </div>
     <?php ActiveForm::end(); ?>

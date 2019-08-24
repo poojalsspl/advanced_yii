@@ -181,7 +181,7 @@ class JudgmentMastController extends Controller
             return $this->render('/judgment-mast/judgment');
         }
     }
-    public function actionJudgmentact()
+/*    public function actionJudgmentact()
     {
 
     }
@@ -189,7 +189,7 @@ class JudgmentMastController extends Controller
     {
     
   
-    }
+    }*/
         public function actionJudgmentcitation()
     {
     return $this->render('judgment');
