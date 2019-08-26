@@ -130,6 +130,7 @@ class JudgmentAdvocateController extends Controller
           
             $advocate = new JudgmentAdvocate();
             $advocate->judgment_code  = $judgmentAdvocate;
+            $advocate->doc_id = $doc_id;
             $advocate->advocate_flag = $_POST['JudgmentAdvocate']['advocate_flag'][$i];
             $advocate->advocate_name = $_POST['JudgmentAdvocate']['advocate_name'][$i];                        
             $advocate->save(); 

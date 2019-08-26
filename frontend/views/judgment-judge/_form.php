@@ -70,7 +70,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     <?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
     <?php if($model->isNewRecord) { ?>
     
-    <?= Html::button('Generate Data', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info generate-row']) ?>
+    <?= Html::button('Show Data', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info generate-row']) ?>
 
 <?php } ?>  
       </div>
@@ -117,7 +117,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     <?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
     <?php if($model->isNewRecord) { ?>
     
-    <?= Html::button('Generate Data', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info generate-row']) ?>
+    <?= Html::button('Show Data', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info generate-row']) ?>
   <?php if($jcount != '' && $jyear != ''){ ?>
 
         <?= Html::a('Next', ['next-page','jcode'=>$jcode],['class' =>  'btn btn-danger pull-right']) ?>
@@ -194,7 +194,7 @@ SCRIPT;
 $customScript = <<< SCRIPT
 $('.generate-row').on('click', function(){
  var judge =  $('#judgmentjudge-judgment_code').val();
- console.log(judge);
+ console.log('judge : ',judge);
  if(judge=='')
  {
     alert('Please Select Judgement code');

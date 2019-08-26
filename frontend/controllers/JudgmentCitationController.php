@@ -10,7 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
-use frontend\models\JournalMast;
+//use frontend\models\JournalMast;
 
 /**
  * JudgmentCitationController implements the CRUD actions for JudgmentCitation model.
@@ -70,6 +70,31 @@ class JudgmentCitationController extends Controller
         $model = new JudgmentCitation();
 
         if ($model->load(Yii::$app->request->post())) {
+        	$count =  count($_POST['JudgmentCitation']['citation']);
+        	for($i=0;$i<$count;$i++)
+            {
+                $model = new JudgmentCitation();
+                $model->judgment_code = $jcode;
+                $model->doc_id = $doc_id;
+                $model->citation = $_POST['JudgmentCitation']['citation'][$i];
+                $model->save(false); 
+            }  
+            return $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);    
+        }
+            
+           return $this->render('create', [
+                'model' => $model,
+            ]);
+     
+
+       
+    }
+
+    public function actionCreatebkup($jcode="",$doc_id="")
+    {
+        $model = new JudgmentCitation();
+
+        if ($model->load(Yii::$app->request->post())) {
             $model->judgment_code = $jcode; 
             //$model->doc_id = $doc_id;                
                 $model->save();  
@@ -123,6 +148,14 @@ class JudgmentCitationController extends Controller
        $journal = JournalMast::find()->select('shrt_name')->where(['journal_code'=>$id])->asArray()->one();
        $result = Json::encode($journal);
        return $result;       
+        //return $this->redirect(['index']);
+    }
+
+     public function actionCitation($id)
+    {
+     $state = JudgmentMast::find()->select(['citation','citation_count'])->where(['judgment_code'=>$id])->asArray()->one();
+     $result = Json::encode($state);
+     return $result;       
         //return $this->redirect(['index']);
     }
 

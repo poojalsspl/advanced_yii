@@ -2,11 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use frontend\models\JudgmentMast;
-use frontend\models\JudgmentCitation;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
-
+use frontend\models\JudgmentMast;
+use frontend\models\JudgmentCitation;
 
 
 /* @var $this yii\web\View */
@@ -16,12 +15,12 @@ use kartik\select2\Select2;
  //$journal = ArrayHelper::map(JournalMast::find()->all(), 'journal_code', 'journal_name');
 
     $jcode  = '';
-    $doc_id = '';
+   // $doc_id = '';
     
 if($_GET)
 {
     $jcode  = $_GET['jcode'];
-    $doc_id  = $_GET['doc_id'];
+   // $doc_id  = $_GET['doc_id'];
    
 }
 
@@ -85,16 +84,13 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
      ]); ?>
      <div class="dynamic-rows rows col-xs-12">
-        <?php 
-        //echo $model->judgment_code;die;
-        $citation = JudgmentCitation::find()->where(['judgment_code'=>$model->judgment_code])->all();
-       
+        <?php $citation = JudgmentCitation::find()->where(['judgment_code'=>$model->judgment_code])->all();
         foreach ($citation as $jdg) { ?>
             <div class="dynamic-rows-field row">
                 <div class="col-xs-6">
                 <div class="form-group field-judgmentcitation-citation has-success">
                 <label class="control-label" for="judgmentcitation-citation">Citation</label>
-                <input type="text" id="judgmentcitation-citation" class="judgmentcitation-citation form-control" name="JudgmentCitation[citation][]" value="<?= $jdg->citation ?>" maxlength="20" aria-invalid="false">
+                <input type="text" id="judgmentcitation-citation" class="judgmentcitation-citation form-control" name="JudgmentCitation[citation][]" value="<?= $jdg->citation ?>" maxlength="50" aria-invalid="false">
                 <div class="help-block"></div>
                 </div> 
             </div>
@@ -123,9 +119,12 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 if($model->isNewRecord){
     $customScript = <<< SCRIPT
     $('.addr-row').on('click',function(){
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="col-xs-6"><div class="form-group field-judgmentcitation-citation has-success"><label class="control-label" for="judgmentcitation-citation">Citation</label><input type="text" id="judgmentcitation-citation" class="form-control judgmentcitation-citation" name="JudgmentCitation[citation][]" maxlength="20" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');    
+        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="col-xs-6"><div class="form-group field-judgmentcitation-citation has-success"><label class="control-label" for="judgmentcitation-citation">Citation</label><input type="text" id="judgmentcitation-citation" class="form-control judgmentcitation-citation" name="JudgmentCitation[citation][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');    
     });
-    
+    $('.deleted-row').on('click',function(){
+        console.log('test');
+        $('.dynamic-rows-field').last().remove();
+    });
     $('#submit-button').on("click",function(){
         console.log('test');
     $('.judgmentcitation-citation').each(function(){   
@@ -145,9 +144,12 @@ else{
         $customScript = <<< SCRIPT
     $('.addr-row').on('click',function(){
         $('.judgmentcitation-citation').attr('name','JudgmentCitation[citation][]')
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="col-xs-6"><div class="form-group field-judgmentcitation-citation has-success"><label class="control-label" for="judgmentcitation-citation">Citation</label><input type="text" id="judgmentcitation-citation" class="form-control judgmentcitation-citation" name="JudgmentCitation[citation][]" maxlength="20" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');    
+        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="col-xs-6"><div class="form-group field-judgmentcitation-citation has-success"><label class="control-label" for="judgmentcitation-citation">Citation</label><input type="text" id="judgmentcitation-citation" class="form-control judgmentcitation-citation" name="JudgmentCitation[citation][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');    
     });
-    
+    $('.deleted-row').on('click',function(){
+        console.log('test');
+        $('.dynamic-rows-field').last().remove();
+    });
     $('#submit-button').on("click",function(){
         console.log('test');
     $('.judgmentcitation-citation').each(function(){
@@ -172,10 +174,8 @@ SCRIPT;
  <?php 
 $customScript = <<< SCRIPT
 $('.generate-row').on('click', function(){
-    
  var citation =  $('#judgmentcitation-citation').val();
-
- console.log('citation : ',citation);
+ console.log(citation);
  if(citation=='')
  {
     alert('Please Select Judgement code');
@@ -194,7 +194,7 @@ success    : function(data){
          for(i=0;i<res.length;i++){
             if(res[i])
             {
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentcitation-citation has-success"><label class="control-label" for="judgmentcitation-citation">Citation</label><input type="text" id="judgmentcitation-citation" class="form-control judgmentcitation-citation" name="JudgmentCitation[citation][]" maxlength="20" aria-invalid="false" value="'+res[i]+'"><div class="help-block"></div></div></div></div></div>');
+        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentcitation-citation has-success"><label class="control-label" for="judgmentcitation-citation">Citation</label><input type="text" id="judgmentcitation-citation" class="form-control judgmentcitation-citation" name="JudgmentCitation[citation][]" maxlength="50" aria-invalid="false" value="'+res[i]+'"><div class="help-block"></div></div></div></div></div>');
             }
             }
     },
