@@ -120,14 +120,30 @@ class JudgmentCitationController extends Controller
     {
         $model =  JudgmentCitation::find()->where(['judgment_code'=>$jcode])->one();    
         if($model->load(Yii::$app->request->post())) {
-            $model->save();
-        return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+            $count = count($_POST['JudgmentCitation']['citation']);
+            \Yii::$app
+            ->db
+            ->createCommand()
+            ->delete('judgment_citation', ['judgment_code' => $jcode])
+            ->execute();
+            for($i=0;$i<$count;$i++)
+            {        
+                $judgment                = new JudgmentCitation();
+                $judgment->judgment_code = $jcode;
+                $judgment->doc_id = $doc_id;
+                $judgment->citation    = $_POST['JudgmentCitation']['citation'][$i];                        
+                $judgment->save(); 
+            }
+                 Yii::$app->session->setFlash('Updated successfully!!');
+                 $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);
+
+            } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
-        }
-    }
+        }     
+
+     }
 
     /**
      * Deletes an existing JudgmentCitation model.

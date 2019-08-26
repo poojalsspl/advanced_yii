@@ -172,10 +172,10 @@ SCRIPT;
  <?php 
 $customScript = <<< SCRIPT
 $('.generate-row').on('click', function(){
-    
- var citation =  $('#judgmentcitation-citation').val();
 
- console.log('citation : ',citation);
+ var citation =  $('#judgmentcitation-judgment_code').val();
+
+ console.log('citations : ',citation);
  if(citation=='')
  {
     alert('Please Select Judgement code');
@@ -199,7 +199,7 @@ success    : function(data){
             }
     },
         error: function(xhr, textStatus, errorThrown){
-        //alert('No states for this contry');
+        //alert('No states ');
     }                                                         
     });
 //console.log(advocate);
