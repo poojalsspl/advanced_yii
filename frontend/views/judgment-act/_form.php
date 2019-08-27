@@ -60,7 +60,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
                         var x = $('.model_array').text();
                         alert(x);
                         $('.test').val(x);
-                       // $('#judgmentact-doc_id').val(data.doc_id);
+                        $('#judgmentact-doc_id').val(x.doc_id);
                      // console.log(data.doc_id)
                                 }                                             
                       });

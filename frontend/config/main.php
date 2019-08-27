@@ -9,6 +9,7 @@ $params = array_merge(
 return [
     'homeUrl' => 'http://localhost/advanced_yii/',
     'id' => 'app-frontend',
+    'name' => 'Research Law',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',

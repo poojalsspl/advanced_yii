@@ -146,6 +146,25 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+         public function actionDashboard()
+     {
+         //$this->layout = 'InnerPage';
+
+         $id = Yii::$app->user->identity->id;
+         $model = UserMast::findOne($id);
+         
+         if($model->status == '0'){
+           Yii::$app->session->setFlash('error', "Please verify your email!");
+             return $this->redirect(['login']);
+             die();
+        } else {
+            return $this->render('dashboard', [
+            'model' => $model,
+            ]); 
+        }
+    
+    }
+
     /**
      * Signs user up.
      *
