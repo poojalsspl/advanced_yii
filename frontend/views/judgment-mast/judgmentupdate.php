@@ -61,7 +61,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
  ?>
 <div id="w1-container" class="table-responsive kv-grid-container"><table class="kv-grid-table table table-hover table-bordered table-striped kv-table-wrap"><thead>
 
-<tr><th data-col-seq="0" style="width: 99.91%;"><a href="/backend/index.php?r=english-tagging-management%2Ftags&amp;sort=tab_name" data-sort="tab_name">Update Master</a></th></tr>
+<!-- <tr><th data-col-seq="0" style="width: 99.91%;"><a href="/frontend/index.php?r=english-tagging-management%2Ftags&amp;sort=tab_name" data-sort="tab_name">Update Master</a></th></tr> -->
 
 </thead>
 <tbody>

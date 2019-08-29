@@ -78,7 +78,7 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect(['judgment-mast/index']);
+            return $this->redirect(['site/dashboard']);
         }
 
         $model = new LoginForm();
@@ -153,15 +153,11 @@ class SiteController extends Controller
          $id = Yii::$app->user->identity->id;
          $model = UserMast::findOne($id);
          
-         if($model->status == '0'){
-           Yii::$app->session->setFlash('error', "Please verify your email!");
-             return $this->redirect(['login']);
-             die();
-        } else {
+        
             return $this->render('dashboard', [
             'model' => $model,
             ]); 
-        }
+       
     
     }
 
