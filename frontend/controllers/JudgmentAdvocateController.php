@@ -83,7 +83,7 @@ class JudgmentAdvocateController extends Controller
             // $judgment_code = $_POST['JudgmentAdvocate']['judgment_code']; 
             $model->save(); 
             }
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);
         }
 
         return $this->render('create', [

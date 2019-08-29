@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model frontend\models\JudgmentJudge */
 
 $this->title = 'Create Judgment Judge';
-$this->params['breadcrumbs'][] = ['label' => 'Judgment Judges', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+/*$this->params['breadcrumbs'][] = ['label' => 'Judgment Judges', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;*/
 ?>
 <div class="judgment-judge-create">
 

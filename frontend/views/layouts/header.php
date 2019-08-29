@@ -16,7 +16,7 @@ use yii\bootstrap\Nav;
                 <div class="navbar-custom-menu">
                     <?php
                         NavBar::begin([
-                            'brandLabel' => Html::img('@web/images/adlaw-logo.png', ['class' => 'logo-area',  'style' => "width: 100%;text-align: left;"]),
+                            'brandLabel' => Html::img('@web/images/adlaw-logo1.png', ['class' => 'logo-area',  'style' => "width: 100%;text-align: left;"]),
                             'brandUrl' => Yii::$app->homeUrl,
                             'renderInnerContainer' => false,
                             'options' => [

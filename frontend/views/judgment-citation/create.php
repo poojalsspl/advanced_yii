@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model frontend\models\JudgmentCitation */
 
 $this->title = 'Create Judgment Citation';
-$this->params['breadcrumbs'][] = ['label' => 'Judgment Citations', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+/*$this->params['breadcrumbs'][] = ['label' => 'Judgment Citations', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;*/
 ?>
 <div class="judgment-citation-create">
 

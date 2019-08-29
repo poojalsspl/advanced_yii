@@ -62,46 +62,39 @@ use yii\helpers\Url;
                                 <div class="col-md-5 col-xs-12">
                                    <div class="row profile-detail-section">
                                         <div class="col-md-6 profile-detail-label">Name</div>
-                                        <div class="col-md-6 profile-detail-text"><?=$model->first_name?></div>
+                                        <div class="col-md-6 profile-detail-text"><?=$model->first_name.' '.$model->last_name?></div>
                                     </div>
                                     
                                     <div class="row profile-detail-section">
                                         <div class="col-md-6 profile-detail-label">Course</div>
-                                        <div class="col-md-6 profile-detail-text"><?=$model->last_name?></div>
+                                        <div class="col-md-6 profile-detail-text"><?= 'Judgment Analysis';?></div>
                                     </div>
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Judgment Alloted</div>
-                                        <div class="col-md-6 profile-detail-text"><?= 'Law'; ?></div>
-                                    </div>
+                                    
 
 
                                     <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Total Judgments</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '4568'; ?></div>
-                                    </div>
-
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Total HC </div>
-                                        <div class="col-md-6 profile-detail-text"><?= 'Law'; ?></div>
-                                    </div>
-
-
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Total Judgments</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '4568'; ?></div>
+                                        <div class="col-md-6 profile-detail-label">Cetificate</div>
+                                        <div class="col-md-6"><button>View</button></div>
                                     </div>
 
                                    
 
                                       <div class="row profile-detail-section">
                                         <div class="col-md-6 profile-detail-label">Drafting</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '222'; ?></div>
+                                        <div class="col-md-6 profile-detail-text"><?= '15'; ?></div>
+                                    </div>
+
+                                       <div class="row profile-detail-section">
+                                        <div class="col-md-6 profile-detail-label">Days left</div>
+                                        <div class="col-md-6 profile-detail-text"><?= '2'; ?></div>
                                     </div>
 
                                       <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Days left</div>
+                                        <div class="col-md-6 profile-detail-label">Unique DataPoints</div>
                                         <div class="col-md-6 profile-detail-text"><?= '222'; ?></div>
                                     </div>
+
+                                     
                                 </div>
                                 <div class="col-md-2 col-xs-12">
 
@@ -110,53 +103,76 @@ use yii\helpers\Url;
                                  <div class="col-md-5 col-xs-12 profile-detail">
                                     <div class="row profile-detail-section">
                                         <div class="col-md-6 profile-detail-label">College Name</div>
-                                        <div class="col-md-6 profile-detail-text"><?=$model->first_name?></div>
+                                        <div class="col-md-6 profile-detail-text"><?= 'IPS Academy';?></div>
                                     </div>
                                     
                                     <div class="row profile-detail-section">
                                         <div class="col-md-6 profile-detail-label">Duration</div>
-                                        <div class="col-md-6 profile-detail-text"><?=$model->last_name?></div>
+                                        <div class="col-md-6 profile-detail-text"><?= '1 Month' ;?></div>
                                     </div>
                                     
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Article Writing</div>
-                                        <div class="col-md-6 profile-detail-text"><?= 'Law'; ?></div>
-                                    </div>
-
-
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Total Judgments</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '4568'; ?></div>
-                                    </div>
-                                    
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Total SC</div>
-                                        <div class="col-md-6 profile-detail-text"><?=!empty($model->landline_1) ? $model->landline_1 : '-NA-' ?></div>
-                                    </div>
+                                   
                                     
                                     <div class="row profile-detail-section">
                                         <div class="col-md-6 profile-detail-label">Status</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '222'; ?></div>
+                                        <div class="col-md-6 profile-detail-text"><?= 'Pending'; ?></div>
                                     </div>
 
-                                   <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Status</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '222'; ?></div>
-                                    </div>
-                                    
-                                    <div class="row profile-detail-section">
+                                     <div class="row profile-detail-section">
                                         <div class="col-md-6 profile-detail-label">Redrafting</div>
                                         <div class="col-md-6 profile-detail-text"><?= '5'; ?></div>
                                     </div>
-                                    <div class="col-md-4 col-md-offset-4" >
-                                        <?= \yii\helpers\Html::a('<span><i class="fa fa-pencil"></i></span>  Update Profile', '#', [
-                                            'class' => 'btn theme-blue-button btn-block'
-                                        ])?>
+
+                                    <div class="row profile-detail-section">
+                                        <div class="col-md-6 profile-detail-label">Acts worked on</div>
+                                        <div class="col-md-6 profile-detail-text"><?= '222'; ?></div>
                                     </div>
+
+                                    <div class="row profile-detail-section">
+                                        <div class="col-md-6 profile-detail-label">Judgment Elements</div>
+                                        <div class="col-md-6 profile-detail-text"><?= '15'; ?></div>
+                                    </div>
+                               
                                 </div>
                                
                                 
                             </div>
+
+                            <!----table------->
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Total</th>
+                                    <th>Pending</th>
+                                    <th>Completed</th>
+                                </tr>
+                                <tr>
+                                    <th>Judgment Alloted</th>
+                                    <td>1000</td>
+                                    <td>400</td>
+                                    <td>600</td>
+                                </tr> 
+                                <tr>
+                                    <th>Alloted High Court</th>
+                                    <td>600</td>
+                                    <td>200</td>
+                                    <td>400</td>
+                                </tr>  
+                                <tr>
+                                    <th>Alloted Supreme Court</th>
+                                    <td>400</td>
+                                    <td>100</td>
+                                    <td>300</td>
+                                </tr> 
+                                <tr>
+                                    <th>Articel Writing</th>
+                                    <td>15</td>
+                                    <td>5</td>
+                                    <td>10</td>
+                                </tr>     
+                             </table>
+
+                            <!-----end of table----->
                         </div>
                     
                 </div>

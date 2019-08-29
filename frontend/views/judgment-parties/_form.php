@@ -69,7 +69,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
      <?php if($model->isNewRecord) { ?>
     <div class="col-xs-8">
     	 <?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
-    <?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
+    
     <?= Html::button('Show Data', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info generate-row']) ?>
    
     </div>
@@ -120,10 +120,8 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     </div>
     <div class="col-xs-8">
         <?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
-        <?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
- <?php if(!$model->isNewRecord) { ?>
- <?= Html::a('Delete All', ['judgment-parties/deleteall', 'jcode' => $jcode], ['class' => 'btn btn-danger pull-right']) ?>
- <?php } ?>        
+        
+       
     </div>
     </div>
     <?php ActiveForm::end(); ?>
