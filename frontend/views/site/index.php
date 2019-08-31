@@ -10,7 +10,7 @@ $this->title = 'My Yii Application';
    span h1{
     color: #185886;
     } 
-    h2{
+    h3{
         color: #185886;
     }
     a.btn.btn_new{
@@ -56,11 +56,11 @@ $this->title = 'My Yii Application';
 <!--Slider Section End -->
 <div class="container">
      
-<span><h1>Research Courses Offered</h1></span>
+<span><h1 align="center">Research Courses Offered</h1></span>
         <div class="row">
             <div class="col-lg-4">
                 
-                <h2>Judgment Analysis</h2>
+                <h3>Basic Judgment Analysis</h3>
                 <hr>
                 <p>Judgment Analysis is a basic level research course. The main objective of this short term course is to get  law students aware of various fixed data points in judgments. These data points are always usefull for any research analysis that can pivot around the judgment or the conclusion of any case....</p>
 
@@ -69,16 +69,16 @@ $this->title = 'My Yii Application';
                 </p>
             </div>
             <div class="col-lg-4">
-                <h2>Law Data Mining</h2>
+                <h3>Judgment Precis Analysis</h3>
                 <hr>
                 <p>Judgment Analysis is a basic level research course. The main objective of this short term course is to get  law students aware of various fixed data points in judgments. These data points are always usefull for any research analysis that can pivot around the judgment or the conclusion of any case....</p>
 
-                <p> <?= Html::a('Read More ' . "&raquo;",'/site/course-judgment-analysis', ['class' => 'btn btn_new'])?></p>
+                <p> <?= Html::a('Read More ' . "&raquo;",'/site/course-judgment-precis', ['class' => 'btn btn_new'])?></p>
             </div>
             <div class="col-lg-4">
-                <h2>Law Data Warehousing</h2>
+                <h3>Customised Judgment Analysis</h3>
                 <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea .....</p>
+                <p>Judgment Analysis is a basic level research course. The main objective of this short term course is to get  law students aware of various fixed data points in judgments. These data points are always usefull for any research analysis that can pivot around the judgment or the conclusion of any case....</p>
 
                 <p> <?= Html::a('Read More ' . "&raquo;",'/site/course-judgment-analysis', ['class' => 'btn btn_new'])?></p>
             </div>
@@ -86,7 +86,19 @@ $this->title = 'My Yii Application';
          <div class="row">
             <div class="col-lg-4">
                 
-                <h2>Legal Fraternity</h2>
+                <h3>Advance Judgment Precis Analysis</h3>
+                <hr>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat nulla pariatur.</p>
+
+                <p> <?= Html::a('Read More ' . "&raquo;",'/site/course-judgment-analysis', ['class' => 'btn btn_new'])?></p>
+            </div>
+         
+             <div class="col-lg-4">
+                
+                <h3>Advance Legal Elements Judgment Analysis</h3>
                 <hr>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
                     dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -96,7 +108,29 @@ $this->title = 'My Yii Application';
                 <p> <?= Html::a('Read More ' . "&raquo;",'/site/course-judgment-analysis', ['class' => 'btn btn_new'])?></p>
             </div>
             <div class="col-lg-4">
-                <h2>Law Researchers</h2>
+                <h3>Judgment Analysis with Article Writing</h3>
+                <hr>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat nulla pariatur.</p>
+
+                <p> <?= Html::a('Read More ' . "&raquo;",'/site/course-judgment-article-writing', ['class' => 'btn btn_new'])?></p>
+            </div>
+        </div>
+        <div class="row">
+              <div class="col-lg-4">
+                <h3>Legal Element Precis Analysis</h3>
+                <hr>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat nulla pariatur.</p>
+
+                <p> <?= Html::a('Read More ' . "&raquo;",'/site/course-judgment-analysis', ['class' => 'btn btn_new'])?></p>
+            </div>
+            <div class="col-lg-4">
+                <h3>Specialised Judgment Analysis</h3>
                 <hr>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
                     dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip

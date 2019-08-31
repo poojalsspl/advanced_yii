@@ -10,17 +10,17 @@
 				<ul class="list-unstyled">
 					<li>
 						<i class="fa fa-book" aria-hidden="true"></i>
-						<a dir="ltr" href="">Basic Judgment Analysis</a>
+						<a dir="ltr" href="course-judgment-analysis">Basic Judgment Analysis</a>
 						
 					</li>
 					<li>
 						<i class="fa fa-book" aria-hidden="true"></i>	
-						<a dir="ltr" href="">Judgment Precis Analysis</a>
+						<a dir="ltr" href="course-judgment-precis">Judgment Precis Analysis</a>
 						
 					</li>
 					<li>
 						<i class="fa fa-book" aria-hidden="true"></i>
-						<a dir="ltr" href="">Judgment Analysis with Article Writing</a>
+						<a dir="ltr" href="course-judgment-article-writing">Judgment Analysis with Article Writing</a>
 						
 					</li>
 					<li>

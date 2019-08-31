@@ -174,6 +174,16 @@ class SiteController extends Controller
         return $this->render('course-judgment-analysis');
     }
 
+    public function actionCourseJudgmentPrecis()
+    {
+        return $this->render('course-judgment-precis');
+    }
+
+    public function actionCourseJudgmentArticleWriting()
+    {
+        return $this->render('course-judgment-article-writing');
+    }
+
          public function actionDashboard()
      {
          //$this->layout = 'InnerPage';
