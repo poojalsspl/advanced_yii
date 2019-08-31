@@ -6,6 +6,18 @@ use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 $this->title = 'My Yii Application';
 ?>
+<style type="text/css">
+   span h1{
+    color: #185886;
+    } 
+    h2{
+        color: #185886;
+    }
+    a.btn.btn_new{
+        background-color:#185886; 
+        color: #ffffff;
+    }
+</style>
 <!--Slider Section Start-->
 <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
     
@@ -44,38 +56,31 @@ $this->title = 'My Yii Application';
 <!--Slider Section End -->
 <div class="container">
      
-
+<span><h1>Research Courses Offered</h1></span>
         <div class="row">
             <div class="col-lg-4">
                 
-                <h2>Law Data Analytics</h2>
+                <h2>Judgment Analysis</h2>
                 <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <p>Judgment Analysis is a basic level research course. The main objective of this short term course is to get  law students aware of various fixed data points in judgments. These data points are always usefull for any research analysis that can pivot around the judgment or the conclusion of any case....</p>
 
-                <p><a class="btn btn-default" href="#">Read More &raquo;</a></p>
+                <p><a class="btn btn_new" href="site/course-judgment-analysis">Read More &raquo;</a>
+               
+                </p>
             </div>
             <div class="col-lg-4">
                 <h2>Law Data Mining</h2>
                 <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <p>Judgment Analysis is a basic level research course. The main objective of this short term course is to get  law students aware of various fixed data points in judgments. These data points are always usefull for any research analysis that can pivot around the judgment or the conclusion of any case....</p>
 
-                <p><a class="btn btn-default" href="#">Read More &raquo;</a></p>
+                <p> <?= Html::a('Read More ' . "&raquo;",'/site/course-judgment-analysis', ['class' => 'btn btn_new'])?></p>
             </div>
             <div class="col-lg-4">
                 <h2>Law Data Warehousing</h2>
                 <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea .....</p>
 
-                <p><a class="btn btn-default" href="#">Read More &raquo;</a></p>
+                <p> <?= Html::a('Read More ' . "&raquo;",'/site/course-judgment-analysis', ['class' => 'btn btn_new'])?></p>
             </div>
         </div>
          <div class="row">
@@ -88,7 +93,7 @@ $this->title = 'My Yii Application';
                     ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
                     fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-default" href="#">Read More &raquo;</a></p>
+                <p> <?= Html::a('Read More ' . "&raquo;",'/site/course-judgment-analysis', ['class' => 'btn btn_new'])?></p>
             </div>
             <div class="col-lg-4">
                 <h2>Law Researchers</h2>
@@ -98,7 +103,7 @@ $this->title = 'My Yii Application';
                     ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
                     fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-default" href="#">Read More &raquo;</a></p>
+                <p> <?= Html::a('Read More ' . "&raquo;",'/site/course-judgment-analysis', ['class' => 'btn btn_new'])?></p>
             </div>
         </div>
 

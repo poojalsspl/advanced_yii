@@ -73,7 +73,7 @@ use yii\helpers\Url;
 
 
                                     <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Cetificate</div>
+                                        <div class="col-md-6 profile-detail-label">Certificate</div>
                                         <div class="col-md-6"><button>View</button></div>
                                     </div>
 

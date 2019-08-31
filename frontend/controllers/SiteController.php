@@ -15,6 +15,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use app\models\UserMast;
+use app\models\Student;
 
 /**
  * Site controller
@@ -101,6 +102,28 @@ class SiteController extends Controller
         }
     }
 
+    public function actionStudent()
+{
+         $id = Yii::$app->user->identity->id;
+         $user = new LoginForm();
+
+           $model = new \app\models\Student();
+           if (Yii::$app->request->post()) {
+            $model->load(\Yii::$app->request->post());
+           $model->userid= $id;
+           $model->start_date= date('Y-m-d');  
+           $model->end_date= date('Y-m-d');
+            if ($model->save()){
+                 return $this->redirect(['dashboard']);
+            }
+        }
+           
+      return $this->render('student', [
+            'model' => $model,
+        ]);
+
+}
+
     /**
      * Logs out the current user.
      *
@@ -144,6 +167,11 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionCourseJudgmentAnalysis()
+    {
+        return $this->render('course-judgment-analysis');
     }
 
          public function actionDashboard()
