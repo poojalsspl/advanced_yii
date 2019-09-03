@@ -18,7 +18,7 @@ use yii\helpers\Url;
                 <div class="col-md-3 border-green side-menu">
                     <div class="row side-menu-content">
                         <div class="box box-v2">   
-                            <div class="box-body">
+                     <!--        <div class="box-body">
                                 
                               
                                   <a href="/judgment-mast/index" class="btn theme-blue-button btn-block">Judgment Mast</a>
@@ -42,6 +42,55 @@ use yii\helpers\Url;
                                   <a href="" class="btn theme-blue-button btn-block">Judgment Ext Remark</a>
                               
                              
+                            </div> -->
+                              <div class="box-body">
+                                
+                                  <table>
+                               <tr>
+                                    <td>Name</td>
+                                    <td><?=$model->first_name.' '.$model->last_name?></td>
+                                </tr> 
+                                <tr>
+                                    <td>College Name</td>
+                                    <td><?= 'IPS Academy';?></td>
+                                </tr>  
+                                <tr>
+                                    <td>Course</td>
+                                    <td><?= 'Judgment Analysis';?></td>
+                                </tr> 
+                                <tr>
+                                    <td>Duration</td>
+                                    <td><?= '1 Month' ;?></td>
+                                </tr>
+                                <tr>
+                                    <td>Drafting</td>
+                                    <td><?= '15'; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Redrafting</td>
+                                    <td><?= '5'; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Days left</td>
+                                    <td><?= '2'; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td><?= 'Pending'; ?></td>
+                                </tr>   
+                                     <tr>
+                                    <td>Acts worked on</td>
+                                    <td><?= '222'; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Judgment Elements</td>
+                                    <td><?= '15'; ?></td>
+                                </tr>   
+                                <tr>
+                                    <td>Unique DataPoints</td>
+                                    <td><?= '222'; ?></td>
+                                </tr>      
+                             </table>
                             </div>
                         </div>
                     </div>
@@ -52,123 +101,52 @@ use yii\helpers\Url;
                         <div class="box-v2 box-info">
                             <div class="box-header with-border box-header-custom">
                                 <div class="row">
-                                    <div class="col-md-12 align-center">
-                                        <span class="profile-title">Dashboard</span>
+                                    <div class="col-md-12 align-left">
+                                        <span class="profile-title">Research Job Summary</span>
                                     </div>
+                                       
+                                    
                                 </div>
                             </div>
                             <!-- /.box-header -->
-                            <div class="box-body">
-                                <div class="col-md-5 col-xs-12">
-                                   <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Name</div>
-                                        <div class="col-md-6 profile-detail-text"><?=$model->first_name.' '.$model->last_name?></div>
-                                    </div>
-                                    
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Course</div>
-                                        <div class="col-md-6 profile-detail-text"><?= 'Judgment Analysis';?></div>
-                                    </div>
-                                    
-
-
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Certificate</div>
-                                        <div class="col-md-6"><button>View</button></div>
-                                    </div>
-
-                                   
-
-                                      <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Drafting</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '15'; ?></div>
-                                    </div>
-
-                                       <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Days left</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '2'; ?></div>
-                                    </div>
-
-                                      <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Unique DataPoints</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '222'; ?></div>
-                                    </div>
-
-                                     
-                                </div>
-                                <div class="col-md-2 col-xs-12">
-
-                                </div>
-
-                                 <div class="col-md-5 col-xs-12 profile-detail">
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">College Name</div>
-                                        <div class="col-md-6 profile-detail-text"><?= 'IPS Academy';?></div>
-                                    </div>
-                                    
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Duration</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '1 Month' ;?></div>
-                                    </div>
-                                    
-                                   
-                                    
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Status</div>
-                                        <div class="col-md-6 profile-detail-text"><?= 'Pending'; ?></div>
-                                    </div>
-
-                                     <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Redrafting</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '5'; ?></div>
-                                    </div>
-
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Acts worked on</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '222'; ?></div>
-                                    </div>
-
-                                    <div class="row profile-detail-section">
-                                        <div class="col-md-6 profile-detail-label">Judgment Elements</div>
-                                        <div class="col-md-6 profile-detail-text"><?= '15'; ?></div>
-                                    </div>
+                            
                                
-                                </div>
-                               
-                                
-                            </div>
-
                             <!----table------->
                             <table class="table table-striped">
                                 <tr>
-                                    <th>#</th>
+                                    <th>Job Name</th>
                                     <th>Total</th>
                                     <th>Pending</th>
                                     <th>Completed</th>
+                                    <th></th>
                                 </tr>
                                 <tr>
                                     <th>Judgment Alloted</th>
                                     <td>1000</td>
                                     <td>400</td>
                                     <td>600</td>
+                                    <td><a href="/advanced_yii/judgment-mast/index" class="btn theme-blue-button btn-block">Begin</a></td>
                                 </tr> 
                                 <tr>
-                                    <th>Alloted High Court</th>
+                                    <th>High Court Judgments Alloted</th>
                                     <td>600</td>
                                     <td>200</td>
                                     <td>400</td>
+                                    <td></td>
                                 </tr>  
                                 <tr>
-                                    <th>Alloted Supreme Court</th>
+                                    <th>Supreme Court Judgments Alloted</th>
                                     <td>400</td>
                                     <td>100</td>
                                     <td>300</td>
+                                    <td></td>
                                 </tr> 
                                 <tr>
-                                    <th>Articel Writing</th>
+                                    <th>Article Writing</th>
                                     <td>15</td>
                                     <td>5</td>
                                     <td>10</td>
+                                    <td><a href="/advanced_yii/judgment-mast/index" class="btn theme-blue-button btn-block">Begin</a></td>
                                 </tr>     
                              </table>
 
