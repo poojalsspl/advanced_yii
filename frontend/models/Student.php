@@ -7,7 +7,6 @@ use Yii;
 /**
  * This is the model class for table "student".
  *
- * @property string $student_code
  * @property int $userid
  * @property string $student_name
  * @property string $college_code
@@ -15,9 +14,19 @@ use Yii;
  * @property string $course_code
  * @property string $course_name
  * @property int $course_fees
- * @property string $start_date
- * @property string $end_date
  * @property string $course_status
+ * @property string $enrol_no
+ * @property string $regs_date
+ * @property string $completion_date
+ * @property string $dob
+ * @property string $gender
+ * @property string $city_code
+ * @property string $state_code
+ * @property int $country_code
+ * @property string $mobile
+ * @property string $email
+ * @property string $qual_desc
+ * @property string $photo_url
  */
 class Student extends \yii\db\ActiveRecord
 {
@@ -35,12 +44,17 @@ class Student extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['userid', 'course_fees'], 'integer'],
-            [['start_date', 'end_date'], 'safe'],
-            [['student_code', 'college_code'], 'string', 'max' => 4],
-            [['student_name', 'college_name', 'course_name'], 'string', 'max' => 50],
-            [['course_code'], 'string', 'max' => 7],
+            [['userid', 'course_fees', 'country_code'], 'integer'],
+            [['regs_date', 'completion_date', 'dob'], 'safe'],
+            [['student_name', 'college_name', 'course_name', 'email'], 'string', 'max' => 50],
+            [['college_code', 'city_code', 'state_code'], 'string', 'max' => 4],
+            [['course_code'], 'string', 'max' => 8],
             [['course_status'], 'string', 'max' => 20],
+            [['enrol_no'], 'string', 'max' => 11],
+            [['gender'], 'string', 'max' => 1],
+            [['mobile'], 'string', 'max' => 12],
+            [['qual_desc'], 'string', 'max' => 100],
+            [['photo_url'], 'string', 'max' => 200],
         ];
     }
 
@@ -50,7 +64,6 @@ class Student extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'student_code' => 'Student Code',
             'userid' => 'Userid',
             'student_name' => 'Student Name',
             'college_code' => 'College Code',
@@ -58,9 +71,19 @@ class Student extends \yii\db\ActiveRecord
             'course_code' => 'Course Code',
             'course_name' => 'Course Name',
             'course_fees' => 'Course Fees',
-            'start_date' => 'Start Date',
-            'end_date' => 'End Date',
             'course_status' => 'Course Status',
+            'enrol_no' => 'Enrol No',
+            'regs_date' => 'Regs Date',
+            'completion_date' => 'Completion Date',
+            'dob' => 'Dob',
+            'gender' => 'Gender',
+            'city_code' => 'City Code',
+            'state_code' => 'State Code',
+            'country_code' => 'Country Code',
+            'mobile' => 'Mobile',
+            'email' => 'Email',
+            'qual_desc' => 'Qual Desc',
+            'photo_url' => 'Photo Url',
         ];
     }
 }

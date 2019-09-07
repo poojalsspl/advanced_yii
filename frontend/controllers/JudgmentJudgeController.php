@@ -78,7 +78,8 @@ class JudgmentJudgeController extends Controller
                 $model->judge_name = $_POST['JudgmentJudge']['judge_name'][$i];
                 $model->save(false); 
             }  
-           return $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);    
+            Yii::$app->session->setFlash('success', "Created successfully!!");
+           return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);    
         }
 
         return $this->render('create', [
@@ -114,7 +115,7 @@ class JudgmentJudgeController extends Controller
             }
 
               Yii::$app->session->setFlash('Updated successfully!!');
-                 $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);                    
+                 $this->redirect(['update', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);                    
               
 
           

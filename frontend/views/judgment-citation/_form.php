@@ -6,15 +6,21 @@ use frontend\models\JudgmentMast;
 use frontend\models\JudgmentCitation;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
-
-
-
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentCitation */
 /* @var $form yii\widgets\ActiveForm */
 
  //$journal = ArrayHelper::map(JournalMast::find()->all(), 'journal_code', 'journal_name');
+?>
 
+<!--add tabs---->
+<?= $this->render("/judgment-mast/view_tabs") ?>
+<!--end of tab --->
+
+
+<!------start of form------>
+<?php
     $jcode  = '';
     $doc_id = '';
     
@@ -119,6 +125,12 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     <?php } ?>
         </div>
 </div>
+
+<!------end of form------>
+
+    <!------add judgment text------>
+    <?= $this->render("/judgment-mast/judgment_text_add") ?>
+    <!------judgment text------>
 <?php 
 if($model->isNewRecord){
     $customScript = <<< SCRIPT

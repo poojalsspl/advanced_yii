@@ -12,6 +12,12 @@ use kartik\select2\Select2;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<!---code for tabs------->
+<?= $this->render("/judgment-mast/view_tabs") ?>
+<!---end of code for tabs------->
+
+<!------start of form------>
+
 <div class="judgment-act-form">
     <?php
     if($_GET)
@@ -95,3 +101,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     <?php ActiveForm::end(); ?>
 
 </div>
+<!------end of form------>
+<!------add judgment text------>
+<?= $this->render("/judgment-mast/judgment_text_add") ?>
+<!------judgment text------>

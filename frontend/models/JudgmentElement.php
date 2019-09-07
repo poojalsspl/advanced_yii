@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace app\models;
 
 use Yii;
 
@@ -31,7 +31,7 @@ class JudgmentElement extends \yii\db\ActiveRecord
         return [
             [['judgment_code', 'weight_perc', 'element_word_length'], 'integer'],
             [['element_text'], 'string'],
-            [['weight_perc'], 'required'],
+          
             [['element_code'], 'string', 'max' => 2],
         ];
     }

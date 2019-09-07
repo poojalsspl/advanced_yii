@@ -14,7 +14,12 @@ use yii\helpers\Url;
 
 
 ?>
-
+<style type="text/css">
+	.tabs a{
+		display: inline-block;
+		width: 10%;
+	}
+</style>
 <div class="judgment-act-form">
 
 <?php 
@@ -57,14 +62,12 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 	if(!empty($judgmentCitedby)){ $citedby   =  '/judgment-cited-by/update'; $citedbycls = "btn-success";} else { $citedby =  '/judgment-cited-by/create'; $citedbycls = "btn-warning"; }*/
 
  ?>
-<div id="w1-container" class="table-responsive kv-grid-container"><table class="kv-grid-table table table-hover table-bordered table-striped kv-table-wrap"><thead>
+<div class="tabs">
 
 <!-- <tr><th data-col-seq="0" style="width: 99.91%;"><a href="/frontend/index.php?r=english-tagging-management%2Ftags&amp;sort=tab_name" data-sort="tab_name">Update Master</a></th></tr> -->
 
-</thead>
-<tbody>
-<tr data-key="8"><td style="float:left; width:300px" data-col-seq="0">
-<?= Html::a('Judgments',['/judgment-mast/update','id'=>$jcode],["class"=>"btn btn-block  ".$mastcls ]) ?>
+
+<?= Html::a('Judgments',['/judgment-mast/update','jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$mastcls ]) ?>
 <?php //Html::a('Act',[$act,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$actcls ]) ?>
 <?php echo Html::a('Lawyers Appeared',[$advocate,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$advocatecls ]) ?>
 <?= Html::a('Judges Bench',[$judge,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$judgecls ]) ?>
@@ -80,10 +83,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?php //Html::a('Judgment Referred In',[$jdgref,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$jdgrefcls ]) ?>
 <?php //Html::a('Judgment Referred By',[$citedby,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$citedbycls ]) ?>
 <!-- <a class="btn btn-block btn-primary" href="/backend/index.php?r=english-tagging-management%2Ftagsarticle&amp;category_id=8">Trending Now</a> -->
-</td>
-</tr>
-</tbody>
-</table>
+
 </div>      
 <?php
 /*$customScript = <<< SCRIPT
@@ -92,3 +92,4 @@ SCRIPT;
 $this->registerJs($customScript, \yii\web\View::POS_READY);*/
  ?>
 </div>
+

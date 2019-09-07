@@ -117,7 +117,7 @@ class JudgmentMastController extends Controller
             Yii::$app->session->setFlash('Created successfully!!');
 
             return $this->redirect(['judgment-act/create', 'jcount' => 1,'jcode'=>$judgment_code]);
-          	
+            
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -131,7 +131,12 @@ class JudgmentMastController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->judgment_code]);
+          $jcode = $model->judgment_code;
+          $doc_id = $model->doc_id;
+         //Yii::$app->session->setFlash('Updated successfully!!');
+         Yii::$app->session->setFlash('success', "Updated successfully!!");
+           return $this->redirect(['update', 'id' => $model->judgment_code]);
+
         }
 
         return $this->render('update', [
@@ -295,7 +300,7 @@ class JudgmentMastController extends Controller
     public function actionDelete($code)
     {
     $master = $this->findModel($code);
-    //    	$user = $this->findModel($id);        
+    //      $user = $this->findModel($id);        
     $JudgmentAct         = $master->judgmentActs;
     $JudgmentAdvocate    = $master->judgmentAdvocates;
     $JudgmentCitation    = $master->judgmentCitations;
@@ -308,17 +313,17 @@ class JudgmentMastController extends Controller
     $judgmentCitedby     = $master->judgmentCitedby;
 
 
-	if(!empty($JudgmentAct)){ foreach($JudgmentAct as $act) { $act->delete(); } }
-	if(!empty($JudgmentAdvocate)){ foreach($JudgmentAdvocate as $Advocate) { $Advocate->delete(); } }
-	if(!empty($JudgmentCitation)){ foreach($JudgmentCitation as $Citation) { $Citation->delete(); }   }	
-	if(!empty($JudgmentExtRemark)){ $JudgmentExtRemark->delete();  }
-	if(!empty($JudgmentJudge)){  foreach($JudgmentJudge as $Judge) { $Judge->delete(); } }
+    if(!empty($JudgmentAct)){ foreach($JudgmentAct as $act) { $act->delete(); } }
+    if(!empty($JudgmentAdvocate)){ foreach($JudgmentAdvocate as $Advocate) { $Advocate->delete(); } }
+    if(!empty($JudgmentCitation)){ foreach($JudgmentCitation as $Citation) { $Citation->delete(); }   } 
+    if(!empty($JudgmentExtRemark)){ $JudgmentExtRemark->delete();  }
+    if(!empty($JudgmentJudge)){  foreach($JudgmentJudge as $Judge) { $Judge->delete(); } }
     if(!empty($JudgmentParties)){ foreach($JudgmentParties as $Parties) { $Parties->delete(); }  }
     if(!empty($judgmentOverrules)){ foreach($judgmentOverrules as $Overrules) { $Overrules->delete(); }  }
     if(!empty($judgmentOverruledby)){ foreach($judgmentOverruledby as $Overruledby) { $Overruledby->delete(); }  }
     if(!empty($judgmentRef)){ foreach($judgmentRef as $jRef) { $jRef->delete(); }  }
-	if(!empty($judgmentCitedby)){ foreach($judgmentCitedby as $Citedby) { $Citedby->delete(); }  }
-	$master->delete();	
+    if(!empty($judgmentCitedby)){ foreach($judgmentCitedby as $Citedby) { $Citedby->delete(); }  }
+    $master->delete();  
        Yii::$app->session->setFlash('Deleted successfully!!');     
         return $this->redirect(['index']);
     }
@@ -361,7 +366,6 @@ class JudgmentMastController extends Controller
         }
     }
 }
-
 
 
 

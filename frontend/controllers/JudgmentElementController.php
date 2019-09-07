@@ -3,9 +3,9 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\JudgmentAdvocate;
+use app\models\JudgmentElement;
 use frontend\models\JudgmentMast;
-use frontend\models\JudgmentAdvocateSearch;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -14,12 +14,12 @@ use yii\helpers\Json;
 /**
  * JudgmentAdvocateController implements the CRUD actions for JudgmentAdvocate model.
  */
-class JudgmentAdvocateController extends Controller
+class JudgmentElementController extends Controller
 {
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
+   /* public function behaviors()
     {
         return [
             'verbs' => [
@@ -31,7 +31,7 @@ class JudgmentAdvocateController extends Controller
                 ],
             ],
         ];
-    }
+    }*/
 
     /**
      * Lists all JudgmentAdvocate models.
@@ -39,14 +39,11 @@ class JudgmentAdvocateController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new JudgmentAdvocateSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        $judgmentElement = JudgmentElement::find()->all();
+         
+        return $this->render('index', ['model' => $judgmentElement]);
     }
+
 
     /**
      * Displays a single JudgmentAdvocate model.
@@ -54,56 +51,58 @@ class JudgmentAdvocateController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    /*public function actionView($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
-
+*/
     /**
      * Creates a new JudgmentAdvocate model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="",$doc_id="")
+   /* public function actionCreate($jcode="")
     {
-        $model = new JudgmentAdvocate();
+        $model = new JudgmentElement();
 
 
         if ($model->load(Yii::$app->request->post())) {
-             $count =  count($_POST['JudgmentAdvocate']['advocate_flag']);
+             //$count =  count($_POST['JudgmentElement']['element_text']);
+             $count = 6;
               for($i=0;$i<$count;$i++)
             {
-            $model = new JudgmentAdvocate();
-            $model->judgment_code = $jcode;
-            $model->doc_id = $doc_id;
-            $model->advocate_flag = $_POST['JudgmentAdvocate']['advocate_flag'][$i];
-            $model->advocate_name = $_POST['JudgmentAdvocate']['advocate_name'][$i];
+            $model = new JudgmentElement();
+            //$model->judgment_code = $jcode;
+            //$model->doc_id = $doc_id;
+            $model->element_text = $_POST['JudgmentElement']['element_text'][$i];
+            
             // $judgment_code = $_POST['JudgmentAdvocate']['judgment_code']; 
             $model->save(); 
             }
             Yii::$app->session->setFlash('success', "Created successfully!!");
-            return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
-    }
+    }*/
 
-    public function actionCreatebkup()
+    public function actionCreate()
     {
-        $model = new JudgmentAdvocate();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = new JudgmentElement();
+ 
+        // new record
+        if($model->load(Yii::$app->request->post()) && $model->save()){
+            return $this->redirect(['index']);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+                 
+        return $this->render('create', ['model' => $model]);
     }
+
+   
 
     /**
      * Updates an existing JudgmentAdvocate model.
@@ -169,14 +168,7 @@ class JudgmentAdvocateController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionAdvocate($id)
-    {
-     $state = JudgmentMast::find()->select(['respondant_adv','respondant_adv_count','appellant_adv','appellant_adv_count'])->where(['judgment_code'=>$id])->asArray()->one();
-     $result = Json::encode($state);
-     return $result;       
-        //return $this->redirect(['index']);
-    }
-
+    
     /**
      * Finds the JudgmentAdvocate model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

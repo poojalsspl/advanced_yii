@@ -61,7 +61,7 @@ There is perhaps nothing more important for a lawyers than to have the ability t
 <p>
 <h4><strong>OBJECTIVE OF THE COURSE:</strong></h4>   
 <hr>     
-Judgment Analysis is a basic level research course. The main objective of this short term course is to get  law students aware of various fixed data points in judgments. These data points are always usefull for any research analysis that can pivot around the judgment or the conclusion of any case. The data point can be gatherd by the research analyst and relate it with the conclusion or the out come of the judgments. Some of the standards data point that are always available may be defined as  Judgment Title, Judgment Date, Citation, acts, name of advocates and Judges, etc.</p>
+Judgment Analysis with Article Writing is the basic level course offerred by Adlaw. This course revolves around two objective that is- firstly, making the students knowledgable regarding fixed data poins asa well as legal Article Writing. Article Writing in law field has its own importance, which keeps a student updated in the world of law.</p>
 <p>
 	<h4><strong>SYLLABUS:</strong></h4>
   <ul>

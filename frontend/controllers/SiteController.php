@@ -102,7 +102,7 @@ class SiteController extends Controller
         }
     }
 
-    public function actionStudent()
+   /* public function actionStudent()
 {
          $id = Yii::$app->user->identity->id;
          $user = new LoginForm();
@@ -122,7 +122,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
 
-}
+}*/
 
     /**
      * Logs out the current user.
@@ -186,11 +186,23 @@ class SiteController extends Controller
 
          public function actionDashboard()
      {
-         //$this->layout = 'InnerPage';
-
          $id = Yii::$app->user->identity->id;
-         $model = UserMast::findOne($id);
+        $sql = (new \yii\db\Query());
+        $sql->select(['student_name','college_name','course_name']) 
+           ->from('student')
+           ->where('userid=:userid', [':userid' => $id]);
+        $command = $sql->createCommand();
+     
+        $model = $command->queryAll();   
          
+
+        
+         //$model = Student::findOne($id);
+         // $connection = Yii::$app->getDb();
+        //$model = $connection->createCommand("SELECT student_name,college_name,course_name from student where userid= :userid", [':userid' => $id ]);
+       
+                  //echo $model->getRawSql();die;
+
         
             return $this->render('dashboard', [
             'model' => $model,

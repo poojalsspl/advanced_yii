@@ -64,21 +64,21 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 </thead>
 <tbody>
 <tr data-key="8"><td style="float:left; width:300px" data-col-seq="0">
-<?= Html::a('Judgments',['/judgment-mast/update','id'=>$jcode],["class"=>"btn btn-block  ".$mastcls ]) ?>
+<?= Html::a('Mast',['/judgment-mast/update','id'=>$jcode],["class"=>"btn btn-block  ".$mastcls ]) ?>
 <?php //Html::a('Act',[$act,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$actcls ]) ?>
-<?php echo Html::a('Lawyers Appeared',[$advocate,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$advocatecls ]) ?>
-<?= Html::a('Judges Bench',[$judge,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$judgecls ]) ?>
+<?php echo Html::a('Advocate',[$advocate,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$advocatecls ]) ?>
+<?= Html::a('Coram',[$judge,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$judgecls ]) ?>
 
 <?php //Html::a('Citations',[$citation,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$citationcls ]) ?>
 <?= Html::a('Citations',[$citation,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$citationcls ]) ?>
 <?php //Html::a('Ext-Ref',[$ext,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$extcls ]) ?>
 <?php //Html::a('Coram',[$judge,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$judgecls ]) ?>
-<?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
+<?php echo Html::a('Act',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
 <?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
 <?php //Html::a('Overrules',[$overrules,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$overrulescls ]) ?>
 <?php //Html::a('Overruledby',[$overruledby,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$overruledbycls ]) ?>
-<?php //Html::a('Judgment Referred In',[$jdgref,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$jdgrefcls ]) ?>
-<?php //Html::a('Judgment Referred By',[$citedby,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$citedbycls ]) ?>
+<?php //Html::a('JudgmentRef',[$jdgref,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$jdgrefcls ]) ?>
+<?php //Html::a('Citedby',[$citedby,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$citedbycls ]) ?>
 <!-- <a class="btn btn-block btn-primary" href="/backend/index.php?r=english-tagging-management%2Ftagsarticle&amp;category_id=8">Trending Now</a> -->
 </td>
 </tr>
@@ -92,3 +92,4 @@ SCRIPT;
 $this->registerJs($customScript, \yii\web\View::POS_READY);*/
  ?>
 </div>
+

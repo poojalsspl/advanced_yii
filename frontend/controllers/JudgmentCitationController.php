@@ -78,8 +78,9 @@ class JudgmentCitationController extends Controller
                 $model->doc_id = $doc_id;
                 $model->citation = $_POST['JudgmentCitation']['citation'][$i];
                 $model->save(false); 
-            }  
-            return $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);    
+            } 
+            Yii::$app->session->setFlash('success', "Created successfully!!"); 
+            return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);    
         }
             
            return $this->render('create', [
@@ -135,7 +136,7 @@ class JudgmentCitationController extends Controller
                 $judgment->save(); 
             }
                  Yii::$app->session->setFlash('Updated successfully!!');
-                 $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);
+                 $this->redirect(['update', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);
 
             } else {
             return $this->render('update', [

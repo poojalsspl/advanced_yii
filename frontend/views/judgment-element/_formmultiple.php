@@ -1,23 +1,22 @@
-<?php
+
+
+    <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use frontend\models\JudgmentElement;
+use frontend\models\ElementMast;
 use frontend\models\JudgmentMast;
-use frontend\models\JudgmentAdvocate;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
-use yii\helpers\Json;
-use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentAdvocate */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<!--add tabs---->
-<?= $this->render("/judgment-mast/view_tabs") ?>
-<!--end of tab --->
+
 
 <!------start of form------>
 <?php
-$judgmentAdvocate = JudgmentAdvocate::find()->select('judgment_code')->groupBy('judgment_code')->all();
+$judgmentAdvocate = JudgmentElement::find()->select('judgment_code')->groupBy('judgment_code')->all();
 
 $j_code[] ='';
 foreach ($judgmentAdvocate as $code) {
@@ -29,7 +28,7 @@ $jcode  = '';
 if($_GET)
 {
 	$jcode = $_GET['jcode'];
-	$doc_id = $_GET['doc_id'];
+	
 
     
 }
@@ -51,7 +50,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
 
     <?php $form = ActiveForm::begin(); ?>
      <div class="box-header with-border">
-              <h3 class="box-title">Advocate</h3>
+            
             </div>
            
             <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
@@ -61,16 +60,16 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
 
      ]); ?>
-     <?php echo $form->field($model, 'doc_id')->hiddenInput(['value' => $doc_id])->label(false);?>
+     
      <div class="dynamic-rows rows col-xs-12">	
 	  <div class="dynamic-rows-field row">
     
     	<div class="col-xs-4">	
-    		<?= $form->field($model, (!$model->isNewRecord) ? 'advocate_flag' : 'advocate_flag[]')->dropDownList(["1"=>"Appellant","2"=>"Respondent","3"=>"intervener"]) ?>
+    		<?= $form->field($model, (!$model->isNewRecord) ? 'element_name' : 'element_name[]')->dropDownList(["1"=>"FACTS","2"=>"RULING","3"=>"LEGAL ISSUES","4"=>"ARGUMENTS","5"=>"EVIDENCE","6"=>"CONCLUSION"]) ?>
     	</div>
     	<div class="col-xs-6">
-    			<?= $form->field($model, (!$model->isNewRecord) ? 'advocate_name' : 'advocate_name[]' )->textInput(['maxlength' => true,
-    			'class'=>'judgmentadvocate-advocate_name form-control']) ?>	
+    			<?= $form->field($model, (!$model->isNewRecord) ? 'element_text' : 'element_text[]' )->textInput(['maxlength' => true,
+    			'class'=>'judgmentelement-element_text form-control']) ?>	
 		</div>
 		<div class="col-xs-2">
 			
@@ -111,7 +110,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     ?>   
 
     <?php $form = ActiveForm::begin(); ?>
-			<div class="box-header with-border"><h3 class="box-title">Advocate</h3></div>
+			<div class="box-header with-border"></div>
 			<?php // $form->field($model, 'judgment_code')->hiddenInput(); ?>
 
 			<?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
@@ -122,31 +121,31 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
 
 			]); ?>
 
-       <?php $advocate = JudgmentAdvocate::find()->where(['judgment_code'=>$model->judgment_code])->all();    ?>
+       <?php $advocate = JudgmentElement::find()->where(['judgment_code'=>$model->judgment_code])->all();    ?>
 	<div class="dynamic-rows rows col-xs-12">
 		<?php foreach ($advocate as $adv) {
-			$flag = ($adv->advocate_flag == '1' ? 'selected' : $adv->advocate_flag == '2'  ? 'selected' : '' );  			
+			$flag = ($adv->element_name == '1' ? 'selected' : $adv->element_name == '2'  ? 'selected' : '' );  			
 		?>
 
 		<div class="dynamic-rows-field row" data-id="<?= $adv->id ?>">
 			<div class="col-xs-4">
-				<div class="form-group field-judgmentadvocate-advocate_flag has-success">
-					<label class="control-label" for="judgmentadvocate-advocate_flag">Advocate Flag</label>
-					<select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false" >
-						<option value="1" <?= ($adv->advocate_flag == '1' ? 'slected' : '') ?> >Appellant</option>
-						<option value="2" <?= ($adv->advocate_flag == '2' ? 'selected' : '') ?> >Respondent</option>
-						<option value="3" slected = "<?= ($adv->advocate_flag == '3' ? 'selected' : '') ?>">intervener</option>
+				<div class="form-group field-judgmentelement-element_name has-success">
+					<label class="control-label" for="judgmentelement-element_name">Element Name</label>
+					<select id="judgmentelement-element_name" class="form-control" name="JudgmentElement[element_name][]" aria-invalid="false" >
+						<option value="1" <?= ($adv->element_name == '1' ? 'slected' : '') ?> >FACTS</option>
+						<option value="2" <?= ($adv->element_name == '2' ? 'selected' : '') ?> >RULING</option>
+						<option value="3" slected = "<?= ($adv->element_name == '3' ? 'selected' : '') ?>">LEGAL ISSUES</option>
 					</select>
 					<div class="help-block">
 						
 					</div></div>
 				</div>
 				<div class="col-xs-6">
-					<div class="form-group field-judgmentadvocate-advocate_name has-success">
-						<label class="control-label" for="judgmentadvocate-advocate_name">Advocate Name</label><input type="text" id="judgmentadvocate-advocate_name" class="form-control judgmentadvocate-advocate_name" name="JudgmentAdvocate[advocate_name][]" maxlength="50" aria-invalid="false" value="<?= $adv->advocate_name ?>">
+					<div class="form-group field-judgmentelement-element_text has-success">
+						<label class="control-label" for="judgmentelement-element_text">Element Text</label><input type="text" id="judgmentelement-element_text" class="form-control judgmentelement-element_text" name="JudgmentElement[element_text][]" maxlength="50" aria-invalid="false" value="<?= $adv->element_text ?>">
 						<div class="help-block"></div>
 					</div>
-	   <input type="hidden" name="JudgmentAdvocate[id][]" value="<?= $adv->id ?>">
+	   <input type="hidden" name="JudgmentElement[id][]" value="<?= $adv->id ?>">
 	   </div></div>
 	   <?php } ?>
 
@@ -170,22 +169,19 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     </div>
     </div>
     <!------end of form------>
-    <!------add judgment text------>
-    <?= $this->render("/judgment-mast/judgment_text_add") ?>
-    
-<!------judgment text------>
+   
     <?php
 if($model->isNewRecord){
 	$customScript = <<< SCRIPT
 	$('.addr-row').on('click',function(){
-		$('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-4"><div class="form-group field-judgmentadvocate-advocate_flag has-success"><label class="control-label" for="judgmentadvocate-advocate_flag">Advocate Flag</label><select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false"><option value="1">Appellant</option><option value="2">Respondent</option><option value="3">intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentadvocate-advocate_name has-success"><label class="control-label" for="judgmentadvocate-advocate_name">Advocate Name</label><input type="text" id="judgmentadvocate-advocate_name" class="form-control judgmentadvocate-advocate_name" name="JudgmentAdvocate[advocate_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');	
+		$('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-4"><div class="form-group field-judgmentelement-element_name has-success"><label class="control-label" for="judgmentelement-element_name">Element Name</label><select id="judgmentelement-element_name" class="form-control" name="JudgmentElement[element_name][]" aria-invalid="false"><option value="1">FACTS</option><option value="2">RULING</option><option value="3">LEGAL ISSUES</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentelement-element_text has-success"><label class="control-label" for="judgmentelement-element_text">Element Text</label><input type="text" id="judgmentelement-element_text" class="form-control judgmentelement-element_text" name="JudgmentElement[element_tex][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');	
 	});
 
 	$('#submit-button').on("click",function(){
- 	$('.judgmentadvocate-advocate_name').each(function(){
+ 	$('.judgmentelement-element_text').each(function(){
  		if($(this).val()=='')
  		{
- 			alert('Advocate Name Can not be Empty');
+ 			alert('Text Can not be Empty');
  			$(this).focus();
             $(this).parent().class('required has-error');
  			return false;	
@@ -201,16 +197,16 @@ SCRIPT;
 else{
 		$customScript = <<< SCRIPT
 	$('.addr-row').on('click',function(){
-		$('.judgmentadvocate-advocate_name').attr('name','JudgmentAdvocate[advocate_name][]')
-		$('.dynamic-rows').append('<div class="dynamic-rows-field row"  data-id=""><div class="col-xs-4"><div class="form-group field-judgmentadvocate-advocate_flag has-success"><label class="control-label" for="judgmentadvocate-advocate_flag">Advocate Flag</label><select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false"><option value="1">Appellant</option><option value="2">Respondent</option><option value="3">intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentadvocate-advocate_name has-success"><label class="control-label" for="judgmentadvocate-advocate_name">Advocate Name</label><input type="text" id="judgmentadvocate-advocate_name" class="form-control judgmentadvocate-advocate_name" name="JudgmentAdvocate[advocate_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div><input type="hidden" name="JudgmentAdvocate[id][]"></div></div></div>');	
+		$('.judgmentelement-element_text').attr('name','JudgmentElement[element_text][]')
+		$('.dynamic-rows').append('<div class="dynamic-rows-field row"  data-id=""><div class="col-xs-4"><div class="form-group field-judgmentelement-element_name has-success"><label class="control-label" for="judgmentelement-element_name">Element Name</label><select id="judgmentelement-element_name" class="form-control" name="JudgmentElement[element_name][]" aria-invalid="false"><option value="1">FACTS</option><option value="2">RULING</option><option value="3">LEGAL ISSUES</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentelement-element_text has-success"><label class="control-label" for="judgmentelement-element_text">Element Text</label><input type="text" id="judgmentelement-element_text" class="form-control judgmentelement-element_text" name="JudgmentElement[element_text][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div><input type="hidden" name="JudgmentElement[id][]"></div></div></div>');	
 	});
 
 	$('#submit-button').on("click",function(){
 		console.log('test');
- 	$('.judgmentadvocate-advocate_name').each(function(){
+ 	$('.judgmentelement-element_text').each(function(){
  		if($(this).val()=='')
  		{
- 			alert('Advocate Name Can not be Empty');
+ 			alert('Text Can not be Empty');
  			$(this).focus();
  			return false;	
  		}
@@ -230,15 +226,15 @@ SCRIPT;
      <?php 
 $customScript = <<< SCRIPT
 $('.generate-row').on('click', function(){
- var advocate =  $('#judgmentadvocate-judgment_code').val();
- if(advocate=='')
+ var element =  $('#judgmentelement-judgment_code').val();
+ if(element=='')
  {
  	alert('Please Select Judgement code');
  }
  else
 $.ajax({
 //type     :'GET',
-url        : '/advanced_yii/judgment-advocate/advocate?id='+advocate,
+url        : '/advanced_yii/judgment-element/element?id='+element,
 dataType   : 'json',
 success    : function(data){
 

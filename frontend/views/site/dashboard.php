@@ -2,9 +2,12 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+//use app\models\Student;
 
 
 //$this->params['breadcrumbs'][] = $this->title;
+
 
 ?>
 
@@ -15,7 +18,7 @@ use yii\helpers\Url;
             <div class="row">
 
                 <!--SideBar Menu-->
-                <div class="col-md-3 border-green side-menu">
+                <div class="col-md-4 border-green side-menu">
                     <div class="row side-menu-content">
                         <div class="box box-v2">   
                      <!--        <div class="box-body">
@@ -43,20 +46,22 @@ use yii\helpers\Url;
                               
                              
                             </div> -->
+                             <?php $form = ActiveForm::begin(); ?>
                               <div class="box-body">
                                 
                                   <table>
+                                     <?php foreach ($model as $key => $value) { ?>
                                <tr>
                                     <td>Name</td>
-                                    <td><?=$model->first_name.' '.$model->last_name?></td>
+                                    <td><?php echo $value['student_name']; ?></td>
                                 </tr> 
                                 <tr>
                                     <td>College Name</td>
-                                    <td><?= 'IPS Academy';?></td>
+                                    <td><?=$value['college_name']; ?></td>
                                 </tr>  
                                 <tr>
                                     <td>Course</td>
-                                    <td><?= 'Judgment Analysis';?></td>
+                                    <td><?=$value['course_name']; ?></td>
                                 </tr> 
                                 <tr>
                                     <td>Duration</td>
@@ -89,14 +94,16 @@ use yii\helpers\Url;
                                 <tr>
                                     <td>Unique DataPoints</td>
                                     <td><?= '222'; ?></td>
-                                </tr>      
+                                </tr>   
+                                <?php } ?>   
                              </table>
                             </div>
+                             <?php $form = ActiveForm::end(); ?>
                         </div>
                     </div>
                 </div>
 
-                 <div class="col-md-9 border-green">
+                 <div class="col-md-8 border-green">
                     <div class="row">
                         <div class="box-v2 box-info">
                             <div class="box-header with-border box-header-custom">
@@ -147,7 +154,8 @@ use yii\helpers\Url;
                                     <td>5</td>
                                     <td>10</td>
                                     <td><a href="/advanced_yii/judgment-mast/index" class="btn theme-blue-button btn-block">Begin</a></td>
-                                </tr>     
+                                </tr>    
+
                              </table>
 
                             <!-----end of table----->

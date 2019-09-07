@@ -13,14 +13,63 @@ use kartik\daterange\DateRangePicker;
 use frontend\models\JudgmentBenchType;
 use frontend\models\JudgmentDisposition;
 use frontend\models\JudgmentJurisdiction;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\JudgmentMast */
 /* @var $form yii\widgets\ActiveForm */
 $cache = Yii::$app->cache;
+?>
+<style type="text/css">
+  .tabs a{
+    display: inline-block;
+    width: 10%;
+  }
+</style>
+<!---code for tabs------->
+<?php
 
+ $jcode = $model->judgment_code;
+ $doc_id = $model->doc_id;
+
+$master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
+    //$JudgmentAct         = $master->judgmentActs;
+    $JudgmentAdvocate    = $master->judgmentAdvocates;
+    $JudgmentJudge       = $master->judgmentJudges;
+    $JudgmentAct         = $master->judgmentActs;
+    $JudgmentCitation    = $master->judgmentCitations;
+    $JudgmentParties     = $master->judgmentParties;
+
+    $mastcls = "btn-success";
+    /*if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }*/
+    if(!empty($JudgmentAdvocate)){ $advocate =  '/judgment-advocate/update'; $advocatecls = "btn-success"; } else { $advocate =  '/judgment-advocate/create'; $advocatecls = "btn-warning";}
+    if(!empty($JudgmentJudge)){  $judge      =  '/judgment-judge/update';  $judgecls = "btn-success";} else { $judge =  '/judgment-judge/create'; $judgecls = "btn-warning"; }
+    
+    if(!empty($JudgmentCitation)){ $citation =  '/judgment-citation/update'; $citationcls = "btn-success";} else { $citation =  '/judgment-citation/create';  $citationcls = "btn-warning"; }   
+    /*if(!empty($JudgmentExtRemark)){ $ext     =  '/judgment-ext-remark/update'; $extcls = "btn-success";} else { $ext =  '/judgment-ext-remark/create'; $extcls = "btn-warning"; }*/
+    if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }
+
+    if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-success";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-warning"; }
 ?>
 
+<div class="tabs">
+
+<?= Html::a('Judgments',['/judgment-mast/update','id'=>$jcode],["class"=>"btn btn-block  ".$mastcls ]) ?>
+<?php //Html::a('Act',[$act,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$actcls ]) ?>
+<?php echo Html::a('Lawyers Appeared',[$advocate,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$advocatecls ]) ?>
+<?= Html::a('Judges Bench',[$judge,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$judgecls ]) ?>
+
+<?= Html::a('Citations',[$citation,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$citationcls ]) ?>
+<?php //Html::a('Ext-Ref',[$ext,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$extcls ]) ?>
+<?php //Html::a('Coram',[$judge,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$judgecls ]) ?>
+<?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
+<?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
+
+</div>  
+
+<!---end of code for tabs------->
+
+<!------start of form------>
 <div class="template">
     <div class ="body-content">
         <?php $form = ActiveForm::begin(); ?>
@@ -39,25 +88,20 @@ $cache = Yii::$app->cache;
   }
 
  ?>
-            <div class="row">
-                <div class="box box-blue">
-                   
-                    <div class="box-body">
-                        <div class="col-md-12">
-                            <div class="col-md-4 col-xs-12">
-                            
-                            
-                            <?= $form->field($model, 'court_name')->textInput(['readonly'=> true]);?> 
+<div class="row">
+  <div class="box box-blue">
+     <div class="box-body">
+        <div class="col-md-12">
+            <div class="col-md-4 col-xs-12">
+            <?= $form->field($model, 'court_name')->textInput(['readonly'=> true]);?> 
                            
-       
-
-<?= $form->field($model, 'court_code')->hiddenInput(['readonly'=>true])->label(false); ?>
-     <?=  $form->field($model, 'appeal_numb')->textInput() ?>  
-      <?= $form->field($model, 'judgment_type')->dropDownList(["0"=>'Order', "1"=>"Oral Order","2"=>"Judgment"],['prompt'=>'Select Appeal Status']) ?>                           
-                            </div>
-                            <div class="col-md-4 col-xs-12">
-                              
-<?php $benchType    = ArrayHelper::map(JudgmentBenchType::find()->all(), 'bench_type_id', 'bench_type_text'); 
+           <?= $form->field($model, 'court_code')->hiddenInput(['readonly'=>true])->label(false); ?>
+           <?=  $form->field($model, 'appeal_numb')->textInput() ?>  
+           <?= $form->field($model, 'judgment_type')->dropDownList(["0"=>'Order', "1"=>"Oral Order","2"=>"Judgment"],['prompt'=>'Select Appeal Status']) ?>                           
+             </div>
+        <div class="col-md-4 col-xs-12">
+<?php
+$benchType    = ArrayHelper::map(JudgmentBenchType::find()->all(), 'bench_type_id', 'bench_type_text'); 
 $disposition  = ArrayHelper::map(JudgmentDisposition::find()->all(), 'disposition_id', 'disposition_text'); 
 $jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_jurisdiction_id', 'judgment_jurisdiction_text'); ?>
 
@@ -68,7 +112,7 @@ $jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_
           ]
           ]); ?>
           
- <?= $form->field($model, 'disposition_id')->widget(Select2::classname(), [
+<?= $form->field($model, 'disposition_id')->widget(Select2::classname(), [
           
           'data' => $disposition,
           //'language' => '',
@@ -77,11 +121,9 @@ $jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_
             ]
           ]); ?>   
           <?= $form->field($model, 'judgment_ext_remark_flag')->dropDownList(["0"=>'Yes', "1"=>"No"],['prompt'=>'Select Remark Flag']) ?>  
-
-                                
-                            </div>
-                            <div class="col-md-4 col-xs-12">
-                               <?= $form->field($model, 'judgment_jurisdiction_id')->widget(Select2::classname(), [
+        </div>
+        <div class="col-md-4 col-xs-12">
+        <?= $form->field($model, 'judgment_jurisdiction_id')->widget(Select2::classname(), [
           
           'data' => $jurisdiction,
           //'language' => '',
@@ -98,90 +140,58 @@ $jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_
   ]);
     ?>
                                
-                            </div>
-                        </div>
-                    </div>
+        </div>
+  </div>
+  </div>
 
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="box box-blue">
-                   
-                    <div class="box-body">
-                        <div class="col-md-12">
-                            <div class="col-md-4 col-xs-12">
-         
- <?= $form->field($model, 'judgment_title')->textInput(['maxlength' => true]) ?>
- 
-
-                                
-                            </div>
-                            <div class="col-md-4 col-xs-12">
-                              
-
-
-
-<?=  $form->field($model, 'appellant_name')->textInput() ?>
-                                    
-
-                               </div>
-                            <div class="col-md-4 col-xs-12">
-                               
-                                 
-  <?=  $form->field($model, 'respondant_name')->textInput() ?>   
-
-                                
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-        <div class="row">
-                <div class="box box-blue">
-                   
-                    <div class="box-body">
-                        <div class="col-md-12">
-                            <div class="col-md-6 col-xs-12">
-         
- 
-  <?= $form->field($model, 'judgment_abstract')->textarea(['rows' => 6]) ?>
-
-                                
-                            </div>
-                            <div class="col-md-6 col-xs-12">
-                              
-
-<?= $form->field($model, 'judgment_text')->textarea(['rows' => 6]) ?>
-                               
-                                
-                              
 </div>
- 
-                        </div>
-                    </div>
+</div>
+            
+<div class="row">
+  <div class="box box-blue">
+      <div class="box-body">
+          <div class="col-md-12">
+              <div class="col-md-4 col-xs-12">
+<?= $form->field($model, 'judgment_title')->textInput(['maxlength' => true]) ?>
+              </div>
+              <div class="col-md-4 col-xs-12">
+<?=  $form->field($model, 'appellant_name')->textInput() ?>
+              </div>
+              <div class="col-md-4 col-xs-12">
+<?=  $form->field($model, 'respondant_name')->textInput() ?>   
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 
+
+<div class="row">
+    <div class="box box-blue">
+        <div class="box-body">
+            <div class="col-md-12">
+                <div class="col-md-6 col-xs-12">
+<?= $form->field($model, 'judgment_abstract')->textarea(['rows' => 6]) ?>
+                </div>
+                <div class="col-md-6 col-xs-12">
+<?= $form->field($model, 'judgment_text')->textarea(['rows' => 6]) ?>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
 
-
-
-
-            <div class="form-group" style="text-align: center">
-                <div class="col-md-4 col-md-offset-4">
-                   
-                    <?= Html::submitButton('Submit', ['class' => 'btn-block btn theme-blue-button ']) ?>
-                </div>
-                
-            </div>
+<div class="form-group" style="text-align: center">
+    <div class="col-md-4 col-md-offset-4">
+        <?= Html::submitButton('Submit', ['class' => 'btn-block btn theme-blue-button ']) ?>
+    </div>
+</div>
         
         </div>
         <?php ActiveForm::end(); ?>
     </div>
 </div>
+<!------end of form------>
 
 <script type="text/javascript">
 function master1()

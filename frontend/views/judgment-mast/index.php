@@ -3,14 +3,19 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
+
 //use yii\grid\ActionColumn;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\JudgmentMastSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Judgment Masts';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'List of Judgments';
+//$this->params['breadcrumbs'][] = $this->title;
+
+
 ?>
+
 <div class="judgment-mast-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -24,11 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            'judgment_title',
             'court_name',
             'judgment_date',
-            'jyear',
-            'judgment_title',
+            //'jyear',
+            
 
            ['class' => 'yii\grid\ActionColumn',
             'header'=>'Actions',
@@ -38,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id'=>$model->judgment_code]);
                 },
                'Edit' => function ($url, $model, $key) {
-                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['judgmentupdate', 'jcode'=>$model->judgment_code,'doc_id'=>$model->doc_id]);
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id'=>$model->judgment_code]);
             },
              
                 'format' => 'raw',
@@ -51,3 +56,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>
+

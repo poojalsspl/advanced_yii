@@ -6,10 +6,19 @@ use frontend\models\JudgmentMast;
 use frontend\models\JudgmentParties;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentParties */
 /* @var $form yii\widgets\ActiveForm */
+?>
+
+<!---code for tabs------->
+<?= $this->render("/judgment-mast/view_tabs") ?>
+<!---end of code for tabs------->
+
+<!------start of form------>
+<?php
 
   $jcode  = '';
    $doc_id = ''; 
@@ -129,6 +138,10 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     </div>
 
 </div>
+<!------end of form------>
+<!------add judgment text------>
+<?= $this->render("/judgment-mast/judgment_text_add") ?>
+<!------judgment text------>
 <?php
 if($model->isNewRecord){
     $customScript = <<< SCRIPT

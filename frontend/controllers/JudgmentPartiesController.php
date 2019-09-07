@@ -86,7 +86,8 @@ class JudgmentPartiesController extends Controller
             }
             } 
             if($jcode!=""){ 
-                return $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode,'doc_id'=>$doc_id ]); 
+                Yii::$app->session->setFlash('success', "Created successfully!!");
+                return $this->redirect(['create', 'jcode'=>$jcode,'doc_id'=>$doc_id ]); 
                 }
             
         }
@@ -133,7 +134,7 @@ class JudgmentPartiesController extends Controller
              if($jcode!="" && $doc_id!=""){ 
 
              Yii::$app->getSession()->setFlash('success',' Updated Successfully'); 
-             $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);
+             $this->redirect(['update', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);
         }
        }
 
