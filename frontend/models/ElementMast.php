@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace app\models;
 
 use Yii;
 
@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "element_mast".
  *
  * @property string $element_code
- * @property string $elment_name
+ * @property string $element_name
  * @property string $element_type
  */
 class ElementMast extends \yii\db\ActiveRecord
@@ -28,7 +28,7 @@ class ElementMast extends \yii\db\ActiveRecord
     {
         return [
             [['element_code'], 'string', 'max' => 2],
-            [['elment_name'], 'string', 'max' => 25],
+            [['element_name'], 'string', 'max' => 25],
             [['element_type'], 'string', 'max' => 1],
         ];
     }
@@ -40,7 +40,7 @@ class ElementMast extends \yii\db\ActiveRecord
     {
         return [
             'element_code' => 'Element Code',
-            'elment_name' => 'Elment Name',
+            'element_name' => 'Element Name',
             'element_type' => 'Element Type',
         ];
     }

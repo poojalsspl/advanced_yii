@@ -1,27 +1,42 @@
 <?php
+
 use yii\helpers\Html;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $searchModel frontend\models\JudgmentElementSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Judgment Elements';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
- 
-<style>
-table th,td{
-    padding: 10px;
-}
-</style>
- 
-<?= Html::a('Create', ['judgment-element/create'], ['class' => 'btn btn-success']); ?>
- 
-<table border="1">
-    <tr>
-        <th>Code</th>
-        <th>Text</th>
-       
-    </tr>
-    <?php foreach($model as $field){ ?>
-    <tr>
-        <td><?= $field->judgment_code; ?></td>
-        <td><?= $field->element_text; ?></td>
-       
-        <td><?= Html::a("Edit", ['judgment-element/edit', 'judgment_code' => $field->judgment_code]); ?> | <?= Html::a("Delete", ['judgment-element/delete', 'judgment_code' => $field->judgment_code]); ?></td>
-    </tr>
-    <?php } ?>
-</table>
+<div class="judgment-element-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Create Judgment Element', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'judgment_code',
+            'element_code',
+            'element_name',
+            'element_text:ntext',
+            //'weight_perc',
+            //'element_word_length',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+
+
+</div>

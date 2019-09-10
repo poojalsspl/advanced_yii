@@ -1,59 +1,57 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use frontend\models\JudgmentElement;
-use frontend\models\ElementMast;
-use yii\helpers\ArrayHelper;
-use kartik\select2\Select2;
+use dosamigos\ckeditor\CKEditor;
+
+/* @var $this yii\web\View */
+/* @var $model frontend\models\JudgmentElement */
+/* @var $form yii\widgets\ActiveForm */
 ?>
- 
-<?php $form = ActiveForm::begin(); ?>
-<?php
-if($_GET)
-{
-	$jcode = $_GET['jcode'];
-	
-    
-}
-$element    = ArrayHelper::map(ElementMast::find()->all(), 'element_code', 'element_name'); 
 
+<div class="judgment-element-form">
 
- ?>
- <?= $form->field($model, 'element_code')->widget(Select2::classname(), [
-        'data' => $element,
-        'options' => ['placeholder' => 'Select Element'],
-         'pluginEvents'=>[
-          ]
-          ]); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'element_name')->hiddenInput(['value' => $model->element_name])->label(false); ?>
-
-    <?= $form->field($model, 'element_text'); ?>
-    <?= $form->field($model, 'judgment_code'); ?>
-    
-
-    
-     
-  
-    <table>
-    	<tr>
-    		<th>Element Name</th>
-    		<th>Element Text</th>
-    	</tr>
-    	<?php 
-
-    	for($i=0;$i<=5;$i++){
-    		echo "<tr>";
-    		echo "<td>".$form->field($model, 'element_name')->label(false)."</td>";
-    		echo "<td>".$form->field($model, 'element_text')->label(false)."</td>";
-            echo "</tr>";
-
-
-
-    	}
-    
-    	?>
+   
+      
+      
+        <table>
+             <?php
+    foreach ($products as $index => $product) {
+        for ($i=0; $i < 6; $i++) { 
+            # code...
         
-    </table>
-      <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
-<?php ActiveForm::end(); ?>
+        ?>
+            <tr>
+        <?php
+    echo "<td>". $form->field($product, "[$i]element_name")->label($product->element_name)."</td>";
+    echo "<td>". $form->field($product, "[$i]element_text")->label($product->element_text)->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'advanced'
+    ])."</td>";
+?>
+</tr>
+<?php
+}
+}
+
+    ?>
+   
+</table>
+
+
+
+
+    <div class="form-group">
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>
+<?php 
+
+   // $this->registerJs("CKEDITOR.replace('judgmentelement-element_text',{toolbar : 'Basic'})");
+
+?>

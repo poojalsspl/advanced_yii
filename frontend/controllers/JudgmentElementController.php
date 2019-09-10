@@ -3,86 +3,71 @@
 namespace frontend\controllers;
 
 use Yii;
-use app\models\JudgmentElement;
-use frontend\models\JudgmentMast;
-
+use frontend\models\JudgmentElement;
+use frontend\models\JudgmentElementSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\Json;
 
 /**
- * JudgmentAdvocateController implements the CRUD actions for JudgmentAdvocate model.
+ * JudgmentElementController implements the CRUD actions for JudgmentElement model.
  */
 class JudgmentElementController extends Controller
 {
     /**
      * {@inheritdoc}
      */
-   /* public function behaviors()
+    public function behaviors()
     {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
-                      'view' => ['POST'],
-                      'view' => ['GET'],
                 ],
             ],
         ];
-    }*/
+    }
 
     /**
-     * Lists all JudgmentAdvocate models.
+     * Lists all JudgmentElement models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $judgmentElement = JudgmentElement::find()->all();
-         
-        return $this->render('index', ['model' => $judgmentElement]);
+        $searchModel = new JudgmentElementSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
-
     /**
-     * Displays a single JudgmentAdvocate model.
+     * Displays a single JudgmentElement model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    /*public function actionView($id)
+    public function actionView($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
-*/
+
     /**
-     * Creates a new JudgmentAdvocate model.
+     * Creates a new JudgmentElement model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-   /* public function actionCreate($jcode="")
+   /* public function actionCreate()
     {
         $model = new JudgmentElement();
 
-
-        if ($model->load(Yii::$app->request->post())) {
-             //$count =  count($_POST['JudgmentElement']['element_text']);
-             $count = 6;
-              for($i=0;$i<$count;$i++)
-            {
-            $model = new JudgmentElement();
-            //$model->judgment_code = $jcode;
-            //$model->doc_id = $doc_id;
-            $model->element_text = $_POST['JudgmentElement']['element_text'][$i];
-            
-            // $judgment_code = $_POST['JudgmentAdvocate']['judgment_code']; 
-            $model->save(); 
-            }
-            Yii::$app->session->setFlash('success', "Created successfully!!");
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -90,72 +75,56 @@ class JudgmentElementController extends Controller
         ]);
     }*/
 
-    public function actionCreate()
-    {
-        $model = new JudgmentElement();
- 
-        // new record
-        if($model->load(Yii::$app->request->post()) && $model->save()){
-            return $this->redirect(['index']);
-        }
-                 
-        return $this->render('create', ['model' => $model]);
-    }
+    public function actionCreate(){
 
-   
+        //Find out how many products have been submitted by the form
+        $count = count(Yii::$app->request->post('JudgmentElement', []));
+        
+        //Send at least one model to the form
+        $products = [new JudgmentElement()];
+
+        //Create an array of the products submitted
+        for($i = 1; $i < $count; $i++) {
+            $products[] = new JudgmentElement();
+        }
+
+        //Load and validate the multiple models
+        if (JudgmentElement::loadMultiple($products, Yii::$app->request->post()) && JudgmentElement::validateMultiple($products)) {
+
+            foreach ($products as $product) {
+
+                //Try to save the models. Validation is not needed as it's already been done.
+                $product->save(false);
+
+            }
+            return $this->redirect('index');
+        }
+
+    return $this->render('create', ['products' => $products]);
+}
 
     /**
-     * Updates an existing JudgmentAdvocate model.
+     * Updates an existing JudgmentElement model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($jcode="",$doc_id="")
+    public function actionUpdate($id)
     {
-         $model =  JudgmentAdvocate::find()->where(['judgment_code'=>$jcode])->one();
-         $judgmentAdvocate =$model->judgment_code;
-         $adv = new JudgmentAdvocate();
-         if($adv->load(Yii::$app->request->post())) {
-          
-            \Yii::$app
-            ->db
-            ->createCommand()
-            ->delete('judgment_advocate', ['judgment_code' => $jcode])
-            ->execute();
+        $model = $this->findModel($id);
 
-            $count =  count($_POST['JudgmentAdvocate']['advocate_flag']);                
-            for($i=0;$i<$count;$i++)
-            {
-          
-            $advocate = new JudgmentAdvocate();
-            $advocate->judgment_code  = $judgmentAdvocate;
-            $advocate->doc_id = $doc_id;
-            $advocate->advocate_flag = $_POST['JudgmentAdvocate']['advocate_flag'][$i];
-            $advocate->advocate_name = $_POST['JudgmentAdvocate']['advocate_name'][$i];                        
-            $advocate->save(); 
-     
-            }
-
-             if($jcode!="" && $doc_id!=""){ 
-                Yii::$app->session->setFlash('success', "Updated successfully!!");
-            return $this->redirect(['update', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);
-             /* Yii::$app->getSession()->setFlash('success',' Updated Successfully'); 
-                        $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);*/    
-                }
-                
-          
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
-        else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-             }
-    }         
 
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
 
     /**
-     * Deletes an existing JudgmentAdvocate model.
+     * Deletes an existing JudgmentElement model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -168,17 +137,16 @@ class JudgmentElementController extends Controller
         return $this->redirect(['index']);
     }
 
-    
     /**
-     * Finds the JudgmentAdvocate model based on its primary key value.
+     * Finds the JudgmentElement model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return JudgmentAdvocate the loaded model
+     * @return JudgmentElement the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = JudgmentAdvocate::findOne($id)) !== null) {
+        if (($model = JudgmentElement::findOne($id)) !== null) {
             return $model;
         }
 
