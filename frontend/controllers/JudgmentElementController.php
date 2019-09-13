@@ -62,46 +62,21 @@ class JudgmentElementController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-   /* public function actionCreate()
+    public function actionCreate()
     {
         $model = new JudgmentElement();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['create', 'value' => $model->element_name]);
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
-    }*/
+    }
 
-    public function actionCreate(){
 
-        //Find out how many products have been submitted by the form
-        $count = count(Yii::$app->request->post('JudgmentElement', []));
-        
-        //Send at least one model to the form
-        $products = [new JudgmentElement()];
-
-        //Create an array of the products submitted
-        for($i = 1; $i < $count; $i++) {
-            $products[] = new JudgmentElement();
-        }
-
-        //Load and validate the multiple models
-        if (JudgmentElement::loadMultiple($products, Yii::$app->request->post()) && JudgmentElement::validateMultiple($products)) {
-
-            foreach ($products as $product) {
-
-                //Try to save the models. Validation is not needed as it's already been done.
-                $product->save(false);
-
-            }
-            return $this->redirect('index');
-        }
-
-    return $this->render('create', ['products' => $products]);
-}
 
     /**
      * Updates an existing JudgmentElement model.
@@ -110,7 +85,7 @@ class JudgmentElementController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$value)
     {
         $model = $this->findModel($id);
 

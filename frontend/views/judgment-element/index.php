@@ -34,7 +34,23 @@ $this->params['breadcrumbs'][] = $this->title;
             //'weight_perc',
             //'element_word_length',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            'header'=>'Actions',
+            'template' => '{View}{Edit}', 
+            'buttons' => [
+                'View' => function ($url, $model, $key) {
+                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id'=>$model->id]);
+                },
+               'Edit' => function ($url, $model, $key) {
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id'=>$model->id,'value'=>$model->element_name]);
+            },
+             
+                'format' => 'raw',
+
+              ],
+                 'contentOptions' => [ "class"=>'action-btns', 'width'=>''],
+        ],
         ],
     ]); ?>
 

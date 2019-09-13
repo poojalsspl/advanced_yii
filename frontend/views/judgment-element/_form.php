@@ -1,57 +1,61 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use dosamigos\ckeditor\CKEditor;
+use frontend\models\JudgmentElement;
+use frontend\models\ElementMast;
+use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 
-/* @var $this yii\web\View */
-/* @var $model frontend\models\JudgmentElement */
-/* @var $form yii\widgets\ActiveForm */
 ?>
+ <div class="judgment-element-form">
+    <div class="container">
+        <div class="row">
+           <div class="col-md-3">
+            <?php $form = ActiveForm::begin();
 
-<div class="judgment-element-form">
-
-    <?php $form = ActiveForm::begin(); ?>
-
-   
-      
-      
-        <table>
-             <?php
-    foreach ($products as $index => $product) {
-        for ($i=0; $i < 6; $i++) { 
-            # code...
-        
-        ?>
-            <tr>
-        <?php
-    echo "<td>". $form->field($product, "[$i]element_name")->label($product->element_name)."</td>";
-    echo "<td>". $form->field($product, "[$i]element_text")->label($product->element_text)->widget(CKEditor::className(), [
-        'options' => ['rows' => 6],
-        'preset' => 'advanced'
-    ])."</td>";
+$element    = ArrayHelper::map(ElementMast::find()->all(), 'element_code', 'element_name'); 
+//print_r($element);
+foreach ($element as $key => $value) {
+   // echo "<p>".$value."</p>";
+    echo "<br>";
+  echo  Html::a($value,['create','value'=>$value]) ;
+    # code...
+}
+ActiveForm::end();
 ?>
-</tr>
+           </div>
+            <div class="col-md-9">
+<?php $form = ActiveForm::begin(); ?>
 <?php
+$element_val = '';
+if($_GET)
+{
+   $element_val = $_GET['value'];
+
 }
-}
+//$element    = ArrayHelper::map(ElementMast::find()->all(), 'element_code', 'element_name'); 
+?>
 
-    ?>
-   
-</table>
+    <?php if($element_val!="") { ?>
+    <?= $form->field($model, 'element_name')->textInput(['readonly'=> true,'value'=>$element_val]);?> 
+    <?php } ?>
+    <?php if($element_val == "") { ?>
+      <?= $form->field($model, 'element_name')->textInput(['readonly'=> true]);?>  
+       <?php } ?>
+    <?= $form->field($model, 'judgment_code')->hiddenInput()->label(false); ?>
+    <?= $form->field($model, 'element_text')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'element_word_length'); ?>
 
-
-
-
-    <div class="form-group">
+ <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
+  </div>      
+ 
+<?php ActiveForm::end(); ?>
+</div>
+</div>
+</div>
 </div>
 <?php 
-
-   // $this->registerJs("CKEDITOR.replace('judgmentelement-element_text',{toolbar : 'Basic'})");
-
+    $this->registerJs("CKEDITOR.replace('judgmentelement-element_text',{toolbar : 'Basic'})");
 ?>
+

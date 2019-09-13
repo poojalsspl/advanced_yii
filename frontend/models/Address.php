@@ -1,8 +1,9 @@
 <?php
 
 namespace frontend\models;
-
+use yii\base\Model;
 use Yii;
+
 
 /**
  * This is the model class for table "address".
