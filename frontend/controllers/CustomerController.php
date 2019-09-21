@@ -9,7 +9,6 @@ use frontend\models\Address;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -106,7 +105,7 @@ class CustomerController extends Controller
     {
         $modelCustomer = $this->findModel($id);
         //print_r($modelCustomer);die;
-        $modelsAddress = $modelCustomer->first_name;
+        $modelsAddress = $modelCustomer->addresses;
 
         if ($modelCustomer->load(Yii::$app->request->post())) {
 

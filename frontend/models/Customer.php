@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "customer".
@@ -72,4 +73,12 @@ class Customer extends \yii\db\ActiveRecord
 
         return $models;
     }
+
+
+   //added for update function
+    public function getAddresses()
+    {
+        return $this->hasMany(Address::className(), ['id' => 'id']);
+    }
+
 }

@@ -28,12 +28,13 @@ if($_GET)
 
 $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
     //$JudgmentAct         = $master->judgmentActs;
-    $JudgmentAdvocate    = $master->judgmentAdvocates;
-    $JudgmentJudge       = $master->judgmentJudges;
+    $JudgmentAdvocate    = $master->judgmentAdvocates; //functions available in JudgmentMast model 
+    $JudgmentJudge       = $master->judgmentJudges;//like (getJudgmentAdvocates, getJudgmentParties etc)
     $JudgmentAct         = $master->judgmentActs;
     $JudgmentCitation    = $master->judgmentCitations;
     $JudgmentParties     = $master->judgmentParties;
-
+    $JudgmentElement     = $master->judgmentElement;
+    //print_r($JudgmentElement);
     $mastcls = "btn-success";
    if(!empty($JudgmentAdvocate)){ $advocate =  '/judgment-advocate/update'; $advocatecls = "btn-success"; } else { $advocate =  '/judgment-advocate/create'; $advocatecls = "btn-warning";}
     if(!empty($JudgmentJudge)){  $judge      =  '/judgment-judge/update';  $judgecls = "btn-success";} else { $judge =  '/judgment-judge/create'; $judgecls = "btn-warning"; }
@@ -41,6 +42,8 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
     if(!empty($JudgmentCitation)){ $citation =  '/judgment-citation/update'; $citationcls = "btn-success";} else { $citation =  '/judgment-citation/create';  $citationcls = "btn-warning"; }   
    
     if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }
+
+    if(!empty($JudgmentElement)){ $element           =  '/judgment-element/update'; $elementcls = "btn-success"; } else { $element =  '/judgment-element/create'; $elementcls = "btn-warning"; }
 
     if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-success";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-warning"; }
 ?>
@@ -53,10 +56,11 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?= Html::a('Judges Bench',[$judge,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$judgecls ]) ?>
 
 <?= Html::a('Citations',[$citation,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$citationcls ]) ?>
-
-<?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
 <?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
-<?= Html::a('Judgment Elements') ?>
+<?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
+<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode],["class"=>"btn btn-block  ".$elementcls ]) ?>
+
+
 <?= Html::a('Judgment DataPoints') ?>
 </div>  
 <!---end of code for tabs------->

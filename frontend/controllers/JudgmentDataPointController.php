@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\JudgmentElement;
-use frontend\models\JudgmentElementSearch;
+use frontend\models\JudgmentDataPoint;
+use frontend\models\JudgmentDataPointSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * JudgmentElementController implements the CRUD actions for JudgmentElement model.
+ * JudgmentDataPointController implements the CRUD actions for JudgmentDataPoint model.
  */
-class JudgmentElementController extends Controller
+class JudgmentDataPointController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class JudgmentElementController extends Controller
     }
 
     /**
-     * Lists all JudgmentElement models.
+     * Lists all JudgmentDataPoint models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new JudgmentElementSearch();
+        $searchModel = new JudgmentDataPointSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class JudgmentElementController extends Controller
     }
 
     /**
-     * Displays a single JudgmentElement model.
+     * Displays a single JudgmentDataPoint model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,17 +58,16 @@ class JudgmentElementController extends Controller
     }
 
     /**
-     * Creates a new JudgmentElement model.
+     * Creates a new JudgmentDataPoint model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="")
+    public function actionCreate()
     {
-        $model = new JudgmentElement();
+        $model = new JudgmentDataPoint();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //return $this->redirect(['view', 'id' => $model->id]);
-            return $this->redirect(['create', 'value' => $model->element_name]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -76,16 +75,14 @@ class JudgmentElementController extends Controller
         ]);
     }
 
-
-
     /**
-     * Updates an existing JudgmentElement model.
+     * Updates an existing JudgmentDataPoint model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id,$value)
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
@@ -99,7 +96,7 @@ class JudgmentElementController extends Controller
     }
 
     /**
-     * Deletes an existing JudgmentElement model.
+     * Deletes an existing JudgmentDataPoint model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -113,15 +110,15 @@ class JudgmentElementController extends Controller
     }
 
     /**
-     * Finds the JudgmentElement model based on its primary key value.
+     * Finds the JudgmentDataPoint model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return JudgmentElement the loaded model
+     * @return JudgmentDataPoint the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = JudgmentElement::findOne($id)) !== null) {
+        if (($model = JudgmentDataPoint::findOne($id)) !== null) {
             return $model;
         }
 

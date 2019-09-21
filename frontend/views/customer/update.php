@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
          'modelCustomer' => $modelCustomer,
-            'modelsAddress' => (empty($modelsAddress)) ? [new Address] : $modelsAddress,
-    ]) ?>
+            'modelsAddress' => (empty($modelsAddress)) ? [new Address] : $modelsAddress
+    ]); ?>
 
 </div>

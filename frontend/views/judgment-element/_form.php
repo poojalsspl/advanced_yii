@@ -59,3 +59,4 @@ if($_GET)
     $this->registerJs("CKEDITOR.replace('judgmentelement-element_text',{toolbar : 'Basic'})");
 ?>
 
+

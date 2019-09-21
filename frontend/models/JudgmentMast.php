@@ -195,6 +195,11 @@ class JudgmentMast extends \yii\db\ActiveRecord
     {
         return $this->hasMany(JudgmentParties::className(), ['judgment_code' => 'judgment_code']);
     }
+
+     public function getJudgmentElement()
+    {
+        return $this->hasMany(JudgmentElement::className(), ['judgment_code' => 'judgment_code']);
+    }
    
     
 }
