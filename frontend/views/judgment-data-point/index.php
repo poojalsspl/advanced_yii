@@ -26,13 +26,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'judgment_code',
-            'element_code',
             'element_name',
             'data_point',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            
+            ['class' => 'yii\grid\ActionColumn',
+            'header'=>'Actions',
+            'template' => '{View}{Edit}', 
+            'buttons' => [
+                'View' => function ($url, $model, $key) {
+                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view']);
+                },
+               'Edit' => function ($url, $model, $key) {
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'jcode'=>$model->judgment_code]);
+            },
+             
+                'format' => 'raw',
+
+              ],
+                 'contentOptions' => [ "class"=>'action-btns', 'width'=>''],
+        ],
         ],
     ]); ?>
 

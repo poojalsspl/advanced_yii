@@ -86,7 +86,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     <?php if($model->isNewRecord) { ?>
     <div class="col-xs-8">
     	<?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
-    <?= Html::button('Show Data', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info generate-row']) ?>
+    
 
          <?php /*if(!$model->isNewRecord) { 
   Html::a('Delete All', ['judgment-advocate/deleteall', 'jcode' => $jcode], ['class' => 'btn btn-danger pull-right']) 

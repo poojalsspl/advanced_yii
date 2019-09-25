@@ -177,6 +177,12 @@ $jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_
 <?= $form->field($model, 'judgment_text')->textarea(['rows' => 6]) ?>
                 </div>
             </div>
+                        <div class="col-md-12">
+                <div class="col-md-12 col-xs-12">
+<?= $form->field($model, 'judgment_text1')->textarea(['readonly'=>true]) ?>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
@@ -223,7 +229,7 @@ function master1()
 ?>
 <?php 
     $this->registerJs("CKEDITOR.replace('judgmentmast-judgment_text',{toolbar : 'Basic'})");
-
+    $this->registerJs("CKEDITOR.replace('judgmentmast-judgment_text1',{toolbar : 'Basic'})");
 ?>
 
  <?php

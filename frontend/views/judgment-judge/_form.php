@@ -78,11 +78,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     <div class="col-xs-8">
     <?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
     
-    <?php if($model->isNewRecord) { ?>
-    
-    <?= Html::button('Show Data', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info generate-row']) ?>
 
-<?php } ?>  
       </div>
     </div>
 
@@ -124,14 +120,8 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     </div>
     <div class="col-xs-8">
     <?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
-    
-    <?php if($model->isNewRecord) { ?>
-    
-    <?= Html::button('Show Data', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info generate-row']) ?>
-  <?php if($jcount != '' && $jyear != ''){ ?>
 
-        <?= Html::a('Next', ['next-page','jcode'=>$jcode],['class' =>  'btn btn-danger pull-right']) ?>
-    <?php } } ?>  
+
    
       </div>
     </div>

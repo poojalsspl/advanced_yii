@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\JudgmentDataPoint;
 use frontend\models\JudgmentDataPointSearch;
+use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -62,7 +63,7 @@ class JudgmentDataPointController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    /*public function actionCreate()
     {
         $model = new JudgmentDataPoint();
 
@@ -73,6 +74,33 @@ class JudgmentDataPointController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }*/
+
+
+    
+
+     public function actionCreate($jcode)
+    {
+       $count = 5;//count(Yii::$app->request->post('JudgmentDataPoint', []));
+       
+       $models = [new JudgmentDataPoint()];
+       for($i = 1; $i < $count; $i++) {
+            $models[] = new JudgmentDataPoint();
+        }
+        if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
+
+            foreach ($models as $model) {
+                $model->judgment_code = $jcode;
+                //Try to save the models. Validation is not needed as it's already been done.
+                $model->save(false);
+
+            }
+            return $this->redirect('index');
+        }
+
+        return $this->render('create', [
+            'models' => $models,
+        ]);
     }
 
     /**
@@ -82,7 +110,7 @@ class JudgmentDataPointController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+   /* public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
@@ -93,6 +121,21 @@ class JudgmentDataPointController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+    }
+*/
+    public function actionUpdate($jcode="")
+    {
+        //$models = JudgmentDataPoint::find()->indexBy('id')->all();
+        $models = JudgmentDataPoint::find()->where(['judgment_code' => $jcode])->all();
+
+        if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
+            foreach ($models as $model) {
+                $model->save(false);
+            }
+            return $this->redirect('index');
+        }
+
+        return $this->render('update', ['models' => $models,'jcode'=>$jcode]);
     }
 
     /**
