@@ -4,13 +4,13 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Judgment Analysis';
+$this->title = 'Legal Element Precis Analysis';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container mt-5">
  <div class="row">
         <div class="col-sm-12 col-md-12 col-xl-12 mb-4">
-            <h2 class=""><b>Judgment Analysis</b></h2>
+            <h2 class=""><b>Legal Element Precis Analysis</b></h2>
                  <hr class="m-0">
         </div>
         <div class="col-sm-12 col-lg-12 col-xs-12">
@@ -18,59 +18,42 @@ $this->title = 'Judgment Analysis';
             <div class="col-md-8 border-right "> 
                 <div class="row">
              <div class="col-md-12">
-<!--  <div class="col-lg-3 col-md-4 col-xs-6 thumb pull-right mb-4">
- 	                  <?php /*
-                             $path = Yii::$app->homeUrl . 'frontend/web/images/';
-                             $image = 'JudgmentAnalysis.jpg';*/
-                            
-                          ?>
-                <a href="<?php //echo $img = $path.'/'.$image ; ?>" target="_blank" data-toggle="modal" data-target="#legal" data-title="Integrated Legal Research">
-                    
-                    <img src="<?php //echo $img = $path.'/'.$image ; ?>" class="zoom img-fluid">
-                </a>
-            </div> -->
-           
-           <!--  <div class="modal modal fade mt-5" id="legal" tabindex="-1">
-    <div class="modal-dialog modal-lg bg-white">
-          <button type="button"  id="btn" class="close position-absolute text-white rounded-circle" data-dismiss="modal">&times;</button>  -->
-        <!-- Modal body -->
-       <!--  <div class="modal-body">
-         <img src="<?php //echo $img = $path.'/'.$image ; ?>"  class=" img-fluid "> 
-        </div>
-
-    </div>
-  </div> -->
 
 <ul>
-                    <p><li><strong>COURSE NAME &nbsp;:</strong> &nbsp;Judgment Analysis</li></p> 
-                <p><li><strong>LEVEL OF THE COURSE &nbsp;:</strong> Basic</li></p> 
-                <p><li><strong>ELIGIBILITY &nbsp;:</strong> Students pursuing Law</li></p> 
-                <p><li><strong>DURATION OF COURSE &nbsp;:</strong> 1 Month</li></p> 
+                    <p><li><strong>COURSE NAME &nbsp;:</strong> &nbsp;Legal Element Precis Analysis</li></p> 
+                <p><li><strong>LEVEL OF THE COURSE &nbsp;:</strong> Intermediate</li></p> 
+                <p><li><strong>ELIGIBILITY &nbsp;:</strong> Students of 3rd year to 5th year of 5 YDC and 2nd year and 3rd year students of 3 YDC</li></p> 
+                <p><li><strong>DURATION OF COURSE &nbsp;:</strong> 3 Months</li></p> 
                 </ul>
                 <br>
 <h4><strong>INTRODUCTION</strong></h4>
 <hr>
 <p>
-	Judgment Analysis is the basic level course offered by Adlaw. The main objective of this course is to make students aware of the various fixed data points (eg. Advocates name, judges name, description, disposition etc.) that a judgment contains. Students after going through the judgment can allocate the various fixed data points. This course is for the students who have less time to spare in any course. Through this a student may develop a habit of studying the judgment and understanding it.
+Legal Element Precis Analysis is the intermediate level of course offered by Adlaw. This course is the extended version of Judgment Precis Analysis  with the unique feature of Judgment elements (discussed in course content point v), which demands intense knowledge of law. This unique feature enable a student to make time for judgment reading.
 </p>
 
 <p>
 <h4><strong>OBJECTIVE OF THE COURSE:</strong></h4>   
 <hr>     
-The main objective of this short term course is to get  law students aware of various fixed data points in judgments. These data points are always usefull for any research analysis that can pivot around the judgment or the conclusion of any case. The data point can be gatherd by the research analyst and relate it with the conclusion or the out come of the judgments. Some of the standards data point that are always available may be defined as  Judgment Title, Judgment Date, Citation, acts, dispostion, description, etc.</p>
+The main objective of this course is to get  law students aware of various fixed data points in judgments. These data points are always usefull for any research analysis that can pivot around the judgment or the conclusion of any case. Generating judgment element make students more consious about the judgments reading. The abstract writing of the judgment will enable a student to understand the judgment more efficiently.</p>
 <p>
 	<h4><strong>SYLLABUS:</strong></h4>
-	Allocating Fixed Legal Data Points from the Judgments
+  <ol type="i">
+	<li>Allocating Fixed Legal Data Points from the Judgments</li>
+  <li>Generating Judgment Elements of the judgment</li>
+  <li>Abstract Writing of the judgment</li>
+  <li>Cases Referred in the judgment</li>
+  </ol>
 </p>
 <p>
     <h4><strong>COURSE CONTENT:</strong></h4><hr>
         <ol type="i">
-          <li>1500-3000 Judgments will be given.</li>
+          <li>2000-4000 Judgments will be given.</li>
           <li>For allocating fixed data points student have to follow certain rules which are as follows:
           <ol type="a">
           	<li><b>Case Number -</b> The number of the case as provided in the judgment</li>
           	<li><b>Jurisdiction of the Court -</b> Original, appeallate, Writs, Special Leave Jurisdiction according to the case.</li>
-          	<li><b>Judges Name -</b> As provided in the case</li>
+          	<li><b>Judges Name -</b>As provided in the case.</li>
           	<li><b>Bench-</b>
           		<ul>
           			<li>Name of One judge - Single Bench</li>
@@ -80,11 +63,37 @@ The main objective of this short term course is to get  law students aware of va
           		</ul>
             </li>
             <li><b>Advocates Name - </b>As provided in the case for both the parties</li>
-            <li><b>Citation - </b>As provided in the case</li>
+            <li><b>Citation - </b>As provided in the case for both the parties</li>
             <li><b>Description - </b>As per the acts and section imposed in the case</li>
             <li><b>Disposition - </b>As per the decision of the case</li>
           </ol>
           </li>
+          <li>For Abstract writing there are some rules which the student have to follow, which are as follows:
+            <ol type="a">
+            <li>Name of the Act and Sections must be mentioned.</li>
+            <li>Facts of the Case in brief.</li>
+            <li>Decision of the Lower Courts, High Courts, Tribunals and Supreme Court.</li>
+            <li>Abstract must be written in past tense.</li>
+
+          </ol>
+          </li>
+          <li>Cases Referred
+            <ol type="a">
+              Describe/Mention the cases that are referred in the particular judgment. 
+            </ol>
+          </li>
+          <li>15-20 Judgments have to be written by the student during the course period. </li>
+          <li>The judgment on which the judgment elements have to be written have to be selected by the student.</li>
+         <li>Judgment Elements consists of:
+         <ol type="a">
+           <li>Facts of the Case: Matter in issue should be mentioned</li>
+           <li>Ruling: Mentioning decision of lower courts and Tribunals if any</li>
+           <li>Arguments: Arguments of the advocates</li>
+           <li>Cases Referred: Mention the name and description of the cases referred.Variable Data Points</li>
+           <li>Decision and Reason: Decision and the reason of that decision should be mentioned of the Court under which the case was going on.</li>
+           <li>Everything must be plotted according to the elements. No change should be done during plotting of the elements. </li>
+         </ol> 
+         </li>
         </ol>
         <b>In case any of the data points is missing in full judgment text , student has to search on web and generate the missing data points. URL of the website to be submitted in the data point remark section of the interface. Extra marks will be given for this.</b>
 </p>
@@ -97,7 +106,9 @@ The main objective of this short term course is to get  law students aware of va
         <li>Since Act and section imposed is the fulcrum of the judgments, the list of various act with sections are provided to each students doing research on judgment.</li>
         <li>A user-friendly web based interface is designed for each student to generate the various pre defined legal data points of judgment. The interface also provides features to generate custom data point by each research that enable them to have a detail research analysis of judgments</li>
         <li>Analysing judgments delivered by various High Court and Supreme Court of India.</li>
-        <li>Students have to fill the related fields after studying the judgments given in judgment body.</li>
+        <li>Students have to fill the related fields after studying the judgments given in judgment body as well as write th abstract for the judgmnets.</li>
+        <li>Mentioning the name of cases referred.</li>
+        <li>Describing the Elements of the Judgments</li>
     </ol>
 </p>
 <p>
@@ -105,7 +116,7 @@ The main objective of this short term course is to get  law students aware of va
     <hr>
     <ol type="i">
         <li>On successful completion of the Course the students recieves a completion certificate with grades and percentage</li>
-        <li>It makes a student aware of various case and get them habitual to read the judgments and research on cases.</li>
+        <li>It makes a student aware of various case and get them habitual to read the judgments and research on cases. </li>
         <li>Makes a student capable of providing legal research assistance to lawyers in a law firm or as an assistant to senior lawyers looking for research students.</li>
         <li>Once a student is a legal researcher that is often termed as paralegal or legal assistant who is capable of examining a legal history and precedent, often to provide pertinent background information on a case to a lawyer or law firm.</li>
         <li>Enables one to generate the data points needed for any research platform.</li>
@@ -125,7 +136,7 @@ The main objective of this short term course is to get  law students aware of va
 			<th>C</th>
 		</tr>
 		<tr>
-			<td>2001-3000 and above</td>
+			<td>43001-4000 and above</td>
 			<td>91-100%</td>
 			<td>81-90%</td>
 			<td>71-80%</td>
@@ -134,7 +145,7 @@ The main objective of this short term course is to get  law students aware of va
 			<td>50%</td>
 		</tr>
 		<tr>
-			<td>1501-2000</td>
+			<td>2001-3000</td>
 			<td>95-100%</td>
 			<td>85-94%</td>
 			<td>75-84%</td>
@@ -143,7 +154,7 @@ The main objective of this short term course is to get  law students aware of va
 			<td>50%</td>
 		</tr>
 		<tr>
-			<td>1500</td>
+			<td>2000</td>
 			<td>100%</td>
 			<td>91-99%</td>
 			<td>81-90%</td>
@@ -155,6 +166,9 @@ The main objective of this short term course is to get  law students aware of va
 	<ul>
 		<li><b>Below 50% will not be eligible for the Certificate.</b></li>
 		<li><b>The calulation of the % will be according to the no. of judgments attempted.</b></li>
+    <li><b>Grading and Percentage of Judgment Elements will be done according to the slab of judgments done</b></li>
+    <li><b>Judgment Elements less than 15 will not be eligible for grading and will also affect the grading and percentage of the judgments.</b></li>
+
 	</ul>
 </p>
 

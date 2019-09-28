@@ -20,34 +20,35 @@
 					</li>
 					<li>
 						<i class="fa fa-book" aria-hidden="true"></i>
+						<a dir="ltr" href="course-judgment-customized">Customised Judgment Analysis</a>
+						
+					</li>
+					<li>
+						<i class="fa fa-book" aria-hidden="true"></i>
+						<a dir="ltr" href="course-judgment-advance-precis">Advance Judgment Precis Analysis</a>
+						
+					</li>
+					<li>
+						<i class="fa fa-book" aria-hidden="true"></i>
+						<a dir="ltr" href="course-judgment-advance-legal">Advance Legal Elements Judgment Analysis</a>
+						
+					</li>
+					<li>
+						<i class="fa fa-book" aria-hidden="true"></i>
 						<a dir="ltr" href="course-judgment-article-writing">Judgment Analysis with Article Writing</a>
 						
 					</li>
 					<li>
 						<i class="fa fa-book" aria-hidden="true"></i>
-						<a dir="ltr" href="">Advance Judgment Precis Analysis</a>
+						<a dir="ltr" href="course-judgment-legal-element">Legal Element Precis Analysis</a>
 						
 					</li>
 					<li>
 						<i class="fa fa-book" aria-hidden="true"></i>
-						<a dir="ltr" href="">Legal Element Precis Analysis</a>
+						<a dir="ltr" href="course-judgment-specialised">Specialised Judgment Analysis</a>
 						
 					</li>
-					<li>
-						<i class="fa fa-book" aria-hidden="true"></i>
-						<a dir="ltr" href="">Advance Legal Elements Judgment Analysis</a>
-						
-					</li>
-					<li>
-						<i class="fa fa-book" aria-hidden="true"></i>
-						<a dir="ltr" href="">Specialised Judgment Analysis</a>
-						
-					</li>
-					<li>
-						<i class="fa fa-book" aria-hidden="true"></i>
-						<a dir="ltr" href="">Customised Judgment Analysis</a>
-						
-					</li>
+					
 				</ul>
 				<div class="clear"></div>
 			</div>

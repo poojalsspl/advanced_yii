@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentElement */
 
-$this->title = 'Create Judgment Element';
-$this->params['breadcrumbs'][] = ['label' => 'Judgment Elements', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Judgment Element';
+/*$this->params['breadcrumbs'][] = ['label' => 'Judgment Elements', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;*/
 ?>
 <div class="judgment-element-create">
 

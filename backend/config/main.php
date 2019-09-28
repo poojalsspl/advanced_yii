@@ -7,6 +7,7 @@ $params = array_merge(
 );
 
 return [
+    'homeUrl' => '',
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
@@ -15,6 +16,10 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+             'baseUrl' => '',
+        ],
+        'urlManager'=>[
+            'scriptUrl'=>'',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -37,14 +42,14 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
-        'urlManager' => [
+        
+        /*'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
-        ],
-        */
+        ],*/
+        
     ],
     'params' => $params,
 ];

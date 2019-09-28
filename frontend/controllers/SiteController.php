@@ -179,9 +179,34 @@ class SiteController extends Controller
         return $this->render('course-judgment-precis');
     }
 
+     public function actionCourseJudgmentCustomized()
+    {
+        return $this->render('course-judgment-customized');
+    }
+
+    public function actionCourseJudgmentAdvancePrecis()
+    {
+        return $this->render('course-judgment-advance-precis');
+    }
+
+    public function actionCourseJudgmentAdvanceLegal()
+    {
+        return $this->render('course-judgment-advance-legal');
+    }
+
     public function actionCourseJudgmentArticleWriting()
     {
         return $this->render('course-judgment-article-writing');
+    }
+
+    public function actionCourseJudgmentLegalElement()
+    {
+        return $this->render('course-judgment-legal-element');
+    }
+
+    public function actionCourseJudgmentSpecialised()
+    {
+        return $this->render('course-judgment-specialised');
     }
 
          public function actionDashboard()

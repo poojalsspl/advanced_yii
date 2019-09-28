@@ -7,6 +7,16 @@ use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 
 ?>
+<?php
+    $jcode  = '';
+  
+if($_GET)
+{
+    $jcode = $_GET['jcode'];
+  
+   
+}
+?>
  <div class="judgment-element-form">
     <div class="container">
         <div class="row">
@@ -18,7 +28,7 @@ $element    = ArrayHelper::map(ElementMast::find()->all(), 'element_code', 'elem
 foreach ($element as $key => $value) {
    // echo "<p>".$value."</p>";
     echo "<br>";
-  echo  Html::a($value,['create','value'=>$value]) ;
+  echo  Html::a($value,['create','jcode'=>$jcode,'value'=>$value]) ;
     # code...
 }
 ActiveForm::end();

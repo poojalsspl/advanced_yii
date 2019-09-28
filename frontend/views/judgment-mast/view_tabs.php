@@ -58,7 +58,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?= Html::a('Citations',[$citation,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$citationcls ]) ?>
 <?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
 <?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
-<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode],["class"=>"btn btn-block  ".$elementcls ]) ?>
+<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'value'=>''],["class"=>"btn btn-block  ".$elementcls ]) ?>
 
 
 <?= Html::a('Judgment DataPoints') ?>
