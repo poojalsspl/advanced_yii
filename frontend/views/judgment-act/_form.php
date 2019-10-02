@@ -63,8 +63,8 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
                       success  : function(data) {  
 
                         $('.act_row').html(data);
-                        var x = $('.model_array').text();
-                        alert(x);
+                        //var x = $('.model_array').text();
+                        //alert(x);
                         $('.test').val(x);
                         $('#judgmentact-doc_id').val(x.doc_id);
                      // console.log(data.doc_id)
@@ -81,9 +81,9 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
  <div class="col-md-4 col-xs-12">
 
     <?= $form->field($model, 'j_doc_id')->hiddenInput(['maxlength' => true ,'readonly'=>true,'value' => $doc_id])->label(false) ?>
-    <?= $form->field($model, 'judgment_code')->textInput(['readonly'=>true,'value' => $jcode])->label(false) ?>
+    <?php //echo $form->field($model, 'judgment_code')->textInput(['readonly'=>true,'value' => $jcode])->label(false) ?>
     <?= $form->field($model, 'bareact_code')->hiddenInput(['maxlength' => true])->label(false) ?>
-    <?= $form->field($model, 'doc_id[]')->textInput(['maxlength' => true,'class'=>'test'])->label(false) ?>
+    <?php //echo  $form->field($model, 'doc_id[]')->textInput(['maxlength' => true,'class'=>'test'])->label(false) ?>
 
 </div>
  <div class="col-md-4 col-xs-12">

@@ -36,9 +36,10 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
     //$JudgmentAct         = $master->judgmentActs;
     $JudgmentAdvocate    = $master->judgmentAdvocates;
     $JudgmentJudge       = $master->judgmentJudges;
-    $JudgmentAct         = $master->judgmentActs;
+   // $JudgmentAct         = $master->judgmentActs;
     $JudgmentCitation    = $master->judgmentCitations;
     $JudgmentParties     = $master->judgmentParties;
+     $JudgmentElement     = $master->judgmentElement;
 
     $mastcls = "btn-success";
     /*if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }*/
@@ -47,8 +48,8 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
     
     if(!empty($JudgmentCitation)){ $citation =  '/judgment-citation/update'; $citationcls = "btn-success";} else { $citation =  '/judgment-citation/create';  $citationcls = "btn-warning"; }   
     /*if(!empty($JudgmentExtRemark)){ $ext     =  '/judgment-ext-remark/update'; $extcls = "btn-success";} else { $ext =  '/judgment-ext-remark/create'; $extcls = "btn-warning"; }*/
-    if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }
-
+    /*if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }*/
+    if(!empty($JudgmentElement)){ $element           =  '/judgment-element/update'; $elementcls = "btn-success"; } else { $element =  '/judgment-element/create'; $elementcls = "btn-warning"; }
     if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-success";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-warning"; }
 ?>
 
@@ -62,8 +63,9 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?= Html::a('Citations',[$citation,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$citationcls ]) ?>
 <?php //Html::a('Ext-Ref',[$ext,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$extcls ]) ?>
 <?php //Html::a('Coram',[$judge,'jcount' =>'','jyear'=>'','jcode'=>$code],["class"=>"btn btn-block  ".$judgecls ]) ?>
-<?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
+<?php //echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
 <?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
+<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'value'=>''],["class"=>"btn btn-block  ".$elementcls ]) ?>
 
 </div>  
 

@@ -1,38 +1,40 @@
 <?php
-use frontend\models\User;
-use app\models\Student;
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-use yii\helpers\ArrayHelper;
-use kartik\widgets\DepDrop;
-use yii\bootstrap\Modal;
-use kartik\select2\Select2;
-
-$this->title = 'Update Profile';
-    $baseUrl = Yii::$app->params['domainName'];
-
+/* @var $this yii\web\View */
+/* @var $model frontend\models\Student */
+/* @var $form ActiveForm */
 ?>
+<div class="site-student">
 
-<div class="template">
-    <div class ="body-content">
-        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
-       <?= $form->field($model, 'student_name')->textInput(['placeholder' => 'Enter First Name']) ?>
-
-                                
-</div>
-   </div>
-            
- <div class="form-group" style="text-align: center">
-                <div class="col-md-4 col-md-offset-4">
-                   
-                    <?= Html::submitButton('Submit', ['class' => 'btn-block btn theme-blue-button ']) ?>
-                </div>
-                
-            </div>
-        
+        <?= $form->field($model, 'userid') ?>
+        <?= $form->field($model, 'course_fees') ?>
+        <?= $form->field($model, 'country_code') ?>
+        <?= $form->field($model, 'enrol_no') ?>
+        <?= $form->field($model, 'regs_date') ?>
+        <?= $form->field($model, 'completion_date') ?>
+        <?= $form->field($model, 'dob') ?>
+        <?= $form->field($model, 'student_name') ?>
+        <?= $form->field($model, 'college_name') ?>
+        <?= $form->field($model, 'course_name') ?>
+        <?= $form->field($model, 'email') ?>
+        <?= $form->field($model, 'college_code') ?>
+        <?= $form->field($model, 'city_code') ?>
+        <?= $form->field($model, 'state_code') ?>
+        <?= $form->field($model, 'course_code') ?>
+        <?= $form->field($model, 'course_status') ?>
+        <?= $form->field($model, 'gender') ?>
+        <?= $form->field($model, 'mobile') ?>
+        <?= $form->field($model, 'qual_desc') ?>
+        <?= $form->field($model, 'photo_url') ?>
+    
+        <div class="form-group">
+            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
         </div>
-        <?php ActiveForm::end(); ?>
-    </div>
-</div>
+    <?php ActiveForm::end(); ?>
+
+</div><!-- site-student -->

@@ -27,10 +27,10 @@ if($_GET)
 }
 
 $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
-    //$JudgmentAct         = $master->judgmentActs;
+    $JudgmentAct         = $master->judgmentActs;
     $JudgmentAdvocate    = $master->judgmentAdvocates; //functions available in JudgmentMast model 
     $JudgmentJudge       = $master->judgmentJudges;//like (getJudgmentAdvocates, getJudgmentParties etc)
-    $JudgmentAct         = $master->judgmentActs;
+   // $JudgmentAct         = $master->judgmentActs;
     $JudgmentCitation    = $master->judgmentCitations;
     $JudgmentParties     = $master->judgmentParties;
     $JudgmentElement     = $master->judgmentElement;
@@ -61,6 +61,6 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'value'=>''],["class"=>"btn btn-block  ".$elementcls ]) ?>
 
 
-<?= Html::a('Judgment DataPoints') ?>
+
 </div>  
 <!---end of code for tabs------->

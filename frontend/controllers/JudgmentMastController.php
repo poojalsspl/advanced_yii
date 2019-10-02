@@ -47,6 +47,18 @@ class JudgmentMastController extends Controller
      */
     public function actionIndex()
     {
+        $username = \Yii::$app->user->identity->username;
+        $searchModel = JudgmentMast::find()->select('judgment_date,judgment_title,court_name,judgment_code')->from('judgment_mast')->where(['username'=>$username])->asArray()->all();
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            //'dataProvider' => $dataProvider,
+        ]);
+    }
+          
+        public function actionIndexbkup()
+    {
         $searchModel = new JudgmentMastSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

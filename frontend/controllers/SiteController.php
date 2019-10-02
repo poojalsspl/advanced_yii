@@ -16,6 +16,11 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use app\models\UserMast;
 use app\models\Student;
+use frontend\models\CountryMast;
+use frontend\models\StateMast;
+use frontend\models\CityMast;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /**
  * Site controller
@@ -166,6 +171,7 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
+
         return $this->render('about');
     }
 
@@ -208,6 +214,85 @@ class SiteController extends Controller
     {
         return $this->render('course-judgment-specialised');
     }
+
+    //addded for fetching state list on registration form
+       public function actionSubcat() {
+        $out = [];
+        $statemodel = new StateMast();
+        if (isset($_POST['depdrop_parents'])) {
+            
+        $parents = $_POST['depdrop_parents'];
+        if ($parents != null) {
+            $cat_id = $parents[0];
+            $out =  $statemodel->getSubCatList($cat_id); 
+                   return \yii\helpers\Json::encode(['output'=>$out, 'selected'=>'']);
+        }
+        }
+
+         echo \yii\helpers\Json::encode(['output'=>'', 'selected'=>'']);
+
+        }
+
+       //addded for fetching city list on registration form
+        public function actionGetcity() {
+          $out = [];
+          $model = new CityMast();
+        if (isset($_POST['depdrop_parents'])) {
+        $parents = $_POST['depdrop_parents'];
+
+        if ($parents != null) {
+
+            $cat_id = $parents[0];
+
+            $out =  $model->getCityList($cat_id); 
+                   return \yii\helpers\Json::encode(['output'=>$out, 'selected'=>'']);
+          }
+
+         }
+
+       echo \yii\helpers\Json::encode(['output'=>'', 'selected'=>'']);
+       }
+
+
+    public function actionRegistration()
+{
+         
+         $id = Yii::$app->user->identity->id;
+         $model = new Student();
+         $model->regs_date = date('Y-m-d');
+         $model->userid = $id;
+        $date = date('Y-m-d');
+        $date = explode('-', $date);
+        $month = $date[1];
+        $day   = $date[2];
+        $year  = $date[0];
+        $enrol_no = $year.$month.'0001';
+        $model->enrol_no = $enrol_no;
+
+        if (Yii::$app->request->post()) {
+            $model->load(\Yii::$app->request->post());
+             $dob = $model->dob;
+             $dob = str_replace('/', '-', $dob);
+           $model->dob = date('Y-m-d', strtotime($dob));
+            
+            
+              if ($model->save()) {
+                //$msg = "Student profile updated.";
+                  Yii::$app->session->setFlash('success', "Student profile updated."); 
+                 return $this->redirect(['dashboard']);
+
+              } else {
+                  Yii::$app->session->setFlash('error', "Student info not saved.");
+              }
+              
+         }
+        return $this->render('registration', [
+            'model' => $model,
+        ]);
+
+}
+
+
 
          public function actionDashboard()
      {

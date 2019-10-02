@@ -65,10 +65,16 @@ class JudgmentElementController extends Controller
     public function actionCreate($jcode="",$value="")
     {
         $model = new JudgmentElement();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $model->judgment_code = $jcode;
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $element_text = $_POST['JudgmentElement']['element_text'];
+            $element_word = str_word_count($element_text);
+            $model->element_word_length = $element_word;
             //return $this->redirect(['view', 'id' => $model->id]);
-            return $this->redirect(['create', 'value' => $model->element_name]);
+
+            $model->save();
+            return $this->redirect(['create','jcode'=>$jcode, 'value' => $model->element_name]);
         }
 
         return $this->render('create', [

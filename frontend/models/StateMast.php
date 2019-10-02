@@ -87,4 +87,18 @@ class StateMast extends \yii\db\ActiveRecord
     {
         return $this->hasOne(CountryMast::className(), ['country_code' => 'country_code']);
     }
+
+     //addded for fetching state list on registration form
+    public static function getSubCatList($id_cat) {
+        $out = [];
+         $models = StateMast::find()
+        ->where('country_code = :country_code')
+        ->addParams([':country_code' => $id_cat])
+        ->all();
+       foreach ($models as $i => $state) {
+          //  print_r($state);
+       $out[] = ['id' => $state['state_code'], 'name' => $state['state_name']];
+        }
+       return $out;
+         }
 }

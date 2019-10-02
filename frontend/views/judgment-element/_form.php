@@ -53,8 +53,8 @@ if($_GET)
       <?= $form->field($model, 'element_name')->textInput(['readonly'=> true]);?>  
        <?php } ?>
     <?= $form->field($model, 'judgment_code')->hiddenInput()->label(false); ?>
-    <?= $form->field($model, 'element_text')->textarea(['rows' => 6]) ?>
-    <?= $form->field($model, 'element_word_length'); ?>
+    <?= $form->field($model, 'element_text')->textarea(['rows' => 6]); ?>
+    
 
  <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

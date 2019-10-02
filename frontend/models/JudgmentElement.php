@@ -33,7 +33,7 @@ class JudgmentElement extends \yii\db\ActiveRecord
         return [
             [['judgment_code', 'weight_perc', 'element_word_length'], 'integer'],
             [['element_text'], 'string'],
-            [['element_code'], 'string', 'max' => 2],
+            
             [['element_name'], 'string', 'max' => 25],
         ];
     }
@@ -46,7 +46,7 @@ class JudgmentElement extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'judgment_code' => 'Judgment Code',
-            'element_code' => 'Element Code',
+            
             'element_name' => 'Element Name',
             'element_text' => 'Element Text',
             'weight_perc' => 'Weight Perc',

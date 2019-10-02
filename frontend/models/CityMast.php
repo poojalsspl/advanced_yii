@@ -90,4 +90,31 @@ class CityMast extends \yii\db\ActiveRecord
     {
         return $this->hasMany(CourtMast::className(), ['city_code' => 'city_code']);
     }
+
+    
+    /*public function getCityName($id){
+        $query = (new \yii\db\Query())
+        ->select('city_name')
+        ->from('city_mast')
+        ->where('city_code=:city_code', [':city_code' => $id]);
+
+        $command = $query->createCommand();
+
+        // Execute the command:
+        $rows = $command->queryAll();
+         return $rows[0]['city_name'];
+     }*/
+     //addded for fetching city list on registration form
+     public static function getCityList($id) {
+        $out = [];
+         $models = CityMast::find()
+        ->where('state_code = :state_code')
+        ->addParams([':state_code' => $id])
+        ->all();
+       foreach ($models as $i => $city) {
+          //  print_r($state);
+       $out[] = ['id' => $city['city_code'], 'name' => $city['city_name']];
+        }
+       return $out;
+      }
 }

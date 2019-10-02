@@ -24,7 +24,31 @@ $this->title = 'List of Judgments';
    <!--  <p>
         <?php// Html::a('Create Judgment Mast', ['create'], ['class' => 'btn btn-success']) ?>
     </p> -->
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+    <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Judgment Title</th>
+                <th>Court Name</th>
+                <th>Judgment Date</th>
+                <th>Action</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($searchModel as $searchdata){?>
+            <tr>
+                <td><?php echo $searchdata['judgment_title'];?></td>
+                <td><?php echo $searchdata['court_name'];?></td>
+                <td><?php echo $searchdata['judgment_date'];?></td>
+               
+                <td><?php echo '<a href = "update?id='.$searchdata['judgment_code'].'"><span class="glyphicon glyphicon-pencil"></span></a>'; ?></td>
+            </tr>
+           <?php } ?>
+           
+        </tbody>
+    </table>
+ <?php //print_r($searchModel);?>
+<?php /*Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -54,6 +78,6 @@ $this->title = 'List of Judgments';
 
 
         ],
-    ]); ?>
-<?php Pjax::end(); ?></div>
+    ]);*/ ?>
+<?php /*Pjax::end();*/ ?></div>
 

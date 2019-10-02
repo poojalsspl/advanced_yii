@@ -73,14 +73,16 @@ class JudgmentActController extends Controller
         if ($model->load(Yii::$app->request->post()) ) {
             $model->judgment_code = $jcode;
  
-             \Yii::$app->db->createCommand()->batchInsert('judgment_act', ['judgment_code','j_doc_id','act_group_desc', 'act_catg_desc'], [
-    [$jcode,$doc_id,'Tom', 30],
-    [$jcode,$doc_id,'Jane', 20],
-    [$jcode,$doc_id,'Linda', 25]])->execute();
+             \Yii::$app->db->createCommand()->batchInsert('judgment_act', ['judgment_code','j_doc_id','act_group_desc', 'act_catg_desc','act_title'], [
+    [$jcode,$doc_id,'CENTRAL ACT','Defence law','Section 80(b) In The Army Act, 1950'],
+    [$jcode,$doc_id,'CENTRAL ACT','Defence law','Section 20(1) In The Army Act, 1950']])->execute();
+    
            // $model->save(false);
-            return $this->redirect(['view', 'id' => $model->id]);
+             Yii::$app->session->setFlash('success', "Created successfully!!");
+             return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);
+            //return $this->redirect(['view', 'id' => $model->id]);
         }else{
-
+         
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -198,12 +200,13 @@ class JudgmentActController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($jcode="",$doc_id="")
     {
-        $model = $this->findModel($id);
-
+        //$model = $this->findModel();
+        $model = new JudgmentAct();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['update', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);
+            //return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [

@@ -20,8 +20,8 @@ use Yii;
  * @property string $completion_date
  * @property string $dob
  * @property string $gender
- * @property string $city_code
- * @property string $state_code
+ * @property int $city_code
+ * @property int $state_code
  * @property int $country_code
  * @property string $mobile
  * @property string $email
@@ -44,17 +44,19 @@ class Student extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['userid', 'course_fees', 'country_code'], 'integer'],
+            [['userid', 'course_fees', 'city_code', 'state_code', 'country_code'], 'integer'],
+            [['enrol_no'], 'required'],
             [['regs_date', 'completion_date', 'dob'], 'safe'],
             [['student_name', 'college_name', 'course_name', 'email'], 'string', 'max' => 50],
-            [['college_code', 'city_code', 'state_code'], 'string', 'max' => 4],
+            [['college_code'], 'string', 'max' => 4],
             [['course_code'], 'string', 'max' => 8],
             [['course_status'], 'string', 'max' => 20],
             [['enrol_no'], 'string', 'max' => 11],
             [['gender'], 'string', 'max' => 1],
             [['mobile'], 'string', 'max' => 12],
             [['qual_desc'], 'string', 'max' => 100],
-            [['photo_url'], 'string', 'max' => 200],
+           
+            [['enrol_no'], 'unique'],
         ];
     }
 
@@ -82,8 +84,8 @@ class Student extends \yii\db\ActiveRecord
             'country_code' => 'Country Code',
             'mobile' => 'Mobile',
             'email' => 'Email',
-            'qual_desc' => 'Qual Desc',
-            'photo_url' => 'Photo Url',
+            'qual_desc' => 'Qualification Description',
+           
         ];
     }
 }

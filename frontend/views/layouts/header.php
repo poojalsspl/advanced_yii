@@ -46,6 +46,22 @@ use yii\bootstrap\Nav;
                             $menuItems[] = ['label' => 'Sign Up', 'url' => ['site/signup']];
                         } else {
                            $menuItems[] = ['label' => 'Logout', 'url' => ['site/logout'], 'data-method' => 'post'];
+                           $menuItems[] = 
+                            [
+                                'label' => 'User',
+                                'url' => '',
+                                'linkOptions' => [],
+                                'items' => [
+                                    [
+                                        'label' => 'Profile',
+                                        'url' => ['site/dashboard']
+                                    ],
+                                    [
+                                        'label' => 'Judgment',
+                                        'url' => ['judgment-mast/index']
+                                    ],
+                                ]
+                            ];
                   
                         }
                       
