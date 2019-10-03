@@ -118,3 +118,11 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+/*added for keeping datepicker height,width same as other input field*/ 
+input[type=text], select, textarea {
+width: 100%;    
+padding: 2px;
+border: 1px solid #ccc;
+border-radius: 4px;
+resize: vertical;
+}

@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 use frontend\models\CountryMast;
 use frontend\models\StateMast;
 use frontend\models\CityMast;
+use frontend\models\CollegeMast;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\DepDrop;
 use yii\bootstrap\Modal;
@@ -17,12 +18,16 @@ use yii\jui\DatePicker;
 
 
 
-$this->title = 'Update Profile';
-    $baseUrl = Yii::$app->params['domainName'];
+$this->title = 'Student';
+   
 
     $country = ArrayHelper::map(CountryMast::find()->all(), 'country_code', 'country_name');
     array_push($country, "Select Country");
     $country = array_reverse($country,true);
+
+    $college = ArrayHelper::map(CollegeMast::find()->all(), 'college_code', 'college_name');
+    array_push($college, "Select College");
+    $college = array_reverse($college,true);
     
     
 ?>
@@ -42,8 +47,14 @@ $this->title = 'Update Profile';
                             <div class="col-md-4 col-xs-12">
 
                                 <?= $form->field($model, 'student_name')->textInput(['placeholder' => 'Enter First Name']) ?>
+                                         <?= $form->field($model, 'dob')->widget(\yii\jui\DatePicker::class, [
+                             
+                            'dateFormat' => 'dd/MM/yyyy',
 
-                                <?= $form->field($model, 'mobile')->textInput() ?>
+                           ]); ?>
+                           
+
+                               
 
                             </div>
                             <div class="col-md-4 col-xs-12">
@@ -54,11 +65,10 @@ $this->title = 'Update Profile';
 
                             </div>
                             <div class="col-md-4 col-xs-12">
-                            	 <?= $form->field($model, 'dob')->widget(\yii\jui\DatePicker::class, [
-                             
-                            'dateFormat' => 'dd/MM/yyyy',
-
-                           ]); ?>
+                       
+                            <?= $form->field($model, 'mobile')->textInput() ?>
+                             <?php
+  echo $form->field($model, 'college_code')->dropDownList($college, ['id'=>'college_code']);?>
                             </div> 	
 
                         </div>
@@ -80,6 +90,7 @@ $this->title = 'Update Profile';
                                
                                 <?php
   echo $form->field($model, 'country_code')->dropDownList($country, ['id'=>'country_code']);?>
+
                                 
                             </div>
                             <div class="col-md-4 col-xs-12">

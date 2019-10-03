@@ -19,6 +19,7 @@ use app\models\Student;
 use frontend\models\CountryMast;
 use frontend\models\StateMast;
 use frontend\models\CityMast;
+use frontend\models\CollegeMast;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -258,18 +259,29 @@ class SiteController extends Controller
 {
          
          $id = Yii::$app->user->identity->id;
+         $username = Yii::$app->user->identity->username;
          $model = new Student();
          $model->regs_date = date('Y-m-d');
          $model->userid = $id;
+         $model->email = $username;
         $date = date('Y-m-d');
         $date = explode('-', $date);
+        $year  = $date[0];
         $month = $date[1];
         $day   = $date[2];
-        $year  = $date[0];
-        $enrol_no = $year.$month.'0001';
+        $qry = Yii::$app->db->createCommand("SELECT MAX(enrol_no+1) FROM student");
+        $sum = $qry->queryScalar();
+        $split = str_split($sum,6);
+        $enrol_no = $year.$month.$split[1];
         $model->enrol_no = $enrol_no;
 
+
         if (Yii::$app->request->post()) {
+            $model->load(\Yii::$app->request->post());
+            $college = new CollegeMast();
+            $college_name =  $college->getCollegeName($model->college_code);
+            $model->college_name = $college_name ;  
+
             $model->load(\Yii::$app->request->post());
              $dob = $model->dob;
              $dob = str_replace('/', '-', $dob);
