@@ -66,7 +66,7 @@ $this->title = 'Student';
                             </div>
                             <div class="col-md-4 col-xs-12">
                        
-                            <?= $form->field($model, 'mobile')->textInput() ?>
+                            
                              <?php
   echo $form->field($model, 'college_code')->dropDownList($college, ['id'=>'college_code']);?>
                             </div> 	

@@ -87,38 +87,6 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->redirect(['site/dashboard']);
         }
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) 
-        {
-            return $this->redirect(['judgment-mast/index']);
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    public function actionLoginbkup1()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->redirect(['site/dashboard']);
-        }
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) 
-        {
-            return $this->redirect(['judgment-mast/index']);
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    public function actionLoginbkup()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->redirect(['site/dashboard']);
-        }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -126,10 +94,14 @@ class SiteController extends Controller
             $userdata = UserMast::find()->where(['id'=>Yii::$app->user->id])->one();
             if($userdata->status==0)
              {
+               
                return $this->redirect(['judgment-mast/index']);
+
              }
             
         } else {
+            //$model->password = '';
+
             return $this->render('login', [
                 'model' => $model,
             ]);
@@ -198,7 +170,6 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    /*static pages start*/
     public function actionAbout()
     {
 
@@ -244,7 +215,6 @@ class SiteController extends Controller
     {
         return $this->render('course-judgment-specialised');
     }
-    /*static pages end*/
 
     //addded for fetching state list on registration form
        public function actionSubcat() {
@@ -290,12 +260,10 @@ class SiteController extends Controller
          
          $id = Yii::$app->user->identity->id;
          $username = Yii::$app->user->identity->username;
-         $mobile = Yii::$app->user->identity->mobile_number;
          $model = new Student();
          $model->regs_date = date('Y-m-d');
          $model->userid = $id;
          $model->email = $username;
-         $model->mobile = $mobile;
         $date = date('Y-m-d');
         $date = explode('-', $date);
         $year  = $date[0];
@@ -306,6 +274,7 @@ class SiteController extends Controller
         $split = str_split($sum,6);
         $enrol_no = $year.$month.$split[1];
         $model->enrol_no = $enrol_no;
+
 
         if (Yii::$app->request->post()) {
             $model->load(\Yii::$app->request->post());
@@ -318,8 +287,10 @@ class SiteController extends Controller
              $dob = str_replace('/', '-', $dob);
            $model->dob = date('Y-m-d', strtotime($dob));
             
-            if ($model->save()) {
-                Yii::$app->session->setFlash('success', "Student profile updated."); 
+            
+              if ($model->save()) {
+                //$msg = "Student profile updated.";
+                  Yii::$app->session->setFlash('success', "Student profile updated."); 
                  return $this->redirect(['dashboard']);
 
               } else {
@@ -345,7 +316,17 @@ class SiteController extends Controller
         $command = $sql->createCommand();
      
         $model = $command->queryAll();   
-         return $this->render('dashboard', [
+         
+
+        
+         //$model = Student::findOne($id);
+         // $connection = Yii::$app->getDb();
+        //$model = $connection->createCommand("SELECT student_name,college_name,course_name from student where userid= :userid", [':userid' => $id ]);
+       
+                  //echo $model->getRawSql();die;
+
+        
+            return $this->render('dashboard', [
             'model' => $model,
             ]); 
        
@@ -358,21 +339,6 @@ class SiteController extends Controller
      * @return mixed
      */
     public function actionSignup()
-    {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                Yii::$app->session->setFlash('success', 'Thank you for registration.');
-            return $this->refresh();
-               }
-        }
-           
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionSignupbkup()
     {
         $model = new SignupForm();
         $usermodel = new UserMast();

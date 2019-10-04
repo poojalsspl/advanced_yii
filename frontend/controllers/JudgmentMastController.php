@@ -14,6 +14,7 @@ use frontend\models\JsubCatgMast;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\db\Query;
 
 use yii\helpers\ArrayHelper;
 
@@ -48,8 +49,14 @@ class JudgmentMastController extends Controller
     public function actionIndex()
     {
         $username = \Yii::$app->user->identity->username;
-        $searchModel = JudgmentMast::find()->select('judgment_date,judgment_title,court_name,judgment_code')->from('judgment_mast')->where(['username'=>$username])->asArray()->all();
-        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $date = date('Y-m-d');
+        /*SELECT * FROM `judgment_mast` WHERE username = 'pooja@laxyosolutionsoft.com' and research_date = (SELECT MIN(research_date) from judgment_mast where research_date <= CURRENT_DATE AND completion_date is null)*/
+        $subQuery = JudgmentMast::find()->select('MIN(research_date)')->where(['<=','research_date' , $date])->andWhere(['completion_date'=>NULL]);
+        $query = JudgmentMast::find()
+        ->select('judgment_date,judgment_title,court_name,judgment_code')
+        ->where(['=', 'research_date', $subQuery])
+        ->andWhere(['username'=>$username]);
+        $searchModel = $query->all();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -67,6 +74,8 @@ class JudgmentMastController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    
 
     /**
      * Displays a single JudgmentMast model.
