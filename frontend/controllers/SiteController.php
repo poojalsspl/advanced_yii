@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\User;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
@@ -90,7 +91,15 @@ class SiteController extends Controller
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) 
         {
-            return $this->redirect(['judgment-mast/index']);
+            $user = new User();
+            $userdata = User::find()->where(['id'=>Yii::$app->user->id])->one();
+            if($userdata->log_det == '0')
+             {
+                return $this->redirect(['site/registration']);
+             }else if($userdata->log_det == '1'){
+               
+               return $this->redirect(['site/dashboard']);
+             } 
         } else {
             return $this->render('login', [
                 'model' => $model,
@@ -287,7 +296,7 @@ class SiteController extends Controller
 
     public function actionRegistration()
 {
-         
+         $user = new LoginForm();
          $id = Yii::$app->user->identity->id;
          $username = Yii::$app->user->identity->username;
          $mobile = Yii::$app->user->identity->mobile_number;
@@ -313,12 +322,11 @@ class SiteController extends Controller
             $college_name =  $college->getCollegeName($model->college_code);
             $model->college_name = $college_name ;  
 
-            $model->load(\Yii::$app->request->post());
              $dob = $model->dob;
              $dob = str_replace('/', '-', $dob);
            $model->dob = date('Y-m-d', strtotime($dob));
             
-            if ($model->save()) {
+            if ($model->save() && $user->SetStatus($id,'1')) {
                 Yii::$app->session->setFlash('success', "Student profile updated."); 
                  return $this->redirect(['dashboard']);
 

@@ -75,4 +75,13 @@ class LoginForm extends Model
 
         return $this->_user;
     }
+
+    public function SetStatus($id,$log_det){
+        \Yii::$app->db->createCommand("UPDATE user SET log_det=:log_det WHERE id=:id")
+        ->bindValue(':id', $id)
+        ->bindValue(':log_det', $log_det)
+        ->execute();
+
+        return true;
+    }
 }
