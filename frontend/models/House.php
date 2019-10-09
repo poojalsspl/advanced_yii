@@ -46,4 +46,9 @@ class House extends \yii\db\ActiveRecord
             'description' => 'Description',
         ];
     }
+
+    public function getRooms()
+    {
+        return $this->hasMany(Room::className(), ['house_id' => 'id']);
+    }
 }

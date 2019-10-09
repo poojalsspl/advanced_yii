@@ -73,4 +73,10 @@ class Person extends \yii\db\ActiveRecord
 
         return $models;
     }
+
+     //added for update function
+    public function getHouses()
+    {
+        return $this->hasMany(House::className(), ['person_id' => 'id']);
+    }
 }
