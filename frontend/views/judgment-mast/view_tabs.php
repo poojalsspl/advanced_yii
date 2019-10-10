@@ -43,7 +43,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
    
     if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }
 
-    if(!empty($JudgmentElement)){ $element           =  '/judgment-element/update'; $elementcls = "btn-success"; } else { $element =  '/judgment-element/create'; $elementcls = "btn-warning"; }
+    if(!empty($JudgmentElement)){ $element           =  '/judgment-element/index'; $elementcls = "btn-success"; } else { $element =  '/judgment-element/create'; $elementcls = "btn-warning"; }
 
     if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-success";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-warning"; }
 ?>
@@ -58,7 +58,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?= Html::a('Citations',[$citation,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$citationcls ]) ?>
 <?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
 <?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
-<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'value'=>''],["class"=>"btn btn-block  ".$elementcls ]) ?>
+<?php echo Html::a('Judgment Elements',[$element,'id'=>'','jcode'=>$jcode,'value'=>'FACTS'],["class"=>"btn btn-block  ".$elementcls ]) ?>
 
 
 

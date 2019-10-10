@@ -32,7 +32,8 @@ class JudgmentElement extends \yii\db\ActiveRecord
     {
         return [
             [['judgment_code', 'weight_perc', 'element_word_length'], 'integer'],
-            [['element_text'], 'string'],
+           
+            [['element_text'], 'required'],
             
             [['element_name'], 'string', 'max' => 25],
         ];

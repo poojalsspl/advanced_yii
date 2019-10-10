@@ -91,11 +91,15 @@ class JudgmentElementController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id,$value)
+    public function actionUpdate($id,$value,$jcode)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $element_text = $_POST['JudgmentElement']['element_text'];
+            $element_word = str_word_count($element_text);
+            $model->element_word_length = $element_word;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

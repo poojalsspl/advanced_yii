@@ -26,9 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'judgment_code',
-            'element_code',
             'element_name',
             'element_text:ntext',
             //'weight_perc',
@@ -43,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id'=>$model->id]);
                 },
                'Edit' => function ($url, $model, $key) {
-                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id'=>$model->id,'value'=>$model->element_name]);
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id'=>$model->id,'value'=>$model->element_name,'jcode'=>$model->judgment_code]);
             },
              
                 'format' => 'raw',

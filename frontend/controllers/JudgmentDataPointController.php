@@ -78,22 +78,20 @@ class JudgmentDataPointController extends Controller
 
 
     
-
+    /*dynamic form creation code*/
      public function actionCreate($jcode)
     {
-       $count = 5;//count(Yii::$app->request->post('JudgmentDataPoint', []));
-       
+       $count = count(Yii::$app->request->post('JudgmentDataPoint', []));
        $models = [new JudgmentDataPoint()];
        for($i = 1; $i < $count; $i++) {
             $models[] = new JudgmentDataPoint();
         }
-        if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
-
-            foreach ($models as $model) {
-                $model->judgment_code = $jcode;
-                //Try to save the models. Validation is not needed as it's already been done.
-                $model->save(false);
-
+       if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models))
+        {
+         foreach ($models as $model) {
+            $model->judgment_code = $jcode;
+            //Try to save the models. Validation is not needed as it's already been done.
+            $model->save(false);
             }
             return $this->redirect('index');
         }
@@ -102,6 +100,36 @@ class JudgmentDataPointController extends Controller
             'models' => $models,
         ]);
     }
+     /*end of dynamic form creation code*/
+
+     /*----------------------------------------------*/
+     /*----------------------------------------------*/
+     /*----------------------------------------------*/
+     /*----------------------------------------------*/
+
+     /*nested dynamic form creation code*/
+     public function actionCreate1($jcode)
+    {
+       $count = count(Yii::$app->request->post('JudgmentDataPoint', []));
+       $models = [new JudgmentDataPoint()];
+       for($i = 1; $i < $count; $i++) {
+            $models[] = new JudgmentDataPoint();
+        }
+       if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models))
+        {
+         foreach ($models as $model) {
+            $model->judgment_code = $jcode;
+            //Try to save the models. Validation is not needed as it's already been done.
+            $model->save(false);
+            }
+            return $this->redirect('index');
+        }
+
+        return $this->render('create1', [
+            'models' => $models,
+        ]);
+    }
+    /*end of nested dynamic form creation code*/
 
     /**
      * Updates an existing JudgmentDataPoint model.
