@@ -44,4 +44,18 @@ class ElementMast extends \yii\db\ActiveRecord
             'element_type' => 'Element Type',
         ];
     }
+
+     public function getElementName($element){
+        $query = (new \yii\db\Query())
+        ->select('element_name')
+        ->from('element_mast')
+        ->where('element_code=:element_code', [':element_code' => $element]);
+
+        $command = $query->createCommand();
+
+
+        // Execute the command:
+        $rows = $command->queryAll();
+         return $rows[0]['element_name'];
+     }
 }

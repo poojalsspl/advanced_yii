@@ -5,7 +5,6 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\JudgmentDataPoint;
 use frontend\models\JudgmentDataPointSearch;
-use frontend\models\ElementMast;
 use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -79,21 +78,22 @@ class JudgmentDataPointController extends Controller
 
 
     
-    /*dynamic form creation code*/
+
      public function actionCreate($jcode)
     {
-       $count = count(Yii::$app->request->post('JudgmentDataPoint', []));
+       $count = 5;//count(Yii::$app->request->post('JudgmentDataPoint', []));
+       
        $models = [new JudgmentDataPoint()];
        for($i = 1; $i < $count; $i++) {
             $models[] = new JudgmentDataPoint();
         }
-       if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models))
-        {
-            
-         foreach ($models as $model) {
-            $model->judgment_code = $jcode;
-            //Try to save the models. Validation is not needed as it's already been done.
-            $model->save(false);
+        if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
+
+            foreach ($models as $model) {
+                $model->judgment_code = $jcode;
+                //Try to save the models. Validation is not needed as it's already been done.
+                $model->save(false);
+
             }
             return $this->redirect('index');
         }
@@ -102,68 +102,6 @@ class JudgmentDataPointController extends Controller
             'models' => $models,
         ]);
     }
-     /*end of dynamic form creation code*/
-
-     /*----------------------------------------------*/
-     /*----------------------------------------------*/
-     /*----------------------------------------------*/
-     /*----------------------------------------------*/
-
-     /* dynamic form creation code with dropdown*/
-     public function actionCreate1($jcode)
-    {
-       $count = count(Yii::$app->request->post('JudgmentDataPoint', []));
-
-       $models = [new JudgmentDataPoint()];
-       for($i = 1; $i < $count; $i++) {
-            $models[] = new JudgmentDataPoint();
-        }
-       if (Model::loadMultiple($models, Yii::$app->request->post()))
-        {
-            
-            
-         foreach ($models as $model) {
-            $element = new ElementMast();
-            $element_name =  $element->getElementName($model->element_code);
-            $model->element_name = $element_name ;
-            $model->judgment_code = $jcode;
-            //Try to save the models. Validation is not needed as it's already been done.
-            $model->save(false);
-            }
-            return $this->redirect('index');
-        }
-
-        return $this->render('create1', [
-            'models' => $models,
-        ]);
-    }
-    /*end of nested dynamic form creation code with dropdown*/
-
-    /* dynamic form creation code with dropdown*/
-     public function actionCreate1bkup($jcode)
-    {
-       $count = count(Yii::$app->request->post('JudgmentDataPoint', []));
-
-       $models = [new JudgmentDataPoint()];
-       for($i = 1; $i < $count; $i++) {
-            $models[] = new JudgmentDataPoint();
-        }
-       if (Model::loadMultiple($models, Yii::$app->request->post()))
-        {
-            //print_r($models);die;
-         foreach ($models as $model) {
-            $model->judgment_code = $jcode;
-            //Try to save the models. Validation is not needed as it's already been done.
-            $model->save(false);
-            }
-            return $this->redirect('index');
-        }
-
-        return $this->render('create1', [
-            'models' => $models,
-        ]);
-    }
-    /*end of nested dynamic form creation code with dropdown*/
 
     /**
      * Updates an existing JudgmentDataPoint model.
@@ -199,24 +137,6 @@ class JudgmentDataPointController extends Controller
 
         return $this->render('update', ['models' => $models,'jcode'=>$jcode]);
     }
-
-
-    /* dynamic form updation code with dropdown*/
-    public function actionUpdate1($jcode="")
-    {
-        //$models = JudgmentDataPoint::find()->indexBy('id')->all();
-        $models = JudgmentDataPoint::find()->where(['judgment_code' => $jcode])->all();
-
-        if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
-            foreach ($models as $model) {
-                $model->save(false);
-            }
-            return $this->redirect('index');
-        }
-
-        return $this->render('update1', ['models' => $models,'jcode'=>$jcode]);
-    }
-    /* end of dynamic form updation code with dropdown*/
 
     /**
      * Deletes an existing JudgmentDataPoint model.
