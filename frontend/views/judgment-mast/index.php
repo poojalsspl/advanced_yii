@@ -3,24 +3,27 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-
-
+use yii\helpers\ArrayHelper;
+use app\models\Student;
 //use yii\grid\ActionColumn;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\JudgmentMastSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'List of Judgments';
-//$this->params['breadcrumbs'][] = $this->title;
-
+$username;    
+$student_name = ArrayHelper::map(Student::find()->where(['email'=>$username])->all(),'student_name','student_name');
+foreach ($student_name as $student) {
+  
+   // echo $student;
+}
+//$this->title = 'List of judgments allocated to : '.$student;
 
 ?>
-
+<?php //echo \Yii::$app->user->username ?>
 <div class="judgment-mast-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?php //echo Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h1><?php echo 'List of judgments allocated to : ' ?><span style="color: #185886 ;"><?php echo $student;?></span></h1>
    <!--  <p>
         <?php// Html::a('Create Judgment Mast', ['create'], ['class' => 'btn btn-success']) ?>
     </p> -->

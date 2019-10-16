@@ -209,6 +209,9 @@ class JudgmentDataPointController extends Controller
 
         if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
             foreach ($models as $model) {
+                $element = new ElementMast();
+            $element_name =  $element->getElementName($model->element_code);
+            $model->element_name = $element_name ;
                 $model->save(false);
             }
             return $this->redirect('index');

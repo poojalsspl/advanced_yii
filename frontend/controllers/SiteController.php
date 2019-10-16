@@ -253,6 +253,11 @@ class SiteController extends Controller
     {
         return $this->render('course-judgment-specialised');
     }
+
+    public function actionCheckValidJs()
+    {
+        return $this->render('check-valid-js');
+    }
     /*static pages end*/
 
     //addded for fetching state list on registration form
