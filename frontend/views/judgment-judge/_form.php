@@ -45,7 +45,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 
     <?php $form = ActiveForm::begin(['method'=>'post']); ?>
      <div class="box-header with-border">
-              <h3 class="box-title">Advocate</h3>
+              <h3 class="box-title"></h3>
             </div>
 
             <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
@@ -140,7 +140,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 if($model->isNewRecord){
     $customScript = <<< SCRIPT
     $('.addr-row').on('click',function(){
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="col-xs-6"><div class="form-group field-judgmentjudge-judge_name has-success"><label class="control-label" for="judgmentjudge-judge_name">Judge Name</label><input type="text" id="judgmentjudge-judge_name" class="form-control judgmentjudge-judge_name" name="JudgmentJudge[judge_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');    
+        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-12"><div class="col-xs-6"><div class="form-group field-judgmentjudge-judge_name has-success"><input type="text" id="judgmentjudge-judge_name" class="form-control judgmentjudge-judge_name" name="JudgmentJudge[judge_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');    
     });
     $('.deleted-row').on('click',function(){
         console.log('test');
@@ -167,7 +167,7 @@ else{
         $customScript = <<< SCRIPT
     $('.addr-row').on('click',function(){
         $('.judgmentjudge-judge_name').attr('name','JudgmentJudge[judge_name][]')
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="col-xs-6"><div class="form-group field-judgmentjudge-judge_name has-success"><label class="control-label" for="judgmentjudge-judge_name">Judge Name</label><input type="text" id="judgmentjudge-judge_name" class="form-control judgmentjudge-judge_name" name="JudgmentJudge[judge_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');    
+        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-12"><div class="col-xs-6"><div class="form-group field-judgmentjudge-judge_name has-success"><input type="text" id="judgmentjudge-judge_name" class="form-control judgmentjudge-judge_name" name="JudgmentJudge[judge_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');    
     });
     $('.deleted-row').on('click',function(){
         console.log('test');
@@ -217,7 +217,7 @@ success    : function(data){
          for(i=0;i<res.length;i++){
             if(res[i])
             {
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentjudge-judge_name has-success"><label class="control-label" for="judgmentjudge-judge_name">Judge Name</label><input type="text" id="judgmentjudge-judge_name" class="form-control judgmentudge-judge_name" name="JudgmentJudge[judge_name][]" maxlength="50" aria-invalid="false" value="'+res[i]+'"><div class="help-block"></div></div></div></div></div>');
+        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentjudge-judge_name has-success"><input type="text" id="judgmentjudge-judge_name" class="form-control judgmentudge-judge_name" name="JudgmentJudge[judge_name][]" maxlength="50" aria-invalid="false" value="'+res[i]+'"><div class="help-block"></div></div></div></div></div>');
             }
             }
     },

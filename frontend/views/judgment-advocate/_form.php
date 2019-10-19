@@ -109,7 +109,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     });
 
     ?>   
-
+<?php //form for update ?>
     <?php $form = ActiveForm::begin(); ?>
 			<div class="box-header with-border"><h3 class="box-title">Advocate</h3></div>
 			<?php // $form->field($model, 'judgment_code')->hiddenInput(); ?>

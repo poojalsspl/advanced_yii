@@ -16,26 +16,21 @@ use yii\grid\GridView;
 ?>
 <div class="model_array"></div>
 
-<table id="list" class="display nowrap" style="width:100%;" border="1">
+<table id="list" class="display nowrap" style="width:60%;" border="1">
   <thead>
     <tr>
-      <th>Doc Id</th>
-      <th>act_group_desc</th>
-      <th>act_catg_desc</th>
-      <th>act_title</th>
-      <th>act_sub_catg_desc</th>
-      <th>level</th>
+      
+       <th><center>Act Title</center></th>
+     
     </tr>
   </thead>
   <tbody>
   <?php foreach ($model as $row): ?>
     <tr>
-      <td><?php echo $row['doc_id']; ?></td>
-      <td><?php echo $row['act_group_desc']; ?></td>
-      <td><?php echo $row['act_catg_desc']; ?></td>
-      <td><?php echo $row['act_title']; ?></td>
-      <td><?php echo $row['act_sub_catg_desc']; ?></td>
-      <td><?php echo $row['level']; ?></td>
+
+      
+       <?php echo $row['act_title']; ?>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="" height="5px"><br>
+      
     </tr>
   <?php endforeach; ?>
   </tbody>

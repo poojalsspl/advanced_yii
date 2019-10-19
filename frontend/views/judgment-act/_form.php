@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\models\JudgmentMast;
-use frontend\models\BareactDetl;
+use frontend\models\BareactMast;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 
@@ -31,26 +31,45 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     function($result) {
         return $result['court_name'].'::'.$result['judgment_title'];
     });
+foreach ($judgment as $key => $judgment_value) {
+    $judgment_value;
+}
+
 ?>
 
     <?php $form = ActiveForm::begin(); ?>
- <div class="row">    
+    <hr>
+ <div class="row">  
+ <div class="col-md-2 col-xs-12">
+    <label>Judgment Title</label>
+ </div>
+  
     <div class="col-md-6 col-xs-12">
-    <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
-    'data' => $judgment,
-    'disabled'=>true,
-    'initValueText' => $jcode,     
-    //'language' => '',
-    'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
 
-]); ?>
+ <?= $form->field($model, 'judgment_title')->textInput(['maxlength' => true ,'readonly'=>true,'value' => $judgment_value])->label(false) ?>
 </div>
-<div class="col-md-6 col-xs-12">
-     <?php  $bareactdtlmast  = ArrayHelper::map(BareactDetl::find()->all(), 'bareact_code', 'bareact_desc'); ?>
+<div class="col-md-4 col-xs-12">
+ </div> 
+</div>
+<?php
+/*$array = ['type' => 'A', 'options' => [1, 2]];
+echo $type = ArrayHelper::getValue($array, 'type');
+$data = [
+    ['id' => '123', 'data' => 'abc'],
+    ['id' => '345', 'data' => 'def'],
+];
+$ids = ArrayHelper::getColumn($data, 'id');
+print_r($ids);*/
+?>
+
+ <div class="row">  
+<div class="col-md-3 col-xs-12">
+
+     <?php  $bareactmast  = ArrayHelper::map(BareactMast::find()->all(), 'bareact_code', 'bareact_desc'); ?>
     
 
       <?= $form->field($model, 'bareact_desc')->widget(Select2::classname(), [            
-            'data' => $bareactdtlmast,
+            'data' => $bareactmast,
 
             'options' => ['placeholder' => 'Select Barect', 'value' => $model->bareact_code, ],
             'pluginEvents'=>[
@@ -61,7 +80,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
                       url      : '/advanced_yii/judgment-act/bareact?id='+val,
                       
                       success  : function(data) {  
-
+                       console.log('data',data);
                         $('.act_row').html(data);
                         //var x = $('.model_array').text();
                         //alert(x);
@@ -74,8 +93,17 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
             ]
             ]); ?>        
     </div>
+    <div class="col-md-3 col-xs-12">
+        <?= $form->field($model, 'act_catg_desc')->textInput(['maxlength' => true ,'value' => ''])->label('Main Act Category') ?>
+    </div>
+    <div class="col-md-3 col-xs-12">
+        <?= $form->field($model, 'act_sub_catg_desc')->textInput(['maxlength' => true ,'value' => ''])->label('Act SubCategory') ?>
+    </div>  
+    <div class="col-md-3 col-xs-12">
+        <?= $form->field($model, 'act_group_desc')->textInput(['maxlength' => true ,'value' => ''])->label('Group') ?>
+    </div>  
     <div class="act_row">
-        
+      
     </div>
 
  <div class="col-md-4 col-xs-12">

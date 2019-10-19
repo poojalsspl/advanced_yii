@@ -81,7 +81,7 @@ class BareactDetl extends \yii\db\ActiveRecord
             'sno' => 'Sno',
             'doc_id' => 'Doc ID',
             'bareact_code' => 'Bareact Code',
-            'bareact_desc' => 'Bareact Desc',
+            'bareact_desc' => 'Bareact Description',
             'act_group_code' => 'Act Group Code',
             'act_group_desc' => 'Act Group Desc',
             'act_catg_code' => 'Act Catg Code',
