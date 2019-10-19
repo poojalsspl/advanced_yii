@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentRef */
 
-$this->title = 'Create Judgment Ref';
-$this->params['breadcrumbs'][] = ['label' => 'Judgment Refs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Create Judgment Referred';
+/*$this->params['breadcrumbs'][] = ['label' => 'Judgment Refs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;*/
 ?>
 <div class="judgment-ref-create">
 

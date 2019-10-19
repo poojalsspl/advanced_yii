@@ -41,7 +41,7 @@ foreach ($judgment as $key => $judgment_value) {
     <hr>
  <div class="row">  
  <div class="col-md-2 col-xs-12">
-    <label>Judgment Title</label>
+    <label style="float: right;">Judgment Title</label>
  </div>
   
     <div class="col-md-6 col-xs-12">
@@ -61,7 +61,16 @@ $data = [
 $ids = ArrayHelper::getColumn($data, 'id');
 print_r($ids);*/
 ?>
+<div id="js_val">
+    
+</div>
 
+
+
+<?php
+ //echo "hello : ";
+ // echo $content = "<script>document.getElementById(js_val);</script>";
+?>
  <div class="row">  
 <div class="col-md-3 col-xs-12">
 
@@ -73,19 +82,22 @@ print_r($ids);*/
 
             'options' => ['placeholder' => 'Select Barect', 'value' => $model->bareact_code, ],
             'pluginEvents'=>[
-            "select2:select" => "function() { var val = $(this).val();                
+            "select2:select" => "function() { var val = $(this).val();  
+                $('#js_val').append(val);
+            //console.log('val',val);              
               $('#judgmentact-bareact_code').val(val);
 
                     $.ajax({
                       url      : '/advanced_yii/judgment-act/bareact?id='+val,
-                      
+                     
                       success  : function(data) {  
                        console.log('data',data);
+
                         $('.act_row').html(data);
                         //var x = $('.model_array').text();
                         //alert(x);
-                        $('.test').val(x);
-                        $('#judgmentact-doc_id').val(x.doc_id);
+                       // $('.test').val(x);
+                       // $('#judgmentact-doc_id').val(x.doc_id);
                      // console.log(data.doc_id)
                                 }                                             
                       });
@@ -93,6 +105,7 @@ print_r($ids);*/
             ]
             ]); ?>        
     </div>
+    <div class="act_data">
     <div class="col-md-3 col-xs-12">
         <?= $form->field($model, 'act_catg_desc')->textInput(['maxlength' => true ,'value' => ''])->label('Main Act Category') ?>
     </div>
@@ -102,6 +115,7 @@ print_r($ids);*/
     <div class="col-md-3 col-xs-12">
         <?= $form->field($model, 'act_group_desc')->textInput(['maxlength' => true ,'value' => ''])->label('Group') ?>
     </div>  
+    </div>
     <div class="act_row">
       
     </div>

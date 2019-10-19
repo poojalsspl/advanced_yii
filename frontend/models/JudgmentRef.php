@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "judgment_ref".
@@ -64,5 +65,28 @@ class JudgmentRef extends \yii\db\ActiveRecord
             'court_name_ref' => 'Court Name Ref',
             'flag' => 'Flag',
         ];
+    }
+
+        public static function getJudgmentCitiedBY($RIdBy){
+        $data=array('records'=>null,'total'=>0);
+        $record=JudgmentRef::find()
+            ->asArray()
+            ->select(array("judgment_title_ref","judgment_code"))
+            ->where(['doc_id_ref' =>$RIdBy])
+            ->groupBy("judgment_title_ref")
+            ->all();
+        $totalRecords= JudgmentRef::find()
+            ->asArray()
+            ->where(['doc_id_ref' =>$RIdBy])
+            ->groupBy("judgment_title_ref")
+            ->count();
+        if(!empty($record) && isset($record["0"])) {
+            foreach ($record as $value) {
+                $result[] = $value["judgment_title_ref"];
+
+            }
+            return $data=array("records"=>$result,'total'=>$totalRecords);
+        }
+        return $data;
     }
 }

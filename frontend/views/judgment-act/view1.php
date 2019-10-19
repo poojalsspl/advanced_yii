@@ -20,16 +20,18 @@ use yii\grid\GridView;
   <thead>
     <tr>
       
-       <th><center>Act Title</center></th>
+      
      
     </tr>
   </thead>
   <tbody>
-  <?php foreach ($model as $row): ?>
+  <?php 
+
+  foreach ($model as $row): ?>
     <tr>
 
       
-       <?php echo $row['act_title']; ?>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="" height="5px"><br>
+       <?php echo $row['act_title']; ?>&nbsp;&nbsp;&nbsp;<input type="checkbox" name=""><br>
       
     </tr>
   <?php endforeach; ?>
