@@ -115,8 +115,8 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'appellant_adv'            => 'Appellant Adv',
             'appellant_adv_count'      => 'Appellant Adv Count',
             'respondant_name'          => 'Respondant Name',
-            'respondant_adv'           => 'Respondant Adv',
-            'respondant_adv_count'     => 'Respondant Adv Count',
+            'respondant_adv'           => 'Respondant Advocate',
+            'respondant_adv_count'     => 'Respondant Advocate Count',
             'appeal_status'            => 'Status',
             'citation'                 => 'Citation',
             'citation_count'           => 'Citation Count',
@@ -200,6 +200,16 @@ class JudgmentMast extends \yii\db\ActiveRecord
      public function getJudgmentElement()
     {
         return $this->hasMany(JudgmentElement::className(), ['judgment_code' => 'judgment_code']);
+    }
+
+     public function getJudgmentDatapoints()
+    {
+        return $this->hasMany(JudgmentDataPoint::className(), ['judgment_code' => 'judgment_code']);
+    }
+
+    public function getJudgmentReferred()
+    {
+        return $this->hasMany(JudgmentRef::className(), ['judgment_code' => 'judgment_code']);
     }
    
     

@@ -21,6 +21,7 @@ use frontend\models\CountryMast;
 use frontend\models\StateMast;
 use frontend\models\CityMast;
 use frontend\models\CollegeMast;
+use app\models\CourseMast;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -317,7 +318,7 @@ class SiteController extends Controller
         $day   = $date[2];
         $qry = Yii::$app->db->createCommand("SELECT MAX(enrol_no+1) FROM student");
         $sum = $qry->queryScalar();
-        $split = str_split($sum,6);
+        $split = str_split($sum,6); // splits a string into an array.
         $enrol_no = $year.$month.$split[1];
         $model->enrol_no = $enrol_no;
 
@@ -327,9 +328,13 @@ class SiteController extends Controller
             $college_name =  $college->getCollegeName($model->college_code);
             $model->college_name = $college_name ;  
 
-             $dob = $model->dob;
+            $course = new CourseMast();
+            $course_name =  $course->getCourseName($model->course_code);
+            $model->course_name = $course_name ;
+
+             /*$dob = $model->dob;
              $dob = str_replace('/', '-', $dob);
-           $model->dob = date('Y-m-d', strtotime($dob));
+           $model->dob = date('Y-m-d', strtotime($dob));*/
             
             if ($model->save() && $user->SetStatus($id,'1')) {
                 Yii::$app->session->setFlash('success', "Student profile updated."); 
@@ -352,7 +357,7 @@ class SiteController extends Controller
      {
          $id = Yii::$app->user->identity->id;
         $sql = (new \yii\db\Query());
-        $sql->select(['student_name','college_name','course_name']) 
+        $sql->select(['student_name','college_name','course_code','course_name']) 
            ->from('student')
            ->where('userid=:userid', [':userid' => $id]);
         $command = $sql->createCommand();

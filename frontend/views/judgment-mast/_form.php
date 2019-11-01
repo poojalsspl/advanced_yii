@@ -19,6 +19,7 @@ use yii\helpers\Url;
 /* @var $model backend\models\JudgmentMast */
 /* @var $form yii\widgets\ActiveForm */
 $cache = Yii::$app->cache;
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['index']];
 ?>
 <style type="text/css">
   .tabs a{
@@ -68,7 +69,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
 <?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'value'=>''],["class"=>"btn btn-block  ".$elementcls ]) ?>
 
-<span style="float:right; border: 1px solid red; background-color: red;"><a href="../judgment-mast/index"  style="color: white" class="btn btn-block red"><b>Judgment Allocated</b></a></span>
+<!-- <span style="float:right; border: 1px solid red; background-color: red;"><a href="../judgment-mast/index"  style="color: white" class="btn btn-block red"><b>Judgment Allocated</b></a></span> -->
 </div>  
 
 <!---end of code for tabs------->

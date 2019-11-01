@@ -3,7 +3,8 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-//use app\models\Student;
+use app\models\CourseMast;
+use frontend\models\SyllabusDetail;
 
 
 //$this->params['breadcrumbs'][] = $this->title;
@@ -50,7 +51,9 @@ use yii\helpers\ArrayHelper;
                               <div class="box-body">
                                 
                                   <table>
-                                     <?php foreach ($model as $key => $value) { ?>
+                                     <?php foreach ($model as $key => $value) {
+                                       
+                                      ?>
                                <tr>
                                     <td>Name</td>
                                     <td><?php echo $value['student_name']; ?></td>
@@ -60,41 +63,54 @@ use yii\helpers\ArrayHelper;
                                     <td><?=$value['college_name']; ?></td>
                                 </tr>  
                                 <tr>
+                                    <td></td>
+                                    <td><?php $value['course_code']; ?></td>
+                                </tr> 
+                                 <?php $course = CourseMast::find('course_duration')->where(['course_code'=>$value['course_code']])->one();
+                                    
+                                    $course_duration = $course->course_duration;
+                                    if ($course_duration<=1){$month = 'Month';}else{ $month = 'Months';}
+                                    
+                                 ?>
+                                     
+                                <tr>
                                     <td>Course</td>
                                     <td><?=$value['course_name']; ?></td>
                                 </tr> 
                                 <tr>
                                     <td>Duration</td>
-                                    <td><?= '1 Month' ;?></td>
+                                    <td><?= $course_duration.' '.$month ;?></td>
                                 </tr>
+                                <?php
+                            $syllabus_all = SyllabusDetail::find('syllabus_catg_name,tot_count')->where(['course_code'=>$value['course_code']])->all();
+                                
+                               // print_r($syllabus);die;
+                            foreach($syllabus_all as $syllabus){
+                                ?>
+                                
                                 <tr>
-                                    <td>Drafting</td>
-                                    <td><?= '15'; ?></td>
+                                    <td><?php echo $syllabus->syllabus_catg_name; ?></td>
+                                    <td><?php echo $syllabus->tot_count; ?></td>
                                 </tr>
-                                <tr>
-                                    <td>Redrafting</td>
-                                    <td><?= '5'; ?></td>
-                                </tr>
-                                <tr>
-                                    <td>Days left</td>
-                                    <td><?= '2'; ?></td>
-                                </tr>
-                                <tr>
+                            <?php } ?>
+                                
+                                
+                               <!--  <tr>
                                     <td>Status</td>
-                                    <td><?= 'Pending'; ?></td>
+                                    <td><?php //echo 'Pending'; ?></td>
                                 </tr>   
                                      <tr>
                                     <td>Acts worked on</td>
-                                    <td><?= '222'; ?></td>
+                                    <td><?php //echo '222'; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Judgment Elements</td>
-                                    <td><?= '15'; ?></td>
+                                    <td><?php //echo '15'; ?></td>
                                 </tr>   
                                 <tr>
                                     <td>Unique DataPoints</td>
-                                    <td><?= '222'; ?></td>
-                                </tr>   
+                                    <td><?php //echo '222'; ?></td>
+                                </tr>    -->
                                 <?php } ?>   
                              </table>
                             </div>
@@ -102,6 +118,7 @@ use yii\helpers\ArrayHelper;
                         </div>
                     </div>
                 </div>
+            
 
                  <div class="col-md-8 border-green">
                     <div class="row">

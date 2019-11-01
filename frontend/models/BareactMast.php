@@ -77,4 +77,17 @@ class BareactMast extends \yii\db\ActiveRecord
             'country_name' => 'Country Name',
         ];
     }
+
+    public function getBareactName($bareact){
+        $query = (new \yii\db\Query())
+        ->select('bareact_desc')
+        ->from('bareact_mast')
+        ->where('bareact_code=:bareact_code', [':bareact_code' => $bareact]);
+        $command = $query->createCommand();
+        // Execute the command:
+        $rows = $command->queryAll();
+         return $rows[0]['bareact_desc'];
+     }
+
+
 }

@@ -10,6 +10,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentAdvocate */
 /* @var $form yii\widgets\ActiveForm */
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
 ?>
 <!--add tabs---->
 <?= $this->render("/judgment-mast/view_tabs") ?>

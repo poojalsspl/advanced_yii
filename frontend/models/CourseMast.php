@@ -28,7 +28,22 @@ class CourseMast extends \yii\db\ActiveRecord
             [['course_code'], 'string', 'max' => 8],
             [['course_name', 'course_level_name', 'course_eligibility'], 'string', 'max' => 50]
         ];
-    }   
+    }  
+
+    public function getCourseName($course){
+        $query = (new \yii\db\Query())
+        ->select('course_name')
+        ->from('course_mast')
+        ->where('course_code=:course_code', [':course_code' => $course]);
+
+        $command = $query->createCommand();
+
+
+        // Execute the command:
+        $rows = $command->queryAll();
+        ;
+         return $rows[0]['course_name'];
+     } 
 }
 
 

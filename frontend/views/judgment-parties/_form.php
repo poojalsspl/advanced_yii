@@ -11,6 +11,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentParties */
 /* @var $form yii\widgets\ActiveForm */
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
 ?>
 
 <!---code for tabs------->

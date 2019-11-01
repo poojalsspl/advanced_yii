@@ -11,6 +11,7 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentRef */
 /* @var $form yii\widgets\ActiveForm */
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
 ?>
 
 <?php

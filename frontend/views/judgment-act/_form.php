@@ -10,6 +10,7 @@ use kartik\select2\Select2;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentAct */
 /* @var $form yii\widgets\ActiveForm */
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
 ?>
 
 <!---code for tabs------->
@@ -90,16 +91,30 @@ print_r($ids);*/
                     $.ajax({
                       url      : '/advanced_yii/judgment-act/bareact?id='+val,
                      
-                      success  : function(data) {  
-                       console.log('data',data);
-
+                      success  : function(data) {
+                      let jdata = JSON.parse(data);
+                      let catg_desc='';
+                       console.log(typeof jdata);
+                       jdata.forEach(function(e){
+                        console.log('e',e)
+                        catg_desc = e.act_catg_desc;
+                        catg_code = e.act_catg_code;
+                        sub_desc  = e.act_sub_catg_desc;
+                        sub_code  = e.act_sub_catg_code;
+                        group_desc = e.act_group_desc;
+                        group_code = e.act_group_code;
+                        act_title  = e.act_title;
+                        console.log(act_title);
+                        });
                         $('.act_row').html(data);
-                        //var x = $('.model_array').text();
-                        //alert(x);
-                       // $('.test').val(x);
-                       // $('#judgmentact-doc_id').val(x.doc_id);
-                     // console.log(data.doc_id)
-                                }                                             
+                        $('#judgmentact-act_catg_desc').val(catg_desc); 
+                        $('#judgmentact-act_catg_code').val(catg_code);
+                        $('#judgmentact-act_sub_catg_desc').val(sub_desc);
+                        $('#judgmentact-act_sub_catg_code').val(sub_code);
+                        $('#judgmentact-act_group_desc').val(group_desc);
+                        $('#judgmentact-act_group_code').val(group_code);
+                                }    
+
                       });
              }"
             ]
@@ -108,13 +123,19 @@ print_r($ids);*/
     <div class="act_data">
     <div class="col-md-3 col-xs-12">
         <?= $form->field($model, 'act_catg_desc')->textInput(['maxlength' => true ,'value' => ''])->label('Main Act Category') ?>
+         <?= $form->field($model, 'act_catg_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
     </div>
     <div class="col-md-3 col-xs-12">
         <?= $form->field($model, 'act_sub_catg_desc')->textInput(['maxlength' => true ,'value' => ''])->label('Act SubCategory') ?>
+         <?= $form->field($model, 'act_sub_catg_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
     </div>  
     <div class="col-md-3 col-xs-12">
         <?= $form->field($model, 'act_group_desc')->textInput(['maxlength' => true ,'value' => ''])->label('Group') ?>
+         <?= $form->field($model, 'act_group_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
     </div>  
+    </div>
+    <div>
+        
     </div>
     <div class="act_row">
       

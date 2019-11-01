@@ -5,7 +5,7 @@ use frontend\models\JudgmentElement;
 use frontend\models\ElementMast;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
-
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
 ?>
 <?php
     $jcode  = '';

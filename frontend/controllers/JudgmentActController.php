@@ -7,6 +7,7 @@ use frontend\models\JudgmentAct;
 use frontend\models\JudgmentMast;
 use frontend\models\JudgmentActSearch;
 use frontend\models\BareactDetl;
+use frontend\models\BareactMast;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -71,13 +72,18 @@ class JudgmentActController extends Controller
         $model = new JudgmentAct();
 
         if ($model->load(Yii::$app->request->post()) ) {
-            $model->judgment_code = $jcode;
+             $model->judgment_code = $jcode;
+             $model->j_doc_id = $doc_id;
+
+            $bareact = new BareactMast();
+            $bareact_desc =  $bareact->getBareactName($model->bareact_code);
+            $model->bareact_desc = $bareact_desc ; 
  
-             \Yii::$app->db->createCommand()->batchInsert('judgment_act', ['judgment_code','j_doc_id','act_group_desc', 'act_catg_desc','act_title'], [
+             /*\Yii::$app->db->createCommand()->batchInsert('judgment_act', ['judgment_code','j_doc_id','act_group_desc', 'act_catg_desc','act_title'], [
     [$jcode,$doc_id,'CENTRAL ACT','Defence law','Section 80(b) In The Army Act, 1950'],
-    [$jcode,$doc_id,'CENTRAL ACT','Defence law','Section 20(1) In The Army Act, 1950']])->execute();
+    [$jcode,$doc_id,'CENTRAL ACT','Defence law','Section 20(1) In The Army Act, 1950']])->execute();*/
     
-           // $model->save(false);
+            $model->save(false);
              Yii::$app->session->setFlash('success', "Created successfully!!");
              return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);
             //return $this->redirect(['view', 'id' => $model->id]);
@@ -247,10 +253,10 @@ class JudgmentActController extends Controller
 
      // return 'test';
      
-      return $this->render('view1', [
+     /* return $this->render('view1', [
             'model' => $bareact,
-        ]);
-     //return $result;   
+        ]);*/
+     return $result;   
     }
 
 

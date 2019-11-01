@@ -7,12 +7,14 @@ use frontend\models\CountryMast;
 use frontend\models\StateMast;
 use frontend\models\CityMast;
 use frontend\models\CollegeMast;
+use app\models\CourseMast;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\DepDrop;
 use yii\bootstrap\Modal;
 use kartik\select2\Select2;
 use kartik\file\FileInput;
 use yii\jui\DatePicker; 
+use kartik\daterange\DateRangePicker;
 
 
 
@@ -28,6 +30,10 @@ $this->title = 'Student';
     $college = ArrayHelper::map(CollegeMast::find()->all(), 'college_code', 'college_name');
     array_push($college, "Select College");
     $college = array_reverse($college,true);
+
+    $course = ArrayHelper::map(CourseMast::find()->all(), 'course_code', 'course_name');
+    //$course = array_push($course, "Select Course");
+    //$course = array_reverse($course,false);
     
     
 ?>
@@ -46,14 +52,17 @@ $this->title = 'Student';
                             
                             <div class="col-md-4 col-xs-12">
 
-                                <?= $form->field($model, 'student_name')->textInput(['placeholder' => 'Enter First Name']) ?>
-                                         <?= $form->field($model, 'dob')->widget(\yii\jui\DatePicker::class, [
-                             
-                            'dateFormat' => 'dd/MM/yyyy',
-
-                           ]); ?>
+                                <?= $form->field($model, 'student_name')->textInput(['placeholder' => 'Enter Full Name']) ?>
+                                         
                            
-
+                               <?= $form->field($model, 'dob')->widget(DateRangePicker::classname(), [
+      'pluginOptions'=>[
+          'singleDatePicker'=>true,
+          'showDropdowns'=>true,
+          'locale'=>['format' => 'YYYY-MM-DD'],
+      ],
+  ]);
+    ?>
                                
 
                             </div>
@@ -68,7 +77,9 @@ $this->title = 'Student';
                        
                             
                              <?php
-  echo $form->field($model, 'college_code')->dropDownList($college, ['id'=>'college_code']);?>
+  echo $form->field($model, 'college_code')->dropDownList($college, ['id'=>'college_code'])->label('College');?>
+  <?php
+  echo $form->field($model, 'course_code')->dropDownList($course, ['id'=>'course_code','prompt'=>'Select...'])->label('Course');?>
                             </div> 	
 
                         </div>
@@ -89,7 +100,7 @@ $this->title = 'Student';
                             <div class="col-md-4 col-xs-12">
                                
                                 <?php
-  echo $form->field($model, 'country_code')->dropDownList($country, ['id'=>'country_code']);?>
+  echo $form->field($model, 'country_code')->dropDownList($country, ['id'=>'country_code'])->label('Country');?>
 
                                 
                             </div>
@@ -103,7 +114,7 @@ $this->title = 'Student';
                                     'placeholder'=>'Select state',
                                     'url'=>\yii\helpers\Url::to(['/site/subcat'])
                                      ]
-                                    ]);?>
+                                    ])->label('State');?>
                                     
 
 
@@ -120,7 +131,7 @@ $this->title = 'Student';
                                     'placeholder'=>'Select city',
                                     'url'=>\yii\helpers\Url::to(['/site/getcity'])
                                     ]
-                                ]);?>
+                                ])->label('City');?>
                                 
                               
                                 

@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentCitation */
 /* @var $form yii\widgets\ActiveForm */
-
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
  //$journal = ArrayHelper::map(JournalMast::find()->all(), 'journal_code', 'journal_name');
 ?>
 
