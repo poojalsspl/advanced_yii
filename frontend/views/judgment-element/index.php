@@ -8,14 +8,14 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Judgment Elements';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
 ?>
 <div class="judgment-element-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Judgment Element', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php //echo Html::a('Create Judgment Element', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -25,20 +25,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            'judgment_code',
             'element_name',
-            'element_text:ntext',
+            //'element_text:ntext',
+             [
+                'attribute'=>'element_text',
+                'contentOptions' => ['style' => 'width:800px; white-space: normal;'],
+            ],
             //'weight_perc',
             //'element_word_length',
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',
             'header'=>'Actions',
-            'template' => '{View}{Edit}', 
+            'template' => '{Edit}', 
             'buttons' => [
-                'View' => function ($url, $model, $key) {
+               /* 'View' => function ($url, $model, $key) {
                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id'=>$model->id]);
-                },
+                },*/
                'Edit' => function ($url, $model, $key) {
                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id'=>$model->id,'value'=>$model->element_name,'jcode'=>$model->judgment_code]);
             },

@@ -28,7 +28,7 @@ class ElementMast extends \yii\db\ActiveRecord
     {
         return [
             [['element_code'], 'string', 'max' => 2],
-            [['element_name'], 'string', 'max' => 25],
+            [['element_name'], 'string'],
             [['element_type'], 'string', 'max' => 1],
         ];
     }
@@ -45,17 +45,20 @@ class ElementMast extends \yii\db\ActiveRecord
         ];
     }
 
-     public function getElementName($element){
+     public function getElementCode($element){
         $query = (new \yii\db\Query())
-        ->select('element_name')
+        ->select('element_code')
         ->from('element_mast')
-        ->where('element_code=:element_code', [':element_code' => $element]);
+        ->where('element_name=:element_name', [':element_name' => $element]);
 
         $command = $query->createCommand();
 
 
         // Execute the command:
         $rows = $command->queryAll();
-         return $rows[0]['element_name'];
+        
+         return $rows[0]['element_code'];
      }
+
+
 }

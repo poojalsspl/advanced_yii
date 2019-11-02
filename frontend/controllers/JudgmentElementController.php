@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\JudgmentElement;
 use frontend\models\JudgmentElementSearch;
+use frontend\models\ElementMast;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -69,6 +70,11 @@ class JudgmentElementController extends Controller
         
         if ($model->load(Yii::$app->request->post())) {
             $element_text = $_POST['JudgmentElement']['element_text'];
+
+            $element = new ElementMast();
+            $element_code = $element->getElementCode($model->element_name);
+            $model->element_code = $element_code ;
+
             $element_word = str_word_count($element_text);
             $model->element_word_length = $element_word;
             //return $this->redirect(['view', 'id' => $model->id]);
@@ -97,6 +103,11 @@ class JudgmentElementController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $element_text = $_POST['JudgmentElement']['element_text'];
+
+            $element = new ElementMast();
+            $element_code = $element->getElementCode($model->element_name);
+            $model->element_code = $element_code;   
+
             $element_word = str_word_count($element_text);
             $model->element_word_length = $element_word;
             $model->save();

@@ -8,6 +8,15 @@ use yii\bootstrap\Nav;
 /* @var $this \yii\web\View */
 /* @var $content string */
 ?>
+<style type="text/css">
+    .navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 8px 15px;
+    font-size: 18px;
+    line-height: 27px;
+}
+</style>
 
 <header class="main-header theme-color-main">
     <div class="row">
