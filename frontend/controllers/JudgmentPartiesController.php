@@ -66,6 +66,7 @@ class JudgmentPartiesController extends Controller
      */
     public function actionCreate($jcode="",$doc_id="")
     {
+        $username = \Yii::$app->user->identity->username;
         $model = new JudgmentParties();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -80,6 +81,7 @@ class JudgmentPartiesController extends Controller
             {
             $model->judgment_code  = $judgmentParties;
             $model->doc_id  = $doc_id;
+            $model->username  = $username;
             $model->party_flag = $_POST['JudgmentParties']['party_flag'][$i];
             $model->party_name = $_POST['JudgmentParties']['party_name'][$i];            
             $model->save(); 
@@ -109,6 +111,7 @@ class JudgmentPartiesController extends Controller
      */
     public function actionUpdate($jcode="",$doc_id="")
     {
+        $username = \Yii::$app->user->identity->username;
         $model =  JudgmentParties::find()->where(['judgment_code'=>$jcode])->one();
         $judgmentAdvocate =$model->judgment_code;  
         $adv = new JudgmentParties();
@@ -126,6 +129,7 @@ class JudgmentPartiesController extends Controller
             $parties = new JudgmentParties();
             $parties->judgment_code  = $judgmentAdvocate;
             $parties->doc_id = $doc_id;
+            $parties->username = $username;
             $parties->party_flag = $_POST['JudgmentParties']['party_flag'][$i];
             $parties->party_name = $_POST['JudgmentParties']['party_name'][$i];                        
             $parties->save();

@@ -32,6 +32,7 @@ class JudgmentJudge extends \yii\db\ActiveRecord
         return [
             [['judgment_code'], 'integer'],
             [['judge_name'], 'string', 'max' => 50],
+            [['username'],'string'],
             [['doc_id'], 'string', 'max' => 40],
             [['judgment_code'], 'exist', 'skipOnError' => true, 'targetClass' => JudgmentMast::className(), 'targetAttribute' => ['judgment_code' => 'judgment_code']],
         ];
@@ -47,6 +48,7 @@ class JudgmentJudge extends \yii\db\ActiveRecord
             'judgment_code' => 'Judgment Code',
             'judge_name' => 'Judge Name',
             'doc_id' => 'Doc ID',
+            'username' => 'Username',
         ];
     }
 

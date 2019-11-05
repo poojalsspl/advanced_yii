@@ -68,6 +68,7 @@ class JudgmentAdvocateController extends Controller
      */
     public function actionCreate($jcode="",$doc_id="")
     {
+        $username = \Yii::$app->user->identity->username;
         $model = new JudgmentAdvocate();
 
 
@@ -78,6 +79,7 @@ class JudgmentAdvocateController extends Controller
             $model = new JudgmentAdvocate();
             $model->judgment_code = $jcode;
             $model->doc_id = $doc_id;
+            $model->username = $username;
             $model->advocate_flag = $_POST['JudgmentAdvocate']['advocate_flag'][$i];
             $model->advocate_name = $_POST['JudgmentAdvocate']['advocate_name'][$i];
             // $judgment_code = $_POST['JudgmentAdvocate']['judgment_code']; 
@@ -114,6 +116,7 @@ class JudgmentAdvocateController extends Controller
      */
     public function actionUpdate($jcode="",$doc_id="")
     {
+         $username = \Yii::$app->user->identity->username;
          $model =  JudgmentAdvocate::find()->where(['judgment_code'=>$jcode])->one();
          $judgmentAdvocate =$model->judgment_code;
          $adv = new JudgmentAdvocate();
@@ -132,6 +135,7 @@ class JudgmentAdvocateController extends Controller
             $advocate = new JudgmentAdvocate();
             $advocate->judgment_code  = $judgmentAdvocate;
             $advocate->doc_id = $doc_id;
+            $advocate->username = $username;
             $advocate->advocate_flag = $_POST['JudgmentAdvocate']['advocate_flag'][$i];
             $advocate->advocate_name = $_POST['JudgmentAdvocate']['advocate_name'][$i];                        
             $advocate->save(); 

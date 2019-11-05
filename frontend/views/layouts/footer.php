@@ -10,7 +10,7 @@
             
             <span style="color:#fff">
             	
-            </span> <a href="http://www.laxyosolutionsoft.com/"> &nbsp;Laxyo Group</a><span style="color: #fff"> | Hosting Partner</span> <a href="http://www.sipl.net/">  &nbsp;Scorpio Informatics</a> 
+            </span> <a href="http://www.laxyosolutionsoft.com/"> &nbsp;Laxyo Group</a><span style="color: #fff"> | Hosting Partner</span> <a href="https://scorpioinformatics.com/">  &nbsp;Scorpio Informatics</a> 
            
   
         </div>

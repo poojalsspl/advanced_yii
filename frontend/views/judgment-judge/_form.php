@@ -88,7 +88,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
       <?php if(!$model->isNewRecord) { ?>
  <?php $form = ActiveForm::begin(['method'=>'post']); ?>
            <div class="box-header with-border">
-              <h3 class="box-title">Advocate</h3>
+              <h3 class="box-title"></h3>
             </div>
   <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
     'data' => $judgment,

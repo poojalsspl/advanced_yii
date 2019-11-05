@@ -33,6 +33,7 @@ class JudgmentParties extends \yii\db\ActiveRecord
             [['judgment_code'], 'integer'],
             [['party_name'], 'string', 'max' => 50],
             [['party_flag'], 'string', 'max' => 1],
+            [['username'],'string'],
             [['judgment_code'], 'exist', 'skipOnError' => true, 'targetClass' => JudgmentMast::className(), 'targetAttribute' => ['judgment_code' => 'judgment_code']],
         ];
     }

@@ -45,7 +45,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="box-header with-border">
-              <h3 class="box-title">Advocate</h3>
+              <h3 class="box-title"></h3>
             </div>
 <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
     'disabled'=>true,
@@ -101,7 +101,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     ?>   
     <?php $form = ActiveForm::begin(); ?>
             <div class="box-header with-border">
-              <h3 class="box-title">Advocate</h3>
+              <h3 class="box-title"></h3>
             </div>
 
             <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [

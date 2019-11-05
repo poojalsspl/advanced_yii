@@ -114,6 +114,7 @@ class JudgmentRefController extends Controller
 
     public function actionAdddata($id,$jcode)
     {
+      $username = \Yii::$app->user->identity->username;  
       $JudgmentRef      = new JudgmentRef();
       $JudgmentRefCheck = JudgmentRef::find()->where(['judgment_code'=>$jcode,'judgment_code_ref'=>$id])->count();
       $judgmentMast     =  JudgmentMast::find()->where(['judgment_code'=>$id])->one();
@@ -136,6 +137,7 @@ class JudgmentRefController extends Controller
      $JudgmentRef->judgment_code_ref        =  $judgmentMast->judgment_code;
      $JudgmentRef->doc_id_ref               =  $judgmentMast->doc_id;
      $JudgmentRef->judgment_title_ref       =  $judgmentMast->judgment_title;
+     $JudgmentRef->username                 =  $username;
      $JudgmentRef->save(false);
      Yii::$app->getSession()->setFlash('success','Created sucessfully');
              if($action=='create'){

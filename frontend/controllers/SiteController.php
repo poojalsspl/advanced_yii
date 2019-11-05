@@ -21,6 +21,7 @@ use frontend\models\CountryMast;
 use frontend\models\StateMast;
 use frontend\models\CityMast;
 use frontend\models\CollegeMast;
+use frontend\models\JudgmentMast;
 use app\models\CourseMast;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -388,6 +389,25 @@ class SiteController extends Controller
         return $this->render('signup', [
             'model' => $model,
         ]);
+    }
+
+    public function actionReports()
+    {
+        $username = Yii::$app->user->identity->username;
+        $sql = (new \yii\db\Query());
+        $sql->select(['judgment_code']) 
+           ->from('judgment_mast')
+           ->where('username=:username', [':username' => $username]);
+        $command = $sql->createCommand();
+        $models = $command->queryAll();
+        //$model = new JudgmentMast();
+        //$models = JudgmentMast::find()->where(['username'=>$username]);
+         return $this->render('reports', [
+                'models' => $models,
+            ]);
+      
+
+
     }
 
     public function actionSignupbkup()

@@ -111,7 +111,7 @@ class JudgmentElementController extends Controller
             $element_word = str_word_count($element_text);
             $model->element_word_length = $element_word;
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

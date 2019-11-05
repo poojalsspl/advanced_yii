@@ -66,6 +66,7 @@ class JudgmentJudgeController extends Controller
      */
     public function actionCreate($jcode="",$doc_id="")
     {
+        $username = \Yii::$app->user->identity->username;
         $model = new JudgmentJudge();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -75,6 +76,7 @@ class JudgmentJudgeController extends Controller
                 $model = new JudgmentJudge();
                 $model->judgment_code = $jcode;
                 $model->doc_id = $doc_id;
+                $model->username = $username;
                 $model->judge_name = $_POST['JudgmentJudge']['judge_name'][$i];
                 $model->save(false); 
             }  
@@ -96,7 +98,7 @@ class JudgmentJudgeController extends Controller
      */
     public function actionUpdate($jcode="",$doc_id="")
     {
-        
+        $username = \Yii::$app->user->identity->username;
         $model =  JudgmentJudge::find()->where(['judgment_code'=>$jcode])->andWhere(['doc_id'=>$doc_id])->one();
         if($model->load(Yii::$app->request->post())) {
             $count = count($_POST['JudgmentJudge']['judge_name']);
@@ -110,6 +112,7 @@ class JudgmentJudgeController extends Controller
                 $judgment                = new JudgmentJudge();
                 $judgment->judgment_code = $jcode;
                 $judgment->doc_id = $doc_id;
+                $judgment->username = $username;
                 $judgment->judge_name    = $_POST['JudgmentJudge']['judge_name'][$i];                        
                 $judgment->save(); 
             }

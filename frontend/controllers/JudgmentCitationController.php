@@ -67,6 +67,8 @@ class JudgmentCitationController extends Controller
      */
     public function actionCreate($jcode="",$doc_id="")
     {
+        $username = \Yii::$app->user->identity->username;
+        
         $model = new JudgmentCitation();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -76,6 +78,7 @@ class JudgmentCitationController extends Controller
                 $model = new JudgmentCitation();
                 $model->judgment_code = $jcode;
                 $model->doc_id = $doc_id;
+                $model->username = $username;
                 $model->citation = $_POST['JudgmentCitation']['citation'][$i];
                 $model->save(false); 
             } 
@@ -119,6 +122,8 @@ class JudgmentCitationController extends Controller
      */
     public function actionUpdate($jcode="",$doc_id="")
     {
+        $username = \Yii::$app->user->identity->username;
+        
         $model =  JudgmentCitation::find()->where(['judgment_code'=>$jcode])->one();    
         if($model->load(Yii::$app->request->post())) {
             $count = count($_POST['JudgmentCitation']['citation']);
@@ -132,6 +137,7 @@ class JudgmentCitationController extends Controller
                 $judgment                = new JudgmentCitation();
                 $judgment->judgment_code = $jcode;
                 $judgment->doc_id = $doc_id;
+                $judgment->username = $username;
                 $judgment->citation    = $_POST['JudgmentCitation']['citation'][$i];                        
                 $judgment->save(); 
             }

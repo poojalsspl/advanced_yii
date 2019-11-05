@@ -75,12 +75,12 @@ class JudgmentMast extends \yii\db\ActiveRecord
      * @inheritdoc
      */
     public function rules()
-    {
+    { 
         return [
             [['court_code', 'appellant_adv_count', 'respondant_adv_count', 'citation_count', 'judges_count', 'jcatg_id', 'jsub_catg_id'], 'integer'],
             [['judgment_date', 'disposition_id','disposition_text','judgment_jurisdiction_id','judgmnent_jurisdiction_text','bench_type_id','bench_type_text','hearing_date','jyear','jcount'], 'safe'],
             [['judgment_title'], 'required'],
-            [['judgment_abstract', 'judgment_text','judgment_text1'], 'string'],
+            [['judgment_abstract', 'judgment_text','judgment_text1','username'], 'string'],
             [['court_name'], 'string', 'max' => 100],
             [['appeal_numb'], 'string', 'max' => 250],
             [['judgment_title'], 'string', 'max' => 255],
@@ -139,7 +139,8 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'judgment_ext_remark_flag' => 'Judgment Ext Remark Flag',
             'bench_type_id'            => 'Bench Type',
             'disposition_id'           => 'Disposition',
-            'judgment_jurisdiction_id' => 'Jurisdiction'
+            'judgment_jurisdiction_id' => 'Jurisdiction',
+            'username'                 => 'Username'
         ];
     }
 

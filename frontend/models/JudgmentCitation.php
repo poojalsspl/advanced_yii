@@ -42,6 +42,7 @@ class JudgmentCitation extends \yii\db\ActiveRecord
             [['journal_name'], 'string', 'max' => 25],
             [['shrt_name'], 'string', 'max' => 10],
             [['citation'], 'string', 'max' => 20],
+            [['username'],'string'],
             [['journal_year'], 'string', 'max' => 6],
             [['journal_volume'], 'string', 'max' => 2],
             [['judgment_code'], 'exist', 'skipOnError' => true, 'targetClass' => JudgmentMast::className(), 'targetAttribute' => ['judgment_code' => 'judgment_code']],
@@ -65,6 +66,7 @@ class JudgmentCitation extends \yii\db\ActiveRecord
             'journal_year' => 'Journal Year',
             'journal_volume' => 'Journal Volume',
             'journal_pno' => 'Journal Pno',
+            'username' => 'Username',
         ];
     }
 
