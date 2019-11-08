@@ -108,7 +108,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'judgment_code'            => 'Judgment Code',
             'court_code'               => 'Court Code',
             'court_name'               => 'Court Name',
-            'appeal_numb'              => 'Appeal Numb',
+            'appeal_numb'              => 'Case Number',
             'judgment_date'            => 'Judgment Date',
             'judgment_title'           => 'Judgment Title',
             'appellant_name'           => 'Appellant Name',

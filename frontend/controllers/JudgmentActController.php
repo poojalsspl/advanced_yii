@@ -69,11 +69,13 @@ class JudgmentActController extends Controller
      */
     public function actionCreate($jcode="",$doc_id="")
     {
+        $username = \Yii::$app->user->identity->username;
         $model = new JudgmentAct();
 
         if ($model->load(Yii::$app->request->post()) ) {
              $model->judgment_code = $jcode;
              $model->j_doc_id = $doc_id;
+             $model->username = $username;
 
             $bareact = new BareactMast();
             $bareact_desc =  $bareact->getBareactName($model->bareact_code);

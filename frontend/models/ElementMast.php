@@ -60,5 +60,16 @@ class ElementMast extends \yii\db\ActiveRecord
          return $rows[0]['element_code'];
      }
 
+     public function getElementName($element){
+$query = (new \yii\db\Query())
+->select('element_name')
+->from('element_mast')
+->where('element_code=:element_code', [':element_code' => $element]);
+$command = $query->createCommand();
+$rows = $command->queryAll();
+
+return $rows[0]['element_name'];
+}
+
 
 }

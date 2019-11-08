@@ -5,6 +5,8 @@ use frontend\models\JudgmentElement;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use wbraganca\dynamicform\DynamicFormWidget;
+
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
 ?>
 <?php
     $jcode  = '';

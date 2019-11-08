@@ -9,6 +9,7 @@ use frontend\models\ElementMast;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * JudgmentElementController implements the CRUD actions for JudgmentElement model.
@@ -63,8 +64,37 @@ class JudgmentElementController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="",$value="")
+    public function actionCreate($jcode="",$doc_id="")
     {
+        $username = \Yii::$app->user->identity->username;
+        $model = new JudgmentElement();
+        $model->judgment_code = $jcode;
+        $model->doc_id = $doc_id;
+        $model->username = $username;
+        
+        if ($model->load(Yii::$app->request->post())) {
+        	 $element_text = $_POST['JudgmentElement']['element_text'];
+
+            $element = new ElementMast();
+            $element_name =  $element->getElementName($model->element_code);
+            $model->element_name = $element_name ;
+
+            $element_word = str_word_count($element_text);
+            $model->element_word_length = $element_word;
+           
+              
+            $model->save();
+            return $this->redirect(['create','jcode'=>$jcode, 'doc_id' => $doc_id]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCreatebkupworking($jcode="",$value="")
+    {
+        $username = \Yii::$app->user->identity->username;
         $model = new JudgmentElement();
         $model->judgment_code = $jcode;
         
@@ -77,6 +107,7 @@ class JudgmentElementController extends Controller
 
             $element_word = str_word_count($element_text);
             $model->element_word_length = $element_word;
+            $model->username = $username;
             //return $this->redirect(['view', 'id' => $model->id]);
 
             $model->save();
@@ -90,6 +121,7 @@ class JudgmentElementController extends Controller
 
 
 
+
     /**
      * Updates an existing JudgmentElement model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -99,17 +131,19 @@ class JudgmentElementController extends Controller
      */
     public function actionUpdate($id,$value,$jcode)
     {
+        $username = \Yii::$app->user->identity->username;
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
             $element_text = $_POST['JudgmentElement']['element_text'];
 
             $element = new ElementMast();
-            $element_code = $element->getElementCode($model->element_name);
-            $model->element_code = $element_code;   
+            $element_name =  $element->getElementName($model->element_code);
+            $model->element_name = $element_name ;   
 
             $element_word = str_word_count($element_text);
             $model->element_word_length = $element_word;
+            $model->username = $username;
             $model->save();
             return $this->redirect(['index']);
         }
@@ -132,6 +166,16 @@ class JudgmentElementController extends Controller
 
         return $this->redirect(['index']);
     }
+
+    public function actionElement($id)
+    {
+        
+         $element = ElementMast::find()->select(['element_desc'])->where(['element_code'=>$id])->asArray()->all();
+     $result = Json::encode($element);
+
+     return $result;   
+    }
+
 
     /**
      * Finds the JudgmentElement model based on its primary key value.

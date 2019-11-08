@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentAct */
 
-$this->title = 'Update Judgment Act: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Judgment Acts', 'url' => ['index']];
+$this->title = 'Acts & Section imposed in Judgment';
+/*$this->params['breadcrumbs'][] = ['label' => 'Judgment Acts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Update';*/
 ?>
 <div class="judgment-act-update">
 

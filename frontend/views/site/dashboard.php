@@ -146,32 +146,32 @@ use frontend\models\SyllabusDetail;
                                 </tr>
                                 <tr>
                                     <th>Judgment Alloted</th>
-                                    <td>1000</td>
-                                    <td>400</td>
-                                    <td>600</td>
+                                    <td><a href="/advanced_yii/judgment-mast/total-list"><?php echo $tot_judgment;?></a></td>
+                                    <td><a href="/advanced_yii/judgment-mast/total-pending"><?php echo $tot_judgment_pending; ?></a></td>
+                                    <td><a href="/advanced_yii/judgment-mast/total_completed"><?php echo $tot_judgment_worked; ?></a></td>
                                     <td><a href="/advanced_yii/judgment-mast/index" class="btn theme-blue-button btn-block">Begin</a></td>
                                 </tr> 
                                 <tr>
-                                    <th>High Court Judgments Alloted</th>
-                                    <td>600</td>
-                                    <td>200</td>
-                                    <td>400</td>
+                                    <th>Supreme Court Judgments Alloted</th>
+                                   <td><?php echo $sc_judgment;?></td>
+                                    <td><?php echo $sc_judgment_pending; ?></td>
+                                    <td><?php echo $sc_judgment_worked; ?></td>
                                     <td></td>
                                 </tr>  
                                 <tr>
-                                    <th>Supreme Court Judgments Alloted</th>
-                                    <td>400</td>
-                                    <td>100</td>
-                                    <td>300</td>
+                                    <th>High Court Judgments Alloted</th>
+                                    <td><?php echo $hc_judgment;?></td>
+                                    <td><?php echo $hc_judgment_pending; ?></td>
+                                    <td><?php echo $hc_judgment_worked; ?></td>
                                     <td></td>
                                 </tr> 
-                                <tr>
+                               <!--  <tr>
                                     <th>Article Writing</th>
                                     <td>15</td>
                                     <td>5</td>
                                     <td>10</td>
                                     <td><a href="/advanced_yii/judgment-mast/index" class="btn theme-blue-button btn-block">Begin</a></td>
-                                </tr>    
+                                </tr>     -->
 
                              </table>
 

@@ -131,6 +131,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 if($model->isNewRecord){
     $customScript = <<< SCRIPT
     $('.addr-row').on('click',function(){
+        console.log('test');
         $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="col-xs-6"><div class="form-group field-judgmentcitation-citation has-success"><label class="control-label" for="judgmentcitation-citation">Citation</label><input type="text" id="judgmentcitation-citation" class="form-control judgmentcitation-citation" name="JudgmentCitation[citation][]" maxlength="20" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');    
     });
     

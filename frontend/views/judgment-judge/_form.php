@@ -56,14 +56,14 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     //'language' => '',
     'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
 
-]); ?>
+])->label('Judgment Title'); ?>
 
       <div class="dynamic-rows rows col-xs-12">   
       <div class="dynamic-rows-field row">
     
         <div class="col-xs-6">
         	 <?= $form->field($model, (!$model->isNewRecord) ? 'judge_name' : 'judge_name[]' )->textInput(['maxlength' => true,
-                'class'=>'judgmentjudge-judge_name form-control']) ?> 
+                'class'=>'judgmentjudge-judge_name form-control'])->label('Judge Name(One Judge Name in Each Row)') ?> 
         </div>
         <div class="col-xs-2">
             
@@ -97,14 +97,16 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     //'language' => '',
     'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
 
-]); ?>
+])->label('Judgment Title'); ?>
     <div class="dynamic-rows rows col-xs-12"> 
     	        <?php $judge = JudgmentJudge::find()->where(['judgment_code'=>$model->judgment_code])->all();    ?>
+                <label>Judge Name(One Judge Name in Each Row)</label>
 <?php foreach ($judge as $jdg) { ?>
      <div class="dynamic-rows-field row">
+
         <div class="col-xs-6">
                 <div class="form-group field-judgmentjudge-judge_name has-success">
-                <label class="control-label" for="judgmentjudge-judge_name">Judge Name</label>
+                <label class="control-label" for="judgmentjudge-judge_name"></label>
                 <input type="text" id="judgmentjudge-judge_name" class="judgmentjudge-judge_name form-control" name="JudgmentJudge[judge_name][]" value="<?= $jdg->judge_name ?>" maxlength="50" aria-invalid="false">
                 <div class="help-block"></div>
                 </div> 

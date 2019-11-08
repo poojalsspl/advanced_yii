@@ -30,11 +30,12 @@ class JudgmentElement extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
+         return [
             [['judgment_code', 'weight_perc', 'element_word_length'], 'integer'],
-           
-            [['element_text'], 'required'],
-            
+            [['element_text'], 'string'],
+            [['username'], 'string', 'max' => 50],
+            [['doc_id'], 'string', 'max' => 40],
+            [['element_code'], 'string', 'max' => 2],
             [['element_name'], 'string', 'max' => 25],
         ];
     }
@@ -46,8 +47,10 @@ class JudgmentElement extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'username' => 'Username',
             'judgment_code' => 'Judgment Code',
-            
+            'doc_id' => 'Doc ID',
+            'element_code' => 'Element Code',
             'element_name' => 'Element Name',
             'element_text' => 'Element Text',
             'weight_perc' => 'Weight Perc',

@@ -357,15 +357,39 @@ class SiteController extends Controller
          public function actionDashboard()
      {
          $id = Yii::$app->user->identity->id;
+         $username = Yii::$app->user->identity->username;
         $sql = (new \yii\db\Query());
         $sql->select(['student_name','college_name','course_code','course_name']) 
            ->from('student')
            ->where('userid=:userid', [':userid' => $id]);
         $command = $sql->createCommand();
      
-        $model = $command->queryAll();   
+        $model = $command->queryAll(); 
+        /*    judgment   */
+        $tot_judgment = JudgmentMast::find()->where(['username'=>$username])->count(); 
+        $tot_judgment_worked = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
+        $tot_judgment_pending = JudgmentMast::find()->where(['username'=>$username])->andWhere(['is', 'completion_date', new \yii\db\Expression('null')])->count();
+
+        /*   Supreme Court judgment   */
+        $sc_judgment = JudgmentMast::find()->where(['username'=>$username])->andWhere(['court_code' => '1'])->count();
+        $sc_judgment_worked = JudgmentMast::find()->where(['username'=>$username])->andWhere(['court_code' => '1'])->andWhere(['not', ['completion_date' => null]])->count();
+        $sc_judgment_pending = JudgmentMast::find()->where(['username'=>$username])->andWhere(['court_code' => '1'])->andWhere(['is', 'completion_date', new \yii\db\Expression('null')])->count();
+
+        /*   High Court judgment   */
+        $hc_judgment = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['court_code' => '1']])->count();
+        $hc_judgment_worked = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['court_code' => '1']])->andWhere(['not', ['completion_date' => null]])->count();
+        $hc_judgment_pending = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['court_code' => '1']])->andWhere(['is', 'completion_date', new \yii\db\Expression('null')])->count(); 
          return $this->render('dashboard', [
             'model' => $model,
+            'tot_judgment' => $tot_judgment,
+            'tot_judgment_worked' => $tot_judgment_worked,
+            'tot_judgment_pending' => $tot_judgment_pending,
+            'sc_judgment' => $sc_judgment,
+            'sc_judgment_worked' => $sc_judgment_worked,
+            'sc_judgment_pending' => $sc_judgment_pending,
+            'hc_judgment' => $hc_judgment,
+            'hc_judgment_worked' => $hc_judgment_worked,
+            'hc_judgment_pending' => $hc_judgment_pending,
             ]); 
        
     
@@ -393,20 +417,19 @@ class SiteController extends Controller
 
     public function actionReports()
     {
-        $username = Yii::$app->user->identity->username;
+        /*$username = Yii::$app->user->identity->username;
         $sql = (new \yii\db\Query());
         $sql->select(['judgment_code']) 
            ->from('judgment_mast')
            ->where('username=:username', [':username' => $username]);
         $command = $sql->createCommand();
         $models = $command->queryAll();
-        //$model = new JudgmentMast();
-        //$models = JudgmentMast::find()->where(['username'=>$username]);
+        
          return $this->render('reports', [
                 'models' => $models,
-            ]);
+            ]);*/
       
-
+        return $this->render('reports');
 
     }
 

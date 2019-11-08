@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentAdvocate */
 
-$this->title = 'Create Judgment Advocate';
+$this->title = 'Advocates appearing as Respondent & Appellant';
 //$this->params['breadcrumbs'][] = ['label' => 'Judgment Advocates', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>

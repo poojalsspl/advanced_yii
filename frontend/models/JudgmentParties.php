@@ -47,7 +47,7 @@ class JudgmentParties extends \yii\db\ActiveRecord
             'judgment_party_id' => 'Judgment Party ID',
             'judgment_code' => 'Judgment Code',
             'party_name' => 'Party Name',
-            'party_flag' => 'Party Flag',
+            'party_flag' => 'Party Type',
         ];
     }
 

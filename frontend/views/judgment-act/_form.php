@@ -84,7 +84,7 @@ print_r($ids);*/
             'options' => ['placeholder' => 'Select Barect', 'value' => $model->bareact_code, ],
             'pluginEvents'=>[
             "select2:select" => "function() { var val = $(this).val();  
-                $('#js_val').append(val);
+                //$('#js_val').append(val);
             //console.log('val',val);              
               $('#judgmentact-bareact_code').val(val);
 
@@ -94,9 +94,10 @@ print_r($ids);*/
                       success  : function(data) {
                       let jdata = JSON.parse(data);
                       let catg_desc='';
-                       console.log(typeof jdata);
+                      let checkbox = '';
+                       //console.log(typeof jdata);
                        jdata.forEach(function(e){
-                        console.log('e',e)
+                        //console.log('e',e)
                         catg_desc = e.act_catg_desc;
                         catg_code = e.act_catg_code;
                         sub_desc  = e.act_sub_catg_desc;
@@ -105,8 +106,10 @@ print_r($ids);*/
                         group_code = e.act_group_code;
                         act_title  = e.act_title;
                         console.log(act_title);
+                        checkbox = checkbox + '<input type=checkbox name=JudgmentAct[act_title] value=' + act_title + '>'+act_title;
                         });
-                        $('.act_row').html(data);
+                        //alert(checkbox);
+                        $('.act_row').html(checkbox);
                         $('#judgmentact-act_catg_desc').val(catg_desc); 
                         $('#judgmentact-act_catg_code').val(catg_code);
                         $('#judgmentact-act_sub_catg_desc').val(sub_desc);

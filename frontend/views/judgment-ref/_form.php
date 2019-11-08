@@ -6,6 +6,7 @@ use frontend\models\JudgmentMast;
 use frontend\models\JudgmentRef;
 use frontend\models\JudgmentMastSearch;
 use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
@@ -21,7 +22,25 @@ if($_GET)
 $jcode  = $_GET['jcode'];
 
 }
+$judgment = ArrayHelper::map(JudgmentMast::find()
+  //->andWhere(['not in','judgment_code',$j_code])
+  ->where(['judgment_code'=>$jcode])
+  ->all(),
+    'judgment_code',
+    function($result) {
+
+        return $result['court_name'].'::'.$result['judgment_title'];
+    });
 ?>
+<?php $form = ActiveForm::begin(); ?>
+ <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
+    'data' => $judgment,
+    'initValueText' => $jcode,
+    'disabled'=>true,
+    'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
+   
+     ])->label('Judgment Title'); ?>
+     <?php ActiveForm::end(); ?>
 <?php
     $searchModel       = new JudgmentMastSearch();
     $dataProvider      = $searchModel->search(Yii::$app->request->queryParams);
@@ -35,8 +54,8 @@ $jcode  = $_GET['jcode'];
   <thead>
     <tr>
       <th>#</th>
-      <th>Judgment Title Ref</th>
-      <th>  <?= Html::a('Delete All', ['deleteall','jcode'=>$judegmentCode],['class' =>  'btn btn-danger pull-right']) ?></th>
+      <th>Referred Judgment Title </th>
+      <th>  <?php //echo Html::a('Delete All', ['deleteall','jcode'=>$judegmentCode],['class' =>  'btn btn-danger pull-right']) ?></th>
     </tr>
   </thead>
   <tbody>
@@ -44,11 +63,12 @@ $jcode  = $_GET['jcode'];
     <tr>
       <th scope="row"><?= $judgmentRefSingle->id ?></th>
       <td><?= $judgmentRefSingle->judgment_title_ref ?></td>
-      <td><?= Html::a('<span class="glyphicon glyphicon-trash"></span>', ['singledelete','id'=>$judgmentRefSingle->id,'jcode'=>$jcode],['class' => 'btn btn-block btn-danger btn-xs']) ?></td>
+      <td><?php //echo Html::a('<span class="glyphicon glyphicon-trash"></span>', ['singledelete','id'=>$judgmentRefSingle->id,'jcode'=>$jcode],['class' => 'btn btn-block btn-danger btn-xs']) ?></td>
     </tr>
     <?php } ?>
   </tbody>
 </table>
+
 <?php Pjax::begin(); ?>    
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -75,6 +95,8 @@ $jcode  = $_GET['jcode'];
     ]); ?>
 
 </div>
+
+
 
 <style type="text/css">
 .position-check

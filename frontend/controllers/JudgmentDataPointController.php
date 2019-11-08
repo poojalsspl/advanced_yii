@@ -82,6 +82,7 @@ class JudgmentDataPointController extends Controller
     /*dynamic form creation code*/
      public function actionCreate($jcode)
     {
+        $username = \Yii::$app->user->identity->username;
        $count = count(Yii::$app->request->post('JudgmentDataPoint', []));
        $models = [new JudgmentDataPoint()];
        for($i = 1; $i < $count; $i++) {
@@ -92,6 +93,7 @@ class JudgmentDataPointController extends Controller
             
          foreach ($models as $model) {
             $model->judgment_code = $jcode;
+            $model->username = $username;
             //Try to save the models. Validation is not needed as it's already been done.
             $model->save(false);
             }
@@ -112,6 +114,7 @@ class JudgmentDataPointController extends Controller
      /* dynamic form creation code with dropdown*/
      public function actionCreate1($jcode)
     {
+        $username = \Yii::$app->user->identity->username;
        $count = count(Yii::$app->request->post('JudgmentDataPoint', []));
 
        $models = [new JudgmentDataPoint()];
@@ -127,6 +130,7 @@ class JudgmentDataPointController extends Controller
             $element_name =  $element->getElementName($model->element_code);
             $model->element_name = $element_name ;
             $model->judgment_code = $jcode;
+            $model->username = $username;
             //Try to save the models. Validation is not needed as it's already been done.
             $model->save(false);
             }
@@ -187,11 +191,13 @@ class JudgmentDataPointController extends Controller
 */
     public function actionUpdate($jcode="")
     {
+        
         //$models = JudgmentDataPoint::find()->indexBy('id')->all();
         $models = JudgmentDataPoint::find()->where(['judgment_code' => $jcode])->all();
 
         if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
             foreach ($models as $model) {
+                
                 $model->save(false);
             }
             return $this->redirect('index');
@@ -204,6 +210,7 @@ class JudgmentDataPointController extends Controller
     /* dynamic form updation code with dropdown*/
     public function actionUpdate1($jcode="")
     {
+        $username = \Yii::$app->user->identity->username;
         //$models = JudgmentDataPoint::find()->indexBy('id')->all();
         $models = JudgmentDataPoint::find()->where(['judgment_code' => $jcode])->all();
 
@@ -212,6 +219,7 @@ class JudgmentDataPointController extends Controller
                 $element = new ElementMast();
             $element_name =  $element->getElementName($model->element_code);
             $model->element_name = $element_name ;
+            $model->username = $username;
                 $model->save(false);
             }
             return $this->redirect('index');
