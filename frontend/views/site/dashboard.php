@@ -4,9 +4,15 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use app\models\CourseMast;
+use frontend\models\JudgmentAdvocate;
+use frontend\models\JudgmentJudge;
+use frontend\models\JudgmentParties;
+use frontend\models\JudgmentRef;
+use frontend\models\JudgmentElement;
+use frontend\models\JudgmentCitation;
 use frontend\models\SyllabusDetail;
 
-
+$username = Yii::$app->user->identity->username;
 //$this->params['breadcrumbs'][] = $this->title;
 
 
@@ -146,23 +152,23 @@ use frontend\models\SyllabusDetail;
                                 </tr>
                                 <tr>
                                     <th>Judgment Alloted</th>
-                                    <td><a href="/advanced_yii/judgment-mast/total-list"><?php echo $tot_judgment;?></a></td>
-                                    <td><a href="/advanced_yii/judgment-mast/total-pending"><?php echo $tot_judgment_pending; ?></a></td>
-                                    <td><a href="/advanced_yii/judgment-mast/total_completed"><?php echo $tot_judgment_worked; ?></a></td>
+                                    <td><a href="/advanced_yii/judgment-mast/total-list"><?= $tot_judgment;?></a></td>
+                                    <td><a href="/advanced_yii/judgment-mast/total-pending"><?= $tot_judgment_pending; ?></a></td>
+                                    <td><a href="/advanced_yii/judgment-mast/total-completed"><?= $tot_judgment_worked; ?></a></td>
                                     <td><a href="/advanced_yii/judgment-mast/index" class="btn theme-blue-button btn-block">Begin</a></td>
                                 </tr> 
                                 <tr>
                                     <th>Supreme Court Judgments Alloted</th>
-                                   <td><?php echo $sc_judgment;?></td>
-                                    <td><?php echo $sc_judgment_pending; ?></td>
-                                    <td><?php echo $sc_judgment_worked; ?></td>
+                                   <td><a href="/advanced_yii/judgment-mast/total-sc-list"><?= $sc_judgment;?></a></td>
+                                    <td><a href="/advanced_yii/judgment-mast/total-sc-pending"><?= $sc_judgment_pending; ?></a></td>
+                                    <td><a href="/advanced_yii/judgment-mast/total-sc-completed"><?= $sc_judgment_worked; ?></a></td>
                                     <td></td>
                                 </tr>  
                                 <tr>
                                     <th>High Court Judgments Alloted</th>
-                                    <td><?php echo $hc_judgment;?></td>
-                                    <td><?php echo $hc_judgment_pending; ?></td>
-                                    <td><?php echo $hc_judgment_worked; ?></td>
+                                    <td><a href="/advanced_yii/judgment-mast/total-hc-list"><?= $hc_judgment;?></a></td>
+                                    <td><a href="/advanced_yii/judgment-mast/total-hc-pending"><?= $hc_judgment_pending; ?></a></td>
+                                    <td><a href="/advanced_yii/judgment-mast/total-hc-completed"><?= $hc_judgment_worked; ?></a></td>
                                     <td></td>
                                 </tr> 
                                <!--  <tr>
@@ -180,7 +186,60 @@ use frontend\models\SyllabusDetail;
                     
                 </div>
                 </div>
+            </div><!---row--->
+            <?php
+         $tot_advocate = JudgmentAdvocate::find()->where(['username'=>$username])->count();
+         $tot_judge = JudgmentJudge::find()->where(['username'=>$username])->count();
+         $tot_ref = JudgmentRef::find()->where(['username'=>$username])->count();
+         $tot_element = JudgmentElement::find()->where(['username'=>$username])->count();
+         $tot_citation = JudgmentCitation::find()->where(['username'=>$username])->count();
+
+
+            ?>
+            <div class="row">
+              <div class="col-md-12 border-green">
+                <div class="row">
+                        <div class="box-v2 box-info">
+                            <div class="box-header with-border box-header-custom">
+                                <div class="row">
+                                    <div class="col-md-12 align-left">
+                                        <span class="profile-title">Analysis Summary</span>
+                                    </div>
+                                       
+                                    
+                                </div>
+                            </div>
+                            <!-- /.box-header -->
+                            <table class="table table-bordered">
+                              <tr>
+                                <th>Advocates</th>
+                                <th>Judges</th>
+                                <th>Citations</th>
+                                <th>Elements</th>
+                                <th>DataPoints</th>
+                                <th>Judgment Referred</th>
+                                <th></th>
+                                <th></th>
+                              </tr>
+                              <tr>
+                                <td><?php echo $tot_advocate?></td>
+                                <td><?php echo $tot_judge?></td>
+                                <td><?php echo $tot_citation?></td>
+                                <td><?php echo $tot_element?></td>
+                                <td><?php echo $tot_advocate?></td>
+                                <td><?php echo $tot_ref?></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              
+                            </table>
+                          </div>
+                        </div>
+              </div>
+
             </div>
+
+
              </div>
         
     </div>

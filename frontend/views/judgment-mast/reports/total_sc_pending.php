@@ -4,11 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use frontend\models\JudgmentMast;
 
-/*$username = Yii::$app->user->identity->username;
-
-$tot_judgment = JudgmentMast::find()->asArray()->where(['username'=>$username]);*/
-
-//print_r($models);
+$this->title = 'Supreme Court Judgment Pending';
 $count = 1;
 
 ?>

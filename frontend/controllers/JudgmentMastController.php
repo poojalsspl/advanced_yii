@@ -90,15 +90,27 @@ class JudgmentMastController extends Controller
         ]);
     }
 
+    public function actionJudgmentview($jcode="")
+
+    {
+        $model = JudgmentMast::findOne($jcode);
+        return $this->render('judgmentview', [
+            'model' => $model,
+        ]);
+    }
+
      //<!-----------Reports------>
+
+    //Section - 1
+    //<!-----------Judgments------>
     public function actionTotalList()
     {
          $username = \Yii::$app->user->identity->username;
         $query = JudgmentMast::find()
-        ->select('court_name,judgment_date,judgment_title')
+        ->select('court_name,judgment_date,judgment_title,judgment_code')
         ->where(['username'=>$username]);
         $models = $query->all();
-        return $this->render('total_list', [
+        return $this->render('reports/total_list', [
             'models' => $models,
          ]);
     }
@@ -107,11 +119,11 @@ class JudgmentMastController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentMast::find()
-        ->select('court_name,judgment_date,judgment_title')
+        ->select('court_name,judgment_date,judgment_title,judgment_code')
         ->where(['username'=>$username])
         ->andWhere(['is', 'completion_date', new \yii\db\Expression('null')]);
         $models = $query->all();
-        return $this->render('total_pending', [
+        return $this->render('reports/total_pending', [
             'models' => $models,
          ]);
     }
@@ -120,21 +132,110 @@ class JudgmentMastController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentMast::find()
-        ->select('court_name,judgment_date,judgment_title')
+        ->select('court_name,judgment_date,judgment_title,judgment_code')
         ->where(['username'=>$username])
         ->andWhere(['not', ['completion_date' => null]]);
         $models = $query->all();
-        return $this->render('total_completed', [
+        return $this->render('reports/total_completed', [
+            'models' => $models,
+         ]);
+    }
+    //<!----------End of Judgments------>
+    //End Section - 1
+
+    //Section - 2
+    //<!----------SC Judgments------>
+    public function actionTotalScList()
+    {
+         $username = \Yii::$app->user->identity->username;
+        $query = JudgmentMast::find()
+        ->select('court_name,judgment_date,judgment_title,judgment_code')
+        ->where(['username'=>$username])
+        ->andWhere(['court_code' => '1']);
+        $models = $query->all();
+        return $this->render('reports/total_sc_list', [
             'models' => $models,
          ]);
     }
 
+        public function actionTotalScPending()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $query = JudgmentMast::find()
+        ->select('court_name,judgment_date,judgment_title,judgment_code')
+        ->where(['username'=>$username])
+        ->andWhere(['court_code' => '1'])
+        ->andWhere(['is', 'completion_date', new \yii\db\Expression('null')]);
+        $models = $query->all();
+        return $this->render('reports/total_sc_pending', [
+            'models' => $models,
+         ]);
+    }
+
+    public function actionTotalScCompleted()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $query = JudgmentMast::find()
+        ->select('court_name,judgment_date,judgment_title,judgment_code')
+        ->where(['username'=>$username])
+        ->andWhere(['court_code' => '1'])
+        ->andWhere(['not', ['completion_date' => null]]);
+        $models = $query->all();
+        return $this->render('reports/total_sc_completed', [
+            'models' => $models,
+         ]);
+    }
+
+    // //End Section - 2
+
+    // //Section - 3
+    //<!----------HC Judgments------>
+    public function actionTotalHcList()
+    {
+         $username = \Yii::$app->user->identity->username;
+        $query = JudgmentMast::find()
+        ->select('court_name,judgment_date,judgment_title,judgment_code')
+        ->where(['username'=>$username])
+        ->andWhere(['not', ['court_code' => '1']]);
+        $models = $query->all();
+        return $this->render('reports/total_hc_list', [
+            'models' => $models,
+         ]);
+    }
+
+       public function actionTotalHcPending()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $query = JudgmentMast::find()
+        ->select('court_name,judgment_date,judgment_title,judgment_code')
+        ->where(['username'=>$username])
+        ->andWhere(['not', ['court_code' => '1']])
+        ->andWhere(['is', 'completion_date', new \yii\db\Expression('null')]);
+        $models = $query->all();
+        return $this->render('reports/total_hc_pending', [
+            'models' => $models,
+         ]);
+    }
+
+    public function actionTotalHcCompleted()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $query = JudgmentMast::find()
+        ->select('court_name,judgment_date,judgment_title,judgment_code')
+        ->where(['username'=>$username])
+        ->andWhere(['not', ['court_code' => '1']])
+        ->andWhere(['not', ['completion_date' => null]]);
+        $models = $query->all();
+        return $this->render('reports/total_hc_completed', [
+            'models' => $models,
+         ]);
+    }
     //<!-----------End Of Reports------>
 
-    public function actionJudgmentview($code="")
+    /*public function actionJudgmentview($code="")
     {
         return $this->render('judgmentview');
-    }
+    }*/
 
 
     /**
