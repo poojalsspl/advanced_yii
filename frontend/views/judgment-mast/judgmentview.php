@@ -74,28 +74,49 @@ use yii\helpers\ArrayHelper;
                       
                                      <div class=" col-md-12 judgment-detail-item">
                                         <div class="col-md-3">
-                                            <label class="judgement-detail-item-label"><?='Appellant Names: '?></label>
+                                            <label class="judgement-detail-item-label"><?='Bench Type: '?></label>
                                          </div>
                                         <div class="col-md-8">  
-                                        <span class="judgement-detail-item-description"><?php echo $model->appellant_name;?></span>
+                                        <span class="judgement-detail-item-description"><?php echo $model->bench_type_text;?></span>
                                         </div>
                                     </div>
                                    
                             
                             <div class=" col-md-12 judgment-detail-item">
                                 <div class="col-md-3">
-                                     <label class="judgement-detail-item-label"><?='Respondent Names: '?></label>
+                                     <label class="judgement-detail-item-label"><?='Jurisdiction : '?></label>
                                 </div>
                                 <div class="col-md-8">
-                                     <span class="judgement-detail-item-description"><?php echo $model->respondant_name;?></span>
+                                     <span class="judgement-detail-item-description"><?php echo $model->judgmnent_jurisdiction_text;?></span>
                                 </div>
                             </div>
+
+                            <div class=" col-md-12 judgment-detail-item">
+                                <div class="col-md-3">
+                                     <label class="judgement-detail-item-label"><?='Case Number : '?></label>
+                                </div>
+                                <div class="col-md-8">
+                                     <span class="judgement-detail-item-description"><?php echo $model->appeal_numb;?></span>
+                                </div>
+                            </div>
+
+                            <div class=" col-md-12 judgment-detail-item">
+                                <div class="col-md-3">
+                                     <label class="judgement-detail-item-label"><?='Disposition : '?></label>
+                                </div>
+                                <div class="col-md-8">
+                                     <span class="judgement-detail-item-description"><?php echo $model->disposition_text;?></span>
+                                </div>
+                            </div>
+
+                        
+                        
                            
                             
                         
                             <div class=" col-md-12 judgment-detail-item">
                                 <div class="col-md-3">
-                                    <label class="judgement-detail-item-label"><?='Absract: '?></label>
+                                    <label class="judgement-detail-item-label"><?='Abstract : '?></label>
                                 </div>
                                 <div class="col-md-8">
                                     <span class="judgement-detail-item-description judgement-abstract"><?php echo $model->judgment_abstract;?></span>

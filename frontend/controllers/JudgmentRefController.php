@@ -117,6 +117,7 @@ class JudgmentRefController extends Controller
       $username = \Yii::$app->user->identity->username;  
       $JudgmentRef      = new JudgmentRef();
       $JudgmentRefCheck = JudgmentRef::find()->where(['judgment_code'=>$jcode,'judgment_code_ref'=>$id])->count();
+      //print_r($id);die;
       $judgmentMast     =  JudgmentMast::find()->where(['judgment_code'=>$id])->one();
       $judgmentMastRef  =  JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 
@@ -132,7 +133,7 @@ class JudgmentRefController extends Controller
       }
      $judgment_code                         =  $judgmentMast->judgment_code;
      $JudgmentRef->judgment_code            =  $jcode;
-     $JudgmentRef->judgment_title           =  $judgmentMast->judgment_title;
+     $JudgmentRef->judgment_title           =  $judgmentMastRef->judgment_title;
      $JudgmentRef->doc_id                   =  $judgmentMastRef->doc_id;
      $JudgmentRef->judgment_code_ref        =  $judgmentMast->judgment_code;
      $JudgmentRef->doc_id_ref               =  $judgmentMast->doc_id;

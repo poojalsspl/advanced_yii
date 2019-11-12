@@ -3,12 +3,14 @@
 namespace frontend\controllers;
 
 use Yii;
+use yii\web\Controller;
 use frontend\models\JudgmentMast;
 use frontend\models\CourtMast;
 use frontend\models\CityMast;
 use frontend\models\JudgmentMastSearch;
 use frontend\models\JudgmentAdvocate;
-use yii\web\Controller;
+use frontend\models\JudgmentJudge;
+use frontend\models\JudgmentCitation;
 use frontend\models\JcatgMast ;
 use frontend\models\JsubCatgMast;
 use yii\web\NotFoundHttpException;
@@ -98,6 +100,8 @@ class JudgmentMastController extends Controller
             'model' => $model,
         ]);
     }
+
+
 
      //<!-----------Reports------>
 
@@ -230,12 +234,52 @@ class JudgmentMastController extends Controller
             'models' => $models,
          ]);
     }
+    // //End Section - 3
+
+    public function actionAdvocateList()
+
+    {
+        $username = \Yii::$app->user->identity->username;
+        $query = JudgmentAdvocate::find()
+        ->select('advocate_name,advocate_flag')
+        ->where(['username'=>$username])
+        ->orderBy(['advocate_flag' => SORT_ASC]);
+        $models = $query->all();
+        return $this->render('reports/advocate_list', [
+            'models' => $models,
+         ]);
+    }
+
+    public function actionJudgeList()
+
+    {
+        $username = \Yii::$app->user->identity->username;
+        $query = JudgmentJudge::find()
+        ->select('judge_name')
+        ->where(['username'=>$username]);
+        $models = $query->all();
+        return $this->render('reports/judge_list', [
+            'models' => $models,
+         ]);
+    }
+
+   
+
+    public function actionCitationList()
+
+    {
+        $username = \Yii::$app->user->identity->username;
+        $query = JudgmentCitation::find()
+        ->select('citation')
+        ->where(['username'=>$username]);
+        $models = $query->all();
+        return $this->render('reports/citation_list', [
+            'models' => $models,
+         ]);
+    }
     //<!-----------End Of Reports------>
 
-    /*public function actionJudgmentview($code="")
-    {
-        return $this->render('judgmentview');
-    }*/
+   
 
 
     /**
