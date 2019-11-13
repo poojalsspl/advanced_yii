@@ -60,7 +60,7 @@ class JudgmentRef extends \yii\db\ActiveRecord
             'court_code' => 'Court Code',
             'court_name' => 'Court Name',
             'doc_id_ref' => 'Doc Id Ref',
-            'judgment_title_ref' => 'Judgment Title Ref',
+            'judgment_title_ref' => 'Judgment Title Referred',
             'court_code_ref' => 'Court Code Ref',
             'court_name_ref' => 'Court Name Ref',
             'flag' => 'Flag',

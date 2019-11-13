@@ -58,7 +58,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     
         <div class="col-xs-6">
              <?= $form->field($model, (!$model->isNewRecord) ? 'citation' : 'citation[]' )->textInput(['maxlength' => true,
-                'class'=>'judgmentcitation-citation form-control']) ?> 
+                'class'=>'judgmentcitation-citation form-control'])->label('Citation(One entry in Each Row)') ?> 
         </div>
         <div class="col-xs-2">
         </div>
@@ -91,9 +91,10 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
      <div class="dynamic-rows rows col-xs-12">
         <?php 
         //echo $model->judgment_code;die;
-        $citation = JudgmentCitation::find()->where(['judgment_code'=>$model->judgment_code])->all();
+        $citation = JudgmentCitation::find()->where(['judgment_code'=>$model->judgment_code])->all();?>
+        <label>Citation(One entry in Each Row)</label>
        
-        foreach ($citation as $jdg) { ?>
+        <?php foreach ($citation as $jdg) { ?>
             <div class="dynamic-rows-field row">
                 <div class="col-xs-6">
                 <div class="form-group field-judgmentcitation-citation has-success">

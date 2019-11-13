@@ -69,7 +69,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?= Html::a('Citations',[$citation,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$citationcls ]) ?>
 <?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
 <?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
-<?php echo Html::a('Judgment Referred',[$ref,'jcode'=>$jcode],["style"=>"width:12%","class"=>"btn btn-block  ".$refcls ]) ?>
+<?php echo Html::a('Judgment Referred',[$ref,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$refcls ]) ?>
 <?php echo Html::a('Judgment Elements',[$element,'id'=>'','jcode'=>$jcode,'value'=>'FACTS'],["style"=>"width:12%","class"=>"btn btn-block  ".$elementcls ]) ?>
 <?php echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%","class"=>"btn btn-block  ".$datapointscls ]) ?>
 
@@ -159,7 +159,7 @@ $jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_
    </div>
    <div class="col-md-2 col-xs-12">
     <label>Search Tag Count</label>
-    <input type="" name="" id="judgmentmast-search_tag_count">
+    <input type="" name="" id="judgmentmast-search_tag_count" readonly="readonly">
    </div>
   </div>
 

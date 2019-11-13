@@ -9,6 +9,7 @@ use frontend\models\JudgmentMast;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * JudgmentRefController implements the CRUD actions for JudgmentRef model.
@@ -63,13 +64,30 @@ class JudgmentRefController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="")
+    public function actionCreate($jcode="",$doc_id="")
     {
+        $username = \Yii::$app->user->identity->username;
         $model = new JudgmentRef;
-               
+        if ($model->load(Yii::$app->request->post())) {
+            $count =  count($_POST['JudgmentRef']['judgment_title_ref']);
+            $judgmentMastRef  =  JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
+            for($i=0;$i<$count;$i++)
+            {
+                $model = new JudgmentRef();
+                $model->judgment_code = $jcode;
+                $model->doc_id = $doc_id;
+                $model->username = $username;
+                $model->judgment_title           =  $judgmentMastRef->judgment_title;
+                $model->judgment_title_ref = $_POST['JudgmentRef']['judgment_title_ref'][$i];
+                $model->save(false); 
+            } 
+            Yii::$app->session->setFlash('success', "Created successfully!!"); 
+            return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);    
+        }
         return $this->render('create', [
-                'model' => new JudgmentRef,
+                'model' => $model,
             ]);
+     
     }
 
         public function actionCreatebkup()
@@ -87,9 +105,33 @@ class JudgmentRefController extends Controller
 
      public function actionUpdate($jcode="",$doc_id="")
     {
-      return $this->render('update', [
-                'model' => new JudgmentRef,
+        $username = \Yii::$app->user->identity->username;
+      $model =  JudgmentRef::find()->where(['judgment_code'=>$jcode])->one();    
+        if($model->load(Yii::$app->request->post())) {
+            $count = count($_POST['JudgmentRef']['judgment_title_ref']);
+            \Yii::$app
+            ->db
+            ->createCommand()
+            ->delete('judgment_title_ref', ['judgment_code' => $jcode])
+            ->execute();
+            for($i=0;$i<$count;$i++)
+            {        
+                $judgment                = new JudgmentRef();
+                $judgment->judgment_code = $jcode;
+                $judgment->doc_id = $doc_id;
+                $judgment->username = $username;
+                $model->judgment_title           =  $judgmentMastRef->judgment_title;
+                $judgment->judgment_title_ref    = $_POST['JudgmentRef']['judgment_title_ref'][$i];                        
+                $judgment->save(); 
+            }
+                 Yii::$app->session->setFlash('Updated successfully!!');
+                 $this->redirect(['update', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);
+
+            } else {
+            return $this->render('update', [
+                'model' => $model,
             ]);
+        }     
     }
 
     /**
@@ -156,6 +198,15 @@ class JudgmentRefController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+
+    /* public function actionRef($id)
+    {
+     $state = JudgmentMast::find()->select(['citation','citation_count'])->where(['judgment_code'=>$id])->asArray()->one();
+     $result = Json::encode($state);
+     return $result;       
+        //return $this->redirect(['index']);
+    }*/
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
