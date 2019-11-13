@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use frontend\models\JudgmentAdvocate;
+use frontend\models\JudgmentMast;
 
 $this->title = 'Advocate Appeared';
 

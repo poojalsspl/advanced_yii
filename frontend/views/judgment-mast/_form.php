@@ -88,10 +88,10 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
   if(!$model->isNewRecord){
       $model->judgment_title       =  htmlspecialchars_decode($model->judgment_title);
       $model->court_name           =  htmlspecialchars_decode($model->court_name);
-      $model->appellant_name       =  htmlspecialchars_decode($model->appellant_name);
-      $model->appellant_adv        =  htmlspecialchars_decode($model->appellant_adv);
-      $model->respondant_adv       =  htmlspecialchars_decode($model->respondant_adv);
-      $model->judges_name          =  htmlspecialchars_decode($model->judges_name);
+      //$model->appellant_name       =  htmlspecialchars_decode($model->appellant_name);
+      //$model->appellant_adv        =  htmlspecialchars_decode($model->appellant_adv);
+      //$model->respondant_adv       =  htmlspecialchars_decode($model->respondant_adv);
+      //$model->judges_name          =  htmlspecialchars_decode($model->judges_name);
       $model->judgment_source_name =  htmlspecialchars_decode($model->judgment_source_name);
 
   }
@@ -148,9 +148,21 @@ $jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_
       ],
   ]);
     ?>
+   
                                
         </div>
   </div>
+  <div class="col-md-12">
+    <div class="col-md-10 col-xs-12">
+
+     <?=  $form->field($model, 'search_tag')->textInput()->label('Search Tag(insert multiple values with semicolon(;)') ?> 
+   </div>
+   <div class="col-md-2 col-xs-12">
+    <label>Search Tag Count</label>
+    <input type="" name="" id="judgmentmast-search_tag_count">
+   </div>
+  </div>
+
   </div>
 
 </div>
@@ -163,12 +175,8 @@ $jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_
               <div class="col-md-4 col-xs-12">
 <?= $form->field($model, 'judgment_title')->textInput(['maxlength' => true]) ?>
               </div>
-              <div class="col-md-4 col-xs-12">
-<?=  $form->field($model, 'appellant_name')->textInput() ?>
-              </div>
-              <div class="col-md-4 col-xs-12">
-<?=  $form->field($model, 'respondant_name')->textInput() ?>   
-              </div>
+             
+
           </div>
       </div>
   </div>
@@ -243,12 +251,12 @@ function master1()
 
  <?php
 
-$this->registerJs("$('#judgmentmast-appellant_adv').keyup(function(e){
+$this->registerJs("$('#judgmentmast-search_tag').keyup(function(e){
     var count = $(this).val().split(';').length;
   
-    $('#judgmentmast-appellant_adv_count').val(count);
+    $('#judgmentmast-search_tag_count').val(count);
     });
-  $('#judgmentmast-respondant_adv').keyup(function(e){
+ /* $('#judgmentmast-respondant_adv').keyup(function(e){
     var count = $(this).val().split(';').length;
     $('#judgmentmast-respondant_adv_count').val(count);
     });
@@ -259,7 +267,7 @@ $this->registerJs("$('#judgmentmast-appellant_adv').keyup(function(e){
     $('#judgmentmast-judges_name').keyup(function(e){
     var count = $(this).val().split(';').length;
     $('#judgmentmast-judges_count').val(count);
-    });
+    });*/
 
    /* $('#judgmentmast-appellant_adv').keydown(function(e){
    var appadv = $(this).val();
