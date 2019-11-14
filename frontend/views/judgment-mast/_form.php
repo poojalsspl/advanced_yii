@@ -70,7 +70,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
 <?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
 <?php echo Html::a('Judgment Referred',[$ref,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$refcls ]) ?>
-<?php echo Html::a('Judgment Elements',[$element,'id'=>'','jcode'=>$jcode,'value'=>'FACTS'],["style"=>"width:12%","class"=>"btn btn-block  ".$elementcls ]) ?>
+<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$elementcls ]) ?>
 <?php echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%","class"=>"btn btn-block  ".$datapointscls ]) ?>
 
 <!-- <span style="float:right; border: 1px solid red; background-color: red;"><a href="../judgment-mast/index"  style="color: white" class="btn btn-block red"><b>Judgment Allocated</b></a></span> -->
@@ -92,7 +92,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
       //$model->appellant_adv        =  htmlspecialchars_decode($model->appellant_adv);
       //$model->respondant_adv       =  htmlspecialchars_decode($model->respondant_adv);
       //$model->judges_name          =  htmlspecialchars_decode($model->judges_name);
-      $model->judgment_source_name =  htmlspecialchars_decode($model->judgment_source_name);
+     // $model->judgment_source_name =  htmlspecialchars_decode($model->judgment_source_name);
 
   }
 

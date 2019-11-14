@@ -257,6 +257,34 @@ class JudgmentMastController extends Controller
          ]);
     }
 
+    public function actionJudgmentJudges()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $models = (new \yii\db\Query())
+            ->select('count(*) as judge_count,judgment_code')
+            ->from('judgment_judge')
+            ->where(['username'=>$username])
+            ->groupBy(['judgment_code'])
+            ->having('judge_count' > 0)->all();
+        return $this->render('reports/judgment_judges', [
+            'models' => $models,
+         ]);
+    }
+
+    public function actionJudgmentCitations()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $models = (new \yii\db\Query())
+            ->select('count(*) as citation_count,judgment_code')
+            ->from('judgment_citation')
+            ->where(['username'=>$username])
+            ->groupBy(['judgment_code'])
+            ->having('citation_count' > 0)->all();
+        return $this->render('reports/judgment_citations', [
+            'models' => $models,
+         ]);
+    }
+
     
     public function actionAdvocateList($jcode="")
     {
@@ -272,12 +300,13 @@ class JudgmentMastController extends Controller
          ]);
     }
 
-    public function actionJudgeList()
+    public function actionJudgeList($jcode="")
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentJudge::find()
         ->select('judge_name')
-        ->where(['username'=>$username]);
+        ->where(['username'=>$username])
+        ->andWhere(['judgment_code'=>$jcode]);
         $models = $query->all();
         return $this->render('lists/judge_list', [
             'models' => $models,
@@ -286,12 +315,13 @@ class JudgmentMastController extends Controller
 
    
 
-    public function actionCitationList()
+    public function actionCitationList($jcode="")
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentCitation::find()
         ->select('citation')
-        ->where(['username'=>$username]);
+        ->where(['username'=>$username])
+        ->andWhere(['judgment_code'=>$jcode]);
         $models = $query->all();
         return $this->render('lists/citation_list', [
             'models' => $models,
@@ -468,11 +498,11 @@ class JudgmentMastController extends Controller
     {
     return $this->render('judgment');
     }
-        public function actionJudgmentextremark()
+/*        public function actionJudgmentextremark()
     {
 
     }
-
+*/
         public function actionJudgmentparties()
     {
     $judgmentAct       = new JudgmentAct();

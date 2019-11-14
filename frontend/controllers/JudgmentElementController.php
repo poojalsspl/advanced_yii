@@ -129,7 +129,7 @@ class JudgmentElementController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id,$value,$jcode)
+    public function actionUpdate($id,$jcode,$doc_id)
     {
         $username = \Yii::$app->user->identity->username;
         $model = $this->findModel($id);

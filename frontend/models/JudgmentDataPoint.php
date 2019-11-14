@@ -44,9 +44,11 @@ class JudgmentDataPoint extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'judgment_code' => 'Judgment Code',
-            'element_code' => 'Element Code',
+            'element_code' => 'Judgment Element Code',
             'element_name' => 'Element Name',
-            'data_point' => 'Data Point',
+            'data_point' => 'Data Point Name',
+            'weight_perc' => 'DataPoint Value in %',
+
         ];
     }
 }

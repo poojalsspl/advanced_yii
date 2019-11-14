@@ -79,13 +79,7 @@ foreach($j_elements as $jud_element){
                             ?>
                              
                          <div class="row">
-                            <div class="col-sm-4">
-                                <div class="element-text-data">
-                                    
-                                </div>
-                                
-                            </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                  <?php
   //echo $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element, ['prompt' => '']);?>
    <?= $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element,['prompt'=>''])->label('Element Name'); ?>
@@ -94,15 +88,14 @@ foreach($j_elements as $jud_element){
                              </div>
                              
 
-                              <div class="col-sm-2">
+                              <div class="col-sm-3">
                                 <?= $form->field($modelAddress, "[{$i}]data_point")->textInput(['maxlength' => true]) ?>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-3">
                                 <?= $form->field($modelAddress, "[{$i}]weight_perc")->textInput() ?>
                                  
                              </div>
                              <div class="col-sm-1">
-                                <label>Total %</label>
                                 <input type="text" name="" value="">
                                  
                              </div>

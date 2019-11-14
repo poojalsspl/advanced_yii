@@ -106,7 +106,7 @@ print_r($ids);*/
                         group_code = e.act_group_code;
                         act_title  = e.act_title;
                         console.log(act_title);
-                        checkbox = checkbox + '<input type=checkbox name=JudgmentAct[act_title] value=' + act_title + '>'+act_title;
+                        checkbox = checkbox + '<input type=checkbox name=JudgmentAct[act_title] value=' + act_title + '>'+act_title+ '<br />';
                         });
                         //alert(checkbox);
                         $('.act_row').html(checkbox);
@@ -143,6 +143,7 @@ print_r($ids);*/
     <div class="act_row">
       
     </div>
+    <p></p>
 
  <div class="col-md-4 col-xs-12">
 

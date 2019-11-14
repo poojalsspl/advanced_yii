@@ -223,9 +223,9 @@ $username = Yii::$app->user->identity->username;
                                 <th></th>
                               </tr>
                               <tr>
-                                <td><a href="/advanced_yii/judgment-mast/judgment_advocates"><?php echo $tot_advocate?></a></td>
-                                <td><a href="/advanced_yii/judgment-mast/judge-list"><?php echo $tot_judge?></a></td>
-                                <td><a href="/advanced_yii/judgment-mast/citation-list"><?php echo $tot_citation?></a></td>
+                                <td><a href="/advanced_yii/judgment-mast/judgment-advocates"><?php echo $tot_advocate?></a></td>
+                                <td><a href="/advanced_yii/judgment-mast/judgment-judges"><?php echo $tot_judge?></a></td>
+                                <td><a href="/advanced_yii/judgment-mast/judgment-citations"><?php echo $tot_citation?></a></td>
                                 <td><a href="/advanced_yii/judgment-mast/element-list"><?php echo $tot_element?></a></td>
                                 <td><a href="/advanced_yii/judgment-mast/datapoints-list"><?php echo $tot_datapoint?></a></td>
                                 <td><a href="/advanced_yii/judgment-mast/referred-list"><?php echo $tot_ref?></a></td>
