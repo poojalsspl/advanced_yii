@@ -285,6 +285,20 @@ class JudgmentMastController extends Controller
          ]);
     }
 
+    public function actionJudgmentReferred()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $models = (new \yii\db\Query())
+            ->select('count(*) as referred_count,judgment_code')
+            ->from('judgment_ref')
+            ->where(['username'=>$username])
+            ->groupBy(['judgment_code'])
+            ->having('referred_count' > 0)->all();
+        return $this->render('reports/judgment_referred', [
+            'models' => $models,
+         ]);
+    }
+
     
     public function actionAdvocateList($jcode="")
     {
@@ -328,6 +342,20 @@ class JudgmentMastController extends Controller
          ]);
     }
 
+     public function actionReferredList($jcode="")
+    {
+        $username = \Yii::$app->user->identity->username;
+        $query = JudgmentRef::find()
+        ->select('distinct(judgment_title_ref)')
+        ->where(['username'=>$username])
+        ->andWhere(['judgment_code'=>$jcode]);
+        $models = $query->all();
+        //print_r($models);die;
+        return $this->render('lists/referred-list', [
+            'models' => $models,
+         ]);
+    } 
+
      public function actionElementList()
     {
         $username = \Yii::$app->user->identity->username;
@@ -354,18 +382,7 @@ class JudgmentMastController extends Controller
          ]);
     } 
 
-    public function actionReferredList()
-    {
-        $username = \Yii::$app->user->identity->username;
-        $query = JudgmentRef::find()
-        ->select('distinct(judgment_title_ref)')
-        ->where(['username'=>$username]);
-        $models = $query->all();
-        //print_r($models);die;
-        return $this->render('lists/referred-list', [
-            'models' => $models,
-         ]);
-    } 
+   
 
     
     //<!-----------End Of Reports------>
