@@ -6,10 +6,12 @@ use Yii;
 use frontend\models\JudgmentDataPoint;
 use frontend\models\JudgmentDataPointSearch;
 use frontend\models\ElementMast;
+use frontend\models\JudgmentElement;
 use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * JudgmentDataPointController implements the CRUD actions for JudgmentDataPoint model.
@@ -228,6 +230,17 @@ class JudgmentDataPointController extends Controller
         return $this->render('update1', ['models' => $models,'jcode'=>$jcode]);
     }
     /* end of dynamic form updation code with dropdown*/
+
+    public function actionDp($id)
+    {
+        
+        
+         $element = JudgmentElement::find()->select(['element_text'])->where(['element_code'=>'$id'])->asArray()->all();
+     $result = Json::encode($element);
+
+     return $result;   
+    }
+
 
     /**
      * Deletes an existing JudgmentDataPoint model.

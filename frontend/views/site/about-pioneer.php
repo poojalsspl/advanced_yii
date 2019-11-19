@@ -10,7 +10,7 @@ $this->title = 'Pioneer Institute of Professional Studies';
 
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <br>
+     <br>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-3 col-md-6 col-lg-4">

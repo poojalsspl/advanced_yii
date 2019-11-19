@@ -34,6 +34,7 @@ foreach($j_elements as $jud_element){
 <div class="customer-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    <div id="test_div"></div>
 
 
     <div class="panel panel-default">
@@ -80,15 +81,32 @@ foreach($j_elements as $jud_element){
                              
                          <div class="row">
                             <div class="col-sm-4">
-                                <div class="element-text-data">
-                                    
-                                </div>
+                               
                                 
                             </div>
                             <div class="col-sm-2">
                                  <?php
-  //echo $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element, ['prompt' => '']);?>
-   <?= $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element,['prompt'=>''])->label('Element Name'); ?>
+ /* echo $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element, ['prompt' => '','class'=>'form-control-dp'],['onchange' => '$.post("'.Yii::$app->urlManager->createUrl(["judgment-data-point/dp"]).'", function( data ) {
+
+      
+     })'])*/;?>
+        <?= $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element,['prompt'=>'','class'=>'form-control-dp','ajax'=>[
+                                     'type'=>'GET',
+                                     'id'=>'$(this).val()',
+                                     'url'=>'/advanced_yii/judgment-data-point/dp?id=+id',
+
+                                    ]
+])->label('Element Name'); ?>
+
+
+<?php
+     /* echo   $form->field($modelAddress, '[{$i}]element_code')->dropDownList(
+          $element,
+        ['onchange' => '$.post("'.Yii::$app->urlManager->createUrl(["judgment-data-point/dp"]).'", function( data ) {
+
+      $("#test_div").append( data );
+     })']);*/
+        ?>
 
                      
                              </div>
@@ -124,8 +142,9 @@ foreach($j_elements as $jud_element){
     <?php ActiveForm::end(); ?>
 
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 <script type="text/javascript">
+   
     $(".dynamicform_wrapper").on("beforeInsert", function(e, item) {
     console.log("beforeInsert");
 });
@@ -148,4 +167,17 @@ $(".dynamicform_wrapper").on("afterDelete", function(e) {
 $(".dynamicform_wrapper").on("limitReached", function(e, item) {
     alert("Limit reached");
 });
+</script>
+<script type="text/javascript">
+    //$(document).ready(function() {
+       // $('.form-control-dp').on('change', function() {
+            
+           // var ids = $(this).attr("id");
+            //var id = $(this).val();
+          //  console.log('IDS',ids);
+
+
+      //  });
+
+//});
 </script>

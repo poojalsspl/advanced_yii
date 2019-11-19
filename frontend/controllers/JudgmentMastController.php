@@ -299,6 +299,34 @@ class JudgmentMastController extends Controller
          ]);
     }
 
+    public function actionJudgmentElements()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $models = (new \yii\db\Query())
+            ->select('count(*) as element_count,judgment_code')
+            ->from('judgment_element')
+            ->where(['username'=>$username])
+            ->groupBy(['judgment_code'])
+            ->having('element_count' > 0)->all();
+        return $this->render('reports/judgment_elements', [
+            'models' => $models,
+         ]);
+    }
+
+    public function actionJudgmentDatapoints()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $models = (new \yii\db\Query())
+            ->select('count(*) as datapoint_count,judgment_code')
+            ->from('judgment_data_point')
+            ->where(['username'=>$username])
+            ->groupBy(['judgment_code'])
+            ->having('datapoint_count' > 0)->all();
+        return $this->render('reports/judgment_datapoints', [
+            'models' => $models,
+         ]);
+    }
+
     
     public function actionAdvocateList($jcode="")
     {
@@ -356,12 +384,13 @@ class JudgmentMastController extends Controller
          ]);
     } 
 
-     public function actionElementList()
+     public function actionElementList($jcode="")
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentElement::find()
         ->select('element_name,element_text')
         ->where(['username'=>$username])
+        ->andWhere(['judgment_code'=>$jcode])
         ->orderBy(['element_name' => SORT_ASC]);
         $models = $query->all();
         return $this->render('lists/element_list', [
@@ -369,12 +398,13 @@ class JudgmentMastController extends Controller
          ]);
     } 
 
-    public function actionDatapointsList()
+    public function actionDatapointsList($jcode="")
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentDataPoint::find()
         ->select('element_name,data_point')
         ->where(['username'=>$username])
+        ->andWhere(['judgment_code'=>$jcode])
         ->orderBy(['element_name' => SORT_ASC]);
         $models = $query->all();
         return $this->render('lists/datapoints_list', [

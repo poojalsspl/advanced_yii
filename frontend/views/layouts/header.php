@@ -41,6 +41,12 @@ use yii\bootstrap\Nav;
                                 'url' => ['site/index'],
                                 'linkOptions' => [],
                             ],
+
+                             [
+                                'label' => 'About Us',
+                                'url' => ['site/about-pioneer'],
+                                'linkOptions' => [],
+                            ],
                            
                           
                            [

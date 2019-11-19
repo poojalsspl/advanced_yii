@@ -67,7 +67,7 @@ if($_GET)
                       jdata.forEach(function(e){
                       element_desc = e.element_desc;
                       });
-                      $('#act_row').append(element_desc);
+                      $('#act_row').html(element_desc);
 
                       }    
 

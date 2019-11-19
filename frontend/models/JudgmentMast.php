@@ -85,6 +85,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             [['appeal_numb'], 'string', 'max' => 250],
             [['judgment_title'], 'string', 'max' => 255],
             [['appellant_name', 'appellant_adv', 'respondant_name', 'respondant_adv', 'judges_name'], 'string', 'max' => 500],
+            [['search_tag'],'string','max'=>300],
             [['appeal_status', 'hearing_place'], 'string', 'max' => 10],
             [['citation'], 'string', 'max' => 2000],
             [['doc_id'], 'string', 'max' => 40],
@@ -140,6 +141,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'bench_type_id'            => 'Bench Type',
             'disposition_id'           => 'Disposition',
             'judgment_jurisdiction_id' => 'Jurisdiction',
+            'search_tag'               => 'Search Tag',
             'username'                 => 'Username'
         ];
     }

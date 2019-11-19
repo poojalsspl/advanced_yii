@@ -53,6 +53,10 @@ $this->title = 'My Yii Application';
    
 </div>
 <br>
+<section class="" id="download">
+    <label><a href="/advanced_yii/site/about-pioneer">Brief profile of Institution providing Certificate & Diploma in Law Research Programs</a></label>
+    </section>
+
 <!--Slider Section End -->
 <div class="container">
      

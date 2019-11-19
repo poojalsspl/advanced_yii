@@ -229,9 +229,9 @@ $username = Yii::$app->user->identity->username;
                                 <td><a href="/advanced_yii/judgment-mast/judgment-citations"><?php echo $tot_citation?></a></td>
                                 <td><a href="/advanced_yii/judgment-mast/judgment-referred"><?php echo $tot_ref?></a></td>
                                 <td></td>
-                                <td><a href="/advanced_yii/judgment-mast/element-list">
+                                <td><a href="/advanced_yii/judgment-mast/judgment-elements">
                                 <?php echo $tot_element?></a></td>
-                                <td><a href="/advanced_yii/judgment-mast/datapoints-list"><?php echo $tot_datapoint?></a></td>
+                                <td><a href="/advanced_yii/judgment-mast/judgment-datapoints"><?php echo $tot_datapoint?></a></td>
                                 <td></td>
                                 
                               </tr>

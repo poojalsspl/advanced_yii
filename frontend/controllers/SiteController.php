@@ -215,6 +215,11 @@ class SiteController extends Controller
 
         return $this->render('about');
     }
+    public function actionAboutPioneer()
+    {
+
+        return $this->render('about-pioneer');
+    }
 
     public function actionCourseJudgmentAnalysis()
     {
