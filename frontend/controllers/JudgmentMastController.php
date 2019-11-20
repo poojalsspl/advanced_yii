@@ -480,8 +480,16 @@ class JudgmentMastController extends Controller
           $jcode = $model->judgment_code;
           $doc_id = $model->doc_id;
          //Yii::$app->session->setFlash('Updated successfully!!');
-         Yii::$app->session->setFlash('success', "Updated successfully!!");
-           return $this->redirect(['update', 'id' => $model->judgment_code]);
+        // Yii::$app->session->setFlash('success', "Updated successfully!!");
+          if($jcode!=""){ 
+                \Yii::$app->db->createCommand("UPDATE judgment_mast SET status_1 = 1 WHERE judgment_code=".$jcode."")->execute();                
+                Yii::$app->session->setFlash('Updated successfully!!');
+            return $this->redirect(['judgment-advocate/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
+                }
+                else{
+                return $this->redirect(['update', 'id' => $model->judgment_code]);                    
+                }
+          
 
         }
 

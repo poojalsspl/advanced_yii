@@ -78,7 +78,50 @@ print_r($ids);*/
      <?php  $bareactmast  = ArrayHelper::map(BareactMast::find()->all(), 'bareact_code', 'bareact_desc'); ?>
     
 
-             <?= $form->field($model, "bareact_desc")->dropDownList($bareactmast,['prompt'=>''])->label('Element Name'); ?>
+      <?= $form->field($model, 'bareact_desc')->widget(Select2::classname(), [            
+            'data' => $bareactmast,
+
+            'options' => ['placeholder' => 'Select Barect', 'value' => $model->bareact_code, ],
+            'pluginEvents'=>[
+            "select2:select" => "function() { var val = $(this).val();  
+                //$('#js_val').append(val);
+            //console.log('val',val);              
+              $('#judgmentact-bareact_code').val(val);
+
+                    $.ajax({
+                      url      : '/advanced_yii/judgment-act/bareact?id='+val,
+                     
+                      success  : function(data) {
+                      let jdata = JSON.parse(data);
+                      let catg_desc='';
+                      let checkbox = '';
+                       //console.log(typeof jdata);
+                       jdata.forEach(function(e){
+                        //console.log('e',e)
+                        catg_desc = e.act_catg_desc;
+                        catg_code = e.act_catg_code;
+                        sub_desc  = e.act_sub_catg_desc;
+                        sub_code  = e.act_sub_catg_code;
+                        group_desc = e.act_group_desc;
+                        group_code = e.act_group_code;
+                        act_title  = e.act_title;
+                        console.log(act_title);
+                        checkbox = checkbox + '<input type=checkbox name=JudgmentAct[act_title] value=' + act_title + '>'+act_title+ '<br />';
+                        });
+                        //alert(checkbox);
+                        $('.act_row').html(checkbox);
+                        $('#judgmentact-act_catg_desc').val(catg_desc); 
+                        $('#judgmentact-act_catg_code').val(catg_code);
+                        $('#judgmentact-act_sub_catg_desc').val(sub_desc);
+                        $('#judgmentact-act_sub_catg_code').val(sub_code);
+                        $('#judgmentact-act_group_desc').val(group_desc);
+                        $('#judgmentact-act_group_code').val(group_code);
+                                }    
+
+                      });
+             }"
+            ]
+            ]); ?>        
     </div>
     <div class="act_data">
     <div class="col-md-3 col-xs-12">
@@ -129,60 +172,3 @@ print_r($ids);*/
 <!------add judgment text------>
 <?= $this->render("/judgment-mast/judgment_text_add") ?>
 <!------judgment text------>
-
-<?php $customScript = <<< SCRIPT
-
-
-$('#judgmentact-bareact_desc').on('change', function(){
-    var bareact_desc = $(this).val();
-
- //console.log(bareact_desc);
- if(bareact_desc=='')
- {
-    alert('Please Select Judgement code');
- }
- else
-$.ajax({
-//type     :'GET',
-url        : '/advanced_yii/judgment-act/bareact?id='+bareact_desc,
-dataType   : 'json',
-success    : function(data){
-let checkbox = '';
-//console.log(typeof data);
- data.forEach(function(e){
-//console.log('e',e)
-catg_desc = e.act_catg_desc;
-catg_code = e.act_catg_code;
-sub_desc  = e.act_sub_catg_desc;
-sub_code  = e.act_sub_catg_code;
-group_desc = e.act_group_desc;
-group_code = e.act_group_code;
-act_title  = e.act_title;
-
-//console.log(act_title);
-//checkbox = checkbox + '<input type=checkbox name=JudgmentAct[act_title] value=' + act_title + '>'+act_title+ '<br />';
-
-
-});
-$('.act_row').html('<input type="checkbox" id="judgmentact-act_title"  name="JudgmentAct[act_title]"  aria-invalid="false" value="'+act_title+'">'+act_title);
-
-$('#judgmentact-act_catg_desc').val(catg_desc); 
-$('#judgmentact-act_catg_code').val(catg_code);
-$('#judgmentact-act_sub_catg_desc').val(sub_desc);
-$('#judgmentact-act_sub_catg_code').val(sub_code);
-$('#judgmentact-act_group_desc').val(group_desc);
-$('#judgmentact-act_group_code').val(group_code);
-
-        
-       
-       
-
-        
-    },
-                
-    });
-console.log(bareact_desc);
-}); 
-
-SCRIPT;
-$this->registerJs($customScript, \yii\web\View::POS_READY);?>

@@ -76,10 +76,17 @@ class JudgmentActController extends Controller
              $model->judgment_code = $jcode;
              $model->j_doc_id = $doc_id;
              $model->username = $username;
-
-            $bareact = new BareactMast();
+             $model->bareact_code = $model->bareact_desc ;
+            
+           /* $bareact = new BareactMast();
             $bareact_desc =  $bareact->getBareactName($model->bareact_code);
-            $model->bareact_desc = $bareact_desc ; 
+            $model->bareact_desc = $bareact_desc ; */
+             $bareact = new BareactMast();
+            $bareact_desc =  $bareact->getBareactName1($model->bareact_desc);
+            $model->bareact_desc = $bareact_desc ;
+            
+
+
  
              /*\Yii::$app->db->createCommand()->batchInsert('judgment_act', ['judgment_code','j_doc_id','act_group_desc', 'act_catg_desc','act_title'], [
     [$jcode,$doc_id,'CENTRAL ACT','Defence law','Section 80(b) In The Army Act, 1950'],
@@ -200,6 +207,8 @@ class JudgmentActController extends Controller
         ]);
             }
     }
+
+
 
     /**
      * Updates an existing JudgmentAct model.
