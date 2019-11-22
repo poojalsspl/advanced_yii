@@ -87,11 +87,19 @@ class JudgmentPartiesController extends Controller
             $model->save(); 
             }
             } 
-            if($jcode!=""){ 
-                Yii::$app->session->setFlash('success', "Created successfully!!");
-                return $this->redirect(['create', 'jcode'=>$jcode,'doc_id'=>$doc_id ]); 
+
+             if($jcode!=""){ 
+                \Yii::$app->db->createCommand("UPDATE judgment_mast SET status_1 = 5 WHERE judgment_code=".$jcode." and status_1 = 4")->execute();                
+                //Yii::$app->session->setFlash('Updated successfully!!');
+                 Yii::$app->session->setFlash('success', "Created successfully!!");
+            return $this->redirect(['judgment-act/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
                 }
-            
+                else{
+                return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);                    
+                } 
+
+
+           
         }
         else {
             return $this->render('create', [

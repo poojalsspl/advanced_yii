@@ -73,10 +73,18 @@ class JudgmentActController extends Controller
         $model = new JudgmentAct();
 
         if ($model->load(Yii::$app->request->post()) ) {
+           // $count =  count($_POST['JudgmentAct']['act_title']);
+            //for($i=0;$i<$count;$i++)
+            //{
+            //$model = new JudgmentAct();
+            //if($_POST['JudgmentAct']['act_title'][$i] !='')
+            //{
              $model->judgment_code = $jcode;
              $model->j_doc_id = $doc_id;
              $model->username = $username;
              $model->bareact_code = $model->bareact_desc ;
+             $model->act_title = $_POST['JudgmentAct']['act_title'] ;
+
             
            /* $bareact = new BareactMast();
             $bareact_desc =  $bareact->getBareactName($model->bareact_code);
@@ -93,6 +101,8 @@ class JudgmentActController extends Controller
     [$jcode,$doc_id,'CENTRAL ACT','Defence law','Section 20(1) In The Army Act, 1950']])->execute();*/
     
             $model->save(false);
+       // }
+   // }
              Yii::$app->session->setFlash('success', "Created successfully!!");
              return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);
             //return $this->redirect(['view', 'id' => $model->id]);

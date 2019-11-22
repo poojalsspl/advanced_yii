@@ -31,7 +31,7 @@ foreach($j_elements as $jud_element){
     </tr>
 <?php } ?>
 </table>
-<div class="customer-form">
+<div class="judgment-data-point-form">
 
     <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
     <div id="test_div"></div>
