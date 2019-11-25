@@ -103,9 +103,17 @@ class JudgmentActController extends Controller
             $model->save(false);
        // }
    // }
-             Yii::$app->session->setFlash('success', "Created successfully!!");
-             return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);
-            //return $this->redirect(['view', 'id' => $model->id]);
+              if($jcode!=""){ 
+                $date = date('Y-m-d');
+                \Yii::$app->db->createCommand("UPDATE judgment_mast SET status_1 = 7 WHERE judgment_code=".$jcode)->execute();  
+                \Yii::$app->db->createCommand("UPDATE judgment_mast SET completion_date = '".$date."' WHERE judgment_code=".$jcode)->execute();                 
+                
+                 Yii::$app->session->setFlash('success', "Created successfully!!");
+            return $this->redirect(['judgment-element/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
+                }
+                else{
+                return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);                    
+                }   
         }else{
          
         return $this->render('create', [

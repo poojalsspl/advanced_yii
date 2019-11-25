@@ -217,16 +217,16 @@ class JudgmentDataPointController extends Controller
         if ($models->load(Yii::$app->request->post())) {
 
         $count =  count($_POST['JudgmentDataPoint']['element_code']);
-        for($i = 1; $i < $count; $i++) {
+        for($i = 0; $i < $count; $i++) {
 
         $models = new JudgmentDataPoint();
         $models->judgment_code = $jcode;
-        $models->doc_id = $doc_id;
+       // $models->doc_id = $doc_id;
         $models->username = $username;
         $models->element_code = $_POST['JudgmentDataPoint']['element_code'][$i];
         $models->data_point = $_POST['JudgmentDataPoint']['data_point'][$i];
         $models->weight_perc = $_POST['JudgmentDataPoint']['weight_perc'][$i];
-        $models->save();
+        $models->save(false);
         }
        }
         return $this->render('createdp', [

@@ -81,8 +81,15 @@ class JudgmentRefController extends Controller
                 $model->judgment_title_ref = $_POST['JudgmentRef']['judgment_title_ref'][$i];
                 $model->save(false); 
             } 
-            Yii::$app->session->setFlash('success', "Created successfully!!"); 
-            return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);    
+            if($jcode!=""){ 
+                \Yii::$app->db->createCommand("UPDATE judgment_mast SET status_1 = 6 WHERE judgment_code=".$jcode." and status_1 = 5")->execute();                
+                
+                 Yii::$app->session->setFlash('success', "Created successfully!!");
+            return $this->redirect(['judgment-act/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
+                }
+                else{
+                return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);                    
+                }   
         }
         return $this->render('create', [
                 'model' => $model,

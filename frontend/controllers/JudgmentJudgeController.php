@@ -82,13 +82,13 @@ class JudgmentJudgeController extends Controller
             } 
             if($jcode!=""){ 
                 \Yii::$app->db->createCommand("UPDATE judgment_mast SET status_1 = 3 WHERE judgment_code=".$jcode." and status_1 = 2")->execute();                
-                //Yii::$app->session->setFlash('Updated successfully!!');
+               Yii::$app->session->setFlash('success', "Created successfully!!");
             return $this->redirect(['judgment-citation/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
                 }
                 else{
                 return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);                    
                 } 
-            Yii::$app->session->setFlash('success', "Created successfully!!");
+            
             
         }
 
