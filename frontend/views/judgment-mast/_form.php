@@ -116,7 +116,9 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <?php
 $benchType    = ArrayHelper::map(JudgmentBenchType::find()->all(), 'bench_type_id', 'bench_type_text'); 
 $disposition  = ArrayHelper::map(JudgmentDisposition::find()->all(), 'disposition_id', 'disposition_text'); 
-$jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_jurisdiction_id', 'judgment_jurisdiction_text'); ?>
+$jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_jurisdiction_id', 'judgment_jurisdiction_text'); 
+$j_catg = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg_description');
+?>
 
 <?= $form->field($model, 'bench_type_id')->widget(Select2::classname(), [
         'data' => $benchType,
@@ -152,6 +154,14 @@ $jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_
       ],
   ]);
     ?>
+      <?= $form->field($model, 'jcatg_id')->widget(Select2::classname(), [
+          
+          'data' => $j_catg,
+          //'language' => '',
+          'options' => ['placeholder' => 'Select judgment category'],
+          'pluginEvents'=>[
+            ]
+          ]); ?> 
    
                                
         </div>

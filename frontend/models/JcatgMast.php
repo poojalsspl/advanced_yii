@@ -55,4 +55,16 @@ class JcatgMast extends \yii\db\ActiveRecord
     {
         return $this->hasMany(JsubCatgMast::className(), ['jcatg_id' => 'jcatg_id']);
     }
+
+    public function getCatgName($jcatg)
+     {
+      $query = (new \yii\db\Query())
+      ->select('jcatg_description')
+      ->from('jcatg_mast')
+      ->where('jcatg_id=:jcatg_id', [':jcatg_id' => $jcatg]);
+      $command = $query->createCommand();
+      $rows = $command->queryAll();
+
+       return $rows[0]['jcatg_description'];
+      }
 }
