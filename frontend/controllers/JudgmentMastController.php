@@ -58,7 +58,7 @@ class JudgmentMastController extends Controller
         /*SELECT * FROM `judgment_mast` WHERE username = 'pooja@laxyosolutionsoft.com' and research_date = (SELECT MIN(research_date) from judgment_mast where research_date <= CURRENT_DATE AND completion_date is null AND username = 'pooja@laxyosolutionsoft.com')*/
         $subQuery = JudgmentMast::find()->select('MIN(research_date)')->where(['<=','research_date' , $date])->andWhere(['completion_date'=>NULL])->andWhere(['username'=>$username]);
         $query = JudgmentMast::find()
-        ->select('judgment_date,judgment_title,court_name,judgment_code')
+        ->select('judgment_date,judgment_title,court_name,judgment_code,completion_date')
         ->where(['=', 'research_date', $subQuery])
         ->andWhere(['username'=>$username]);
         $searchModel = $query->all();

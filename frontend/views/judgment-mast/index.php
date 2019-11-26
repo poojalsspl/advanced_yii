@@ -33,6 +33,7 @@ foreach ($student_name as $student) {
                 <th>Judgment Title</th>
                 <th>Court Name</th>
                 <th>Judgment Date</th>
+                <th>Completion Date</th>
                 <th>Action</th>
                 
             </tr>
@@ -43,7 +44,7 @@ foreach ($student_name as $student) {
                 <td><?php echo $searchdata['judgment_title'];?></td>
                 <td><?php echo $searchdata['court_name'];?></td>
                 <td><?php echo $searchdata['judgment_date'];?></td>
-               
+                <td><?php echo $searchdata['completion_date'];?></td>
                 <td><?php echo '<a href = "update?id='.$searchdata['judgment_code'].'"><span class="glyphicon glyphicon-pencil"></span></a>'; ?></td>
             </tr>
            <?php } ?>
