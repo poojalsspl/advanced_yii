@@ -29,6 +29,7 @@ if($_GET)
     <tr>
       <th>#</th>
       <th>Element Name </th>
+      <th>Weitage % </th>
       <th>Element Text </th>
     </tr>
   </thead>
@@ -37,6 +38,7 @@ if($_GET)
     <tr>
       <th scope="row"><?= $judgmentElementSingle->id ?></th>
       <td><?= $judgmentElementSingle->element_name ?></td>
+      <td><?= $judgmentElementSingle->weight_perc ?></td>
       <td><?= $judgmentElementSingle->element_text ?></td>
     </tr>
     <?php } ?>
@@ -52,6 +54,7 @@ if($_GET)
               $element    = ArrayHelper::map(ElementMast::find()->all(), 'element_code', 'element_name'); 
 
               ?>
+              <?= $form->field($model, 'judgment_code')->hiddenInput(['value'=>$jcode])->label(false); ?>
               <?= $form->field($model, 'element_code')->widget(Select2::classname(), [
                   'data' => $element,
                   'options' => ['placeholder' => 'Select Judgment Element'],
@@ -59,24 +62,30 @@ if($_GET)
                     "select2:select" => "function() { var val = $(this).val();  
               //console.log('val',val);              
               $('#judgmentelement-element_code').val(val);
+              var jcode = $('#judgmentelement-judgment_code').val();
 
                     $.ajax({
-                      url      : '/advanced_yii/judgment-element/element?id='+val,
+                      url      : '/advanced_yii/judgment-element/element?id='+val+'&jcode='+jcode,
                      success  : function(data) {
                       let jdata = JSON.parse(data);
+                      //console.log(typeof(jdata));
+                      let weight_perc='';
+                      let element_text='';
+
                       jdata.forEach(function(e){
-                      element_desc = e.element_desc;
-                      });
-                      $('#act_row').html(element_desc);
-
-                      }    
-
-                      });
+                        weight_perc = e.weight_perc;
+                        element_text = e.element_text;
+                       });
+                      $('#judgmentelement-weight_perc').val(weight_perc);
+                      $('#judgmentelement-element_text').val(element_text);
+                     }    
+                  });
              }"
                     ]
                   ])->label('Element Name'); ?>
               <label>Copy  from the judgment text below and paste it in the box below : <br><span style="color: #ff0000">DO NOT CHANGE ANY TEXT</span></label>
              <?= $form->field($model, 'element_text')->textarea(['rows' => 6])->label(false); ?> 
+             <?= $form->field($model, 'weight_perc')->textInput()->label(); ?>
           <div class="form-group">
          <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
            </div> 
@@ -95,10 +104,19 @@ if($_GET)
 </div>
 
 <?php 
-    $this->registerJs("CKEDITOR.replace('judgmentelement-element_text',{toolbar : 'Basic'})");
+    //$this->registerJs("CKEDITOR.replace('judgmentelement-element_text',{toolbar : 'Basic'})");
 ?>
 <!------add judgment text------>
     <?= $this->render("/judgment-mast/judgment_text_add") ?>
     
 <!------judgment text------>
 
+<?php /*$customScript = <<< SCRIPT
+
+
+$('#judgmentelement-weight_perc').on('keyup', function(){
+    var weight_perc = $(this).val();
+    console.log(weight_perc);
+    });
+SCRIPT;
+$this->registerJs($customScript, \yii\web\View::POS_READY);*/?>

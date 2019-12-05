@@ -18,7 +18,7 @@ $jcode  = '';
 function add_row()
 {
  
-  console.log('hello');
+  //console.log('hello');
  $rowno=$("#dp_table tr").length;
  $rowno=$rowno+1;
  $("#dp_table tr:last").after("<tr id='row"+$rowno+"'><td><select id='judgmentdatapoint-element_code"+$rowno+"' name='JudgmentDataPoint[element_code][]' class='form-control'><option value=''></option><option value='1'>Ruling</option><option value='2'>Facts</option></select></td><td><input type='text' name='JudgmentDataPoint[data_point][]'  class='form-control'></td><td><input type='text' name='JudgmentDataPoint[weight_perc][]' class='form-control'></td><td><input type='button' value='DELETE' onclick=delete_row('row"+$rowno+"')></td></tr>");

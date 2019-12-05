@@ -132,7 +132,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'judgment_type'            => 'Judgment Type',
             'judgment_source_name'     => 'Judgment Source Name',
             'jcatg_description'        => 'Jcatg Description',
-            'jcatg_id'                 => 'Jcatg ID',
+            'jcatg_id'                 => 'Judgment Category',
             'jsub_catg_description'    => 'Jsub Catg Description',
             'jsub_catg_id'             => 'Jsub Catg ID',
             'overrule_judgment'        => 'Overrule Judgment',

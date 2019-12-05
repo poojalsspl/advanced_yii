@@ -148,7 +148,7 @@ url        : '/advanced_yii/judgment-act/bareact?id='+bareact_desc,
 dataType   : 'json',
 success    : function(data){
 let checkbox = '';
-//console.log(typeof data);
+console.log(typeof data);
  data.forEach(function(e){
 //console.log('e',e)
 catg_desc = e.act_catg_desc;

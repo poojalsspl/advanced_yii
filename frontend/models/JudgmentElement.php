@@ -53,7 +53,7 @@ class JudgmentElement extends \yii\db\ActiveRecord
             'element_code' => 'Element Code',
             'element_name' => 'Element Name',
             'element_text' => 'Element Text',
-            'weight_perc' => 'Weight Perc',
+            'weight_perc' =>  'Weightage %',
             'element_word_length' => 'Element Word Length',
         ];
     }

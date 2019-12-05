@@ -25,7 +25,7 @@ use yii\bootstrap\Nav;
                 <div class="navbar-custom-menu">
                     <?php
                         NavBar::begin([
-                            'brandLabel' => Html::img('@web/images/Logo.png', ['class' => 'logo-area',  'style' => "width: 100%;text-align: left;"]),
+                            'brandLabel' => Html::img('@web/images/LawHub_Logo.png', ['class' => 'logo-area',  'style' => "width: 100%;text-align: left;"]),
                             'brandUrl' => Yii::$app->homeUrl,
                             'renderInnerContainer' => false,
                             'options' => [
@@ -41,6 +41,8 @@ use yii\bootstrap\Nav;
                                 'url' => ['site/index'],
                                 'linkOptions' => [],
                             ],
+
+                            
 
                              [
                                 'label' => 'About Us',
