@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
      </div>
         <div class="col-md-4 col-xs-12">
     <?= $form->field($model, 'course_fees'); ?>
-    <?= $form->field($model, 'course_level_name'); ?>
+    
     <?= $form->field($model, 'course_eligibility'); ?>
      </div>
         <div class="col-md-4 col-xs-12">

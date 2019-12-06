@@ -135,7 +135,14 @@ $j_catg = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg_descriptio
           'pluginEvents'=>[
             ]
           ]); ?>   
-          <?= $form->field($model, 'judgment_ext_remark_flag')->dropDownList(["0"=>'Yes', "1"=>"No"],['prompt'=>'Select Remark Flag']) ?>  
+           <?= $form->field($model, 'jcatg_id')->widget(Select2::classname(), [
+          
+          'data' => $j_catg,
+          //'language' => '',
+          'options' => ['placeholder' => 'Select judgment category'],
+          'pluginEvents'=>[
+            ]
+          ]); ?> 
         </div>
         <div class="col-md-4 col-xs-12">
         <?= $form->field($model, 'judgment_jurisdiction_id')->widget(Select2::classname(), [
@@ -154,14 +161,7 @@ $j_catg = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg_descriptio
       ],
   ]);
     ?>
-      <?= $form->field($model, 'jcatg_id')->widget(Select2::classname(), [
-          
-          'data' => $j_catg,
-          //'language' => '',
-          'options' => ['placeholder' => 'Select judgment category'],
-          'pluginEvents'=>[
-            ]
-          ]); ?> 
+      
    
                                
         </div>

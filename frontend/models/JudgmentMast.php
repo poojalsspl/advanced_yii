@@ -89,7 +89,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             [['appeal_status', 'hearing_place'], 'string', 'max' => 10],
             [['citation'], 'string', 'max' => 2000],
             [['doc_id'], 'string', 'max' => 40],
-            [['judgment_type', 'judgment_ext_remark_flag'], 'string', 'max' => 1],
+            [['judgment_type'], 'string', 'max' => 1],
             [['judgment_source_name'], 'string', 'max' => 50],
             [['jcatg_description', 'jsub_catg_description'], 'string', 'max' => 150],
             [['overrule_judgment', 'overruled_by_judgment'], 'string', 'max' => 20],
@@ -137,7 +137,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'jsub_catg_id'             => 'Jsub Catg ID',
             'overrule_judgment'        => 'Overrule Judgment',
             'overruled_by_judgment'    => 'Overruled By Judgment',
-            'judgment_ext_remark_flag' => 'Judgment Ext Remark Flag',
+           
             'bench_type_id'            => 'Bench Type',
             'disposition_id'           => 'Disposition',
             'judgment_jurisdiction_id' => 'Jurisdiction',
