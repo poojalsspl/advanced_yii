@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use Yii;
 use app\models\CourseMast;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
  
 /**
  * manual CRUD
@@ -48,6 +49,14 @@ class CourseMastController extends Controller
         return $this->render('edit', ['model' => $model]);
     } 
 
+    public function actionView($id)
+    {
+        
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
     public function actionDelete($course_code)
      {
          $model = CourseMast::findOne($course_code);
@@ -61,4 +70,13 @@ class CourseMastController extends Controller
          
         return $this->redirect(['index']);
      }  
+
+     protected function findModel($id)
+    {
+        if (($model = CourseMast::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 }

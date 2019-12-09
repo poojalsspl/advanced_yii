@@ -38,7 +38,7 @@ $this->title = $model->judgment_code;
                             </div>
                         
                         <p class="para2" align="center" style="font-size: 16px">
-                            <span><b><?php echo $model->bench_name;?></b></span>
+                            <span><b><?php //echo $model->bench_name;?></b></span>
                         </p>
                        
                         <p class="para2" align="left">
@@ -77,7 +77,7 @@ $this->title = $model->judgment_code;
                                             <label class="judgement-detail-item-label"><?='Appellant Names: '?></label>
                                          </div>
                                         <div class="col-md-8">  
-                                        <span class="judgement-detail-item-description"><?php echo $model->appellant_name;?></span>
+                                        <span class="judgement-detail-item-description"><?php //echo $model->appellant_name;?></span>
                                         </div>
                                     </div>
                                    
@@ -87,7 +87,7 @@ $this->title = $model->judgment_code;
                                      <label class="judgement-detail-item-label"><?='Respondent Names: '?></label>
                                 </div>
                                 <div class="col-md-8">
-                                     <span class="judgement-detail-item-description"><?php echo $model->respondant_name;?></span>
+                                     <span class="judgement-detail-item-description"><?php //echo $model->respondant_name;?></span>
                                 </div>
                             </div>
                            

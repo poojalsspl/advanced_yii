@@ -479,23 +479,23 @@ class JudgmentMastController extends Controller
         if ($model->load(Yii::$app->request->post())) {
           $jcode = $model->judgment_code;
           $doc_id = $model->doc_id;
-
+         
             $jcatg = new JcatgMast();
             $jcatg_desc =  $jcatg->getCatgName($model->jcatg_id);
             $model->jcatg_description = $jcatg_desc ;
+            $model->jsub_catg_id = $model->jsub_catg_description;
+          if($model->jsub_catg_description!=''){
+          $model->jsub_catg_description      =  $model->jsubCatg->jsub_catg_description;
+          }
 
-
-         //Yii::$app->session->setFlash('Updated successfully!!');
-        // Yii::$app->session->setFlash('success', "Updated successfully!!");
           $check = JudgmentMast::find()->select('status_1')->where(['judgment_code'=>$jcode])->one();
           
               $count = $check->status_1;
               if($count==''){
-
-
-          
-                \Yii::$app->db->createCommand("UPDATE judgment_mast SET status_1 = 1 WHERE judgment_code=".$jcode."")->execute();                
+               \Yii::$app->db->createCommand("UPDATE judgment_mast SET status_1 = 1 WHERE judgment_code=".$jcode."")->execute();                
                Yii::$app->session->setFlash('success', "Updated successfully!!");
+
+               $model->save();
             return $this->redirect(['judgment-advocate/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
                 }
                 $model->save();

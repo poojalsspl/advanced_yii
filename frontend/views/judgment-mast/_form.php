@@ -117,7 +117,8 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 $benchType    = ArrayHelper::map(JudgmentBenchType::find()->all(), 'bench_type_id', 'bench_type_text'); 
 $disposition  = ArrayHelper::map(JudgmentDisposition::find()->all(), 'disposition_id', 'disposition_text'); 
 $jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_jurisdiction_id', 'judgment_jurisdiction_text'); 
-$j_catg = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg_description');
+$jcatg_description = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg_description');
+
 ?>
 
 <?= $form->field($model, 'bench_type_id')->widget(Select2::classname(), [
@@ -135,14 +136,42 @@ $j_catg = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg_descriptio
           'pluginEvents'=>[
             ]
           ]); ?>   
-           <?= $form->field($model, 'jcatg_id')->widget(Select2::classname(), [
+           <?php /*echo $form->field($model, 'jcatg_id')->widget(Select2::classname(), [
           
           'data' => $j_catg,
           //'language' => '',
           'options' => ['placeholder' => 'Select judgment category'],
           'pluginEvents'=>[
             ]
-          ]); ?> 
+          ]);*/ ?> 
+
+          <?= $form->field($model, 'jcatg_description')->widget(Select2::classname(), [
+            'data' => $jcatg_description,           
+            'options' => ['placeholder' => 'Select Judgment Category','value' => ($model->jcatg_id != "") ? $model->jcatg_id : ''],
+      'pluginEvents'=>[
+            "select2:select" => "function() { var val = $(this).val();                
+              $('#judgmentmast-jcatg_id').val(val);
+                    $.ajax({
+                      url      : '/advanced_yii/judgment-mast/jsubcateg?id='+val,
+                      dataType : 'json',
+                      success  : function(data) {                                 
+                       $('#judgmentmast-jsub_catg_description').empty();    
+                       $('#judgmentmast-jsub_catg_description').append('<option>Select Sub Category</option>');
+                        $.each(data, function(i, item){
+                        $('#judgmentmast-jsub_catg_description').append('<option value='+item.jsub_catg_id+'>'+item.jsub_catg_description+'</option>');
+                      });
+                          },
+                      error: function(xhr, textStatus, errorThrown){
+                           alert('No Judgment Sub Category found');
+                        }                                                         
+                      });
+             }"
+            ]
+
+             ]); ?>
+
+      <?= $form->field($model, 'jcatg_id')->HiddenInput(['readonly'=>true])->label(false); ?>
+          
         </div>
         <div class="col-md-4 col-xs-12">
         <?= $form->field($model, 'judgment_jurisdiction_id')->widget(Select2::classname(), [
@@ -161,6 +190,14 @@ $j_catg = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg_descriptio
       ],
   ]);
     ?>
+     <?php 
+      $jsub_catg_description = ($model->jsub_catg_id != "") ?  ArrayHelper::map(JsubCatgMast::find()->where(["jsub_catg_id"=>$model->jsub_catg_id])->all(), 'jsub_catg_id', 'jsub_catg_description') : "" ; ?>
+    
+      <?= $form->field($model, 'jsub_catg_description')->dropDownList([
+        'data' => $jsub_catg_description,
+        'prompt' => 'Select sub category'
+        ]);?>
+        <?= $form->field($model, 'jsub_catg_id')->HiddenInput(['readonly'=>true])->label(false); ?>
       
    
                                
@@ -186,8 +223,26 @@ $j_catg = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg_descriptio
   <div class="box box-blue">
       <div class="box-body">
           <div class="col-md-12">
-              <div class="col-md-4 col-xs-12">
+              <div class="col-md-6 col-xs-12">
 <?= $form->field($model, 'judgment_title')->textInput(['maxlength' => true]) ?>
+              </div>
+
+             
+
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="box box-blue">
+      <div class="box-body">
+          <div class="col-md-12">
+             <label>Remark (If any Fixed data point are not available in the displayed judgment text, Search the same judgments on Google and find the fixed data points. Extra marks will be provided for fixed data point that were generated from judgments searched on Google.<br>
+E.g if case number is not available and is located from same judgement that was searched on Google then copy paste like<br>Case Number : "CRIMINAL APPEAL NO. 655 OF 2002" in the following text box <br>
+and do not fill the data in the fields provided)</label>
+              <div class="col-md-12 col-xs-12">
+<?= $form->field($model, 'remark')->textarea(['maxlength' => true,'rows'=>6])->label(false) ?>
               </div>
              
 
