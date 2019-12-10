@@ -160,8 +160,8 @@ group_code = e.act_group_code;
 act_title  = e.act_title;
 
 //console.log(act_title);
-checkbox = checkbox + '<input type="checkbox" name="JudgmentAct[act_title]" value="' + act_title + '">'+act_title+ '<br />';
-//$('.act_row').append('<input type="checkbox" id="judgmentact-act_title"  name="JudgmentAct[act_title]"  aria-invalid="false" value="'+act_title+'">'+act_title+ '<br />');
+checkbox = checkbox + '<input type="checkbox" name="JudgmentAct[act_title][]" value="' + act_title + '">'+act_title+ '<br />';
+//$('.act_row').append('<input type="checkbox" id="judgmentact-act_title"  name="JudgmentAct[act_title][]"  aria-invalid="false" value="'+act_title+'">'+act_title+ '<br />');
 
 });
 

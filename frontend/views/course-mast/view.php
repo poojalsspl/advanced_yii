@@ -4,7 +4,7 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Judgment Analysis';
+$this->title = 'Case Law';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container mt-5">
@@ -78,7 +78,8 @@ $this->title = 'Judgment Analysis';
 </div>
 </div>
 
-<?=$this->render('partial_sidebar.php');?>
+<?=$this->render('partial_sidebar.php',['models' => $models,
+        ]);?>
 
 </div>
 </div>

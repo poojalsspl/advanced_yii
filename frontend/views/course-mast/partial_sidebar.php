@@ -1,4 +1,13 @@
-		
+	<?php
+/* @var $this yii\web\View*/
+
+use yii\helpers\Html;
+use yii\helpers\Url;
+
+
+\yii\web\YiiAsset::register($this);
+
+?>	
 
 		<div class="col-md-4 col-sm-4">
 			
@@ -10,16 +19,14 @@
 			<hr class="border">
 			<div class="widget-content list-label-widget-content">
 				<ul class="list-unstyled">
+					<?php foreach($models as $model){?>
 					<li>
 						<i class="fa fa-book" aria-hidden="true"></i>
-						<a dir="ltr" href="view/?id=ADCLR001">Certificate In Case Law Analytics And Research</a>
+						<a dir="ltr" href="?id=<?=  $model['course_code']; ?>"><?=  $model['course_name']; ?></a>
 						
 					</li>
-					<li>
-						<i class="fa fa-book" aria-hidden="true"></i>	
-						<a dir="ltr" href="view/?id=ADCLR002">Diploma in Case Law Research & Analytics</a>
-						
-					</li>
+					 <?php } ?>
+			
 					
 					
 					

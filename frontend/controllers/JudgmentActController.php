@@ -73,26 +73,29 @@ class JudgmentActController extends Controller
         $model = new JudgmentAct();
 
         if ($model->load(Yii::$app->request->post()) ) {
-           // $count =  count($_POST['JudgmentAct']['act_title']);
-            //for($i=0;$i<$count;$i++)
-            //{
-            //$model = new JudgmentAct();
-            //if($_POST['JudgmentAct']['act_title'][$i] !='')
-            //{
+            $count =  count($_POST['JudgmentAct']['act_title']);
+            for($i=0;$i<$count;$i++)
+            {
+            $model = new JudgmentAct();
+            
              $model->judgment_code = $jcode;
              $model->j_doc_id = $doc_id;
              $model->username = $username;
              $model->bareact_code = $model->bareact_desc ;
-             $model->act_title = $_POST['JudgmentAct']['act_title'] ;
-
+             $model->act_title = $_POST['JudgmentAct']['act_title'][$i] ;
+             $model->act_catg_desc = $_POST['JudgmentAct']['act_catg_desc'] ;
+             $model->act_catg_code = $_POST['JudgmentAct']['act_catg_code'] ;
+             $model->act_sub_catg_code = $_POST['JudgmentAct']['act_sub_catg_code'] ;
+             $model->act_sub_catg_desc = $_POST['JudgmentAct']['act_sub_catg_desc'] ;
+             $model->act_group_code = $_POST['JudgmentAct']['act_group_code'] ;
+             $model->act_group_desc = $_POST['JudgmentAct']['act_group_desc'] ;
+             $model->bareact_code = $_POST['JudgmentAct']['bareact_desc'] ;
+             $model->bareact_desc = $model->bareactDesc->bareact_desc;
+             
             
-           /* $bareact = new BareactMast();
-            $bareact_desc =  $bareact->getBareactName($model->bareact_code);
-            $model->bareact_desc = $bareact_desc ; */
-             $bareact = new BareactMast();
-            $bareact_desc =  $bareact->getBareactName1($model->bareact_desc);
-            $model->bareact_desc = $bareact_desc ;
-            
+           
+             $model->save(); 
+            }
 
 
  

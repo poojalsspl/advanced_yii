@@ -51,11 +51,30 @@ class CourseMastController extends Controller
 
     public function actionView($id)
     {
+        //for partial_sidebar
+        $sql="Select course_code,course_name  
+              from course_mast";
         
+        $command = Yii::$app->getDb()->createCommand($sql);
+        $records = $command->queryAll();
+        //end of code for partial_sidebar
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'models' => $records,
         ]);
     }
+
+  /*  public function actionPartials()
+    {
+         $sql="Select course_code,course_name  
+              from course_mast";
+        
+        $command = Yii::$app->getDb()->createCommand($sql);
+        $records = $command->queryAll();
+        return $this->render('partial_sidebar', [
+            'models' => $records,
+        ]);
+    }*/
 
     public function actionDelete($course_code)
      {
