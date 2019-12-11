@@ -51,7 +51,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
             'disabled'=>true,
             'initValueText' => $jcode,        
             'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
-            ]); ?>
+            ])->label('Judgment Title'); ?>
 
       <div class="dynamic-rows rows col-xs-12">   
       <div class="dynamic-rows-field row">
@@ -87,7 +87,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
      'initValueText' => $jcode,        
     //'language' => '',
     'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
-     ]); ?>
+     ])->label('Judgment Title'); ?>
      <div class="dynamic-rows rows col-xs-12">
         <?php 
         //echo $model->judgment_code;die;
