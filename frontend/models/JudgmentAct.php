@@ -135,8 +135,6 @@ class JudgmentAct extends \yii\db\ActiveRecord
         return $this->hasOne(BareactMast::className(), ['bareact_code' => 'bareact_code']);
     }
 
-    
-    
 
 
 

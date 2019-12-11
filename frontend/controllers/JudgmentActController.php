@@ -200,9 +200,9 @@ class JudgmentActController extends Controller
             $model->judgment_code = $jcode;
  
              \Yii::$app->db->createCommand()->batchInsert('judgment_act', ['judgment_code','j_doc_id','act_group_desc', 'act_catg_desc'], [
-    [$jcode,$doc_id,'Tom', 30],
-    [$jcode,$doc_id,'Jane', 20],
-    [$jcode,$doc_id,'Linda', 25]])->execute();
+    [$jcode,$doc_id,'Public Utilities', 30],
+    [$jcode,$doc_id,'Legal Ethics & justice( stamp  Act) ', 20],
+    [$jcode,$doc_id,'Religion', 25]])->execute();
            // $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }else{

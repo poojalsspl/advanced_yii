@@ -78,7 +78,12 @@ print_r($ids);*/
      <?php  $bareactmast  = ArrayHelper::map(BareactMast::find()->all(), 'bareact_code', 'bareact_desc'); ?>
     
 
-             <?= $form->field($model, "bareact_desc")->dropDownList($bareactmast,['prompt'=>''])->label('Element Name'); ?>
+             <?php /*echo $form->field($model, "bareact_desc")->dropDownList($bareactmast,['prompt'=>''])->label('Element Name'); */?>
+             <?= $form->field($model, 'bareact_desc')->widget(Select2::classname(), [
+        'data' => $bareactmast,
+        'options' => ['placeholder' => 'Select Element Name'],
+         
+          ]); ?>
     </div>
     <div class="act_data">
     <div class="col-md-3 col-xs-12">
