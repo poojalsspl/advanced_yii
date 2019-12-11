@@ -2,10 +2,10 @@
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use frontend\models\JudgmentRef;
+use frontend\models\JudgmentAct;
 use frontend\models\JudgmentMast;
 
-$this->title = 'Judgment Referred';
+$this->title = 'Acts/Sections';
 //print_r($models);die;
  /*foreach ($models as $key => $model) { 
     print_r($model);die;
@@ -18,7 +18,7 @@ $this->title = 'Judgment Referred';
     <tr>
       
       <th>Judgment Title</th>
-      <th>Judgment Referred Count</th>
+      <th>Acts/Section Count</th>
       
     </tr>
   </thead>
@@ -31,7 +31,7 @@ $this->title = 'Judgment Referred';
     <tr>
       
       <td><?= $j_title['judgment_title'] ?></td>
-      <td><a href="/advanced_yii/judgment-mast/referred-list?jcode=<?php echo $jcode; ?>"><?= $model['referred_count'] ?></a></td>
+      <td><a href="/advanced_yii/judgment-mast/acts-list?jcode=<?php echo $jcode; ?>"><?= $model['acts_count'] ?></a></td>
 
       
     </tr>

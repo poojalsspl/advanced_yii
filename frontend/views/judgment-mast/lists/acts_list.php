@@ -1,0 +1,36 @@
+<?php
+
+use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use frontend\models\JudgmentAct;
+
+$this->title = 'Acts & Sections Imposed ';
+
+
+?>
+
+ <table class="table table-striped">
+  <thead>
+    <tr>
+     <th>Bareact Description</th>
+     <th>Group</th>
+     <th>Main Act Category</th>
+     <th>Act SubCategory</th>
+     <th>Act Title</th>
+     </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($models as $modelSingle) { 
+?>
+    <tr>
+      <td><?= $modelSingle->bareact_desc ?></td>
+      <td><?= $modelSingle->act_group_desc ?></td>
+      <td><?= $modelSingle->act_catg_desc ?></td>
+      <td><?= $modelSingle->act_sub_catg_desc ?></td>
+      <td><?= $modelSingle->act_title ?></td>
+    </tr>
+
+    <?php } ?>
+  </tbody>
+</table>
+

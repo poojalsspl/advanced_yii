@@ -8,6 +8,7 @@ use frontend\models\JudgmentAdvocate;
 use frontend\models\JudgmentJudge;
 use frontend\models\JudgmentParties;
 use frontend\models\JudgmentRef;
+use frontend\models\JudgmentAct;
 use frontend\models\JudgmentElement;
 use frontend\models\JudgmentCitation;
 use frontend\models\JudgmentDataPoint;
@@ -193,6 +194,7 @@ $username = Yii::$app->user->identity->username;
         $tot_judge = JudgmentJudge::find()->where(['username'=>$username])->count();
         $tot_citation = JudgmentCitation::find()->where(['username'=>$username])->count();
         $tot_ref = JudgmentRef::find()->where(['username'=>$username])->count();
+        $tot_act = JudgmentAct::find()->where(['username'=>$username])->count();
         $tot_element = JudgmentElement::find()->where(['username'=>$username])->count();
         $tot_datapoint = JudgmentDataPoint::find()->where(['username'=>$username])->count();
         
@@ -216,9 +218,9 @@ $username = Yii::$app->user->identity->username;
                               <tr>
                                 <th>Advocates</th>
                                 <th>Judges</th>
-                                <th>Citations</th>
+                                <th>Citations Journals</th>
                                 <th>Judgment Referred</th>
-                                <th>Acts</th>
+                                <th>Acts/Sections</th>
                                 <th>Elements</th>
                                 <th>DataPoints</th>
                                 <th></th>
@@ -228,7 +230,7 @@ $username = Yii::$app->user->identity->username;
                                 <td><a href="/advanced_yii/judgment-mast/judgment-judges"><?php echo $tot_judge?></a></td>
                                 <td><a href="/advanced_yii/judgment-mast/judgment-citations"><?php echo $tot_citation?></a></td>
                                 <td><a href="/advanced_yii/judgment-mast/judgment-referred"><?php echo $tot_ref?></a></td>
-                                <td></td>
+                                <td><a href="/advanced_yii/judgment-mast/judgment-acts"><?php echo $tot_act?></a></td>
                                 <td><a href="/advanced_yii/judgment-mast/judgment-elements">
                                 <?php echo $tot_element?></a></td>
                                 <td><a href="/advanced_yii/judgment-mast/judgment-datapoints"><?php echo $tot_datapoint?></a></td>

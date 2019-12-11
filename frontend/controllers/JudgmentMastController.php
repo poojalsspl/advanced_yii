@@ -16,6 +16,7 @@ use frontend\models\JsubCatgMast;
 use frontend\models\JudgmentElement;
 use frontend\models\JudgmentDataPoint;
 use frontend\models\JudgmentRef;
+use frontend\models\JudgmentAct;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
@@ -299,6 +300,20 @@ class JudgmentMastController extends Controller
          ]);
     }
 
+    public function actionJudgmentActs()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $models = (new \yii\db\Query())
+            ->select('count(*) as acts_count,judgment_code')
+            ->from('judgment_act')
+            ->where(['username'=>$username])
+            ->groupBy(['judgment_code'])
+            ->having('acts_count' > 0)->all();
+        return $this->render('reports/judgment_acts', [
+            'models' => $models,
+         ]);
+    }
+
     public function actionJudgmentElements()
     {
         $username = \Yii::$app->user->identity->username;
@@ -380,6 +395,19 @@ class JudgmentMastController extends Controller
         $models = $query->all();
         //print_r($models);die;
         return $this->render('lists/referred-list', [
+            'models' => $models,
+         ]);
+    } 
+
+     public function actionActsList($jcode="")
+    {
+         $username = \Yii::$app->user->identity->username;
+        $query = JudgmentAct::find()
+        ->select('act_group_desc,act_catg_desc,act_sub_catg_desc,act_title,bareact_desc')
+        ->where(['username'=>$username])
+        ->andWhere(['judgment_code'=>$jcode]);
+        $models = $query->all();
+        return $this->render('lists/acts_list', [
             'models' => $models,
          ]);
     } 
