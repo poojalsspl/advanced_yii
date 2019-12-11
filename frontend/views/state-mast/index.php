@@ -35,10 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
             //'country_shrt_name',
             //'cr_date',
             //'status',
+            [
+            'label' => 'Country Name',
+            'value' => 'countryCode.country_name',
+           ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+
+    
 
 
 </div>

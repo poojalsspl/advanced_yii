@@ -62,6 +62,7 @@ class StateMastSearch extends StateMast
             'country_code' => $this->country_code,
             'cr_date' => $this->cr_date,
             'status' => $this->status,
+            'country_name' => $this->country_name,
         ]);
 
         $query->andFilterWhere(['like', 'state_name', $this->state_name])
