@@ -17,8 +17,8 @@ class JcatgMastSearch extends JcatgMast
     public function rules()
     {
         return [
-            [['jcatg_id', 'jcatg_id1'], 'integer'],
-            [['jcatg_description', 'jcatg_description1'], 'safe'],
+            [['jcatg_id'], 'integer'],
+            [['jcatg_description'], 'safe'],
         ];
     }
 
@@ -59,11 +59,10 @@ class JcatgMastSearch extends JcatgMast
         // grid filtering conditions
         $query->andFilterWhere([
             'jcatg_id' => $this->jcatg_id,
-            'jcatg_id1' => $this->jcatg_id1,
+           
         ]);
 
-        $query->andFilterWhere(['like', 'jcatg_description', $this->jcatg_description])
-            ->andFilterWhere(['like', 'jcatg_description1', $this->jcatg_description1]);
+        $query->andFilterWhere(['like', 'jcatg_description', $this->jcatg_description]);
 
         return $dataProvider;
     }

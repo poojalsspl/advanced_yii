@@ -31,8 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'jcatg_id',
             'jcatg_description',
-            'jcatg_id1',
-            'jcatg_description1',
+           
         ],
     ]) ?>
 

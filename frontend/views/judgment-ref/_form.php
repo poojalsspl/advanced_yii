@@ -98,7 +98,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
                 <div class="col-xs-6">
                 <div class="form-group field-judgmentref-judgment_title_ref has-success">
                 <label class="control-label" for="judgmentref-judgment_title_ref"></label>
-                <input type="text" id="judgmentref-judgment_title_ref" class="judgmentref-judgment_title_ref form-control" name="JudgmentRef[judgment_title_ref][]" value="<?= $jdg->judgment_title_ref ?>" maxlength="20" aria-invalid="false">
+                <input type="text" id="judgmentref-judgment_title_ref" class="judgmentref-judgment_title_ref form-control" name="JudgmentRef[judgment_title_ref][]" value="<?= $jdg->judgment_title_ref ?>" maxlength="true" aria-invalid="false">
                 <div class="help-block"></div>
                 </div> 
             </div>
@@ -132,7 +132,7 @@ if($model->isNewRecord){
     $customScript = <<< SCRIPT
     $('.addr-row').on('click',function(){
         console.log('test');
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentref-judgment_title_ref has-success"><label class="control-label" for="judgmentref-judgment_title_ref"></label><input type="text" id="judgmentref-judgment_title_ref" class="form-control judgmentref-judgment_title_ref" name="JudgmentRef[judgment_title_ref][]" maxlength="20" aria-invalid="false"><div class="help-block"></div></div></div></div>');    
+        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentref-judgment_title_ref has-success"><label class="control-label" for="judgmentref-judgment_title_ref"></label><input type="text" id="judgmentref-judgment_title_ref" class="form-control judgmentref-judgment_title_ref" name="JudgmentRef[judgment_title_ref][]" maxlength="true" aria-invalid="false"><div class="help-block"></div></div></div></div>');    
     });
     
     $('#submit-button').on("click",function(){
@@ -154,7 +154,7 @@ else{
         $customScript = <<< SCRIPT
     $('.addr-row').on('click',function(){
         $('.judgmentref-judgment_title_ref').attr('name','JudgmentRef[judgment_title_ref][]')
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentref-judgment_title_ref has-success"><label class="control-label" for="judgmentref-judgment_title_ref"></label><input type="text" id="judgmentref-judgment_title_ref" class="form-control judgmentref-judgment_title_ref" name="JudgmentRef[judgment_title_ref][]" maxlength="20" aria-invalid="false"><div class="help-block"></div></div></div></div>');    
+        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentref-judgment_title_ref has-success"><label class="control-label" for="judgmentref-judgment_title_ref"></label><input type="text" id="judgmentref-judgment_title_ref" class="form-control judgmentref-judgment_title_ref" name="JudgmentRef[judgment_title_ref][]" maxlength="true" aria-invalid="false"><div class="help-block"></div></div></div></div>');    
     });
     
     $('#submit-button').on("click",function(){

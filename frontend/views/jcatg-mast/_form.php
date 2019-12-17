@@ -14,9 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'jcatg_description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'jcatg_id1')->textInput() ?>
-
-    <?= $form->field($model, 'jcatg_description1')->textInput(['maxlength' => true]) ?>
+    
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

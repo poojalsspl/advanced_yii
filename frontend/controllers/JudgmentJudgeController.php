@@ -106,6 +106,8 @@ class JudgmentJudgeController extends Controller
      */
     public function actionUpdate($jcode="",$doc_id="")
     {
+         Yii::$app->session->setFlash('error', 'After succssfully submission of form once, you are not authorize to access this form again!');
+                return $this->render('message');
         $username = \Yii::$app->user->identity->username;
         $model =  JudgmentJudge::find()->where(['judgment_code'=>$jcode])->andWhere(['doc_id'=>$doc_id])->one();
         if($model->load(Yii::$app->request->post())) {

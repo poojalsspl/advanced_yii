@@ -28,8 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'jcatg_id',
             'jcatg_description',
-            'jcatg_id1',
-            'jcatg_description1',
+           
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

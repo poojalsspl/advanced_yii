@@ -17,6 +17,7 @@ use frontend\models\JudgmentElement;
 use frontend\models\JudgmentDataPoint;
 use frontend\models\JudgmentRef;
 use frontend\models\JudgmentAct;
+use frontend\models\JudgmentSearchTag;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
@@ -465,32 +466,32 @@ class JudgmentMastController extends Controller
     //$cache->set('jsub_catg_description', $jsub_catg_description);
            
         if ($model->load(Yii::$app->request->post()) ) {
-            $model->court_name                 =  $model->courtCode->court_name;
+            //$model->court_name                 =  $model->courtCode->court_name;
             //$model->jcatg_description          =  $model->jcatg->jcatg_description;
             //$model->jsub_catg_description      =  $model->jsubCatg->jsub_catg_description;
             $model->bench_type_text            =  $model->judgmentBenchType->bench_type_text;
             $model->disposition_text           =  $model->judgmentDisposition->disposition_text;
             $model->judgmnent_jurisdiction_text =  $model->judgmentJurisdiction->judgment_jurisdiction_text;
             $model->appeal_numb           = $_POST['JudgmentMast']['appeal_numb'];
-            $model->appellant_name        = $_POST['JudgmentMast']['appellant_name'];
-            $model->respondant_name       = $_POST['JudgmentMast']['respondant_name'];
+           // $model->appellant_name        = $_POST['JudgmentMast']['appellant_name'];
+           // $model->respondant_name       = $_POST['JudgmentMast']['respondant_name'];
             //$model->appellant_adv         = $_POST['JudgmentMast']['appellant_adv'];
             //$model->respondant_adv        = $_POST['JudgmentMast']['respondant_adv'];                    
             //$model->citation              = $_POST['JudgmentMast']['citation'];
             //$model->judges_name           = $_POST['JudgmentMast']['judges_name'];
             //$year                         = $_POST['JudgmentMast']['jyear'];
-            $model->jcount = 1;
+           // $model->jcount = 1;
            // $query = Demo::find()->where(['category'=>2]);
             //echo $query->createCommand()->getRawSql();
-            $query = JudgmentMast::find()->select('jcount')->where(['!=','jcount','completed'])->one();
+            //$query = JudgmentMast::find()->select('jcount')->where(['!=','jcount','completed'])->one();
             
             
             $model->save();
             $judgment_code = $model->judgment_code;  
-            //$doc_id = $model->doc_id; 
+            $doc_id = $model->doc_id='653063'; 
             Yii::$app->session->setFlash('Created successfully!!');
 
-            return $this->redirect(['judgment-act/create', 'jcount' => 1,'jcode'=>$judgment_code]);
+            return $this->redirect(['judgment-advocate/create', 'jcode' => $judgment_code,'doc_id'=>$doc_id]);
             
         } else {
             return $this->render('create', [
@@ -503,7 +504,7 @@ class JudgmentMastController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+         $username = \Yii::$app->user->identity->username;
         if ($model->load(Yii::$app->request->post())) {
           $jcode = $model->judgment_code;
           $doc_id = $model->doc_id;
@@ -514,6 +515,32 @@ class JudgmentMastController extends Controller
             $model->jsub_catg_id = $model->jsub_catg_description;
           if($model->jsub_catg_description!=''){
           $model->jsub_catg_description      =  $model->jsubCatg->jsub_catg_description;
+          }
+          if($model->search_tag!=''){
+
+            \Yii::$app
+            ->db
+            ->createCommand()
+            ->delete('judgment_search_tag', ['judgment_code' => $jcode])
+            ->execute();
+          $search_tag = $model->search_tag;
+          $search_ex = explode(";",$search_tag);
+          
+          
+          foreach ($search_ex as $k => $v) {
+             $model_search = new JudgmentSearchTag();  
+             $model_search->search_tag = $v;
+             $model_search->username = $username;
+             $model_search->judgment_code = $jcode;
+             $model_search->doc_id = $doc_id;
+              $model_search->save(false);
+           }
+          $result = \Yii::$app->db->createCommand("CALL search_tag(:jcode , :usrname, :doid)") 
+                      ->bindValue(':jcode' , $jcode )
+                      ->bindValue(':usrname', $username)
+                      ->bindValue(':doid', $doc_id)
+                      ->execute();
+         
           }
 
           $check = JudgmentMast::find()->select('status_1')->where(['judgment_code'=>$jcode])->one();

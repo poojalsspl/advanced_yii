@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\JudgmentMast */
 
-$this->title = 'Create Judgment Mast';
+/*$this->title = 'Create Judgment Mast';
 $this->params['breadcrumbs'][] = ['label' => 'Judgment Masts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $this->title;*/
 ?>
 <div class="judgment-mast-create">
 

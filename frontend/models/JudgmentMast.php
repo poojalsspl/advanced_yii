@@ -118,13 +118,13 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'judgment_text1'           => 'Judgment Text1',
             'doc_id'                   => 'Judgment Source Code',
             'judgment_type'            => 'Judgment Type',
-            'jcatg_description'        => 'Jcatg Description',
+            'jcatg_description'        => 'Judgment Category',
             'jcatg_id'                 => 'Judgment Category',
-            'jsub_catg_description'    => 'Jsub Catg Description',
+            'jsub_catg_description'    => 'Judgment Sub-category',
             'jsub_catg_id'             => 'Jsub Catg ID',
             'overrule_judgment'        => 'Overrule Judgment',
             'overruled_by_judgment'    => 'Overruled By Judgment',
-            'remark'                   => 'Remark',
+            'remark'                   => 'Data Collected from other source',
             'bench_type_id'            => 'Bench Type',
             'disposition_id'           => 'Disposition',
             'judgment_jurisdiction_id' => 'Jurisdiction',
@@ -132,6 +132,20 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'username'                 => 'Username'
         ];
     }
+
+    /*public function attributeHints() {
+        $labels = $this->attributeLabels();
+        $hints = [];
+        if (count($labels) > 0) {
+            foreach ($labels as $attribute => $label) {
+               //print_r($labels['judgment_code']);
+              // $jcode = $labels['judgment_code'];
+
+                $hints[$attribute] = Yii::t('app', 'Enter ' . strtolower($label));
+            }
+        }
+        return $hints;
+    }*/
 
     public function getCourtCode()
     {

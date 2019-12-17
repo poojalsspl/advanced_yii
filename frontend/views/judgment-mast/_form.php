@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+//use yii\widgets\ActiveForm;
 use frontend\models\JsubCatgMast;
 use frontend\models\JcatgMast;
 use frontend\models\JudgmentMast;
@@ -9,6 +9,8 @@ use frontend\models\CityMast;
 use frontend\models\CourtMast;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
+use kartik\form\ActiveForm;
+use kartik\form\ActiveField;
 use kartik\daterange\DateRangePicker;
 use frontend\models\JudgmentBenchType;
 use frontend\models\JudgmentDisposition;
@@ -20,6 +22,7 @@ use yii\helpers\Url;
 /* @var $form yii\widgets\ActiveForm */
 $cache = Yii::$app->cache;
 $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['index']];
+
 ?>
 <style type="text/css">
   .tabs a{
@@ -29,58 +32,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['in
 
 </style>
 <!---code for tabs------->
-<?php
 
- $jcode = $model->judgment_code;
- $doc_id = $model->doc_id;
-
-$master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
-    $JudgmentAct         = $master->judgmentActs;
-    $JudgmentAdvocate    = $master->judgmentAdvocates;
-    $JudgmentJudge       = $master->judgmentJudges;
-   // $JudgmentAct         = $master->judgmentActs;
-    $JudgmentCitation    = $master->judgmentCitations;
-    $JudgmentParties     = $master->judgmentParties;
-    $JudgmentElement     = $master->judgmentElement;
-    $JudgmentDatapoints  = $master->judgmentDatapoints;
-    $JudgmentReferred    = $master->judgmentReferred;
-
-    $mastcls = "btn-success";
-    /*if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }*/
-    if(!empty($JudgmentAdvocate)){ $advocate =  '/judgment-advocate/update'; $advocatecls = "btn-success"; } else { $advocate =  '/judgment-advocate/create'; $advocatecls = "btn-warning";}
-    if(!empty($JudgmentJudge)){  $judge      =  '/judgment-judge/update';  $judgecls = "btn-success";} else { $judge =  '/judgment-judge/create'; $judgecls = "btn-warning"; }
-    
-    if(!empty($JudgmentCitation)){ $citation =  '/judgment-citation/update'; $citationcls = "btn-success";} else { $citation =  '/judgment-citation/create';  $citationcls = "btn-warning"; } 
-    if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-success";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-warning"; }
-
-    if(!empty($JudgmentReferred)){ $ref           =  '/judgment-ref/update'; $refcls = "btn-success"; } else { $ref =  '/judgment-ref/create'; $refcls = "btn-warning"; }
-    if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }  
-    
-   
-    if(!empty($JudgmentElement)){ $element           =  '/judgment-element/index'; $elementcls = "btn-success"; } else { $element =  '/judgment-element/create'; $elementcls = "btn-warning"; }
-    
-    if(!empty($JudgmentDatapoints)){ $datapoints   =  '/judgment-data-point/update'; $datapointscls = "btn-success";} else { $datapoints =  '/judgment-data-point/create1'; $datapointscls = "btn-warning"; }
-?>
-
-<div class="tabs">
-
-<?= Html::a('Judgments',['/judgment-mast/update','id'=>$jcode],["class"=>"btn btn-block  ".$mastcls ]) ?>
-
-<?php echo Html::a('Lawyers Appeared',[$advocate,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$advocatecls ]) ?>
-<?= Html::a('Judges Bench',[$judge,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$judgecls ]) ?>
-
-<?= Html::a('Citations',[$citation,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$citationcls ]) ?>
-<?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
-<?php echo Html::a('Judgment Referred',[$ref,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$refcls ]) ?>
-<?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
-
-<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$elementcls ]) ?>
-<?php echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%","class"=>"btn btn-block  ".$datapointscls ]) ?>
-
-<!-- <span style="float:right; border: 1px solid red; background-color: red;"><a href="../judgment-mast/index"  style="color: white" class="btn btn-block red"><b>Judgment Allocated</b></a></span> -->
-</div>  
-
-<!---end of code for tabs------->
 
 <!------start of form------>
 <div class="template">
@@ -109,7 +61,9 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
             <?= $form->field($model, 'court_name')->textInput(['readonly'=> true]);?> 
                            
            <?= $form->field($model, 'court_code')->hiddenInput(['readonly'=>true])->label(false); ?>
-           <?=  $form->field($model, 'appeal_numb')->textInput() ?>  
+           <?php $appeal_hint = '(crl.) 1230 of  1998'?>
+           <?=  $form->field($model, 'appeal_numb',['hintType' => ActiveField::HINT_SPECIAL])->hint($appeal_hint) ?> 
+
            <?= $form->field($model, 'judgment_type')->dropDownList(["0"=>'Order', "1"=>"Oral Order","2"=>"Judgment"],['prompt'=>'Select Appeal Status']) ?>                           
              </div>
         <div class="col-md-4 col-xs-12">
@@ -182,13 +136,13 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg
           'pluginEvents'=>[
             ]
           ]); ?>
-          <?= $form->field($model, 'judgment_date')->widget(DateRangePicker::classname(), [
+          <?= $form->field($model, 'judgment_date',['hintType' => ActiveField::HINT_SPECIAL])->widget(DateRangePicker::classname(), [
       'pluginOptions'=>[
           'singleDatePicker'=>true,
           'showDropdowns'=>true,
           'locale'=>['format' => 'YYYY-MM-DD'],
       ],
-  ]);
+  ])->hint('YYYY-MM-DD');
     ?>
      <?php 
       $jsub_catg_description = ($model->jsub_catg_id != "") ?  ArrayHelper::map(JsubCatgMast::find()->where(["jsub_catg_id"=>$model->jsub_catg_id])->all(), 'jsub_catg_id', 'jsub_catg_description') : "" ; ?>
@@ -205,8 +159,8 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg
   </div>
   <div class="col-md-12">
     <div class="col-md-10 col-xs-12">
-
-     <?=  $form->field($model, 'search_tag')->textInput()->label('Search Tag(insert multiple values with semicolon(;)') ?> 
+      <?php $tag_hint = 'Generate tag from judgment in this format  '."<b>tag:percentagevalue;</b>".'  Eg if the judgment has 5 tags then it should be generated in this format '."<br>".'Search tag1:40%; Search tag2:25%; Search tag3:35%; Search tag4:55%; Search tag5:45%;'?>
+     <?=  $form->field($model, 'search_tag',['hintType' => ActiveField::HINT_SPECIAL])->textInput()->label('Search Tag(insert multiple values with semicolon(;)')->hint($tag_hint) ?> 
    </div>
    <div class="col-md-2 col-xs-12">
     <label>Search Tag Count</label>
@@ -224,7 +178,7 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg
       <div class="box-body">
           <div class="col-md-12">
               <div class="col-md-6 col-xs-12">
-<?= $form->field($model, 'judgment_title')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'judgment_title') ?>
               </div>
 
              
@@ -238,11 +192,11 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg
   <div class="box box-blue">
       <div class="box-body">
           <div class="col-md-12">
-             <label>Remark (If any Fixed data point are not available in the displayed judgment text, Search the same judgments on Google and find the fixed data points. Extra marks will be provided for fixed data point that were generated from judgments searched on Google.<br>
-E.g if case number is not available and is located from same judgement that was searched on Google then copy paste like<br>Case Number : "CRIMINAL APPEAL NO. 655 OF 2002" in the following text box <br>
-and do not fill the data in the fields provided)</label>
+
+
               <div class="col-md-12 col-xs-12">
-<?= $form->field($model, 'remark')->textarea(['maxlength' => true,'rows'=>6])->label(false) ?>
+                <?php $remark_hint = 'If any Fixed data point are not available in the displayed judgment text, Search the same judgments on Google and find the fixed data points.'."<br>".'Extra marks will be provided for fixed data point that were generated from judgments searched on Google.'."<br><b>E.g</b> ".'if case number is not available and is located from same judgement that was searched on Google then copy paste like'."<br>".'Case Number : CRIMINAL APPEAL NO. 655 OF 2002'."<br>".'do not fill the data in the fields provided'?>
+<?= $form->field($model, 'remark',['hintType' => ActiveField::HINT_SPECIAL])->textarea(['maxlength' => true,'rows'=>6])->label()->hint($remark_hint) ?>
               </div>
              
 
@@ -257,7 +211,7 @@ and do not fill the data in the fields provided)</label>
         <div class="box-body">
             <div class="col-md-12">
                 <div class="col-md-6 col-xs-12">
-<?= $form->field($model, 'judgment_abstract')->textarea(['rows' => 6]) ?>
+<?= $form->field($model, 'judgment_abstract') ?>
                 </div>
                 <div class="col-md-6 col-xs-12">
 <?= $form->field($model, 'judgment_text')->textarea(['rows' => 6]) ?>

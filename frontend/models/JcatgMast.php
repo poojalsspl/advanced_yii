@@ -9,8 +9,7 @@ use Yii;
  *
  * @property int $jcatg_id
  * @property string $jcatg_description
- * @property int $jcatg_id1
- * @property string $jcatg_description1
+
  *
  * @property JsubCatgMast[] $jsubCatgMasts
  */
@@ -30,8 +29,8 @@ class JcatgMast extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jcatg_id1'], 'integer'],
-            [['jcatg_description', 'jcatg_description1'], 'string', 'max' => 150],
+            [['jcatg_id'], 'integer'],
+            [['jcatg_description'], 'string', 'max' => 150],
         ];
     }
 
@@ -43,8 +42,7 @@ class JcatgMast extends \yii\db\ActiveRecord
         return [
             'jcatg_id' => 'Jcatg ID',
             'jcatg_description' => 'Jcatg Description',
-            'jcatg_id1' => 'Jcatg Id1',
-            'jcatg_description1' => 'Jcatg Description1',
+           
         ];
     }
 

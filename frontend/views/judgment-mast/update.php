@@ -1,6 +1,19 @@
 <?php
 
 use yii\helpers\Html;
+use frontend\models\JsubCatgMast;
+use frontend\models\JcatgMast;
+use frontend\models\JudgmentMast;
+use frontend\models\CityMast;
+use frontend\models\CourtMast;
+use yii\helpers\ArrayHelper;
+
+use kartik\form\ActiveForm;
+use kartik\form\ActiveField;
+
+use frontend\models\JudgmentBenchType;
+use frontend\models\JudgmentDisposition;
+use frontend\models\JudgmentJurisdiction;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\JudgmentMast */
@@ -13,6 +26,59 @@ $this->params['breadcrumbs'][] = 'Update';*/
 <div class="judgment-mast-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php
+
+
+ $jcode = $model->judgment_code;
+ $doc_id = $model->doc_id;
+
+$master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
+    $JudgmentAct         = $master->judgmentActs;
+    $JudgmentAdvocate    = $master->judgmentAdvocates;
+    $JudgmentJudge       = $master->judgmentJudges;
+   // $JudgmentAct         = $master->judgmentActs;
+    $JudgmentCitation    = $master->judgmentCitations;
+    $JudgmentParties     = $master->judgmentParties;
+    $JudgmentElement     = $master->judgmentElement;
+    $JudgmentDatapoints  = $master->judgmentDatapoints;
+    $JudgmentReferred    = $master->judgmentReferred;
+
+    $mastcls = "btn-success";
+    /*if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }*/
+    if(!empty($JudgmentAdvocate)){ $advocate =  '/judgment-advocate/update'; $advocatecls = "btn-success"; } else { $advocate =  '/judgment-advocate/create'; $advocatecls = "btn-warning";}
+    if(!empty($JudgmentJudge)){  $judge      =  '/judgment-judge/update';  $judgecls = "btn-success";} else { $judge =  '/judgment-judge/create'; $judgecls = "btn-warning"; }
+    
+    if(!empty($JudgmentCitation)){ $citation =  '/judgment-citation/update'; $citationcls = "btn-success";} else { $citation =  '/judgment-citation/create';  $citationcls = "btn-warning"; } 
+    if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-success";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-warning"; }
+
+    if(!empty($JudgmentReferred)){ $ref           =  '/judgment-ref/update'; $refcls = "btn-success"; } else { $ref =  '/judgment-ref/create'; $refcls = "btn-warning"; }
+    if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-success"; } else { $act =  '/judgment-act/create'; $actcls = "btn-warning"; }  
+    
+   
+    if(!empty($JudgmentElement)){ $element           =  '/judgment-element/index'; $elementcls = "btn-success"; } else { $element =  '/judgment-element/create'; $elementcls = "btn-warning"; }
+    
+    if(!empty($JudgmentDatapoints)){ $datapoints   =  '/judgment-data-point/update'; $datapointscls = "btn-success";} else { $datapoints =  '/judgment-data-point/create1'; $datapointscls = "btn-warning"; }
+?>
+
+<div class="tabs">
+
+<?= Html::a('Judgments',['/judgment-mast/update','id'=>$jcode],["class"=>"btn btn-block  ".$mastcls ]) ?>
+
+<?php echo Html::a('Lawyers Appeared',[$advocate,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$advocatecls ]) ?>
+<?= Html::a('Judges Bench',[$judge,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$judgecls ]) ?>
+
+<?= Html::a('Citations',[$citation,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$citationcls ]) ?>
+<?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$partiescls ]) ?>
+<?php echo Html::a('Judgment Referred',[$ref,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$refcls ]) ?>
+<?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["class"=>"btn btn-block  ".$actcls ]) ?>
+
+<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$elementcls ]) ?>
+<?php echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%","class"=>"btn btn-block  ".$datapointscls ]) ?>
+
+<!-- <span style="float:right; border: 1px solid red; background-color: red;"><a href="../judgment-mast/index"  style="color: white" class="btn btn-block red"><b>Judgment Allocated</b></a></span> -->
+</div>  
+
+<!---end of code for tabs------->
 
     <?= $this->render('_form', [
         'model' => $model,
