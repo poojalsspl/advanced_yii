@@ -7,20 +7,21 @@ $params = array_merge(
 );
 
 return [
-    'homeUrl' => '',
+    
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
+    'homeUrl'  => '/advanced_yii/admin',
     'modules' => [],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
-             'baseUrl' => '',
+            'baseUrl'  => '/advanced_yii/admin'
         ],
-        'urlManager'=>[
+       /* 'urlManager'=>[
             'scriptUrl'=>'',
-        ],
+        ],*/
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -43,12 +44,13 @@ return [
             'errorAction' => 'site/error',
         ],
         
-        /*'urlManager' => [
+        'urlManager' => [
+            'baseUrl'  => '/advanced_yii/admin',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
-        ],*/
+        ],
         
     ],
     'params' => $params,
