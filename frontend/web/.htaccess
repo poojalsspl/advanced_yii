@@ -1,6 +1,8 @@
 RewriteEngine on
+RewriteBase /advanced_yii
 
+# if a directory or a file exists, use the request directly
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d 
-
-RewriteRule . index.php
+RewriteCond %{REQUEST_FILENAME} !-d
+# otherwise, forward to index.php/controller/action
+RewriteRule (?!web\/) index.php/$1

@@ -1,15 +1,12 @@
-Options +FollowSymlinks
-RewriteEngine On
+# prevent directory listing
+Options -Indexes
+IndexIgnore */*
 
-RewriteCond %{REQUEST_URI} ^/
-RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
-RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
-RewriteRule ^js/(.*)$ frontend/web/js/$1 [L] 
-RewriteRule ^images/(.*)$ frontend/web/images/$1 [L]
-RewriteRule ^t3-assets/(.*)$ frontend/web/t3-assets/$1 [L]
-
-RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/
-RewriteCond %{REQUEST_URI} !index.php
-RewriteCond %{REQUEST_FILENAME} !-f [OR]
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^.*$ frontend/web/index.php
+# follow symbolic links
+Options FollowSymlinks
+RewriteEngine on
+# without trailing slash
+RewriteRule ^admin(/.+)?$ backend/web/$1 [L,PT]
+# with trailing slash
+RewriteRule ^admin/(.+)?$ backend/web/$1 [L,PT]
+RewriteRule ^(.+)?$ frontend/web/$1 [L,PT]

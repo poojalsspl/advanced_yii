@@ -123,7 +123,7 @@ class JudgmentPartiesController extends Controller
          return $this->render('message');
         $username = \Yii::$app->user->identity->username;
         $model =  JudgmentParties::find()->where(['judgment_code'=>$jcode])->one();
-        $judgmentAdvocate =$model->judgment_code;  
+        $judgmentParties =$model->judgment_code;  
         $adv = new JudgmentParties();
          if ($model->load(Yii::$app->request->post())) {
             $count =  count($_POST['JudgmentParties']['party_flag']);
@@ -137,7 +137,7 @@ class JudgmentPartiesController extends Controller
             if($_POST['JudgmentParties']['party_name'][$i] !='')
             {  
             $parties = new JudgmentParties();
-            $parties->judgment_code  = $judgmentAdvocate;
+            $parties->judgment_code  = $judgmentParties;
             $parties->doc_id = $doc_id;
             $parties->username = $username;
             $parties->party_flag = $_POST['JudgmentParties']['party_flag'][$i];

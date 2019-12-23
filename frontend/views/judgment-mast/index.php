@@ -1,8 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\widgets\Pjax;
+//use yii\grid\GridView;
+//use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use app\models\Student;
 //use yii\grid\ActionColumn;

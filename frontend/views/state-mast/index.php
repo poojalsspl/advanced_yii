@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'cr_date',
             //'status',
             [
-            'label' => 'Country Name',
+            'label' => 'countryCode',
             'value' => 'countryCode.country_name',
            ],
 

@@ -121,7 +121,7 @@ class JudgmentRefController extends Controller
             \Yii::$app
             ->db
             ->createCommand()
-            ->delete('judgment_title_ref', ['judgment_code' => $jcode])
+            ->delete('judgment_ref', ['judgment_code' => $jcode])
             ->execute();
             for($i=0;$i<$count;$i++)
             {        

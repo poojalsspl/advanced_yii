@@ -7,20 +7,21 @@ $params = array_merge(
 );
 
 return [
-    'homeUrl' => 'http://localhost/advanced_yii/',
+    
     'id' => 'app-frontend',
     'name' => 'Research Law',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'homeUrl' => '/advanced_yii',
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
-            'baseUrl' => '/advanced_yii/',
+            'baseUrl' => '/advanced_yii',
         ],
-        'urlManager'=>[
+        /*'urlManager'=>[
             'scriptUrl'=>'/advanced_yii/',
-        ],
+        ],*/
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -51,6 +52,7 @@ return [
         ],
         */
         'urlManager' => [
+            'baseUrl' => '/advanced_yii',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [

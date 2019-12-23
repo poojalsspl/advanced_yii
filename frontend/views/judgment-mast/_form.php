@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['in
            <?php $appeal_hint = '(crl.) 1230 of  1998'?>
            <?=  $form->field($model, 'appeal_numb',['hintType' => ActiveField::HINT_SPECIAL])->hint($appeal_hint) ?> 
 
-           <?= $form->field($model, 'judgment_type')->dropDownList(["0"=>'Order', "1"=>"Oral Order","2"=>"Judgment"],['prompt'=>'Select Appeal Status']) ?>                           
+           <?= $form->field($model, 'judgment_type')->dropDownList(["0"=>'Order', "1"=>"Oral Order","2"=>"Judgment"],['prompt'=>'Select Judgment Type']) ?>                           
              </div>
         <div class="col-md-4 col-xs-12">
 <?php
