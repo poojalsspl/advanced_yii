@@ -17,6 +17,7 @@ use frontend\models\JudgmentElement;
 use frontend\models\JudgmentDataPoint;
 use frontend\models\JudgmentRef;
 use frontend\models\JudgmentAct;
+use frontend\models\BareactDetl;
 use frontend\models\JudgmentSearchTag;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -404,7 +405,7 @@ class JudgmentMastController extends Controller
     {
          $username = \Yii::$app->user->identity->username;
         $query = JudgmentAct::find()
-        ->select('act_group_desc,act_catg_desc,act_sub_catg_desc,act_title,bareact_desc')
+        ->select('act_group_desc,act_catg_desc,act_sub_catg_desc,act_title,bareact_desc,bareact_code')
         ->where(['username'=>$username])
         ->andWhere(['judgment_code'=>$jcode]);
         $models = $query->all();
@@ -561,6 +562,20 @@ class JudgmentMastController extends Controller
        return $this->render('update', [
             'model' => $model,
         ]);
+    }
+
+    public function actionActsTitle($brcode,$title)
+    {
+       
+        $query = BareactDetl::find()
+        ->select('body')
+        ->where(['bareact_code'=>$brcode])
+        ->andWhere(['act_title'=> $title]);
+        $models = $query->all();
+        return $this->render('acts_title', [
+            'models' => $models,
+         ]);
+
     }
 
 

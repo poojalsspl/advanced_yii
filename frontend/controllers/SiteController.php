@@ -261,6 +261,11 @@ class SiteController extends Controller
         return $this->render('course-judgment-specialised');
     }
 
+    public function actionReports()
+    {
+        return $this->render('reports');
+    } 
+
     public function actionCheckValidJs()
     {
         return $this->render('check-valid-js');
@@ -420,23 +425,7 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionReports()
-    {
-        /*$username = Yii::$app->user->identity->username;
-        $sql = (new \yii\db\Query());
-        $sql->select(['judgment_code']) 
-           ->from('judgment_mast')
-           ->where('username=:username', [':username' => $username]);
-        $command = $sql->createCommand();
-        $models = $command->queryAll();
-        
-         return $this->render('reports', [
-                'models' => $models,
-            ]);*/
-      
-        return $this->render('reports');
-
-    }
+   
 
     public function actionSignupbkup()
     {

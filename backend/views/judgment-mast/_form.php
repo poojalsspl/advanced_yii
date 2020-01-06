@@ -2,8 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use frontend\models\JsubCatgMast;
 use frontend\models\JcatgMast;
+use frontend\models\JsubCatgMast;
 use frontend\models\CourtMast;
 use frontend\models\JudgmentBenchType;
 use frontend\models\JudgmentDisposition;
@@ -84,11 +84,26 @@ use kartik\daterange\DateRangePicker;
 
     <?= $form->field($model, 'jcatg_description')->textInput(['readonly'=>true]) ?>
 
-    <?= $form->field($model, 'jcatg_id1')->textInput() ?>
+    <?php $jcatg_description = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg_description');?>
+
+    
+    <?= $form->field($model, 'jcatg_id1')->widget(Select2::classname(), [
+          'data' => $jcatg_description,
+          'options' => ['placeholder' => 'Select Judgment Category'],
+          'pluginEvents'=>[
+            ]
+          ])->label('Judgment Category'); ?>   
    
     <?= $form->field($model, 'jsub_catg_description')->textInput(['readonly'=>true]) ?>
 
-    <?= $form->field($model, 'jsub_catg_id1')->textInput() ?>
+    <?php $jsub_catg = ArrayHelper::map(JsubCatgMast::find()->all(),'jsub_catg_id','jsub_catg_description');?>
+
+    
+    <?= $form->field($model,'jsub_catg_id1')->widget(Select2::classname(),[
+      'data' => $jsub_catg,
+      'options' => ['placeholder'=>'Select Judgment SubCategory'],
+      'pluginEvents' =>[]
+    ])->label('Judgment SubCategory');?>
         
     <?= $form->field($model, 'remark')->textInput(['maxlength' => true,'readonly'=> true]) ?>
 
