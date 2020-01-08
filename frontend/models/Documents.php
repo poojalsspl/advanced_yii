@@ -30,7 +30,7 @@ class Documents extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'integer'],
-            //[['x_th', 'xii_th', 'id_proof'], 'string', 'max' => 200],
+           // [['x_th', 'xii_th', 'id_proof'], 'string', 'max' => 200],
         ];
     }
 

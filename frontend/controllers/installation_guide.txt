@@ -1,0 +1,5 @@
+After composer install make sure to copy the vendor/bower to vendor/bower-asset
+copy the \common\overrides\yiisoft\yii2-sphinx\src\QueryBuilder.php to vendor\yiisoft\yii2-sphinx\src\QueryBuilder.php as it contains some edits
+
+Manticore
+chown -R manticore:manticore /var/lib/manticore/; indexer -c /etc/sphinx/sphinx.conf --all --rotate

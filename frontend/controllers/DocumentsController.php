@@ -216,15 +216,10 @@ class DocumentsController extends Controller
     public function actionPdf_xth($id) 
     {
         $model = Documents::findOne($id);
-      
-        //echo $path;die;
-
         $completePath = Yii::getAlias('@app').'/web/uploads/'.$model->x_th;
         if(!empty($completePath))
         {
             return Yii::$app->response->sendFile($completePath, $model->x_th, ['inline'=>true]);
-            
-            //Yii::$app->session->setFlash('danger', '10th Record not found');
         }else
         {
             ?> 

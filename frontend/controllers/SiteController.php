@@ -17,6 +17,9 @@ use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use app\models\UserMast;
 use app\models\Student;
+use frontend\models\StudentDocs;
+use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
 use frontend\models\CountryMast;
 use frontend\models\StateMast;
 use frontend\models\CityMast;
@@ -39,7 +42,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout','create', 'update', 'delete'],
                 'rules' => [
                     [
                         
@@ -310,7 +313,7 @@ class SiteController extends Controller
        echo \yii\helpers\Json::encode(['output'=>'', 'selected'=>'']);
        }
 
-
+  /*==========Student Detail==========*/
     public function actionRegistration()
 {
          $user = new LoginForm();
@@ -342,17 +345,12 @@ class SiteController extends Controller
             $course = new CourseMast();
             $course_name =  $course->getCourseName($model->course_code);
             $model->course_name = $course_name ;
-
-             /*$dob = $model->dob;
-             $dob = str_replace('/', '-', $dob);
-           $model->dob = date('Y-m-d', strtotime($dob));*/
-            
-            if ($model->save() && $user->SetStatus($id,'1')) {
+             if ($model->save() && $user->SetStatus($id,'1')) {
                 Yii::$app->session->setFlash('success', "Student profile updated."); 
-                 return $this->redirect(['dashboard']);
+                 return $this->redirect(['student-doc']);
 
               } else {
-                  Yii::$app->session->setFlash('error', "Student info not saved.");
+                  Yii::$app->session->setFlash('error', "Student information not saved.");
               }
               
          }
@@ -360,9 +358,112 @@ class SiteController extends Controller
             'model' => $model,
         ]);
 
-}
+     }
 
 
+     public function actionStudentDoc()
+    {
+        $model = new StudentDocs();
+
+        if ($model->load(Yii::$app->request->post())) 
+        {
+            $username = Yii::$app->user->identity->username;
+            $model->username = $username;
+            $url = 'uploads/';
+            $start_date = date('Y');
+            $month = date('m');
+            $path = $start_date.'-'.$month;
+            $tot = $url.$path;
+            if (!file_exists($tot)) 
+            {
+               FileHelper::createDirectory($tot);
+            }
+            
+            $doc_tenth = mt_rand(10000, 99999);
+            $doc_twelve = mt_rand(100000, 999999);
+            $doc_id_proof = mt_rand(1000000, 9999999);
+            $model->doc_tenth = UploadedFile::getInstance($model, 'doc_tenth');
+            $model->doc_twelve = UploadedFile::getInstance($model, 'doc_twelve');
+            $model->doc_id_proof = UploadedFile::getInstance($model, 'doc_id_proof');
+
+            $model->doc_tenth->saveAs('uploads/'.$path.'/'.$doc_tenth.'.'.$model->doc_tenth->extension );
+            $model->doc_twelve->saveAs('uploads/'.$path.'/'.$doc_twelve.'.'.$model->doc_twelve->extension );
+            $model->doc_id_proof->saveAs('uploads/'.$path.'/'.$doc_id_proof.'.'.$model->doc_id_proof->extension );
+
+            $model->doc_tenth = $path.'/'.$doc_tenth.'.'.$model->doc_tenth->extension;
+            $model->doc_twelve = $path.'/'.$doc_twelve.'.'.$model->doc_twelve->extension;
+            $model->doc_id_proof = $path.'/'.$doc_id_proof.'.'.$model->doc_id_proof->extension;
+
+            if ($model->save() && $user->SetStatus($id,'2')) {
+                Yii::$app->session->setFlash('success', "Documents Uploaded Successfully."); 
+                 return $this->redirect(['document']);
+
+              } else {
+                  Yii::$app->session->setFlash('error', "Please upload all documents.");
+              }
+            return $this->redirect(['dashboard']);
+        }
+
+        return $this->render('document', [
+            'model' => $model,
+        ]);
+    }
+
+       public function actionPdf_tenth($id) 
+    {
+        $model = StudentDocs::findOne($id);
+        $completePath = Yii::getAlias('@app').'/web/uploads/'.$model->doc_tenth;
+        if(!empty($completePath))
+        {
+            return Yii::$app->response->sendFile($completePath, $model->doc_tenth, ['inline'=>true]);
+        }else
+        {
+            ?> 
+            <script>
+                alert("Record not found");
+            </script>
+            <?php
+        }
+        
+    }
+
+    public function actionPdf_twelve($id) 
+    {
+        $model = Documents::findOne($id);
+        $completePath = Yii::getAlias('@web').'uploads/'.$model->doc_twelve;
+        if(!empty($completePath))
+        {
+            return Yii::$app->response->sendFile($completePath, $model->doc_twelve, ['inline'=>true]);
+        }else
+        {
+            ?> 
+            <script>
+                alert("Record not found");
+            </script>
+            <?php
+        }
+        
+    }
+
+    public function actionPdf_idproof($id) 
+    {
+        $model = Documents::findOne($id);
+        $completePath = Yii::getAlias('@web').'uploads/'.$model->doc_id_proof;
+        if(!empty($completePath))
+        {
+            return Yii::$app->response->sendFile($completePath, $model->doc_id_proof, ['inline'=>true]);
+         }else
+        {
+           ?> 
+            <script>
+                alert("Record not found");
+            </script>
+            <?php 
+        }
+        
+    }
+
+     /*==========Student Detail==========*/
 
          public function actionDashboard()
      {
