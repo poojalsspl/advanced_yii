@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="documents-form">
-	<h2>Please Upload the relevant document to complete the profile.</h2>
+	<h2>Please Upload the relevant document in pdf format to complete the profile.</h2>
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 

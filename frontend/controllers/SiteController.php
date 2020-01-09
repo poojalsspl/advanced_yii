@@ -363,6 +363,8 @@ class SiteController extends Controller
 
      public function actionStudentDoc()
     {
+        $user = new LoginForm();
+        $id = Yii::$app->user->identity->id;
         $model = new StudentDocs();
 
         if ($model->load(Yii::$app->request->post())) 
@@ -396,12 +398,12 @@ class SiteController extends Controller
 
             if ($model->save() && $user->SetStatus($id,'2')) {
                 Yii::$app->session->setFlash('success', "Documents Uploaded Successfully."); 
-                 return $this->redirect(['document']);
+                 return $this->redirect(['dashboard']);
 
               } else {
                   Yii::$app->session->setFlash('error', "Please upload all documents.");
               }
-            return $this->redirect(['dashboard']);
+            //return $this->redirect(['dashboard']);
         }
 
         return $this->render('document', [
