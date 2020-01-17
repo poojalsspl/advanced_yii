@@ -9,7 +9,8 @@ use app\models\Student;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\JudgmentMastSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$username;    
+$username = \Yii::$app->user->identity->username;
+   
 $student_name = ArrayHelper::map(Student::find()->where(['email'=>$username])->all(),'student_name','student_name');
 foreach ($student_name as $student) {
   
@@ -24,9 +25,7 @@ foreach ($student_name as $student) {
     <h1><?php //echo Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <h1><?php echo 'List of judgments allocated to : ' ?><span style="color: #185886 ;"><?php echo $student;?></span></h1>
-   <!--  <p>
-        <?php// Html::a('Create Judgment Mast', ['create'], ['class' => 'btn btn-success']) ?>
-    </p> -->
+
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>

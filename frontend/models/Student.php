@@ -50,6 +50,7 @@ class Student extends \yii\db\ActiveRecord
             [['student_name', 'college_name', 'course_name', 'email'], 'string', 'max' => 50],
             [['college_code'], 'string', 'max' => 4],
             [['course_code'], 'string', 'max' => 8],
+            [['college_code','course_code','country_code','state_code','city_code'], 'required'],
             [['course_status'], 'string', 'max' => 20],
             [['enrol_no'], 'string', 'max' => 11],
             [['gender'], 'string', 'max' => 1],

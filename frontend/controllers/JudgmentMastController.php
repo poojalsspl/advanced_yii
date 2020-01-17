@@ -68,9 +68,7 @@ class JudgmentMastController extends Controller
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'username' => $username,
-            //'dataProvider' => $dataProvider,
-        ]);
+           ]);
     }
           
         public function actionIndexbkup()

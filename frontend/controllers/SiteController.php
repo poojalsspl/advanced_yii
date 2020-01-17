@@ -330,10 +330,12 @@ class SiteController extends Controller
         $year  = $date[0];
         $month = $date[1];
         $day   = $date[2];
-        $qry = Yii::$app->db->createCommand("SELECT MAX(enrol_no+1) FROM student");
+        $qry = Yii::$app->db->createCommand("SELECT IFNULL(max(substr(enrol_no,7,3)),0) + 1 FROM student");
         $sum = $qry->queryScalar();
-        $split = str_split($sum,6); // splits a string into an array.
-        $enrol_no = $year.$month.$split[1];
+       //$split = str_split($sum,6);
+
+         // splits a string into an array.
+       $enrol_no = $year.$month.$sum;
         $model->enrol_no = $enrol_no;
 
         if (Yii::$app->request->post()) {
