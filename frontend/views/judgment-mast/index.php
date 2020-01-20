@@ -5,6 +5,7 @@ use yii\helpers\Html;
 //use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use app\models\Student;
+use yii\widgets\LinkPager;
 //use yii\grid\ActionColumn;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\JudgmentMastSearch */
@@ -50,6 +51,12 @@ foreach ($student_name as $student) {
            
         </tbody>
     </table>
+    <?php
+    echo LinkPager::widget([
+    'pagination' => $pagination,
+
+]);
+?>
  <?php //print_r($searchModel);?>
 <?php /*Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,

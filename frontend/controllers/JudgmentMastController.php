@@ -23,7 +23,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\db\Query;
-
+use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 
 
@@ -66,8 +66,15 @@ class JudgmentMastController extends Controller
         ->andWhere(['username'=>$username]);
         $searchModel = $query->all();
 
+        $pagination = new Pagination([
+            'defaultPageSize' => 5,
+            'totalCount' => $query->count(),
+        ]);
+
+
         return $this->render('index', [
             'searchModel' => $searchModel,
+            'pagination' => $pagination,
            ]);
     }
           

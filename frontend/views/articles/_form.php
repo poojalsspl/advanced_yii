@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(); ?>
 
      <?php
-    $article = ArrayHelper::map(ArticleCatgMast::find()->all(), 'art_catg_id', 'art_catg_name'); 
+    $article = ArrayHelper::map(ArticleCatgMast::find()->where(['role'=>'2'])->all(), 'art_catg_id', 'art_catg_name'); 
     ?>
 
      <?= $form->field($model, 'art_catg_id')->widget(Select2::classname(), [

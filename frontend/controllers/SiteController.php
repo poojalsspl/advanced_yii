@@ -103,8 +103,10 @@ class SiteController extends Controller
                 return $this->redirect(['site/registration']);
              }else if($userdata->log_det == '1'){
                
-               return $this->redirect(['site/dashboard']);
-             } 
+               return $this->redirect(['site/student-doc']);
+             } else if($userdata->log_det == '2'){
+             	return $this->redirect(['site/dashboard']);
+             }
         } else {
             return $this->render('login', [
                 'model' => $model,
