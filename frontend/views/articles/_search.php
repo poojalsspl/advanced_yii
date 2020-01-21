@@ -29,6 +29,12 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'username') ?>
 
+    <?php // echo $form->field($model, 'allocation_date') ?>
+
+    <?php // echo $form->field($model, 'target_date') ?>
+
+    <?php // echo $form->field($model, 'completion_date') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>

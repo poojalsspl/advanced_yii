@@ -63,7 +63,8 @@ class JudgmentMastController extends Controller
         $query = JudgmentMast::find()
         ->select('judgment_date,judgment_title,court_name,judgment_code,completion_date')
         ->where(['=', 'research_date', $subQuery])
-        ->andWhere(['username'=>$username]);
+        ->andWhere(['username'=>$username])
+        ->orderBy('completion_date');
         $searchModel = $query->all();
 
         $pagination = new Pagination([

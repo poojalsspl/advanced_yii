@@ -36,6 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'art_catg_id',
             'art_catg_name',
             'username',
+            'allocation_date',
+            'target_date',
+            'completion_date',
         ],
     ]) ?>
 

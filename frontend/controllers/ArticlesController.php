@@ -65,13 +65,8 @@ class ArticlesController extends Controller
     public function actionCreate()
     {
         $model = new Articles();
-        $username = \Yii::$app->user->identity->username;
 
-        if ($model->load(Yii::$app->request->post())) {
-            
-            $model->art_catg_name                 =  $model->articleCode->art_catg_name;
-            $model->username = $username;
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -90,14 +85,12 @@ class ArticlesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $username = \Yii::$app->user->identity->username;
 
         if ($model->load(Yii::$app->request->post())) {
-            unset($model->art_catg_name);
-            $model->art_catg_name                 =  $model->articleCode->art_catg_name;
-            $model->username = $username;
+            $date = date('Y-m-d');
+            $model->completion_date = $date;
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

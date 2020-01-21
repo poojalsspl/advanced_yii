@@ -34,7 +34,7 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
     <?= $this->render(
         'content.php',
         ['content' => $content, 'directoryAsset' => $directoryAsset]
-    ) ?>
+    ) ?><br><br><br><br>
 
 </div>
 <div class="footer-wrapper footer-custom">

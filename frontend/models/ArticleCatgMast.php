@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $art_catg_id
  * @property string $art_catg_name
+ * @property int $role 1 for admin,2 for user
  */
 class ArticleCatgMast extends \yii\db\ActiveRecord
 {
@@ -26,7 +27,7 @@ class ArticleCatgMast extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['art_catg_id'], 'integer'],
+            [['art_catg_id', 'role'], 'integer'],
             [['art_catg_name'], 'string', 'max' => 25],
         ];
     }
@@ -39,6 +40,7 @@ class ArticleCatgMast extends \yii\db\ActiveRecord
         return [
             'art_catg_id' => 'Art Catg ID',
             'art_catg_name' => 'Art Catg Name',
+            'role' => 'Role',
         ];
     }
 }

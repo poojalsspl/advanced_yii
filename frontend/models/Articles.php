@@ -1,7 +1,6 @@
 <?php
 
 namespace frontend\models;
-use frontend\models\ArticleCatgMast;
 
 use Yii;
 
@@ -15,6 +14,9 @@ use Yii;
  * @property int $art_catg_id
  * @property string $art_catg_name
  * @property string $username
+ * @property string $allocation_date
+ * @property string $target_date
+ * @property string $completion_date
  */
 class Articles extends \yii\db\ActiveRecord
 {
@@ -34,9 +36,11 @@ class Articles extends \yii\db\ActiveRecord
         return [
             [['body'], 'string'],
             [['art_catg_id'], 'integer'],
-            [['title', 'username'], 'string', 'max' => 50],
+            [['allocation_date', 'target_date', 'completion_date'], 'safe'],
+            [['title'], 'string', 'max' => 100],
             [['status'], 'string', 'max' => 1],
             [['art_catg_name'], 'string', 'max' => 25],
+            [['username'], 'string', 'max' => 50],
         ];
     }
 
@@ -50,14 +54,12 @@ class Articles extends \yii\db\ActiveRecord
             'title' => 'Title',
             'body' => 'Body',
             'status' => 'Status',
-            'art_catg_id' => 'Article Category',
-            'art_catg_name' => 'Article Category Name',
+            'art_catg_id' => 'Art Catg ID',
+            'art_catg_name' => 'Art Catg Name',
             'username' => 'Username',
+            'allocation_date' => 'Allocation Date',
+            'target_date' => 'Target Date',
+            'completion_date' => 'Completion Date',
         ];
-    }
-
-    public function getArticleCode()
-    {
-        return $this->hasOne(ArticleCatgMast::className(), ['art_catg_id' => 'art_catg_id']);
     }
 }

@@ -8,9 +8,10 @@
      <section class="footer-section theme-color-main-footer">
         <div class=" row align-center theme-color-main-footer">
             
-            <span style="color:#fff">
-            	
-            </span> <a href="http://www.laxyosolutionsoft.com/"> &nbsp;Laxyo Group</a><span style="color: #fff"> | Hosting Partner</span> <a href="https://scorpioinformatics.com/">  &nbsp;Scorpio Informatics</a> 
+            <span style="color:#fff">Course Partner</span>
+             <a href="http://www.pioneerinstitute.net/" target="_blank"> &nbsp;Pioneer Institute of Professional Studies</a><br><br>
+            <span style="color: #fff"> Hosting Partner</span> 
+            <a href="https://scorpioinformatics.com/" target="_blank">  &nbsp;Scorpio Informatics</a> <br><br>
            
   
         </div>

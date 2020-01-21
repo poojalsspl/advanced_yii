@@ -5,6 +5,7 @@ namespace frontend\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Articles;
+use Yii;
 
 /**
  * ArticlesSearch represents the model behind the search form of `frontend\models\Articles`.
@@ -18,7 +19,7 @@ class ArticlesSearch extends Articles
     {
         return [
             [['id', 'art_catg_id'], 'integer'],
-            [['title', 'body', 'status', 'art_catg_name', 'username'], 'safe'],
+            [['title', 'body', 'status', 'art_catg_name', 'username', 'allocation_date', 'target_date', 'completion_date'], 'safe'],
         ];
     }
 
@@ -40,7 +41,8 @@ class ArticlesSearch extends Articles
      */
     public function search($params)
     {
-        $query = Articles::find();
+        $username = Yii::$app->user->identity->username;
+        $query = Articles::find()->where(['username'=>$username]);
 
         // add conditions that should always apply here
 
@@ -60,6 +62,9 @@ class ArticlesSearch extends Articles
         $query->andFilterWhere([
             'id' => $this->id,
             'art_catg_id' => $this->art_catg_id,
+            'allocation_date' => $this->allocation_date,
+            'target_date' => $this->target_date,
+            'completion_date' => $this->completion_date,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
