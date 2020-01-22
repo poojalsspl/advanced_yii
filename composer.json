@@ -42,7 +42,8 @@
         "liyunfang/yii2-contextmenu": "^1.0",
         "kartik-v/yii2-context-menu": "dev-master",
         "devbridge/jquery-autocomplete": "*@dev",
-        "maxeko/yii2-jquery-autocomplete": "*@dev"
+        "maxeko/yii2-jquery-autocomplete": "*@dev",
+        "sjaakp/yii2-gcharts": "*"
         
     },
     "require-dev": {

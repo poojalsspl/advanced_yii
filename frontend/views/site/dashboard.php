@@ -13,6 +13,7 @@ use frontend\models\JudgmentElement;
 use frontend\models\JudgmentCitation;
 use frontend\models\JudgmentDataPoint;
 use frontend\models\SyllabusDetail;
+use frontend\models\Articles;
 
 $username = Yii::$app->user->identity->username;
 //$this->params['breadcrumbs'][] = $this->title;
@@ -27,34 +28,18 @@ $username = Yii::$app->user->identity->username;
             <div class="row">
 
                 <!--SideBar Menu-->
-                <div class="col-md-4 border-green side-menu">
-                    <div class="row side-menu-content">
-                        <div class="box box-v2">   
-                     <!--        <div class="box-body">
-                                
-                              
-                                  <a href="/judgment-mast/index" class="btn theme-blue-button btn-block">Judgment Mast</a>
-                              
-                                  <a href="" class="btn theme-blue-button btn-block">Judgment Advocate</a>
-                              
-                                  <a href="" class="btn theme-blue-button btn-block">Judgment Parties</a>
-                              
-                                  <a href="" class="btn theme-blue-button btn-block">Judgment Referred</a>
-                              
-                                  <a href="" class="btn theme-blue-button btn-block">Judgment Coram</a>
-                              
-                                  <a href="" class="btn theme-blue-button btn-block">Judgment Overrules</a>
-                              
-                                  <a href="" class="btn theme-blue-button btn-block">Judgment Citation</a>
-                              
-                              
-                                  <a href="" class="btn theme-blue-button btn-block">Judgment Overruled by</a>
-                              
-                              
-                                  <a href="" class="btn theme-blue-button btn-block">Judgment Ext Remark</a>
-                              
-                             
-                            </div> -->
+                <div class="col-md-5 border-green ">
+                    <div class="row">
+                       <div class="box-v2 box-info">
+                        <div class="box-header with-border box-header-custom">
+                                <div class="row">
+                                    <div class="col-md-12 align-left">
+                                        <span class="profile-title">Personal Information</span>
+                                    </div>
+                                       
+                                    
+                                </div>
+                            </div>
                              <?php $form = ActiveForm::begin(); ?>
                               <div class="box-body">
                                 
@@ -63,15 +48,15 @@ $username = Yii::$app->user->identity->username;
                                        
                                       ?>
                                <tr>
-                                    <td>Name</td>
+                                    <th>Name</th>
                                     <td><?php echo $value['student_name']; ?></td>
                                 </tr> 
                                 <tr>
-                                    <td>College Name</td>
+                                    <th>College Name</th>
                                     <td><?=$value['college_name']; ?></td>
                                 </tr>  
                                 <tr>
-                                    <td></td>
+                                    <th></th>
                                     <td><?php $value['course_code']; ?></td>
                                 </tr> 
                                  <?php $course = CourseMast::find('course_duration')->where(['course_code'=>$value['course_code']])->one();
@@ -82,11 +67,11 @@ $username = Yii::$app->user->identity->username;
                                  ?>
                                      
                                 <tr>
-                                    <td>Course</td>
+                                    <th>Course</th>
                                     <td><?=$value['course_name']; ?></td>
                                 </tr> 
                                 <tr>
-                                    <td>Duration</td>
+                                    <th>Duration</th>
                                     <td><?= $course_duration.' '.$month ;?></td>
                                 </tr>
                                 <?php
@@ -97,38 +82,32 @@ $username = Yii::$app->user->identity->username;
                                 ?>
                                 
                                 <tr>
-                                    <td><?php echo $syllabus->syllabus_catg_name; ?></td>
+                                    <th><?php echo $syllabus->syllabus_catg_name; ?></th>
                                     <td><?php echo $syllabus->tot_count; ?></td>
                                 </tr>
                             <?php } ?>
                                 
-                                
-                               <!--  <tr>
-                                    <td>Status</td>
-                                    <td><?php //echo 'Pending'; ?></td>
-                                </tr>   
-                                     <tr>
-                                    <td>Acts worked on</td>
-                                    <td><?php //echo '222'; ?></td>
-                                </tr>
-                                <tr>
-                                    <td>Judgment Elements</td>
-                                    <td><?php //echo '15'; ?></td>
-                                </tr>   
-                                <tr>
-                                    <td>Unique DataPoints</td>
-                                    <td><?php //echo '222'; ?></td>
-                                </tr>    -->
-                                <?php } ?>   
+                             
+                                <?php } ?>  
+
                              </table>
                             </div>
                              <?php $form = ActiveForm::end(); ?>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-1 border-green">
+                    
+                </div>
+                 <?php 
+                       $tot_article = Articles::find()->where(['username'=>$username])->count();
+                       $complete_article = Articles::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
+                       $pending_article = Articles::find()->where(['username'=>$username])->andWhere(['is', 'completion_date', new \yii\db\Expression('null')])->count();
+
+                       ?>
             
 
-                 <div class="col-md-8 border-green">
+                 <div class="col-md-6 border-green">
                     <div class="row">
                         <div class="box-v2 box-info">
                             <div class="box-header with-border box-header-custom">
@@ -173,13 +152,13 @@ $username = Yii::$app->user->identity->username;
                                     <td><a href="/advanced_yii/judgment-mast/total-hc-completed"><?= $hc_judgment_worked; ?></a></td>
                                     <td></td>
                                 </tr> 
-                               <!--  <tr>
+                                <tr>
                                     <th>Article Writing</th>
-                                    <td>15</td>
-                                    <td>5</td>
-                                    <td>10</td>
-                                    <td><a href="/advanced_yii/judgment-mast/index" class="btn theme-blue-button btn-block">Begin</a></td>
-                                </tr>     -->
+                                    <td><?= $tot_article;?></td>
+                                    <td><?= $pending_article;?></td>
+                                    <td><?= $complete_article;?></td>
+                                    <td><a href="/advanced_yii/articles/index" class="btn theme-blue-button btn-block">Article Writing</a></td>
+                                </tr>    
 
                              </table>
 
@@ -188,6 +167,7 @@ $username = Yii::$app->user->identity->username;
                     
                 </div>
                 </div>
+
             </div><!---row--->
             <?php
         $tot_advocate = JudgmentAdvocate::find()->where(['username'=>$username])->count();
@@ -244,6 +224,13 @@ $username = Yii::$app->user->identity->username;
               </div>
 
             </div>
+                       <?php 
+                       $tot_article = Articles::find()->where(['username'=>$username])->count();
+                       $complete_article = Articles::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
+                       $pending_article = Articles::find()->where(['username'=>$username])->andWhere(['is', 'completion_date', new \yii\db\Expression('null')])->count();
+
+                       ?>
+
 
 
              </div>

@@ -25,6 +25,9 @@ use yii\helpers\Json;
 use yii\db\Query;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
+use yii\data\ActiveDataProvider;
+use frontend\models\JudgmentCatgView;
+use frontend\models\JudgmentSubCatgView;
 
 
 
@@ -63,14 +66,18 @@ class JudgmentMastController extends Controller
         $query = JudgmentMast::find()
         ->select('judgment_date,judgment_title,court_name,judgment_code,completion_date')
         ->where(['=', 'research_date', $subQuery])
-        ->andWhere(['username'=>$username])
-        ->orderBy('completion_date');
-        $searchModel = $query->all();
+        ->andWhere(['username'=>$username]);
+        //->orderBy('completion_date');
+        //$searchModel = $query->all();
 
         $pagination = new Pagination([
-            'defaultPageSize' => 5,
+            'defaultPageSize' => 10,
             'totalCount' => $query->count(),
         ]);
+        $searchModel = $query->orderBy('completion_date')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
 
 
         return $this->render('index', [
@@ -78,6 +85,24 @@ class JudgmentMastController extends Controller
             'pagination' => $pagination,
            ]);
     }
+
+    public function actionPie() {
+    $username = \Yii::$app->user->identity->username;
+    $dataProvider = new ActiveDataProvider([
+        'query' => JudgmentCatgView::find()->where(['username'=>$username]),
+        'pagination' => false
+    ]);
+    
+    $subdataProvider = new ActiveDataProvider([
+        'query' => JudgmentSubCatgView::find()->where(['username'=>$username]),
+        'pagination' => false
+    ]);
+    
+    return $this->render('pie', [
+        'dataProvider' => $dataProvider,
+        'subdataProvider' => $subdataProvider
+    ]);
+  }
           
         public function actionIndexbkup()
     {

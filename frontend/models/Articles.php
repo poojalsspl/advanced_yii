@@ -55,7 +55,7 @@ class Articles extends \yii\db\ActiveRecord
             'body' => 'Body',
             'status' => 'Status',
             'art_catg_id' => 'Art Catg ID',
-            'art_catg_name' => 'Art Catg Name',
+            'art_catg_name' => 'Article Category',
             'username' => 'Username',
             'allocation_date' => 'Allocation Date',
             'target_date' => 'Target Date',
