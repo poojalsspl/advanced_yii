@@ -8,10 +8,8 @@ use sjaakp\gcharts\PieChart;
     'dataProvider' => $dataProvider,
     'columns' => [
         'jcatg_description:string',
-        'tot',
-        
-
-    ],
+        'tot'
+          ],
     'options' => [
         'title' => 'Categories'
     ],
@@ -21,10 +19,8 @@ use sjaakp\gcharts\PieChart;
     'dataProvider' => $subdataProvider,
     'columns' => [
         'jsub_catg_description:string',
-        'tot',
-        
-
-    ],
+        'tot'
+          ],
     'options' => [
         'title' => 'Sub Categories'
     ],

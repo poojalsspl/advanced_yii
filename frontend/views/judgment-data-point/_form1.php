@@ -90,12 +90,12 @@ foreach($j_elements as $jud_element){
 
       
      })'])*/;?>
-        <?= $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element,['prompt'=>'','class'=>'form-control-dp','ajax'=>[
+        <?= $form->field($modelAddress, "[{$i}]element_code")->dropDownList($element,['prompt'=>'','class'=>'form-control-dp'/*,'ajax'=>[
                                      'type'=>'GET',
                                      'id'=>'$(this).val()',
                                      'url'=>'/advanced_yii/judgment-data-point/dp?id=+id',
 
-                                    ]
+                                    ]*/
 ])->label('Element Name'); ?>
 
 

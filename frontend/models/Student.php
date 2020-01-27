@@ -48,7 +48,7 @@ class Student extends \yii\db\ActiveRecord
             [['enrol_no'], 'required'],
             [['regs_date', 'completion_date', 'dob'], 'safe'],
             [['student_name', 'college_name', 'course_name', 'email'], 'string', 'max' => 50],
-            [['college_code'], 'string', 'max' => 4],
+            [['college_code'], 'string', 'max' => 8],
             [['course_code'], 'string', 'max' => 8],
             [['college_code','course_code','country_code','state_code','city_code'], 'required'],
             [['course_status'], 'string', 'max' => 20],
@@ -69,7 +69,7 @@ class Student extends \yii\db\ActiveRecord
         return [
             'userid' => 'Userid',
             'student_name' => 'Student Name',
-            'college_code' => 'College Code',
+            'college_code' => 'College',
             'college_name' => 'College Name',
             'course_code' => 'Course Code',
             'course_name' => 'Course Name',

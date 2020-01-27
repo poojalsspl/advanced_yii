@@ -24,12 +24,12 @@ $this->title = 'Student';
    
 
     $country = ArrayHelper::map(CountryMast::find()->all(), 'country_code', 'country_name');
-    array_push($country, "Select Country");
-    $country = array_reverse($country,true);
+    /*array_push($country, "Select Country");
+    $country = array_reverse($country,true);*/
 
     $college = ArrayHelper::map(CollegeMast::find()->all(), 'college_code', 'college_name');
-    array_push($college, "Select College");
-    $college = array_reverse($college,true);
+    /*array_push($college, "Select College");
+    $college = array_reverse($college,true);*/
 
     $course = ArrayHelper::map(CourseMast::find()->all(), 'course_code', 'course_name');
     //$course = array_push($course, "Select Course");
@@ -77,7 +77,7 @@ $this->title = 'Student';
                        
                             
                              <?php
-  echo $form->field($model, 'college_code')->dropDownList($college, ['id'=>'college_code'])->label('College');?>
+  echo $form->field($model, 'college_code')->dropDownList($college, ['id'=>'college_code','prompt'=>'Select...']) ;?>
   <?php
   echo $form->field($model, 'course_code')->dropDownList($course, ['id'=>'course_code','prompt'=>'Select...'])->label('Course');?>
                             </div> 	
@@ -100,7 +100,7 @@ $this->title = 'Student';
                             <div class="col-md-4 col-xs-12">
                                
                                 <?php
-  echo $form->field($model, 'country_code')->dropDownList($country, ['id'=>'country_code'])->label('Country');?>
+  echo $form->field($model, 'country_code')->dropDownList($country, ['id'=>'country_code','prompt'=>'Select...'])->label('Country');?>
 
                                 
                             </div>
