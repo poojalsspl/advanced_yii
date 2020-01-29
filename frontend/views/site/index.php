@@ -54,7 +54,7 @@ $this->title = 'My Yii Application';
 </div>
 <br>
 <section class="" id="download">
-    <label><a href="/advanced_yii/site/about-pioneer">Brief profile of Institution providing Certificate & Diploma in Law Research Programs</a></label>
+    <center><a href="/advanced_yii/site/about-pioneer">CERTIFICATION BY NAAC GRADE AUTONOMOUS EDUCATIONAL INSTITUTE</a></center>
     </section>
 
 <!--Slider Section End -->

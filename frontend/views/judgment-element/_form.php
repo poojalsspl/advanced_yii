@@ -63,21 +63,15 @@ if($_GET)
               //console.log('val',val);              
               $('#judgmentelement-element_code').val(val);
               var jcode = $('#judgmentelement-judgment_code').val();
-
                     $.ajax({
-                      url      : '/advanced_yii/judgment-element/element?id='+val+'&jcode='+jcode,
+                      url      : '/advanced_yii/judgment-element/element?id='+val,
                      success  : function(data) {
                       let jdata = JSON.parse(data);
-                      //console.log(typeof(jdata));
-                      let weight_perc='';
-                      let element_text='';
-
-                      jdata.forEach(function(e){
-                        weight_perc = e.weight_perc;
-                        element_text = e.element_text;
-                       });
-                      $('#judgmentelement-weight_perc').val(weight_perc);
-                      $('#judgmentelement-element_text').val(element_text);
+                     jdata.forEach(function(e){
+                      element_desc = e.element_desc;
+                      });
+                      $('#act_row').html(element_desc);
+                      
                      }    
                   });
              }"

@@ -168,13 +168,9 @@ class JudgmentElementController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionElement($id,$jcode)
+    public function actionElement($id)
     {
-       /*$query = new Query;
-        $query->select('a.element_name,a.element_desc, b.element_text')->from(['element_mast a', 'judgment_element b'])->where(['a.element_code'=>'b.element_code']);*/
-        //print_r($query);die;
-        /* $element = ElementMast::find()->select(['element_desc'])->where(['element_code'=>$id])->asArray()->all();*/
-        $element = JudgmentElement::find()->select(['element_text','weight_perc'])->where(['element_code'=>$id])->andWhere(['judgment_code'=>$jcode])->asArray()->all();
+        $element = ElementMast::find()->select(['element_desc'])->where(['element_code'=>$id])->asArray()->all();
      $result = Json::encode($element);
 
      return $result;   
