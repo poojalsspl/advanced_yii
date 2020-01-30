@@ -63,6 +63,7 @@ $this->title = 'Student';
       ],
   ]);
     ?>
+                              <?= $form->field($model, 'profile_pic')->fileInput()->label() ?>
                                
 
                             </div>
@@ -76,8 +77,13 @@ $this->title = 'Student';
                             <div class="col-md-4 col-xs-12">
                        
                             
-                             <?php
-  echo $form->field($model, 'college_code')->dropDownList($college, ['id'=>'college_code','prompt'=>'Select...']) ;?>
+
+  <?php echo $form->field($model, 'college_code')->widget(Select2::classname(), [
+        'data' => $college,
+        'options' => ['placeholder' => 'Select College Name'],
+         'pluginEvents'=>[
+          ]
+          ]); ?>
   <?php
   echo $form->field($model, 'course_code')->dropDownList($course, ['id'=>'course_code','prompt'=>'Select...'])->label('Course');?>
                             </div> 	

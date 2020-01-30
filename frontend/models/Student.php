@@ -7,26 +7,26 @@ use Yii;
 /**
  * This is the model class for table "student".
  *
- * @property int $userid
- * @property string $student_name
- * @property string $college_code
- * @property string $college_name
- * @property string $course_code
- * @property string $course_name
- * @property int $course_fees
- * @property string $course_status
+ * @property int|null $userid
+ * @property string|null $student_name
+ * @property string|null $college_code
+ * @property string|null $college_name
+ * @property string|null $course_code
+ * @property string|null $course_name
+ * @property int|null $course_fees
+ * @property string|null $course_status
  * @property string $enrol_no
- * @property string $regs_date
- * @property string $completion_date
- * @property string $dob
- * @property string $gender
- * @property int $city_code
- * @property int $state_code
- * @property int $country_code
- * @property string $mobile
- * @property string $email
- * @property string $qual_desc
- * @property string $photo_url
+ * @property string|null $regs_date
+ * @property string|null $completion_date
+ * @property string|null $dob
+ * @property string|null $gender
+ * @property string $profile_pic
+ * @property int|null $city_code
+ * @property int|null $state_code
+ * @property int|null $country_code
+ * @property string|null $mobile
+ * @property string|null $email
+ * @property string|null $qual_desc
  */
 class Student extends \yii\db\ActiveRecord
 {
@@ -45,7 +45,7 @@ class Student extends \yii\db\ActiveRecord
     {
         return [
             [['userid', 'course_fees', 'city_code', 'state_code', 'country_code'], 'integer'],
-            [['enrol_no'], 'required'],
+            [['enrol_no','profile_pic'], 'required'],
             [['regs_date', 'completion_date', 'dob'], 'safe'],
             [['student_name', 'college_name', 'course_name', 'email'], 'string', 'max' => 50],
             [['college_code'], 'string', 'max' => 8],
@@ -55,11 +55,13 @@ class Student extends \yii\db\ActiveRecord
             [['enrol_no'], 'string', 'max' => 11],
             [['gender'], 'string', 'max' => 1],
             [['mobile'], 'string', 'max' => 12],
-            [['qual_desc'], 'string', 'max' => 100],
-           
+            [['profile_pic', 'qual_desc'], 'string', 'max' => 100],
+            [['profile_pic'], 'file', 'extensions' => 'jpg, jpeg, png',],
             [['enrol_no'], 'unique'],
         ];
     }
+
+   
 
     /**
      * {@inheritdoc}
@@ -80,6 +82,7 @@ class Student extends \yii\db\ActiveRecord
             'completion_date' => 'Completion Date',
             'dob' => 'Dob',
             'gender' => 'Gender',
+            'profile_pic' => 'Profile Pic',
             'city_code' => 'City Code',
             'state_code' => 'State Code',
             'country_code' => 'Country Code',
@@ -88,5 +91,6 @@ class Student extends \yii\db\ActiveRecord
             'qual_desc' => 'Qualification Description',
            
         ];
+
     }
 }

@@ -31,7 +31,7 @@ class StudentDocs extends \yii\db\ActiveRecord
         return [
             [['username'], 'string', 'max' => 50],
             [['doc_tenth', 'doc_twelve', 'doc_id_proof'], 'required'],
-             [['doc_tenth'], 'file', 'extensions' => 'pdf',],
+             [['doc_tenth','doc_twelve','doc_id_proof'], 'file', 'extensions' => 'pdf',],
             //[['doc_tenth', 'doc_twelve', 'doc_id_proof'], 'string', 'max' => 30],
         ];
     }

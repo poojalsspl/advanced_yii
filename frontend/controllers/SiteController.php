@@ -342,6 +342,16 @@ class SiteController extends Controller
 
         if (Yii::$app->request->post()) {
             $model->load(\Yii::$app->request->post());
+            $url = 'uploads/profile_img/';
+            if (!file_exists($url)) 
+            {
+               FileHelper::createDirectory($url);
+            }
+            $profile_pic = mt_rand(10000, 99999);//genrate random number
+            $model->profile_pic = UploadedFile::getInstance($model, 'profile_pic');
+            $model->profile_pic->saveAs('uploads/profile_img/'.$profile_pic.'.'.$model->profile_pic->extension);//profile pic will save in uploads/profile_img/
+            $model->profile_pic = $profile_pic.'.'.$model->profile_pic->extension;// save in database with random file name.extension
+
             $college = new CollegeMast();
             $college_name =  $college->getCollegeName($model->college_code);
             $model->college_name = $college_name ;  
@@ -401,7 +411,7 @@ class SiteController extends Controller
             $model->doc_id_proof = $path.'/'.$doc_id_proof.'.'.$model->doc_id_proof->extension;
 
             if ($model->save() && $user->SetStatus($id,'2')) {
-                Yii::$app->session->setFlash('success', "Documents Uploaded Successfully."); 
+                Yii::$app->session->setFlash('success', "Documents Uploaded Successfully. Please wait for account verification"); 
                  return $this->redirect(['dashboard']);
 
               } else {
