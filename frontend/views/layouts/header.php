@@ -70,11 +70,11 @@ use yii\bootstrap\Nav;
                                 'linkOptions' => [],
                                 'items' => [
                                     [
-                                        'label' => 'Profile',
+                                        'label' => 'Dashboard',
                                         'url' => ['site/dashboard']
                                     ],
                                     [
-                                        'label' => 'Judgment',
+                                        'label' => 'Judgment List',
                                         'url' => ['judgment-mast/index']
                                     ],
                                 ]

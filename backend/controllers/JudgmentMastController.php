@@ -90,8 +90,8 @@ class JudgmentMastController extends Controller
             $jcode = $model->judgment_code;
             $doc_id = $model->doc_id;
             $model->save();
-            //return $this->redirect(['view', 'id' => $model->judgment_code]);
-            return $this->redirect(['judgment-advocate/update', 'jcode' => $jcode,'doc_id'=>$doc_id]);
+            return $this->redirect(['view', 'id' => $model->judgment_code]);
+            //return $this->redirect(['judgment-advocate/update', 'jcode' => $jcode,'doc_id'=>$doc_id]);
         }
 
         return $this->render('update', [

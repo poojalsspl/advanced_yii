@@ -132,6 +132,13 @@ $username = Yii::$app->user->identity->username;
                                     <th></th>
                                 </tr>
                                 <tr>
+                                    <th>Article Alloted</th>
+                                    <td><?= $tot_article;?></td>
+                                    <td><?= $pending_article;?></td>
+                                    <td><?= $complete_article;?></td>
+                                    <td><a href="/advanced_yii/articles/index" class="btn theme-blue-button btn-block">Article Writing</a></td>
+                                </tr>    
+                                <tr>
                                     <th>Judgment Alloted</th>
                                     <td><a href="/advanced_yii/judgment-mast/total-list"><?= $tot_judgment;?></a></td>
                                     <td><a href="/advanced_yii/judgment-mast/total-pending"><?= $tot_judgment_pending; ?></a></td>
@@ -152,13 +159,7 @@ $username = Yii::$app->user->identity->username;
                                     <td><a href="/advanced_yii/judgment-mast/total-hc-completed"><?= $hc_judgment_worked; ?></a></td>
                                     <td></td>
                                 </tr> 
-                                <tr>
-                                    <th>Article Writing</th>
-                                    <td><?= $tot_article;?></td>
-                                    <td><?= $pending_article;?></td>
-                                    <td><?= $complete_article;?></td>
-                                    <td><a href="/advanced_yii/articles/index" class="btn theme-blue-button btn-block">Article Writing</a></td>
-                                </tr>    
+                                
 
                              </table>
 
@@ -187,7 +188,7 @@ $username = Yii::$app->user->identity->username;
                             <div class="box-header with-border box-header-custom">
                                 <div class="row">
                                     <div class="col-md-12 align-left">
-                                        <span class="profile-title">Analysis Summary</span>
+                                        <span class="profile-title">Analytics Summary</span>
                                     </div>
                                        
                                     
