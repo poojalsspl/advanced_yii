@@ -342,6 +342,7 @@ class SiteController extends Controller
 
         if (Yii::$app->request->post()) {
             $model->load(\Yii::$app->request->post());
+            /*code for img*/
             $url = 'uploads/profile_img/';
             if (!file_exists($url)) 
             {
@@ -351,6 +352,7 @@ class SiteController extends Controller
             $model->profile_pic = UploadedFile::getInstance($model, 'profile_pic');
             $model->profile_pic->saveAs('uploads/profile_img/'.$profile_pic.'.'.$model->profile_pic->extension);//profile pic will save in uploads/profile_img/
             $model->profile_pic = $profile_pic.'.'.$model->profile_pic->extension;// save in database with random file name.extension
+             /*code for img*/
 
             $college = new CollegeMast();
             $college_name =  $college->getCollegeName($model->college_code);
@@ -486,7 +488,7 @@ class SiteController extends Controller
          $id = Yii::$app->user->identity->id;
          $username = Yii::$app->user->identity->username;
         $sql = (new \yii\db\Query());
-        $sql->select(['student_name','college_name','course_code','course_name']) 
+        $sql->select(['student_name','college_name','dob','profile_pic','state_code','city_code','mobile','qual_desc','course_code','course_name']) 
            ->from('student')
            ->where('userid=:userid', [':userid' => $id]);
         $command = $sql->createCommand();

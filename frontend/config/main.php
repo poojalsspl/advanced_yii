@@ -12,7 +12,7 @@ return [
     'name' => 'Research Law',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'homeUrl' => '/advanced_yii',
+    'homeUrl' => '/advanced_yii/',
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [

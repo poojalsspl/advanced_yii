@@ -70,7 +70,7 @@ $this->title = 'Student';
                             <div class="col-md-4 col-xs-12">
                                
 
-                                <?= $form->field($model, 'gender')->radioList(['M' => 'Male', 'F' => 'Female'])->label('Gender'); ?>
+                                <?= $form->field($model, 'gender')->radioList(['M' => 'Male', 'F' => 'Female', 'O' => 'Other'])->label('Gender'); ?>
                                 <?= $form->field($model, 'qual_desc')->textInput() ?>
 
                             </div>

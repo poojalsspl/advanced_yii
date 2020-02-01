@@ -7,11 +7,11 @@ use Yii;
 /**
  * This is the model class for table "syllabus_detail".
  *
- * @property string $course_code
- * @property string $course_name
- * @property string $syllabus_catg_code
- * @property string $syllabus_catg_name
- * @property int $tot_count
+ * @property string|null $course_code
+ * @property string|null $course_name
+ * @property string|null $syllabus_catg_code
+ * @property string|null $syllabus_catg_name
+ * @property int|null $tot_count
  */
 class SyllabusDetail extends \yii\db\ActiveRecord
 {
@@ -32,8 +32,9 @@ class SyllabusDetail extends \yii\db\ActiveRecord
             [['tot_count'], 'integer'],
             [['course_code'], 'string', 'max' => 8],
             [['course_name', 'syllabus_catg_name'], 'string', 'max' => 50],
-            [['syllabus_catg_code'], 'string', 'max' => 3],
+            [['syllabus_catg_code'], 'string', 'max' => 5],
         ];
+
     }
 
     /**

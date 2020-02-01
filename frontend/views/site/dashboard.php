@@ -24,219 +24,202 @@ $username = Yii::$app->user->identity->username;
 
 <div class="template">
     <div class ="body-content">
-        <div class="col-md-12">
+         <section class="content">
             <div class="row">
-
                 <!--SideBar Menu-->
-                <div class="col-md-5 border-green ">
-                    <div class="row">
-                       <div class="box-v2 box-info">
-                        <div class="box-header with-border box-header-custom">
-                                <div class="row">
-                                    <div class="col-md-12 align-left">
-                                        <span class="profile-title">Personal Information</span>
-                                    </div>
-                                       
-                                    
-                                </div>
-                            </div>
-                             <?php $form = ActiveForm::begin(); ?>
-                              <div class="box-body">
-                                
-                                  <table>
-                                     <?php foreach ($model as $key => $value) {
-                                       
-                                      ?>
-                               <tr>
-                                    <th>Name</th>
-                                    <td><?php echo $value['student_name']; ?></td>
-                                </tr> 
-                                <tr>
-                                    <th>College Name</th>
-                                    <td><?=$value['college_name']; ?></td>
-                                </tr>  
-                                <tr>
-                                    <th></th>
-                                    <td><?php $value['course_code']; ?></td>
-                                </tr> 
-                                 <?php $course = CourseMast::find('course_duration')->where(['course_code'=>$value['course_code']])->one();
-                                    
-                                    $course_duration = $course->course_duration;
-                                    if ($course_duration<=1){$month = 'Month';}else{ $month = 'Months';}
-                                    
-                                 ?>
-                                     
-                                <tr>
-                                    <th>Course</th>
-                                    <td><?=$value['course_name']; ?></td>
-                                </tr> 
-                                <tr>
-                                    <th>Duration</th>
-                                    <td><?= $course_duration.' '.$month ;?></td>
-                                </tr>
-                                <?php
-                            $syllabus_all = SyllabusDetail::find('syllabus_catg_name,tot_count')->where(['course_code'=>$value['course_code']])->all();
-                                
-                               // print_r($syllabus);die;
-                            foreach($syllabus_all as $syllabus){
-                                ?>
-                                
-                                <tr>
-                                    <th><?php echo $syllabus->syllabus_catg_name; ?></th>
-                                    <td><?php echo $syllabus->tot_count; ?></td>
-                                </tr>
-                            <?php } ?>
-                                
-                             
-                                <?php } ?>  
+                <div class="col-md-3">
+                    <!-- Profile  -->
+                    <div class="box box-primary">
+                        <div class="box-body box-profile">
+                            <?php 
+                            foreach ($model as $key => $value) {
+                                $course_name = $value['course_name'];
+                                $course = CourseMast::find('course_duration')->where(['course_code'=>$value['course_code']])->one();
+                                $course_duration = $course->course_duration;
+                                if ($course_duration<=1){$month = 'Month';}else{ $month = 'Months';}
+                                $path = Yii::$app->homeUrl . 'frontend/web/uploads/profile_img';
+                                $image = $value['profile_pic'];
+                                if ($image==""){$image = "profile.jpg";}
 
-                             </table>
-                            </div>
-                             <?php $form = ActiveForm::end(); ?>
+
+                            ?>
+                            <img class="profile-user-img img-responsive img-circle" src="<?php echo $img = $path.'/'.$image ; ?>" alt="User profile picture">
+                            <h3 class="profile-username text-center"><?php echo $value['student_name']; ?></h3>
+                            <p class="text-muted text-center"><?php echo $value['qual_desc']; ?></p>
+                             <ul class="list-group list-group-unbordered">
+                                 <li class="list-group-item">
+                                     <b>DOB</b> <span class="pull-right"><?php echo $value['dob']; ?></span>
+                                 </li>
+                                 <li class="list-group-item">
+                                     <b>Mobile</b> <span class="pull-right"><?php echo $value['mobile']; ?></span>
+                                 </li>
+                                 <li class="list-group-item">
+                                     <b>College</b><span>
+                                         <?php echo $value['college_name']; ?>
+                                     </span>
+                                 </li>
+                             </ul>
+                             <a href="#" class="btn btn-primary btn-block"><b>Update</b></a>
+                             <?php } ?>
+                        </div>
+                    </div>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Course</h3>
+                        </div>
+                        <div class="box-body">
+                            <strong><i class="fa fa-book margin-r-5"></i> Course Name</strong>
+                            <p class="text-muted">
+                                <?= $course_name; ?>
+                            </p>
+                            <hr>
+                            <strong><i class="fa fa-clock-o margin-r-5"></i> Duration</strong>
+                            <p class="text-muted">
+                                <?= $course_duration.' '.$month ;?>
+                            </p>
+                            <hr>
+                            <strong><i class="fa fa-calendar margin-r-5"></i> Srart Date</strong>
+                            <p class="text-muted"></p>
+                            <hr>
+                            <strong><i class="fa fa-calendar margin-r-5"></i> End Date</strong>
+                            <p class="text-muted"></p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-1 border-green">
-                    
-                </div>
-                 <?php 
-                       $tot_article = Articles::find()->where(['username'=>$username])->count();
-                       $complete_article = Articles::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
-                       $pending_article = Articles::find()->where(['username'=>$username])->andWhere(['is', 'completion_date', new \yii\db\Expression('null')])->count();
+                <div class="col-md-9">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#timeline" data-toggle="tab">Summary</a></li>
+                            <li><a href="#settings" data-toggle="tab">Marks</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="timeline">
+                                <ul class="timeline timeline-inverse">
+                                    <li class="time-label"></li>
+                                    <li>
+                                        <i class="fa fa-bell bg-blue"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"></span>
+                                            <h3 class="timeline-header"><a href="#"></a></h3>
+                                            <div class="timeline-body">
+                                                <a class="btn btn-primary btn-xs" href="/advanced_yii/judgment-mast/index">Phase - I</a>
+                                                <a class="btn btn-success btn-xs" href="/advanced_yii/articles/index">Phase - II</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-bars bg-aqua"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"></span>
+                                            <h3 class="timeline-header"><a href="#">Research Job Summary</a></h3>
+                                                <div class="timeline-body">
+                                                    <table class="table table-striped">
+                                                        <tr>
+                                                            <th style="width: 10px">#</th>
+                                                            <th>Job Name</th>
+                                                            <th>Total</th>
+                                                            <th>Pending</th>
+                                                            <th>Completed</th>
+                                                        </tr>
+                                                        <?php 
+                                                        $tot_article = Articles::find()->where(['username'=>$username])->count();
+                                                        $complete_article = Articles::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
+                                                        $pending_article = Articles::find()->where(['username'=>$username])->andWhere(['is', 'completion_date', new \yii\db\Expression('null')])->count();
+                                                        ?>
+                                                        <tr>
+                                                            <td>1.</td>
+                                                            <td>Article Alloted</td>
+                                                            <td><?= $tot_article;?></td>
+                                                            <td><?= $pending_article;?></td>
+                                                            <td><?= $complete_article;?></td>
+                                                            
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2.</td>
+                                                            <td>Judgment Alloted</td>
+                                                            <td><?= $tot_judgment;?></td>
+                                                            <td><?= $tot_judgment_pending; ?></td>
+                                                            <td><?= $tot_judgment_worked; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3.</td>
+                                                            <td>Supreme Court Judgments Alloted</td>
+                                                            <td><?= $sc_judgment;?></td>
+                                                            <td><?= $sc_judgment_pending;?></td>
+                                                            <td><?= $sc_judgment_worked; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>4.</td>
+                                                            <td>High Court Judgments Alloted</td>
+                                                            <td><?= $hc_judgment;?></td>
+                                                            <td><?= $hc_judgment_pending; ?></td>
+                                                            <td><?= $hc_judgment_worked; ?></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                        </div>
+                                    </li>
+                                    <!-- <li>
+                                        <i class="fa fa-bell bg-aqua"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"></span>
+                                            <h3 class="timeline-header"><a href="#"></a></h3>
+                                            <div class="timeline-body">
+                                                <a class="btn btn-primary btn-xs" href="/advanced_yii/judgment-mast/index">Begin</a>
+                                                <a class="btn btn-success btn-xs" href="/advanced_yii/articles/index">Article Writing</a>
+                                            </div>
+                                        </div>
+                                    </li> -->
+                                    <li>
+                                        <i class="fa fa-asterisk bg-purple"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"></span>
+                                            <h3 class="timeline-header"><a href="#">Analytics Summary</a></h3>
+                                            <div class="timeline-body">
+                                                <table class="table table-striped">
+                                                    <tr>
+                                                        <th>Advocates</th>
+                                                        <th>Judges</th>
+                                                        <th>Citations Journals</th>
+                                                        <th>Judgment Referred</th>
+                                                        <th>Acts/Sections</th>
+                                                    </tr>
+                                                     <?php
+                                                     $tot_advocate = JudgmentAdvocate::find()->where(['username'=>$username])->count();
+                                                     $tot_judge = JudgmentJudge::find()->where(['username'=>$username])->count();
+                                                     $tot_citation = JudgmentCitation::find()->where(['username'=>$username])->count();
+                                                     $tot_ref = JudgmentRef::find()->where(['username'=>$username])->count();
+                                                     $tot_act = JudgmentAct::find()->where(['username'=>$username])->count();
+                                                     ?>
 
-                       ?>
-            
-
-                 <div class="col-md-6 border-green">
-                    <div class="row">
-                        <div class="box-v2 box-info">
-                            <div class="box-header with-border box-header-custom">
-                                <div class="row">
-                                    <div class="col-md-12 align-left">
-                                        <span class="profile-title">Research Job Summary</span>
-                                    </div>
-                                       
-                                    
-                                </div>
+                                                    <tr>
+                                                        <td><a href="/advanced_yii/judgment-mast/judgment-advocates"><?= $tot_advocate;?></a></td>
+                                                        <td><a href="/advanced_yii/judgment-mast/judgment-judges"><?= $tot_judge;?></a></td>
+                                                        <td><a href="/advanced_yii/judgment-mast/judgment-citations"><?= $tot_citation;?></a></td>
+                                                        <td><a href="/advanced_yii/judgment-mast/judgment-referred"><?= $tot_ref;?></a></td>
+                                                        <td><a href="/advanced_yii/judgment-mast/judgment-acts"><?= $tot_act;?></a></td>
+                                                        
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-clock-o bg-gray"></i>
+                                    </li>
+                                </ul>
                             </div>
-                            <!-- /.box-header -->
-                            
-                               
-                            <!----table------->
-                            <table class="table table-striped">
-                                <tr>
-                                    <th>Job Name</th>
-                                    <th>Total</th>
-                                    <th>Pending</th>
-                                    <th>Completed</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <th>Article Alloted</th>
-                                    <td><?= $tot_article;?></td>
-                                    <td><?= $pending_article;?></td>
-                                    <td><?= $complete_article;?></td>
-                                    <td><a href="/advanced_yii/articles/index" class="btn theme-blue-button btn-block">Article Writing</a></td>
-                                </tr>    
-                                <tr>
-                                    <th>Judgment Alloted</th>
-                                    <td><a href="/advanced_yii/judgment-mast/total-list"><?= $tot_judgment;?></a></td>
-                                    <td><a href="/advanced_yii/judgment-mast/total-pending"><?= $tot_judgment_pending; ?></a></td>
-                                    <td><a href="/advanced_yii/judgment-mast/total-completed"><?= $tot_judgment_worked; ?></a></td>
-                                    <td><a href="/advanced_yii/judgment-mast/index" class="btn theme-blue-button btn-block">Begin</a></td>
-                                </tr> 
-                                <tr>
-                                    <th>Supreme Court Judgments Alloted</th>
-                                   <td><a href="/advanced_yii/judgment-mast/total-sc-list"><?= $sc_judgment;?></a></td>
-                                    <td><a href="/advanced_yii/judgment-mast/total-sc-pending"><?= $sc_judgment_pending; ?></a></td>
-                                    <td><a href="/advanced_yii/judgment-mast/total-sc-completed"><?= $sc_judgment_worked; ?></a></td>
-                                    <td></td>
-                                </tr>  
-                                <tr>
-                                    <th>High Court Judgments Alloted</th>
-                                    <td><a href="/advanced_yii/judgment-mast/total-hc-list"><?= $hc_judgment;?></a></td>
-                                    <td><a href="/advanced_yii/judgment-mast/total-hc-pending"><?= $hc_judgment_pending; ?></a></td>
-                                    <td><a href="/advanced_yii/judgment-mast/total-hc-completed"><?= $hc_judgment_worked; ?></a></td>
-                                    <td></td>
-                                </tr> 
+                            <div class="tab-pane" id="settings">
                                 
-
-                             </table>
-
-                            <!-----end of table----->
+                            </div>
                         </div>
-                    
+                    </div>
                 </div>
-                </div>
-
             </div><!---row--->
-            <?php
-        $tot_advocate = JudgmentAdvocate::find()->where(['username'=>$username])->count();
-        $tot_judge = JudgmentJudge::find()->where(['username'=>$username])->count();
-        $tot_citation = JudgmentCitation::find()->where(['username'=>$username])->count();
-        $tot_ref = JudgmentRef::find()->where(['username'=>$username])->count();
-        $tot_act = JudgmentAct::find()->where(['username'=>$username])->count();
-        $tot_element = JudgmentElement::find()->where(['username'=>$username])->count();
-        $tot_datapoint = JudgmentDataPoint::find()->where(['username'=>$username])->count();
-        
-         
-         ?>
-            <div class="row">
-              <div class="col-md-12 border-green">
-                <div class="row">
-                        <div class="box-v2 box-info">
-                            <div class="box-header with-border box-header-custom">
-                                <div class="row">
-                                    <div class="col-md-12 align-left">
-                                        <span class="profile-title">Analytics Summary</span>
-                                    </div>
-                                       
-                                    
-                                </div>
-                            </div>
-                            <!-- /.box-header -->
-                            <table class="table table-bordered">
-                              <tr>
-                                <th>Advocates</th>
-                                <th>Judges</th>
-                                <th>Citations Journals</th>
-                                <th>Judgment Referred</th>
-                                <th>Acts/Sections</th>
-                                <th>Elements</th>
-                                <th>DataPoints</th>
-                                <th></th>
-                              </tr>
-                              <tr>
-                                <td><a href="/advanced_yii/judgment-mast/judgment-advocates"><?php echo $tot_advocate?></a></td>
-                                <td><a href="/advanced_yii/judgment-mast/judgment-judges"><?php echo $tot_judge?></a></td>
-                                <td><a href="/advanced_yii/judgment-mast/judgment-citations"><?php echo $tot_citation?></a></td>
-                                <td><a href="/advanced_yii/judgment-mast/judgment-referred"><?php echo $tot_ref?></a></td>
-                                <td><a href="/advanced_yii/judgment-mast/judgment-acts"><?php echo $tot_act?></a></td>
-                                <td><a href="/advanced_yii/judgment-mast/judgment-elements">
-                                <?php echo $tot_element?></a></td>
-                                <td><a href="/advanced_yii/judgment-mast/judgment-datapoints"><?php echo $tot_datapoint?></a></td>
-                                <td></td>
-                                
-                              </tr>
-                              
-                            </table>
-                          </div>
-                        </div>
-              </div>
-
-            </div>
-                       <?php 
-                       $tot_article = Articles::find()->where(['username'=>$username])->count();
-                       $complete_article = Articles::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
-                       $pending_article = Articles::find()->where(['username'=>$username])->andWhere(['is', 'completion_date', new \yii\db\Expression('null')])->count();
-
-                       ?>
-
-
-
-             </div>
-        
+         </section>
+            <!---section--->
     </div>
+      <!---body-content--->
 </div>
-                
+      <!---template--->            
 
