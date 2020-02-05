@@ -57,33 +57,17 @@ class JudgmentMastController extends Controller
      * Lists all JudgmentMast models.
      * @return mixed
      */
+    
+
     public function actionIndex()
     {
-        $username = \Yii::$app->user->identity->username;
-        $date = date('Y-m-d');
-        /*SELECT * FROM `judgment_mast` WHERE username = 'pooja@laxyosolutionsoft.com' and research_date = (SELECT MIN(research_date) from judgment_mast where research_date <= CURRENT_DATE AND completion_date is null AND username = 'pooja@laxyosolutionsoft.com')*/
-        $subQuery = JudgmentMast::find()->select('MIN(research_date)')->where(['<=','research_date' , $date])->andWhere(['completion_date'=>NULL])->andWhere(['username'=>$username]);
-        $query = JudgmentMast::find()
-        ->select('judgment_date,judgment_title,court_name,judgment_code,completion_date')
-        ->where(['=', 'research_date', $subQuery])
-        ->andWhere(['username'=>$username]);
-        //->orderBy('completion_date');
-        //$searchModel = $query->all();
-
-        $pagination = new Pagination([
-            'defaultPageSize' => 10,
-            'totalCount' => $query->count(),
-        ]);
-        $searchModel = $query->orderBy('completion_date')
-            ->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
-
+        $searchModel = new JudgmentMastSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'pagination' => $pagination,
-           ]);
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionPie() {
@@ -312,9 +296,25 @@ class JudgmentMastController extends Controller
             ->select('count(*) as citation_count,judgment_code')
             ->from('judgment_citation')
             ->where(['username'=>$username])
+            ->andwhere(['not', ['citation' => null]])
             ->groupBy(['judgment_code'])
             ->having('citation_count' > 0)->all();
         return $this->render('reports/judgment_citations', [
+            'models' => $models,
+         ]);
+    }
+
+    public function actionJudgmentUncited()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $models = (new \yii\db\Query())
+            ->select('count(*) as citation_count,judgment_code')
+            ->from('judgment_citation')
+            ->where(['username'=>$username])
+            ->andwhere(['is', 'citation', new \yii\db\Expression('null')])
+            ->groupBy(['judgment_code'])
+            ->having('citation_count' > 0)->all();
+        return $this->render('reports/judgment_uncited', [
             'models' => $models,
          ]);
     }
@@ -540,6 +540,8 @@ class JudgmentMastController extends Controller
         if ($model->load(Yii::$app->request->post())) {
           $jcode = $model->judgment_code;
           $doc_id = $model->doc_id;
+          $model->disposition_text           =  $model->judgmentDisposition->disposition_text;
+          $model->judgmnent_jurisdiction_text =  $model->judgmentJurisdiction->judgment_jurisdiction_text;
          
             $jcatg = new JcatgMast();
             $jcatg_desc =  $jcatg->getCatgName($model->jcatg_id);
@@ -813,6 +815,35 @@ class JudgmentMastController extends Controller
     $result = Json::encode($jsubCatg);
      return $result;          
     }
+
+    /*public function actionIndex()
+    {*/
+       /* $username = \Yii::$app->user->identity->username;
+        $date = date('Y-m-d');*/
+        /*SELECT * FROM `judgment_mast` WHERE username = 'pooja@laxyosolutionsoft.com' and research_date = (SELECT MIN(research_date) from judgment_mast where research_date <= CURRENT_DATE AND completion_date is null AND username = 'pooja@laxyosolutionsoft.com')*/
+       /* $subQuery = JudgmentMast::find()->select('MIN(research_date)')->where(['<=','research_date' , $date])->andWhere(['completion_date'=>NULL])->andWhere(['username'=>$username]);
+        $query = JudgmentMast::find()
+        ->select('judgment_date,judgment_title,court_name,judgment_code,completion_date')
+        ->where(['=', 'research_date', $subQuery])
+        ->andWhere(['username'=>$username]);*/
+        //->orderBy('completion_date');
+        //$searchModel = $query->all();
+
+       /* $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $query->count(),
+        ]);
+        $searchModel = $query->orderBy('completion_date')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'pagination' => $pagination,
+           ]);*/
+   /* }*/
 
 
     /**

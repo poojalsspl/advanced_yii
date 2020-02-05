@@ -90,7 +90,7 @@ $username = Yii::$app->user->identity->username;
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#timeline" data-toggle="tab">Summary</a></li>
-                            <li><a href="#settings" data-toggle="tab">Marks</a></li>
+                           <!--  <li><a href="#settings" data-toggle="tab">Marks</a></li> -->
                         </ul>
                         <div class="tab-content">
                             <div class="active tab-pane" id="timeline">
@@ -102,8 +102,9 @@ $username = Yii::$app->user->identity->username;
                                             <span class="time"></span>
                                             <h3 class="timeline-header"><a href="#"></a></h3>
                                             <div class="timeline-body">
-                                                <a class="btn btn-primary btn-xs" href="/advanced_yii/judgment-mast/index">Phase - I</a>
-                                                <a class="btn btn-success btn-xs" href="/advanced_yii/articles/index">Phase - II</a>
+                                                <a class="btn btn-primary" href="/advanced_yii/judgment-mast/index">Stage - 1</a>
+                                                <a class="btn btn-primary" href="/advanced_yii/articles/index">Stage - 2</a>
+                                                <a class="btn btn-primary" href="#">Stage - 3</a>
                                             </div>
                                         </div>
                                     </li>
@@ -159,35 +160,31 @@ $username = Yii::$app->user->identity->username;
                                                 </div>
                                         </div>
                                     </li>
-                                    <!-- <li>
-                                        <i class="fa fa-bell bg-aqua"></i>
-                                        <div class="timeline-item">
-                                            <span class="time"></span>
-                                            <h3 class="timeline-header"><a href="#"></a></h3>
-                                            <div class="timeline-body">
-                                                <a class="btn btn-primary btn-xs" href="/advanced_yii/judgment-mast/index">Begin</a>
-                                                <a class="btn btn-success btn-xs" href="/advanced_yii/articles/index">Article Writing</a>
-                                            </div>
-                                        </div>
-                                    </li> -->
+                                    <li class="time-label">
+                                        <span class="bg-green">
+                                          Analytics Summary
+                                        </span>  
+                                    </li>
                                     <li>
                                         <i class="fa fa-asterisk bg-purple"></i>
                                         <div class="timeline-item">
                                             <span class="time"></span>
-                                            <h3 class="timeline-header"><a href="#">Analytics Summary</a></h3>
+                                            <h3 class="timeline-header"><a href="#">Fixed Data Points</a></h3>
                                             <div class="timeline-body">
                                                 <table class="table table-striped">
                                                     <tr>
                                                         <th>Advocates</th>
                                                         <th>Judges</th>
                                                         <th>Citations Journals</th>
+                                                        <th>UnCited Journals</th>
                                                         <th>Judgment Referred</th>
                                                         <th>Acts/Sections</th>
                                                     </tr>
                                                      <?php
                                                      $tot_advocate = JudgmentAdvocate::find()->where(['username'=>$username])->count();
                                                      $tot_judge = JudgmentJudge::find()->where(['username'=>$username])->count();
-                                                     $tot_citation = JudgmentCitation::find()->where(['username'=>$username])->count();
+                                                     $tot_citation = JudgmentCitation::find()->where(['username'=>$username])->andWhere(['not', ['citation' => null]])->count();
+                                                     $tot_uncited = JudgmentCitation::find()->where(['username'=>$username])->andWhere(['is', 'citation', new \yii\db\Expression('null')])->count();
                                                      $tot_ref = JudgmentRef::find()->where(['username'=>$username])->count();
                                                      $tot_act = JudgmentAct::find()->where(['username'=>$username])->count();
                                                      ?>
@@ -196,10 +193,34 @@ $username = Yii::$app->user->identity->username;
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-advocates"><?= $tot_advocate;?></a></td>
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-judges"><?= $tot_judge;?></a></td>
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-citations"><?= $tot_citation;?></a></td>
+                                                        <td><a href="/advanced_yii/judgment-mast/judgment-uncited"><?= $tot_uncited;?></a></td>
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-referred"><?= $tot_ref;?></a></td>
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-acts"><?= $tot_act;?></a></td>
                                                         
                                                     </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-circle bg-blue"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"></span>
+                                            <h3 class="timeline-header"><a href="#">Variable Data Points</a></h3>
+                                            <div class="timeline-body">
+                                                <table class="table table-striped">
+                                                   <tr>
+                                                      <th>Judgment Elements</th>
+                                                      <th>Data Points</th> 
+                                                   </tr>
+                                                   <?php 
+                                                   $tot_element = JudgmentElement::find()->where(['username'=>$username])->count();
+                                                   $tot_datapoint = JudgmentDataPoint::find()->where(['username'=>$username])->count();
+                                                   ?>
+                                                   <tr>
+                                                       <td><a href="/advanced_yii/judgment-mast/judgment-elements"><?= $tot_element;?></a></td>
+                                                       <td><a href="/advanced_yii/judgment-mast/judgment-datapoints"><?= $tot_datapoint;?></a></td>
+                                                   </tr> 
                                                 </table>
                                             </div>
                                         </div>

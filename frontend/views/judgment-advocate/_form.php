@@ -47,7 +47,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
 ?>
 
 <div class="judgment-advocate-form">
-	 <div class="box box-danger col-md-12">
+	 <div class="box box-blue">
 	 <?php if($model->isNewRecord) { ?>
 
     <?php $form = ActiveForm::begin(); ?>

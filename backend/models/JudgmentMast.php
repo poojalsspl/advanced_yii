@@ -71,7 +71,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
     {
         return [
             [['court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'approved', 'status_1', 'status_2'], 'integer'],
-            [['judgment_date', 'judgment_date1', 'time', 'approved_date', 'completion_date', 'research_date'], 'safe'],
+            [['judgment_date', 'judgment_date1', 'time', 'approved_date', 'completion_date', 'start_date'], 'safe'],
             [['judgment_abstract', 'judgment_analysis', 'judgment_text', 'judgment_text1'], 'string'],
             [['username'], 'string', 'max' => 50],
             [['college_code'], 'string', 'max' => 4],
@@ -84,7 +84,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             [['doc_id'], 'string', 'max' => 40],
             [['judgment_type', 'judgment_type1', 'completion_status'], 'string', 'max' => 1],
             [['jcatg_description', 'jsub_catg_description'], 'string', 'max' => 150],
-            [['overrule_judgment', 'overruled_by_judgment'], 'string', 'max' => 20],
+            [['overruled_by_judgment'], 'string', 'max' => 20],
             [['remark'], 'string', 'max' => 2000],
         ];
     }
@@ -130,7 +130,6 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'jsub_catg_id' => 'Jsub Catg ID',
             'jsub_catg_id1' => 'Jsub Catg Id1',
             'jsub_catg_description' => 'Jsub Catg Description',
-            'overrule_judgment' => 'Overrule Judgment',
             'overruled_by_judgment' => 'Overruled By Judgment',
             'remark' => 'Remark',
             'time' => 'Time',
@@ -140,7 +139,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'status_2' => 'Status 2',
             'completion_status' => 'Completion Status',
             'completion_date' => 'Completion Date',
-            'research_date' => 'Research Date',
+            'start_date' => 'Research Date',
         ];
     }
 }

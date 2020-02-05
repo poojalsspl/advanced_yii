@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
 <!------start of form------>
 
 <div class="judgment-act-form">
+      <div class="box box-blue">
     <?php
     if($_GET)
 {
@@ -39,19 +40,13 @@ foreach ($judgment as $key => $judgment_value) {
 ?>
 
     <?php $form = ActiveForm::begin(); ?>
-    <hr>
- <div class="row">  
- <div class="col-md-2 col-xs-12">
-    <label style="float: right;">Judgment Title</label>
- </div>
-  
-    <div class="col-md-6 col-xs-12">
+    <div class="box-header with-border">
+              <h3 class="box-title"></h3>
+            </div>
+    
 
- <?= $form->field($model, 'judgment_title')->textInput(['maxlength' => true ,'readonly'=>true,'value' => $judgment_value])->label(false) ?>
-</div>
-<div class="col-md-4 col-xs-12">
- </div> 
-</div>
+ <?= $form->field($model, 'judgment_title')->textInput(['maxlength' => true ,'readonly'=>true,'value' => $judgment_value])->label() ?>
+
 <?php
 /*$array = ['type' => 'A', 'options' => [1, 2]];
 echo $type = ArrayHelper::getValue($array, 'type');
@@ -87,15 +82,15 @@ print_r($ids);*/
     </div>
     <div class="act_data">
     <div class="col-md-3 col-xs-12">
-        <?= $form->field($model, 'act_catg_desc')->textInput(['maxlength' => true ,'value' => ''])->label('Main Act Category') ?>
+        <?= $form->field($model, 'act_catg_desc')->textInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label('Main Act Category') ?>
          <?= $form->field($model, 'act_catg_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
     </div>
     <div class="col-md-3 col-xs-12">
-        <?= $form->field($model, 'act_sub_catg_desc')->textInput(['maxlength' => true ,'value' => ''])->label('Act SubCategory') ?>
+        <?= $form->field($model, 'act_sub_catg_desc')->textInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label('Act SubCategory') ?>
          <?= $form->field($model, 'act_sub_catg_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
     </div>  
     <div class="col-md-3 col-xs-12">
-        <?= $form->field($model, 'act_group_desc')->textInput(['maxlength' => true ,'value' => ''])->label('Group') ?>
+        <?= $form->field($model, 'act_group_desc')->textInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label('Group') ?>
          <?= $form->field($model, 'act_group_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
     </div>  
     </div>
@@ -128,7 +123,7 @@ print_r($ids);*/
     </div>
 
     <?php ActiveForm::end(); ?>
-
+</div>
 </div>
 <!------end of form------>
 <!------add judgment text------>

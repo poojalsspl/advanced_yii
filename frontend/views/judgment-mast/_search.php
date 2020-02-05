@@ -24,6 +24,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'appeal_numb') ?>
 
     <?= $form->field($model, 'judgment_date') ?>
+    <?= $form->field($model, 'completion_date') ?>
 
     <?php // echo $form->field($model, 'judgment_title') ?>
 

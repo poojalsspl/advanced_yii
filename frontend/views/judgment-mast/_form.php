@@ -164,7 +164,7 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg
    </div>
    <div class="col-md-2 col-xs-12">
     <label>Search Tag Count</label>
-    <input type="" name="" id="judgmentmast-search_tag_count" readonly="readonly">
+    <input type="" name="" id="judgmentmast-search_tag_count" readonly="readonly" class="form-control">
    </div>
   </div>
 
@@ -180,9 +180,9 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg
               <div class="col-md-6 col-xs-12">
 <?= $form->field($model, 'judgment_title') ?>
               </div>
-
-             
-
+              <div class="col-md-6 col-xs-12">
+                <?= $form->field($model, 'overruled_by_judgment') ?>
+              </div>
           </div>
       </div>
   </div>
@@ -211,18 +211,13 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg
         <div class="box-body">
             <div class="col-md-12">
                 <div class="col-md-6 col-xs-12">
-<?= $form->field($model, 'judgment_abstract') ?>
+                 <?= $form->field($model, 'judgment_text')->textarea(['rows' => 6]) ?>
                 </div>
                 <div class="col-md-6 col-xs-12">
-<?= $form->field($model, 'judgment_text')->textarea(['rows' => 6]) ?>
+                <?= $form->field($model, 'judgment_text1')->textarea(['readonly'=>true]) ?>
                 </div>
             </div>
-                        <div class="col-md-12">
-                <div class="col-md-12 col-xs-12">
-<?= $form->field($model, 'judgment_text1')->textarea(['readonly'=>true]) ?>
-                </div>
-
-            </div>
+                     
         </div>
     </div>
 </div>
@@ -263,10 +258,7 @@ function master1()
 
 
 </script>   
-<?php 
-    $this->registerJs("CKEDITOR.replace('judgmentmast-judgment_abstract',{toolbar : 'Basic'})");
 
-?>
 <?php 
     $this->registerJs("CKEDITOR.replace('judgmentmast-judgment_text',{toolbar : 'Basic'})");
     $this->registerJs("CKEDITOR.replace('judgmentmast-judgment_text1',{toolbar : 'Basic'})");

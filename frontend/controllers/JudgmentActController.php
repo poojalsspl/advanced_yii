@@ -325,7 +325,7 @@ class JudgmentActController extends Controller
     public function actionBareact($id)
     {
         
-         $bareact = BareactDetl::find()->select(['act_group_code','act_group_desc','act_catg_code','act_catg_desc','act_sub_catg_code','act_sub_catg_desc','act_title'])->where(['bareact_code'=>$id])->asArray()->all();
+         $bareact = BareactDetl::find()->select(['act_group_code','act_group_desc','act_catg_code','act_catg_desc','act_sub_catg_code','act_sub_catg_desc','act_title'])->where(['bareact_code'=>$id])->orderBy('sno,level')->asArray()->all();
      $result = Json::encode($bareact);
 
      // return 'test';

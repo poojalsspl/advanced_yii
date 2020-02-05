@@ -17,7 +17,7 @@ class JudgmentMastSearch extends JudgmentMast
     public function rules()
     {
         return [
-            [['username', 'college_code', 'court_name', 'court_type', 'appeal_numb', 'appeal_numb1', 'judgment_date', 'judgment_date1', 'judgment_title', 'appeal_status', 'disposition_text', 'bench_type_text', 'judgmnent_jurisdiction_text', 'judgment_abstract', 'judgment_analysis', 'judgment_text', 'judgment_text1', 'search_tag', 'doc_id', 'judgment_type', 'judgment_type1', 'jcatg_description', 'jsub_catg_description', 'overrule_judgment', 'overruled_by_judgment', 'remark', 'time', 'approved_date', 'completion_status', 'completion_date', 'research_date'], 'safe'],
+            [['username', 'college_code', 'court_name', 'court_type', 'appeal_numb', 'appeal_numb1', 'judgment_date', 'judgment_date1', 'judgment_title', 'appeal_status', 'disposition_text', 'bench_type_text', 'judgmnent_jurisdiction_text', 'judgment_abstract', 'judgment_analysis', 'judgment_text', 'judgment_text1', 'search_tag', 'doc_id', 'judgment_type', 'judgment_type1', 'jcatg_description', 'jsub_catg_description', 'overruled_by_judgment', 'remark', 'time', 'approved_date', 'completion_status', 'completion_date', 'start_date'], 'safe'],
             [['judgment_code', 'court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'approved', 'status_1', 'status_2'], 'integer'],
         ];
     }
@@ -78,7 +78,7 @@ class JudgmentMastSearch extends JudgmentMast
             'status_1' => $this->status_1,
             'status_2' => $this->status_2,
             'completion_date' => $this->completion_date,
-            'research_date' => $this->research_date,
+            'start_date' => $this->start_date,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
@@ -102,7 +102,6 @@ class JudgmentMastSearch extends JudgmentMast
             ->andFilterWhere(['like', 'judgment_type1', $this->judgment_type1])
             ->andFilterWhere(['like', 'jcatg_description', $this->jcatg_description])
             ->andFilterWhere(['like', 'jsub_catg_description', $this->jsub_catg_description])
-            ->andFilterWhere(['like', 'overrule_judgment', $this->overrule_judgment])
             ->andFilterWhere(['like', 'overruled_by_judgment', $this->overruled_by_judgment])
             ->andFilterWhere(['like', 'remark', $this->remark])
             ->andFilterWhere(['like', 'completion_status', $this->completion_status]);

@@ -1,11 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-//use yii\grid\GridView;
-//use yii\widgets\Pjax;
+use yii\grid\GridView;
+use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use app\models\Student;
-use yii\widgets\LinkPager;
+
 //use yii\grid\ActionColumn;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\JudgmentMastSearch */
@@ -27,38 +27,10 @@ foreach ($student_name as $student) {
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <h1><?php echo 'List of judgments allocated ' ?></h1>
 
-    <table id="example" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-            <tr>
-                <th>Judgment Title</th>
-                <th>Court Name</th>
-                <th>Judgment Date</th>
-                <th>Completion Date</th>
-                <th>Action</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach($searchModel as $searchdata){?>
-            <tr>
-                <td><?php echo $searchdata['judgment_title'];?></td>
-                <td><?php echo $searchdata['court_name'];?></td>
-                <td><?php echo $searchdata['judgment_date'];?></td>
-                <td><?php echo $searchdata['completion_date'];?></td>
-                <td><?php echo '<a href = "update?id='.$searchdata['judgment_code'].'"><span class="glyphicon glyphicon-pencil"></span></a>'; ?></td>
-            </tr>
-           <?php } ?>
-           
-        </tbody>
-    </table>
-    <?php
-    echo LinkPager::widget([
-    'pagination' => $pagination,
 
-]);
-?>
+   
  <?php //print_r($searchModel);?>
-<?php /*Pjax::begin(); ?>    <?= GridView::widget([
+<?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -66,16 +38,15 @@ foreach ($student_name as $student) {
             'judgment_title',
             'court_name',
             'judgment_date',
+            'completion_date',
             //'jyear',
             
 
            ['class' => 'yii\grid\ActionColumn',
             'header'=>'Actions',
-            'template' => '{View}{Edit}', 
+            'template' => '{Edit}', 
             'buttons' => [
-                'View' => function ($url, $model, $key) {
-                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id'=>$model->judgment_code]);
-                },
+                
                'Edit' => function ($url, $model, $key) {
                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id'=>$model->judgment_code]);
             },
@@ -88,6 +59,6 @@ foreach ($student_name as $student) {
 
 
         ],
-    ]);*/ ?>
-<?php /*Pjax::end();*/ ?></div>
+    ]); ?>
+<?php Pjax::end(); ?></div>
 

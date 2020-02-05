@@ -68,7 +68,7 @@
                         'icon' => 'folder',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Course Mast', 'icon' => 'file-code-o', 'url' => ['../course-mast'],],
+                            ['label' => 'Course Mast', 'icon' => 'file-code-o', 'url' => ['/course-mast'],],
                             ['label' => 'Article Writing', 'icon' => 'file-code-o', 'url' => ['/articles'],],
                         ],
                     ],

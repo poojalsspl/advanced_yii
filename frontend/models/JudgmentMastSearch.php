@@ -18,8 +18,8 @@ class JudgmentMastSearch extends JudgmentMast
     public function rules()
     {
         return [
-            [['judgment_code', 'court_code', 'appellant_adv_count', 'respondant_adv_count', 'citation_count', 'judges_count', 'jcatg_id', 'jsub_catg_id'], 'integer'],
-            [['court_name', 'appeal_numb', 'judgment_date', 'judgment_title', 'appellant_name', 'appellant_adv', 'respondant_name', 'respondant_adv', 'appeal_status', 'citation', 'judges_name', 'hearing_date', 'hearing_place', 'judgment_abstract', 'judgment_text', 'judgment_source_code', 'judgment_type', 'judgment_source_name', 'jcatg_description', 'jsub_catg_description', 'overrule_judgment', 'overruled_by_judgment', 'judgment_ext_remark_flag','jyear'], 'safe'],
+            [['judgment_code', 'court_code', 'jcatg_id', 'jsub_catg_id'], 'integer'],
+            [['court_name', 'appeal_numb', 'judgment_date', 'judgment_title', 'appeal_status','judgment_abstract', 'judgment_text', 'judgment_type', 'jcatg_description', 'jsub_catg_description','overruled_by_judgment','completion_date'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class JudgmentMastSearch extends JudgmentMast
      */
     public function search($params)
     {
-        $query = JudgmentMast::find();
+        $username = \Yii::$app->user->identity->username;
+        $query = JudgmentMast::find()->where(['username'=>$username]);
 
         // add conditions that should always apply here
 
@@ -62,38 +63,23 @@ class JudgmentMastSearch extends JudgmentMast
             'judgment_code' => $this->judgment_code,
             'court_code' => $this->court_code,
             'judgment_date' => $this->judgment_date,
-            'appellant_adv_count' => $this->appellant_adv_count,
-            'respondant_adv_count' => $this->respondant_adv_count,
-            'citation_count' => $this->citation_count,
-            'judges_count' => $this->judges_count,
-            'hearing_date' => $this->hearing_date,
             'jcatg_id' => $this->jcatg_id,
             'jsub_catg_id' => $this->jsub_catg_id,
-            'jyear' => $this->jyear,            
-        ]);
+            'completion_date' => $this->completion_date,
+         ]);
 
         $query->andFilterWhere(['like', 'court_name', $this->court_name])
             ->andFilterWhere(['like', 'appeal_numb', $this->appeal_numb])
             ->andFilterWhere(['like', 'judgment_title', $this->judgment_title])
-            ->andFilterWhere(['like', 'appellant_name', $this->appellant_name])
-            ->andFilterWhere(['like', 'appellant_adv', $this->appellant_adv])
-            ->andFilterWhere(['like', 'respondant_name', $this->respondant_name])
-            ->andFilterWhere(['like', 'respondant_adv', $this->respondant_adv])
-            ->andFilterWhere(['like', 'appeal_status', $this->appeal_status])
-            ->andFilterWhere(['like', 'citation', $this->citation])
-            ->andFilterWhere(['like', 'judges_name', $this->judges_name])
-            ->andFilterWhere(['like', 'hearing_place', $this->hearing_place])
             ->andFilterWhere(['like', 'judgment_abstract', $this->judgment_abstract])
             ->andFilterWhere(['like', 'judgment_text', $this->judgment_text])
-           
             ->andFilterWhere(['like', 'judgment_type', $this->judgment_type])
-            ->andFilterWhere(['like', 'judgment_source_name', $this->judgment_source_name])
             ->andFilterWhere(['like', 'jcatg_description', $this->jcatg_description])
             ->andFilterWhere(['like', 'jsub_catg_description', $this->jsub_catg_description])
-            ->andFilterWhere(['like', 'overrule_judgment', $this->overrule_judgment])
             ->andFilterWhere(['like', 'overruled_by_judgment', $this->overruled_by_judgment])
-            ->andFilterWhere(['like', 'judgment_ext_remark_flag', $this->judgment_ext_remark_flag])
-            ->andFilterWhere(['like', 'jyear', $this->jyear]);
+            ->andFilterWhere(['like', 'completion_date', $this->completion_date]);
+           
+            
 
         return $dataProvider;
     }

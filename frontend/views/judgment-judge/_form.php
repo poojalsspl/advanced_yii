@@ -41,7 +41,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 ?>
 
 <div class="judgment-judge-form">
-	<div class="box box-danger col-md-12">
+	<div class="box box-blue">
 		 <?php if($model->isNewRecord) { ?>
 
     <?php $form = ActiveForm::begin(['method'=>'post']); ?>
