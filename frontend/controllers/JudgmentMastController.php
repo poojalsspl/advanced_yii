@@ -577,11 +577,11 @@ class JudgmentMastController extends Controller
          
           }
 
-          $check = JudgmentMast::find()->select('status_1')->where(['judgment_code'=>$jcode])->one();
+          $check = JudgmentMast::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
           
               $count = $check->status_1;
               if($count==''){
-               \Yii::$app->db->createCommand("UPDATE judgment_mast SET status_1 = 1 WHERE judgment_code=".$jcode."")->execute();                
+               \Yii::$app->db->createCommand("UPDATE judgment_mast SET work_status = 1 WHERE judgment_code=".$jcode."")->execute();                
                Yii::$app->session->setFlash('success', "Updated successfully!!");
 
                $model->save();
@@ -593,6 +593,42 @@ class JudgmentMastController extends Controller
                }*/
             }
        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionAbstractList()
+    {
+        /*$username = \Yii::$app->user->identity->username;
+        $query = JudgmentMast::find()
+        ->select('judgment_code,judgment_title,judgment_abstract')
+        ->where(['username'=>$username])
+        ->limit(10);
+        $models = $query->all();
+        return $this->render('abstracts_list', [
+            'models' => $models,
+         ]);*/
+        $searchModel = new JudgmentMastSearch();
+        $dataProvider = $searchModel->searchabstract(Yii::$app->request->queryParams);
+
+        return $this->render('abstracts_list', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+        
+    }
+
+    public function actionJudgmentAbstract($id)
+    {
+         $model = $this->findModel($id);
+         $username = \Yii::$app->user->identity->username;
+         if ($model->load(Yii::$app->request->post())) {
+          $jcode = $model->judgment_code;
+          $doc_id = $model->doc_id;
+          $model->save();
+           return $this->redirect('abstract-list');
+            }
+       return $this->render('abstract_form', [
             'model' => $model,
         ]);
     }

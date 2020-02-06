@@ -63,6 +63,7 @@ class JudgmentMastSearch extends JudgmentMast
             'judgment_code' => $this->judgment_code,
             'court_code' => $this->court_code,
             'judgment_date' => $this->judgment_date,
+            'judgment_abstract' => $this->judgment_abstract,
             'jcatg_id' => $this->jcatg_id,
             'jsub_catg_id' => $this->jsub_catg_id,
             'completion_date' => $this->completion_date,
@@ -83,4 +84,34 @@ class JudgmentMastSearch extends JudgmentMast
 
         return $dataProvider;
     }
+
+    /* Reason : For display list of judgments for judgment abstract 
+       Url : http://localhost/advanced_yii/judgment-mast/abstract-list 
+    */
+
+    public function searchabstract($params)
+    {
+        $username = \Yii::$app->user->identity->username;
+        $query = JudgmentMast::find()->where(['username'=>$username]);
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        $this->load($params);
+        if (!$this->validate()) {
+            return $dataProvider;
+             }
+         $query->andFilterWhere([
+            'judgment_code' => $this->judgment_code,
+            'court_code' => $this->court_code,
+          ]);
+          $query->andFilterWhere(['like', 'court_name', $this->court_name])
+            
+            ->andFilterWhere(['like', 'judgment_title', $this->judgment_title])
+            ->andFilterWhere(['like', 'judgment_abstract', $this->judgment_abstract]);
+            return $dataProvider;     
+    }
+
+    
+
 }

@@ -81,7 +81,7 @@ class JudgmentJudgeController extends Controller
                 $model->save(false); 
             } 
             if($jcode!=""){ 
-                \Yii::$app->db->createCommand("UPDATE judgment_mast SET status_1 = 3 WHERE judgment_code=".$jcode." and status_1 = 2")->execute();                
+                \Yii::$app->db->createCommand("UPDATE judgment_mast SET work_status = 3 WHERE judgment_code=".$jcode." and work_status = 2")->execute();                
                Yii::$app->session->setFlash('success', "Created successfully!!");
             return $this->redirect(['judgment-citation/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
                 }
@@ -106,8 +106,8 @@ class JudgmentJudgeController extends Controller
      */
     public function actionUpdate($jcode="",$doc_id="")
     {
-         Yii::$app->session->setFlash('error', 'After succssfully submission of form once, you are not authorize to access this form again!');
-                return $this->render('message');
+         /*Yii::$app->session->setFlash('error', 'After succssfully submission of form once, you are not authorize to access this form again!');
+                return $this->render('message');*/
         $username = \Yii::$app->user->identity->username;
         $model =  JudgmentJudge::find()->where(['judgment_code'=>$jcode])->andWhere(['doc_id'=>$doc_id])->one();
         if($model->load(Yii::$app->request->post())) {

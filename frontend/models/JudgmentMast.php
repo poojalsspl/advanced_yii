@@ -214,6 +214,17 @@ class JudgmentMast extends \yii\db\ActiveRecord
     {
         return $this->hasMany(JudgmentRef::className(), ['judgment_code' => 'judgment_code']);
     }
+
+    /* Reason : For display limited characters in gridview column 
+       Url : http://localhost/advanced_yii/judgment-mast/abstract-list 
+    */
+    public function getTruncatedAbstract()
+    {
+    if (strlen($this->judgment_abstract) <= 30)
+        return $this->judgment_abstract;
+    else
+        return substr($this->judgment_abstract, 0, 30) . '...';
+    }
    
     
 }

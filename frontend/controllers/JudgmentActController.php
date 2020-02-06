@@ -108,7 +108,7 @@ class JudgmentActController extends Controller
    // }
               if($jcode!=""){ 
                 $date = date('Y-m-d');
-                \Yii::$app->db->createCommand("UPDATE judgment_mast SET status_1 = 7 WHERE judgment_code=".$jcode)->execute();  
+                \Yii::$app->db->createCommand("UPDATE judgment_mast SET work_status = 7 WHERE judgment_code=".$jcode)->execute();  
                 \Yii::$app->db->createCommand("UPDATE judgment_mast SET completion_date = '".$date."' WHERE judgment_code=".$jcode)->execute();                 
                 
                  Yii::$app->session->setFlash('success', "Created successfully!!");
@@ -242,18 +242,13 @@ class JudgmentActController extends Controller
     {
         //$model = $this->findModel();
         //$model = new JudgmentAct();
+        $username = \Yii::$app->user->identity->username;
         $model =  JudgmentAct::find()->where(['judgment_code'=>$jcode])->one();
         $judgmentAct =$model->judgment_code;
         $adv = new JudgmentAct();
         if ($adv->load(Yii::$app->request->post())) {
 
-            \Yii::$app
-            ->db
-            ->createCommand()
-            ->delete('judgment_advocate', ['judgment_code' => $jcode])
-            ->execute();
-
-             $count =  count($_POST['JudgmentAct']['act_title']);
+            $count =  count($_POST['JudgmentAct']['act_title']);
             for($i=0;$i<$count;$i++)
             {
             $model = new JudgmentAct();

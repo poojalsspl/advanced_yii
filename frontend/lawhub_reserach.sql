@@ -759,7 +759,7 @@ CREATE TABLE `judgment_mast` (
   `time` time DEFAULT NULL,
   `approved` tinyint(1) DEFAULT NULL,
   `approved_date` datetime DEFAULT NULL,
-  `status_1` int(1) DEFAULT NULL COMMENT 'for_all_tabs',
+  `work_status` varchar(2) DEFAULT NULL COMMENT 'for_all_tabs',
   `status_2` int(1) DEFAULT NULL COMMENT 'for_elements&datapoints',
   `completion_status` varchar(1) DEFAULT NULL,
   `completion_date` date DEFAULT NULL,

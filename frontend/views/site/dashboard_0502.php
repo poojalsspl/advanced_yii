@@ -33,7 +33,6 @@ $username = Yii::$app->user->identity->username;
                         <div class="box-body box-profile">
                             <?php 
                             foreach ($model as $key => $value) {
-                                $course_code = $value['course_code'];
                                 $course_name = $value['course_name'];
                                 $course = CourseMast::find('course_duration')->where(['course_code'=>$value['course_code']])->one();
                                 $course_duration = $course->course_duration;
@@ -159,34 +158,6 @@ $username = Yii::$app->user->identity->username;
                                                         </tr>
                                                     </table>
                                                 </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-book bg-purple"></i>
-                                        <div class="timeline-item">
-                                            <span class="time"></span>
-                                            <h3 class="timeline-header"><a href="#">Syllabus</a></h3>
-                                            <div class="timeline-body">
-                                              <table class="table table-striped">
-                                                  <tr>
-                                                      <th>Name</th>
-                                                      <th>Total</th>
-                                                      <th>Allotted Days</th>
-                                                      <th>Stage</th>
-                                                  </tr>
-                                                  <?php
-                            $syllabus_all = SyllabusDetail::find('syllabus_catg_name,tot_count,tot_days,stage')->where(['course_code'=>$course_code])->all();
-                            foreach($syllabus_all as $syllabus){
-                            ?>
-                                                  <tr>
-                                                      <td><?= $syllabus->syllabus_catg_name;?></td>
-                                                      <td><?= $syllabus->tot_count;?></td>
-                                                      <td><?= $syllabus->tot_days; ?></td>
-                                                      <td><?= $syllabus->stage; ?></td>
-                                                  </tr>
-                                                  <?php } ?>
-                                              </table>  
-                                            </div>
                                         </div>
                                     </li>
                                     <li class="time-label">
