@@ -82,17 +82,17 @@ class JudgmentCitationController extends Controller
                 $model->citation = $_POST['JudgmentCitation']['citation'][$i];
                 $model->save(false); 
             } 
-            if($jcode!=""){ 
-                \Yii::$app->db->createCommand("UPDATE judgment_mast SET work_status = 4 WHERE judgment_code=".$jcode." and work_status = 3")->execute();                
+
+            $check = JudgmentCitation::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
+             $count = $check->work_status;
+           if($count==''){  
+                \Yii::$app->db->createCommand("UPDATE judgment_citation SET work_status ='C' WHERE judgment_code=".$jcode." ")->execute();                
               Yii::$app->session->setFlash('success', "Created successfully!!"); 
+              $model->save(false);
             return $this->redirect(['judgment-parties/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
                 }
-                else{
-                return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);                    
-                } 
-            
-              
-        }
+                
+          }
             
            return $this->render('create', [
                 'model' => $model,

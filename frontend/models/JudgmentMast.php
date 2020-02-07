@@ -122,7 +122,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'jcatg_id'                 => 'Judgment Category',
             'jsub_catg_description'    => 'Judgment Sub-category',
             'jsub_catg_id'             => 'Jsub Catg ID',
-            'overruled_by_judgment'    => 'Overruled By Judgment',
+            'overruled_by_judgment'    => 'If Existing Judgment Is Overruled By Another Judgment(Judgment Title:Date:Court Name)',
             'remark'                   => 'Data Collected from other source',
             'bench_type_id'            => 'Bench Type',
             'disposition_id'           => 'Disposition',

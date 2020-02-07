@@ -70,7 +70,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'approved', 'status_1', 'status_2'], 'integer'],
+            [['court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'approved', 'work_status', 'status_2'], 'integer'],
             [['judgment_date', 'judgment_date1', 'time', 'approved_date', 'completion_date', 'start_date'], 'safe'],
             [['judgment_abstract', 'judgment_analysis', 'judgment_text', 'judgment_text1'], 'string'],
             [['username'], 'string', 'max' => 50],
@@ -135,7 +135,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'time' => 'Time',
             'approved' => 'Approved',
             'approved_date' => 'Approved Date',
-            'status_1' => 'Status 1',
+            'work_status' => 'Work Status',
             'status_2' => 'Status 2',
             'completion_status' => 'Completion Status',
             'completion_date' => 'Completion Date',

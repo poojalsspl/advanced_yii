@@ -6,13 +6,17 @@ use frontend\models\JudgmentMast;
 use frontend\models\ElementMast;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
-$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/j-element-list']];
 ?>
+<style type="text/css">
+  .tabs a{
+    display: inline-block;
+    width: 10%;
+  }
+</style>
 <!--add tabs---->
-<?= $this->render("/judgment-mast/view_tabs") ?>
-<hr>
-<!--end of tab --->
 <?php
+
     $jcode  = '';
     $doc_id = '';
   
@@ -22,6 +26,31 @@ if($_GET)
     $doc_id = $_GET['doc_id'];
 }
 
+$master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
+    
+    $JudgmentElement     = $master->judgmentElement;
+    $JudgmentDatapoints  = $master->judgmentDatapoints;
+    
+    $mastcls = "btn-primary";
+
+
+    if(!empty($JudgmentElement)){ $element           =  '/judgment-element/index'; $elementcls = "btn-primary"; } else { $element =  '/judgment-element/create'; $elementcls = "btn-primary"; }
+     if(!empty($JudgmentDatapoints)){ $datapoints   =  '/judgment-data-point/update'; $datapointscls = "btn-primary";} else { $datapoints =  '/judgment-data-point/create1'; $datapointscls = "btn-primary"; }
+
+?>
+<div class="tabs">
+
+
+<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$elementcls ]) ?>
+<?php echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%","class"=>"btn btn-block  ".$datapointscls ]) ?>
+
+
+</div>
+
+<hr>
+<!--end of tab --->
+
+<?php
  $judgmentElement = JudgmentElement::find()->where(['judgment_code'=>$jcode])->all();
 ?>
     <table class="table table-bordered table-inverse">

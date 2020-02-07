@@ -32,6 +32,7 @@ foreach ($student_name as $student) {
  <?php //print_r($searchModel);?>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],

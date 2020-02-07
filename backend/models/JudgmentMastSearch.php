@@ -18,7 +18,7 @@ class JudgmentMastSearch extends JudgmentMast
     {
         return [
             [['username', 'college_code', 'court_name', 'court_type', 'appeal_numb', 'appeal_numb1', 'judgment_date', 'judgment_date1', 'judgment_title', 'appeal_status', 'disposition_text', 'bench_type_text', 'judgmnent_jurisdiction_text', 'judgment_abstract', 'judgment_analysis', 'judgment_text', 'judgment_text1', 'search_tag', 'doc_id', 'judgment_type', 'judgment_type1', 'jcatg_description', 'jsub_catg_description', 'overruled_by_judgment', 'remark', 'time', 'approved_date', 'completion_status', 'completion_date', 'start_date'], 'safe'],
-            [['judgment_code', 'court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'approved', 'status_1', 'status_2'], 'integer'],
+            [['judgment_code', 'court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'approved', 'work_status', 'status_2'], 'integer'],
         ];
     }
 
@@ -75,7 +75,7 @@ class JudgmentMastSearch extends JudgmentMast
             'time' => $this->time,
             'approved' => $this->approved,
             'approved_date' => $this->approved_date,
-            'status_1' => $this->status_1,
+            'work_status' => $this->work_status,
             'status_2' => $this->status_2,
             'completion_date' => $this->completion_date,
             'start_date' => $this->start_date,

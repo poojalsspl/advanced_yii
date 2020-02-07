@@ -540,15 +540,16 @@ class JudgmentMastController extends Controller
         if ($model->load(Yii::$app->request->post())) {
           $jcode = $model->judgment_code;
           $doc_id = $model->doc_id;
-          $model->disposition_text           =  $model->judgmentDisposition->disposition_text;
-          $model->judgmnent_jurisdiction_text =  $model->judgmentJurisdiction->judgment_jurisdiction_text;
+          $model->disposition_text = $model->judgmentDisposition->disposition_text;
+          $model->judgmnent_jurisdiction_text = $model->judgmentJurisdiction->judgment_jurisdiction_text;
+          $model->bench_type_text = $model->judgmentBenchType->bench_type_text;
          
             $jcatg = new JcatgMast();
-            $jcatg_desc =  $jcatg->getCatgName($model->jcatg_id);
-            $model->jcatg_description = $jcatg_desc ;
+            $jcatg_desc = $jcatg->getCatgName($model->jcatg_id);
+            $model->jcatg_description = $jcatg_desc;
             $model->jsub_catg_id = $model->jsub_catg_description;
           if($model->jsub_catg_description!=''){
-          $model->jsub_catg_description      =  $model->jsubCatg->jsub_catg_description;
+          $model->jsub_catg_description = $model->jsubCatg->jsub_catg_description;
           }
           if($model->search_tag!=''){
 
@@ -579,14 +580,15 @@ class JudgmentMastController extends Controller
 
           $check = JudgmentMast::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
           
-              $count = $check->status_1;
+              $count = $check->work_status;
               if($count==''){
-               \Yii::$app->db->createCommand("UPDATE judgment_mast SET work_status = 1 WHERE judgment_code=".$jcode."")->execute();                
+               \Yii::$app->db->createCommand("UPDATE judgment_mast SET work_status = 'C' WHERE judgment_code=".$jcode."")->execute();                
                Yii::$app->session->setFlash('success', "Updated successfully!!");
 
                $model->save();
             return $this->redirect(['judgment-advocate/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
                 }
+                Yii::$app->session->setFlash('success', "Updated successfully!!");
                 $model->save();
                 /*else{
                 return $this->redirect(['update', 'id' => $model->judgment_code]);
@@ -597,6 +599,19 @@ class JudgmentMastController extends Controller
         ]);
     }
 
+    public function actionSuccess($jcode="",$doc_id="")
+    {
+     return $this->render('j_sucess',[
+          'jcode' => $jcode,
+          'doc_id' => $doc_id,
+     ]);
+    }
+   /*
+   Reason : Display list of judgment for Abstracts
+   Url : http://localhost/advanced_yii/judgment-mast/abstract-list
+   function used : actionAbstractList, actionJudgmentAbstract
+
+   */
     public function actionAbstractList()
     {
         /*$username = \Yii::$app->user->identity->username;
@@ -632,6 +647,29 @@ class JudgmentMastController extends Controller
             'model' => $model,
         ]);
     }
+
+       /*
+   Reason : Display list of judgment for Elements & Data-points
+   Url : http://localhost/advanced_yii/judgment-mast/j-elements-list
+   function used : actionJElementList
+
+   */
+
+   public function actionJElementList()
+    {
+        $username = \Yii::$app->user->identity->username;
+        $query = JudgmentMast::find()
+        ->select('judgment_code,court_code,court_name,judgment_date,judgment_title,doc_id')
+        ->where(['username'=>$username])
+        ->limit(200);
+        $models = $query->all();
+          
+        return $this->render('stage2/elements_list', [
+            'models' => $models,
+           
+         ]);
+
+      }
 
     public function actionActsTitle($brcode,$title)
     {

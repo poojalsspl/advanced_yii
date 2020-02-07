@@ -88,27 +88,21 @@ class JudgmentPartiesController extends Controller
             }
             } 
 
-             if($jcode!=""){ 
-                \Yii::$app->db->createCommand("UPDATE judgment_mast SET work_status = 5 WHERE judgment_code=".$jcode." and work_status = 4")->execute();                
-                //Yii::$app->session->setFlash('Updated successfully!!');
+            $check = JudgmentParties::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
+             $count = $check->work_status;
+             if($count==''){ 
+                \Yii::$app->db->createCommand("UPDATE judgment_parties SET work_status = 'C' WHERE judgment_code=".$jcode." ")->execute();                
                  Yii::$app->session->setFlash('success', "Created successfully!!");
+                 $model->save();
             return $this->redirect(['judgment-ref/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
                 }
-                else{
-                return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);                    
-                } 
-
-
-           
-        }
-        else {
+           }
+        
             return $this->render('create', [
                 'model' => $model,
             ]);
-        }
-
        
-    }
+      }
 
     /**
      * Updates an existing JudgmentParties model.

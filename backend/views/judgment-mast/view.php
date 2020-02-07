@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'time',
             'approved',
             'approved_date',
-            'status_1',
+            'work_status',
             'status_2',
             'completion_status',
             'completion_date',

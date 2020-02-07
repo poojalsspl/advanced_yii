@@ -85,14 +85,16 @@ class JudgmentAdvocateController extends Controller
             // $judgment_code = $_POST['JudgmentAdvocate']['judgment_code']; 
             $model->save(); 
             }
-             if($jcode!=""){ 
-                \Yii::$app->db->createCommand("UPDATE judgment_mast SET work_status = 2 WHERE judgment_code=".$jcode." and work_status = 1")->execute();                
+             $check = JudgmentAdvocate::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
+             $count = $check->work_status;
+          
+             if($count==''){
+                \Yii::$app->db->createCommand("UPDATE judgment_advocate SET work_status = 'C' WHERE judgment_code=".$jcode." ")->execute();                
                 Yii::$app->session->setFlash('success', "Created successfully!!");
+                $model->save();
             return $this->redirect(['judgment-judge/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
                 }
-                else{
-                return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);                    
-                }
+                
             
             
         }

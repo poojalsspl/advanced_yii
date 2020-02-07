@@ -106,23 +106,25 @@ class JudgmentActController extends Controller
             $model->save(false);
        // }
    // }
-              if($jcode!=""){ 
+            $check = JudgmentAct::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
+             $count = $check->work_status;
+              if($count==''){ 
                 $date = date('Y-m-d');
-                \Yii::$app->db->createCommand("UPDATE judgment_mast SET work_status = 7 WHERE judgment_code=".$jcode)->execute();  
+                \Yii::$app->db->createCommand("UPDATE judgment_act SET work_status = 'C' WHERE judgment_code=".$jcode)->execute();  
                 \Yii::$app->db->createCommand("UPDATE judgment_mast SET completion_date = '".$date."' WHERE judgment_code=".$jcode)->execute();                 
                 
                  Yii::$app->session->setFlash('success', "Created successfully!!");
-            return $this->redirect(['judgment-element/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
+                  $model->save(false);
+                
+            return $this->redirect(['judgment-mast/success', 'jcode' => $jcode,'doc_id'=>$doc_id]);
                 }
-                else{
-                return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);                    
-                }   
-        }else{
+                
+        }
          
         return $this->render('create', [
             'model' => $model,
         ]);
-            }
+           
     }
 
      public function actionCreate1($jcode="",$doc_id="")

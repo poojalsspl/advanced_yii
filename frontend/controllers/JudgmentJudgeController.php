@@ -80,16 +80,16 @@ class JudgmentJudgeController extends Controller
                 $model->judge_name = $_POST['JudgmentJudge']['judge_name'][$i];
                 $model->save(false); 
             } 
-            if($jcode!=""){ 
-                \Yii::$app->db->createCommand("UPDATE judgment_mast SET work_status = 3 WHERE judgment_code=".$jcode." and work_status = 2")->execute();                
+
+            $check = JudgmentJudge::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
+             $count = $check->work_status;
+            if($count==''){ 
+                \Yii::$app->db->createCommand("UPDATE judgment_judge SET work_status = 'C' WHERE judgment_code=".$jcode." ")->execute();                
                Yii::$app->session->setFlash('success', "Created successfully!!");
+               $model->save();
             return $this->redirect(['judgment-citation/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
                 }
-                else{
-                return $this->redirect(['create', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);                    
-                } 
-            
-            
+           
         }
 
         return $this->render('create', [

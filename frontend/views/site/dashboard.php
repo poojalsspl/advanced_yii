@@ -104,8 +104,8 @@ $username = Yii::$app->user->identity->username;
                                             <h3 class="timeline-header"><a href="#"></a></h3>
                                             <div class="timeline-body">
                                                 <a class="btn btn-primary" href="/advanced_yii/judgment-mast/index">Stage - 1</a>
-                                                <a class="btn btn-primary" href="/advanced_yii/articles/index">Stage - 2</a>
-                                                <a class="btn btn-primary" href="#">Stage - 3</a>
+                                                <a class="btn btn-primary" href="/advanced_yii/judgment-mast/j-element-list">Stage - 2</a>
+                                                <a class="btn btn-primary" href="/advanced_yii/articles/index">Stage - 3</a>
                                             </div>
                                         </div>
                                     </li>
