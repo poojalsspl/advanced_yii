@@ -159,7 +159,7 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg
   </div>
   <div class="col-md-12">
     <div class="col-md-10 col-xs-12">
-      <?php $tag_hint = 'Generate tag from judgment in this format  '."<b>tag:percentagevalue;</b>".'  Eg if the judgment has 5 tags then it should be generated in this format '."<br>".'Search tag1:40%; Search tag2:25%; Search tag3:35%; Search tag4:55%; Search tag5:45%;'?>
+      <?php $tag_hint = 'Generate tag from judgment in this format  '."<b>tag:percentagevalue;</b>".'  Eg if the judgment has 5 tags then it should be generated in this format '."<br>".'Search tag1:40; Search tag2:25; Search tag3:35; Search tag4:55; Search tag5:45'?>
      <?=  $form->field($model, 'search_tag',['hintType' => ActiveField::HINT_SPECIAL])->textInput()->label('Search Tag(insert multiple values with semicolon(;)')->hint($tag_hint) ?> 
    </div>
    <div class="col-md-2 col-xs-12">

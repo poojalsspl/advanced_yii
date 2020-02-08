@@ -41,8 +41,8 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <div class="tabs">
 
 
-<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$elementcls ]) ?>
-<?php echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%","class"=>"btn btn-block  ".$datapointscls ]) ?>
+<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$elementcls ]) ?>
+<?php echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$datapointscls ]) ?>
 
 
 </div>

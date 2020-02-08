@@ -38,10 +38,9 @@ class JudgmentRef extends \yii\db\ActiveRecord
     {
         return [
             [['id'], 'required'],
-            [['id', 'judgment_code', 'judgment_code_ref', 'court_code', 'court_code_ref'], 'integer'],
-            [['doc_id', 'doc_id_ref'], 'string', 'max' => 40],
+            [['id', 'judgment_code'], 'integer'],
+            [['doc_id'], 'string', 'max' => 40],
             [['judgment_title', 'judgment_title_ref'], 'string', 'max' => 255],
-            [['court_name', 'court_name_ref', 'flag'], 'string', 'max' => 100],
             [['id'], 'unique'],
         ];
     }
@@ -56,13 +55,7 @@ class JudgmentRef extends \yii\db\ActiveRecord
             'judgment_code' => 'Judgment Code',
             'doc_id' => 'Doc ID',
             'judgment_title' => 'Judgment Title',
-            'judgment_code_ref' => 'Judgment Code Ref',
-            'court_code' => 'Court Code',
-            'court_name' => 'Court Name',
-            'doc_id_ref' => 'Doc Id Ref',
             'judgment_title_ref' => 'Judgment Title Referred',
-            'court_code_ref' => 'Court Code Ref',
-            'court_name_ref' => 'Court Name Ref',
             'flag' => 'Flag',
         ];
     }

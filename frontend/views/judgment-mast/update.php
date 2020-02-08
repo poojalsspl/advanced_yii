@@ -18,7 +18,7 @@ use frontend\models\JudgmentJurisdiction;
 /* @var $this yii\web\View */
 /* @var $model backend\models\JudgmentMast */
 
-$this->title = 'Fixed Data Point';
+$this->title = 'Fixed Data Points';
 /*$this->params['breadcrumbs'][] = ['label' => 'Judgment Masts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->judgment_code, 'url' => ['view', 'id' => $model->judgment_code]];
 $this->params['breadcrumbs'][] = 'Update';*/

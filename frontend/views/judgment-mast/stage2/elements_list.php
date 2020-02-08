@@ -8,7 +8,7 @@ use yii\helpers\ArrayHelper;
 <div class="judgment-mast-index">
 
 
-    <h1><?php echo 'List of judgments allocated  ' ?></h1>
+    <h1><?php echo 'List of judgments For Judgment Elements & Judgment Data Points' ?></h1>
 
     <table id="example" class="table table-striped table-bordered" style="width:100%">
         <thead>
