@@ -633,9 +633,9 @@ class JudgmentMastController extends Controller
         
     }
 
-    public function actionJudgmentAbstract($id)
+    public function actionJudgmentAbstract($jcode,$doc_id)
     {
-         $model = $this->findModel($id);
+         $model = $this->findModel($jcode);
          $username = \Yii::$app->user->identity->username;
          if ($model->load(Yii::$app->request->post())) {
           $jcode = $model->judgment_code;
