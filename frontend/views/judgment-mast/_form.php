@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['in
 $benchType    = ArrayHelper::map(JudgmentBenchType::find()->all(), 'bench_type_id', 'bench_type_text'); 
 $disposition  = ArrayHelper::map(JudgmentDisposition::find()->all(), 'disposition_id', 'disposition_text'); 
 $jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_jurisdiction_id', 'judgment_jurisdiction_text'); 
-$jcatg_description = ArrayHelper::map(JcatgMast::find()->all(),'jcatg_id','jcatg_description');
+$jcatg_description = ArrayHelper::map(JcatgMast::find()->orderBy('jcatg_description')->all(),'jcatg_id','jcatg_description');
 
 ?>
 

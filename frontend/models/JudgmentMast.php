@@ -79,7 +79,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
         return [
             [['court_code', 'jcatg_id', 'jsub_catg_id'], 'integer'],
             [['judgment_date', 'disposition_id','disposition_text','judgment_jurisdiction_id','judgmnent_jurisdiction_text','bench_type_id','bench_type_text'], 'safe'],
-            [['judgment_title'], 'required'],
+            [['judgment_title','bench_type_id','judgment_jurisdiction_id','disposition_id'], 'required'],
             [['judgment_abstract', 'judgment_text','judgment_text1','username'], 'string'],
             [['court_name'], 'string', 'max' => 100],
             [['appeal_numb'], 'string', 'max' => 250],

@@ -12,7 +12,11 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
   }
 
 ?>
+<div>
 <p>
 	All forms for the judgment <h3><?php echo $jtitle; ?></h3> completed. You may update forms anytime.
 </p>
+<p>You may write abstract for this judgment also, if you haven't write before.</p><br><br>
  <a class="btn btn-primary" href="/advanced_yii/judgment-mast/index">List of judgment</a>
+ <a class="btn btn-primary" href="/advanced_yii/judgment-mast/judgment-abstract?jcode=<?php echo $jcode; ?>&doc_id=<?php echo $doc_id; ?>">Abstract Writing</a>
+</div>

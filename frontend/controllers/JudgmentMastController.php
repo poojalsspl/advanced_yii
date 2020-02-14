@@ -544,13 +544,21 @@ class JudgmentMastController extends Controller
           $model->judgmnent_jurisdiction_text = $model->judgmentJurisdiction->judgment_jurisdiction_text;
           $model->bench_type_text = $model->judgmentBenchType->bench_type_text;
          
+            
+          if($model->jcatg_id!=''){
             $jcatg = new JcatgMast();
             $jcatg_desc = $jcatg->getCatgName($model->jcatg_id);
             $model->jcatg_description = $jcatg_desc;
+           }
+           /*if($model->jsub_catg_description!=''){
             $model->jsub_catg_id = $model->jsub_catg_description;
-          if($model->jsub_catg_description!=''){
           $model->jsub_catg_description = $model->jsubCatg->jsub_catg_description;
           }
+          else{
+            $model->jsub_catg_id = NULL;
+            $model->jsub_catg_description = NULL;
+          }*/
+
           if($model->search_tag!=''){
 
             \Yii::$app

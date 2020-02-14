@@ -21,7 +21,7 @@ use yii\helpers\Url;
 /* @var $model backend\models\JudgmentMast */
 /* @var $form yii\widgets\ActiveForm */
 $cache = Yii::$app->cache;
-$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['abstract-list']];
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['index']];
 
 ?>
 <style type="text/css">
@@ -92,6 +92,10 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 
 <!------start of form------>
 <div class="template">
+  <div class="box box-blue">
+    <div class="box-header with-border">
+              <h3 class="box-title"></h3>
+            </div>
     <div class ="body-content">
         <?php $form = ActiveForm::begin(); ?>
         <div class="col-md-12">
@@ -128,10 +132,11 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
         </div>
         <?php ActiveForm::end(); ?>
     </div>
+  </div>
 </div>
 <!------end of form------>
 
- 
+ <?= $this->render("/judgment-mast/judgment_text_add") ?>
 
 <?php 
     $this->registerJs("CKEDITOR.replace('judgmentmast-judgment_abstract',{toolbar : 'Basic'})");

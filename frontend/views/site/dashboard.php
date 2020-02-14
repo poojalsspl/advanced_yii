@@ -14,6 +14,8 @@ use frontend\models\JudgmentCitation;
 use frontend\models\JudgmentDataPoint;
 use frontend\models\SyllabusDetail;
 use frontend\models\Articles;
+use frontend\models\FdpView;
+use frontend\models\JudgmentMast;
 
 $username = Yii::$app->user->identity->username;
 //$this->params['breadcrumbs'][] = $this->title;
@@ -160,6 +162,75 @@ $username = Yii::$app->user->identity->username;
                                                     </table>
                                                 </div>
                                         </div>
+                                    </li>
+                                    <li>
+                                      <i class="fa fa-asterisk bg-aqua"></i>
+                                      <div class="timeline-item">
+                                        <!-- <span class="time"></span>
+                                        <h3 class="timeline-header"><a href="#"></a></h3> -->
+                                        <div class="timeline-body">
+                                          <table class="table table-striped">
+                                            <tr>
+                                              <th>Name</th>
+                                              <th>Completed</th>
+                                              <th>Pending</th>
+                                            </tr>
+                                            <?php
+                                              $comp_fdp = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
+                                              $comp_abstract = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['judgment_abstract' => null]])->count('judgment_abstract');
+
+                                            $sql="Select count(distinct('judgment_code')) as tot_count from judgment_element where username = '$username'";
+                                            $command = Yii::$app->getDb()->createCommand($sql);
+                                              $records = $command->queryAll();
+                                              foreach ($records as $valuetot) {
+                                              }
+                                              $elecount = $valuetot['tot_count'];
+
+                                              $sqldp="Select count(distinct('judgment_code')) as tot_dpcount from judgment_data_point where username = '$username'";
+                                            $commanddp = Yii::$app->getDb()->createCommand($sqldp);
+                                              $recordsdp = $commanddp->queryAll();
+                                              foreach ($recordsdp as $dpvalue) {
+                                              }
+                                              $dpcount = $dpvalue['tot_dpcount'];
+
+                                              $comp_article = Articles::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
+
+                                            
+
+                                            ?>
+                                            <tr>
+                                              <td>FIXED DATA POINTS</td>
+                                              <td><button class="bg-green"><?= $comp_fdp;?></button></td>
+                                              <td></td>
+                                            </tr>
+                                            <tr>
+                                              <td>ABSTRACT</td>
+                                              <td><button class="bg-green"><?= $comp_abstract?></button></td>
+                                              <td></td>
+                                            </tr>
+                                            <tr>
+                                              <td>ELEMENTS</td>
+                                              <td><button class="bg-green"><?=$elecount?></button></td>
+                                              <td></td>
+                                            </tr>
+                                            <tr>
+                                              <td>VARIABLE DATA POINTS</td>
+                                              <td><button class="bg-green"><?=$dpcount?></button></td>
+                                              <td></td>
+                                            </tr>
+                                            <tr>
+                                              <td>LEGAL ARTICLE</td>
+                                              <td><button class="bg-green"><?= $comp_article?></button></td>
+                                              <td></td>
+                                            </tr>
+                                            <tr>
+                                              <td>PROJECT REPORT</td>
+                                              <td></td>
+                                              <td></td>
+                                            </tr>
+                                          </table>
+                                        </div>
+                                      </div>
                                     </li>
                                     <li>
                                         <i class="fa fa-book bg-purple"></i>
