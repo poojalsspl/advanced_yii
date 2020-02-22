@@ -37,6 +37,7 @@ class JudgmentElement extends \yii\db\ActiveRecord
             [['doc_id'], 'string', 'max' => 40],
             [['element_code'], 'string', 'max' => 2],
             [['element_name'], 'string', 'max' => 25],
+            [['specify'], 'string', 'max' => 100],
         ];
     }
 
@@ -55,6 +56,7 @@ class JudgmentElement extends \yii\db\ActiveRecord
             'element_text' => 'Element Text',
             'weight_perc' =>  'Weightage %',
             'element_word_length' => 'Element Word Length',
+            'specify' => 'Remark for weightage %', 
         ];
     }
 }

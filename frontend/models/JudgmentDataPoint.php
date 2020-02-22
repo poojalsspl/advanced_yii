@@ -32,8 +32,9 @@ class JudgmentDataPoint extends \yii\db\ActiveRecord
             [['judgment_code', 'element_code'], 'integer'],
             [['element_name', 'data_point'], 'required'],
             [['element_name'], 'string', 'max' => 25],
-            [['data_point'], 'string', 'max' => 15],
+            [['data_point'], 'string', 'max' => 20],
             [['weight_perc'], 'string', 'max' => 6],
+            [['specify'], 'string', 'max' => 100],
         ];
     }
 
@@ -49,6 +50,7 @@ class JudgmentDataPoint extends \yii\db\ActiveRecord
             'element_name' => 'Element Name',
             'data_point' => 'Data Point Name',
             'weight_perc' => 'DataPoint Value in %',
+            'specify' => 'Specify data point value',
 
         ];
     }

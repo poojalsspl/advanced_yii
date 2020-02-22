@@ -87,6 +87,8 @@ class JudgmentMastController extends Controller
         'subdataProvider' => $subdataProvider
     ]);
   }
+
+
           
         public function actionIndexbkup()
     {
@@ -112,6 +114,8 @@ class JudgmentMastController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+
+    
 
     public function actionJudgmentview($jcode="")
 

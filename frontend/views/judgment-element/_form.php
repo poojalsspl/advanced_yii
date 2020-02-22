@@ -26,6 +26,16 @@ if($_GET)
     $doc_id = $_GET['doc_id'];
 }
 
+$judgment = ArrayHelper::map(JudgmentMast::find()
+  //->andWhere(['not in','judgment_code',$j_code])
+  ->where(['judgment_code'=>$jcode])
+  ->all(),
+    'judgment_code',
+    function($result) {
+
+        return $result['court_name'].'::'.$result['judgment_title'];
+    });
+
 $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
     
     $JudgmentElement     = $master->judgmentElement;
@@ -35,14 +45,14 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 
 
     if(!empty($JudgmentElement)){ $element           =  '/judgment-element/index'; $elementcls = "btn-primary"; } else { $element =  '/judgment-element/create'; $elementcls = "btn-primary"; }
-     if(!empty($JudgmentDatapoints)){ $datapoints   =  '/judgment-data-point/update'; $datapointscls = "btn-primary";} else { $datapoints =  '/judgment-data-point/create1'; $datapointscls = "btn-primary"; }
+     if(!empty($JudgmentDatapoints)){ $datapoints   =  '/judgment-data-point/update1'; $datapointscls = "btn-primary";} else { $datapoints =  '/judgment-data-point/create1'; $datapointscls = "btn-primary"; }
 
 ?>
 <div class="tabs">
 
 
 <?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$elementcls ]) ?>
-<?php echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$datapointscls ]) ?>
+<?php echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$datapointscls ]) ?>
 
 
 </div>
@@ -78,11 +88,20 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
         <div class="row">
 
            <div class="col-md-6">
-            <?php $form = ActiveForm::begin();
+            <?php $form = ActiveForm::begin(); ?>
 
-              $element    = ArrayHelper::map(ElementMast::find()->all(), 'element_code', 'element_name'); 
+            
+
+              <?php $element    = ArrayHelper::map(ElementMast::find()->all(), 'element_code', 'element_name'); 
 
               ?>
+                <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
+    'data' => $judgment,
+    'initValueText' => $jcode,
+    'disabled'=>true,
+    'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
+   
+     ])->label('Judgment Title'); ?>
               <?= $form->field($model, 'judgment_code')->hiddenInput(['value'=>$jcode])->label(false); ?>
               <?= $form->field($model, 'element_code')->widget(Select2::classname(), [
                   'data' => $element,
@@ -109,6 +128,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
               <label>Copy  from the judgment text below and paste it in the box below : <br><span style="color: #ff0000">DO NOT CHANGE ANY TEXT</span></label>
              <?= $form->field($model, 'element_text')->textarea(['rows' => 6])->label(false); ?> 
              <?= $form->field($model, 'weight_perc')->textInput()->label(); ?>
+             <?= $form->field($model, 'specify')->textInput()->label(); ?>
           <div class="form-group">
          <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
            </div> 

@@ -82,7 +82,7 @@ class JudgmentDataPointController extends Controller
 
     
     /*dynamic form creation code*/
-     public function actionCreate($jcode)
+     public function actionCreate($jcode="",$doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
        $count = count(Yii::$app->request->post('JudgmentDataPoint', []));
@@ -114,7 +114,7 @@ class JudgmentDataPointController extends Controller
      /*----------------------------------------------*/
 
      /* dynamic form creation code with dropdown*/
-     public function actionCreate1($jcode)
+     public function actionCreate1($jcode="",$doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
        $count = count(Yii::$app->request->post('JudgmentDataPoint', []));
@@ -132,6 +132,7 @@ class JudgmentDataPointController extends Controller
             $element_name =  $element->getElementName($model->element_code);
             $model->element_name = $element_name ;
             $model->judgment_code = $jcode;
+            $model->doc_id = $doc_id;
             $model->username = $username;
             //Try to save the models. Validation is not needed as it's already been done.
             $model->save(false);
@@ -238,7 +239,7 @@ class JudgmentDataPointController extends Controller
        /*dynamic form with dropdown from scratch*/
 
     /* dynamic form updation code with dropdown*/
-    public function actionUpdate1($jcode="")
+    public function actionUpdate1($jcode="",$doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         //$models = JudgmentDataPoint::find()->indexBy('id')->all();
@@ -255,7 +256,7 @@ class JudgmentDataPointController extends Controller
             return $this->redirect('index');
         }
 
-        return $this->render('update1', ['models' => $models,'jcode'=>$jcode]);
+        return $this->render('update1', ['models' => $models,'jcode'=>$jcode,'doc_id'=>$doc_id]);
     }
     /* end of dynamic form updation code with dropdown*/
 
