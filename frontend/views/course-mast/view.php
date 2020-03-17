@@ -21,7 +21,7 @@ $this->title = 'Case Law';
                     <ul>
                     <p><li><strong>COURSE NAME &nbsp;:</strong> &nbsp;<?php echo $model->course_name;?></li></p> 
                     <p><li><strong>ELIGIBILITY &nbsp;:</strong> &nbsp;<?php echo $model->course_eligibility ;?></li></p> 
-                    <p><li><strong>DURATION OF COURSE &nbsp;:</strong> &nbsp;<?php echo $model->course_duration." Months";?></li></p> 
+                    <p><li><strong>DURATION OF COURSE &nbsp;:</strong> &nbsp;<?php echo $model->course_duration." ".$model->course_duration_unit;?></li></p> 
                     </ul>
                     <br>
                     <h4><strong>INTRODUCTION</strong></h4>

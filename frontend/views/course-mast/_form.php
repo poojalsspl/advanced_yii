@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 ?>
  <div class="template">
     <div class ="body-content">
@@ -14,7 +15,12 @@ use yii\widgets\ActiveForm;
  
     <?= $form->field($model, 'course_code'); ?>
     <?= $form->field($model, 'course_name'); ?>
+    <div class="col-md-6 col-xs-12">
     <?= $form->field($model, 'course_duration'); ?>
+    </div>
+    <div class="col-md-4 col-xs-12">
+    <?= $form->field($model, 'course_duration_unit')->dropDownList(["Years"=>'Years', "Months"=>"Months","Days"=>"Days","Hours"=>"Hours"],['prompt'=>'Select'])->label(' ');?>    
+    </div>
      </div>
         <div class="col-md-4 col-xs-12">
     <?= $form->field($model, 'course_fees'); ?>

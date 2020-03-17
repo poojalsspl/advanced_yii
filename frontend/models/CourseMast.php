@@ -25,7 +25,7 @@ class CourseMast extends \yii\db\ActiveRecord
         return [
             [['course_duration', 'course_fees', 'tot_student', 'tot_completed', 'tot_ongoing'], 'integer'],
             [['course_intro', 'course_objective', 'course_syllabus', 'course_content', 'course_summary', 'course_marking'], 'string'],
-            [['course_code'], 'string', 'max' => 8],
+            [['course_code', 'course_duration_unit'], 'string', 'max' => 8],
             [['course_name',  'course_eligibility'], 'string', 'max' => 50]
         ];
     }  
