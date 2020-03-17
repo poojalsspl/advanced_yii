@@ -4,9 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\models\JudgmentMast;
 use frontend\models\JudgmentRef;
+use frontend\models\CourtMast;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use yii\helpers\Url;
+use wbraganca\dynamicform\DynamicFormWidget;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentRef */
 /* @var $form yii\widgets\ActiveForm */
@@ -35,91 +37,101 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     function($result) {
         return $result['court_name'].'::'.$result['judgment_title'];
     });
-
+$judgment_title = implode($judgment,'');
 ?>
 
 <div class="judgment-ref-form">
-  <div class="box box-blue">
-         <?php if($model->isNewRecord) { ?>
-            <?php $form = ActiveForm::begin(['method'=>'post']); ?>
-            <div class="box-header with-border">
-              <h3 class="box-title"></h3>
-            </div>
-            <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
-            'data' => $judgment,
-            'disabled'=>true,
-            'initValueText' => $jcode,        
-            'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
-            ])->label('Judgment Title'); ?>
+    <div class="box box-blue">
+  <?php $form = ActiveForm::begin(['id' => 'dynamic-form']); ?>
+    <div id="test_div"></div>
+    <br>
+    <label>Judgment Title</label>
+    <input type="text" value="<?php echo $judgment_title; ?>" readonly="readonly" class="form-control">
+    <br><br>
 
-      <div class="dynamic-rows rows col-xs-12">   
-      <div class="dynamic-rows-field row">
-    
-        <div class="col-xs-6">
-             <?= $form->field($model, (!$model->isNewRecord) ? 'judgment_title_ref' : 'judgment_title_ref[]' )->textInput(['maxlength' => true,
-                'class'=>'judgmentref-judgment_title_ref form-control'])->label('Judgment Title Referred(One entry in Each Row)') ?> 
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i> Information</h4></div>
+        <div class="panel-body">
+             <?php DynamicFormWidget::begin([
+                'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                'widgetBody' => '.container-items', // required: css class selector
+                'widgetItem' => '.item', // required: css class
+                'limit' => 100, // the maximum times, an element can be cloned (default 999)
+                'min' => 1, // 0 or 1 (default 1)
+                'insertButton' => '.add-item', // css class
+                'deleteButton' => '.remove-item', // css class
+                'model' => $models[0],
+                'formId' => 'dynamic-form',
+                'formFields' => [
+                    'court_code_ref',
+                    'citation_ref',
+                    'judgment_date_ref',
+                    'judgment_title_ref',
+                    
+                ],
+            ]); ?>
+
+            <div class="container-items"><!-- widgetContainer -->
+            <?php foreach ($models as $i => $modelAddress): ?>
+                <div class="item panel panel-default"><!-- widgetBody -->
+                    <div class="panel-heading">
+                        <h3 class="panel-title pull-left"></h3>
+                        <div class="pull-right">
+                            <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                            <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-body">
+                        <?php
+                            // necessary for update action.
+                            if (! $modelAddress->isNewRecord) {
+                                echo Html::activeHiddenInput($modelAddress, "[{$i}]id");
+                            }
+                           
+                          $court  =  ArrayHelper::map(CourtMast::find()->all(),'court_code','court_name');
+                            ?>
+                             
+                         <div class="row">
+                           
+                            <div class="col-sm-3">
+
+        <?= $form->field($modelAddress, "[{$i}]court_code_ref")->dropDownList($court,['prompt'=>'']); ?>
+
+
+                     
+                             </div>
+                             
+
+                              <div class="col-sm-3">
+                                <?= $form->field($modelAddress, "[{$i}]citation_ref")->textInput(['maxlength' => true]) ?>
+                            </div>
+                            <div class="col-sm-3">
+                                <?= $form->field($modelAddress, "[{$i}]judgment_date_ref")->textInput(['placeholder'=>'Y-mm-dd']) ?>
+                                 
+                             </div>
+                             <div class="col-sm-3">
+                                
+                                 <?= $form->field($modelAddress, "[{$i}]judgment_title_ref")->textInput() ?>
+                                 
+                             </div>
+                            
+                        </div><!-- .row -->
+      
+                    </div>
+                </div>
+            <?php endforeach; ?>
+            </div>
+            <?php DynamicFormWidget::end(); ?>
         </div>
-        <div class="col-xs-2">
-        </div>
-       
-     </div>
-     </div>
-     <div class="row form-group">
-    <div class="col-xs-4">
-        <?= Html::button($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', "id"=>'submit-button']) ?>
     </div>
-    <div class="col-xs-8"> 
-    <?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
-    
+
+    <div class="form-group">
+        <?= Html::submitButton($modelAddress->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-primary']) ?>
     </div>
-    </div> 
+
     <?php ActiveForm::end(); ?>
-    <?php } ?>
-    <?php if(!$model->isNewRecord) { ?>
-    <?php $form = ActiveForm::begin(['method'=>'post']); ?>  
-    <div class="box-header with-border">
-    <h3 class="box-title"></h3>
-    </div>
-    <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
-    'data' => $judgment,
-    'disabled'=>true,
-     'initValueText' => $jcode,        
-    //'language' => '',
-    'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
-     ])->label('Judgment Title'); ?>
-     <div class="dynamic-rows rows col-xs-12">
-        <?php 
-        //echo $model->judgment_code;die;
-        $judgment_title_ref = JudgmentRef::find()->where(['judgment_code'=>$model->judgment_code])->all();?>
-        <label>Judgment Title Referred(One entry in Each Row)</label>
-       
-       <?php foreach ($judgment_title_ref as $jdg) { ?>
-            <div class="dynamic-rows-field row">
-                <div class="col-xs-6">
-                <div class="form-group field-judgmentref-judgment_title_ref has-success">
-                <label class="control-label" for="judgmentref-judgment_title_ref"></label>
-                <input type="text" id="judgmentref-judgment_title_ref" class="judgmentref-judgment_title_ref form-control" name="JudgmentRef[judgment_title_ref][]" value="<?= $jdg->judgment_title_ref ?>" maxlength="true" aria-invalid="false">
-                <div class="help-block"></div>
-                </div> 
-            </div>
-            <div class="col-xs-2">            
-            </div> 
-            </div>
-            <?php } ?>
-      </div>
-    <div class="row form-group">
-    <div class="col-xs-4">
-        <?= Html::button($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', "id"=>'submit-button']) ?>
-    </div>
-    <div class="col-xs-8"> 
-    <?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
-
-    </div>
-    </div>
-    <?php ActiveForm::end(); ?>
-
-    <?php } ?>
-        </div>
+</div>
 </div>
 
 <!------end of form------>
@@ -127,56 +139,3 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     <!------add judgment text------>
     <?= $this->render("/judgment-mast/judgment_text_add") ?>
     <!------judgment text------>
-<?php 
-if($model->isNewRecord){
-    $customScript = <<< SCRIPT
-    $('.addr-row').on('click',function(){
-        console.log('test');
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentref-judgment_title_ref has-success"><label class="control-label" for="judgmentref-judgment_title_ref"></label><input type="text" id="judgmentref-judgment_title_ref" class="form-control judgmentref-judgment_title_ref" name="JudgmentRef[judgment_title_ref][]" maxlength="true" aria-invalid="false"><div class="help-block"></div></div></div></div>');    
-    });
-    
-    $('#submit-button').on("click",function(){
-        console.log('test');
-    $('.judgmentref-judgment_title_ref').each(function(){   
-        if($(this).val()=='')
-        {
-            alert('Can not be Empty');
-            $(this).focus();
-            return false;   
-        }
-        
-    });     
-     $('#submit-button').attr('type','submit');
- });
- SCRIPT;
-}
-else{
-        $customScript = <<< SCRIPT
-    $('.addr-row').on('click',function(){
-        $('.judgmentref-judgment_title_ref').attr('name','JudgmentRef[judgment_title_ref][]')
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentref-judgment_title_ref has-success"><label class="control-label" for="judgmentref-judgment_title_ref"></label><input type="text" id="judgmentref-judgment_title_ref" class="form-control judgmentref-judgment_title_ref" name="JudgmentRef[judgment_title_ref][]" maxlength="true" aria-invalid="false"><div class="help-block"></div></div></div></div>');    
-    });
-    
-    $('#submit-button').on("click",function(){
-        console.log('test');
-    $('.judgmentref-judgment_title_ref').each(function(){
-        if($(this).val()=='')
-        {
-            alert('Can not be Empty');
-            $(this).focus();
-            return false;   
-        }
-        
-    });     
-     $('#submit-button').attr('type','submit');
- });
-
-
-SCRIPT;
-
-
-}
-    $this->registerJs($customScript, \yii\web\View::POS_READY);
- ?>
-
-

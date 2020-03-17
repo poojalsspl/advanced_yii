@@ -6,10 +6,12 @@ use Yii;
 use frontend\models\JudgmentRef;
 use frontend\models\JudgmentRefSearch;
 use frontend\models\JudgmentMast;
+use frontend\models\CourtMast;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\base\Model;
 
 /**
  * JudgmentRefController implements the CRUD actions for JudgmentRef model.
@@ -64,7 +66,7 @@ class JudgmentRefController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="",$doc_id="")
+   /* public function actionCreate($jcode="",$doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $model = new JudgmentRef;
@@ -79,6 +81,9 @@ class JudgmentRefController extends Controller
                 $model->username = $username;
                 $model->judgment_title           =  $judgmentMastRef->judgment_title;
                 $model->judgment_title_ref = $_POST['JudgmentRef']['judgment_title_ref'][$i];
+                $model->citation_ref = $_POST['JudgmentRef']['citation_ref'][$i];
+               // $model->court_code_ref = $_POST['JudgmentRef']['court_code_ref'][$i];
+                //$model->judgment_date_ref = $_POST['JudgmentRef']['judgment_date_ref'][$i];
                 $model->save(false); 
             } 
             $check = JudgmentRef::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
@@ -95,7 +100,48 @@ class JudgmentRefController extends Controller
                 'model' => $model,
             ]);
      
+    }*/
+
+     public function actionCreate($jcode="",$doc_id="")
+    {
+        $username = \Yii::$app->user->identity->username;
+       $count = count(Yii::$app->request->post('JudgmentRef', []));
+       $judgmentMastRef  =  JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
+
+       $models = [new JudgmentRef()];
+       for($i = 1; $i < $count; $i++) {
+            $models[] = new JudgmentRef();
+        }
+       if (Model::loadMultiple($models, Yii::$app->request->post()))
+        {
+            
+            
+         foreach ($models as $model) {
+            $court = new CourtMast();
+            $court_name =  $court->getCourtName($model->court_code_ref);
+            $model->court_name_ref = $court_name ;
+            $model->judgment_title = $judgmentMastRef->judgment_title;
+            $model->judgment_code = $jcode;
+            $model->doc_id = $doc_id;
+            $model->username = $username;
+            //Try to save the models. Validation is not needed as it's already been done.
+            $model->save(false);
+            }
+            $check = JudgmentRef::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
+             $count = $check->work_status;
+            if($count==''){ 
+                \Yii::$app->db->createCommand("UPDATE judgment_ref SET work_status = 'C' WHERE judgment_code=".$jcode." ")->execute();                
+                Yii::$app->session->setFlash('success', "Created successfully!!");
+                $model->save(false);
+            return $this->redirect(['judgment-act/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
+        }
+        }
+
+        return $this->render('create', [
+            'models' => $models,
+        ]);
     }
+    
 
         public function actionCreatebkup()
     {
@@ -110,11 +156,11 @@ class JudgmentRefController extends Controller
         ]);
     }
 
-     public function actionUpdate($jcode="",$doc_id="")
-    {
+    // public function actionUpdate($jcode="",$doc_id="")
+    //{
         /*Yii::$app->session->setFlash('error', 'After succssfully submission of form once, you are not authorize to access this form again!');
          return $this->render('message');*/
-        $username = \Yii::$app->user->identity->username;
+       /* $username = \Yii::$app->user->identity->username;
       $model =  JudgmentRef::find()->where(['judgment_code'=>$jcode])->one();    
         if($model->load(Yii::$app->request->post())) {
             $count = count($_POST['JudgmentRef']['judgment_title_ref']);
@@ -140,7 +186,29 @@ class JudgmentRefController extends Controller
             return $this->render('update', [
                 'model' => $model,
             ]);
-        }     
+        }     */
+    //}
+
+     public function actionUpdate($jcode="",$doc_id="")
+    {
+        $username = \Yii::$app->user->identity->username;
+        //$models = JudgmentDataPoint::find()->indexBy('id')->all();
+        $models = JudgmentRef::find()->where(['judgment_code' => $jcode])->all();
+
+        if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
+            foreach ($models as $model) {
+             $court = new CourtMast();
+            $court_name =  $court->getCourtName($model->court_code_ref);
+            $model->court_name_ref = $court_name ;
+            $model->judgment_code = $jcode;
+            $model->doc_id = $doc_id;
+            $model->username = $username;
+                $model->save(false);
+            }
+            $this->redirect(['update', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);
+        }
+
+        return $this->render('update', ['models' => $models]);
     }
 
     /**

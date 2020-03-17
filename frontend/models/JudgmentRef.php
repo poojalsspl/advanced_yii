@@ -9,17 +9,16 @@ use yii\db\Query;
  * This is the model class for table "judgment_ref".
  *
  * @property int $id
- * @property int $judgment_code
- * @property string $doc_id
- * @property string $judgment_title
- * @property int $judgment_code_ref
- * @property int $court_code
- * @property string $court_name
- * @property string $doc_id_ref
- * @property string $judgment_title_ref
- * @property int $court_code_ref
- * @property string $court_name_ref
- * @property string $flag
+ * @property string|null $username
+ * @property int|null $judgment_code
+ * @property string|null $doc_id
+ * @property string|null $judgment_title
+ * @property string|null $judgment_title_ref
+ * @property int|null $court_code_ref
+ * @property string|null $court_name_ref
+ * @property string|null $citation_ref
+ * @property string|null $judgment_date_ref
+ * @property string|null $work_status
  */
 class JudgmentRef extends \yii\db\ActiveRecord
 {
@@ -36,12 +35,22 @@ class JudgmentRef extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
+        /*return [
             [['id'], 'required'],
             [['id', 'judgment_code'], 'integer'],
             [['doc_id'], 'string', 'max' => 40],
             [['judgment_title', 'judgment_title_ref'], 'string', 'max' => 255],
             [['id'], 'unique'],
+        ];*/
+         return [
+            [['judgment_code', 'court_code_ref'], 'integer'],
+            [['judgment_date_ref'], 'safe'],
+            [['username'], 'string', 'max' => 50],
+            [['doc_id'], 'string', 'max' => 40],
+            [['judgment_title', 'judgment_title_ref'], 'string', 'max' => 255],
+            [['court_name_ref'], 'string', 'max' => 100],
+            [['citation_ref'], 'string', 'max' => 2000],
+            [['work_status'], 'string', 'max' => 2],
         ];
     }
 
@@ -50,13 +59,26 @@ class JudgmentRef extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-        return [
+        /*return [
             'id' => 'ID',
             'judgment_code' => 'Judgment Code',
             'doc_id' => 'Doc ID',
             'judgment_title' => 'Judgment Title',
             'judgment_title_ref' => 'Judgment Title Referred',
             'flag' => 'Flag',
+        ];*/
+        return [
+            'id' => 'ID',
+            'username' => 'Username',
+            'judgment_code' => 'Judgment Code',
+            'doc_id' => 'Doc ID',
+            'judgment_title' => 'Judgment Title',
+            'judgment_title_ref' => 'Judgment Title Referred',
+            'court_code_ref' => 'Court Code Referred',
+            'court_name_ref' => 'Court Name Referred',
+            'citation_ref' => 'Citation Referred',
+            'judgment_date_ref' => 'Judgment Date Referred',
+            'work_status' => 'Work Status',
         ];
     }
 
