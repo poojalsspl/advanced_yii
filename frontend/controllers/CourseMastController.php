@@ -11,10 +11,25 @@ use yii\web\NotFoundHttpException;
  **/
 class CourseMastController extends Controller
 {  
+
+    public function accessRules()
+
+    {
+
+        return array(
+
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions'=>array('create','edit','index'),
+                'users'=>array('admin'),
+            ),
+
+         );
+
+    }
     /**
      * Create
      */
-    public function actionCreate()
+    public function actionCreates()
     {
         $model = new CourseMast();
  
@@ -28,12 +43,15 @@ class CourseMastController extends Controller
 
      public function actionIndex()
     {
+           if(Yii::$app->user->isGuest){
+        return $this->render('signuperror');
+       }
         $coursemast = CourseMast::find()->all();
          
         return $this->render('index', ['model' => $coursemast]);
     }
 
-    public function actionEdit($course_code)
+    public function actionEdits($course_code)
     {
         $model = CourseMast::find()->where(['course_code' => $course_code])->one();
  

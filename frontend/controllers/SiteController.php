@@ -12,6 +12,7 @@ use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\User;
 use frontend\models\PasswordResetRequestForm;
+use frontend\models\ChangePasswordForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
@@ -28,7 +29,9 @@ use frontend\models\JudgmentMast;
 use app\models\CourseMast;
 use yii\helpers\Html;
 use yii\helpers\Url;
-
+use frontend\models\StatecollegelistView;
+use yii\data\ActiveDataProvider;
+use frontend\models\WebArticles;
 /**
  * Site controller
  */
@@ -42,7 +45,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout','create', 'update', 'delete'],
+                'only' => ['logout','create', 'update', 'delete','change-password'],
                 'rules' => [
                     [
                         
@@ -80,7 +83,21 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'landing';
-        return $this->render('index');
+    $dataProvider = new ActiveDataProvider([
+    'query' => StatecollegelistView::find()->orderBy(['state_name' => SORT_ASC]),
+    'pagination' => false
+    ]);
+
+    $date = date('Y-m-d');
+    $query = CollegeMast::find()->select('college_code,college_name,city_name,college_logo')->where(['sponsor'=>'Y'])->andWhere(['<=','startdate',$date])->andWhere(['>=','enddate',$date])->all();
+
+    
+        
+         return $this->render('index1', [
+        'dataProvider' => $dataProvider,
+        'models'=> $query,
+        
+    ]);
     }
 
     /**
@@ -186,6 +203,28 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+       public function actionChangePassword()
+    {
+     $id = \Yii::$app->user->id;
+   try {
+        $model = new ChangePasswordForm($id);
+      
+    } catch (InvalidParamException $e) {
+        throw new BadRequestHttpException($e->getMessage());
+    }
+ 
+    if ($model->load(\Yii::$app->request->post()) && $model->validate() && $model->changePassword()) {
+       
+        Yii::$app->user->logout();
+        Yii::$app->session->setFlash('success', 'Password Changed!');
+        return $this->goHome();
+
+    } 
+        return $this->render('changePassword', [
+            'model' => $model,
+        ]);
+     }
+
     /**
      * Displays contact page.
      *
@@ -220,6 +259,13 @@ class SiteController extends Controller
 
         return $this->render('about');
     }
+    
+    public function actionFaq()
+    {
+
+        return $this->render('faq');
+    }
+
     public function actionAboutPioneer()
     {
 
@@ -278,6 +324,7 @@ class SiteController extends Controller
     /*static pages end*/
 
     //addded for fetching state list on registration form
+       //addded for fetching state list on registration form
        public function actionSubcat() {
         $out = [];
         $statemodel = new StateMast();
@@ -295,19 +342,16 @@ class SiteController extends Controller
 
         }
 
-       //addded for fetching city list on registration form
+        //addded for fetching city list on registration form
         public function actionGetcity() {
           $out = [];
           $model = new CityMast();
         if (isset($_POST['depdrop_parents'])) {
         $parents = $_POST['depdrop_parents'];
-
         if ($parents != null) {
-
-            $cat_id = $parents[0];
-
-            $out =  $model->getCityList($cat_id); 
-                   return \yii\helpers\Json::encode(['output'=>$out, 'selected'=>'']);
+          $cat_id = $parents[0];
+          $out =  $model->getCityList($cat_id); 
+           return \yii\helpers\Json::encode(['output'=>$out, 'selected'=>'']);
           }
 
          }
@@ -361,6 +405,7 @@ class SiteController extends Controller
             $course = new CourseMast();
             $course_name =  $course->getCourseName($model->course_code);
             $model->course_name = $course_name ;
+            $model->course_fees =  $model->courseMast->course_fees;
              if ($model->save() && $user->SetStatus($id,'1')) {
                 Yii::$app->session->setFlash('success', "Student profile updated."); 
                  return $this->redirect(['student-doc']);
@@ -375,6 +420,22 @@ class SiteController extends Controller
         ]);
 
      }
+
+     public function actionEdits($uid)
+    {
+        $model = Student::find()->where(['userid' => $uid])->one();
+ 
+        // $id not found in database
+        if($model === null)
+            throw new NotFoundHttpException('The requested page does not exist.');
+         
+        // update record
+        if($model->load(Yii::$app->request->post()) && $model->save()){
+            return $this->redirect(['dashboard']);
+        }
+         
+        return $this->render('regs', ['model' => $model]);
+    } 
 
 
      public function actionStudentDoc()
@@ -488,7 +549,7 @@ class SiteController extends Controller
          $id = Yii::$app->user->identity->id;
          $username = Yii::$app->user->identity->username;
         $sql = (new \yii\db\Query());
-        $sql->select(['student_name','college_name','dob','profile_pic','state_code','city_code','mobile','qual_desc','course_code','course_name']) 
+        $sql->select(['userid','student_name','college_name','course_code','course_name','course_fees','course_status','enrol_no','semester','regs_date','start_date','completion_date','result_date','cert_delvdate','dob','gender','profile_pic','city_code','state_code','country_code','pincode','mobile','email','qual_desc','address','stage'])
            ->from('student')
            ->where('userid=:userid', [':userid' => $id]);
         $command = $sql->createCommand();
@@ -534,8 +595,8 @@ class SiteController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
-                Yii::$app->session->setFlash('success', 'Thank you for registration.');
-            return $this->refresh();
+                //Yii::$app->session->setFlash('success', 'Thank you for registration.');
+            return $this->render('signupsuccess');
                }
         }
            
@@ -597,7 +658,7 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
+    /**zzz
      * Resets password.
      *
      * @param string $token

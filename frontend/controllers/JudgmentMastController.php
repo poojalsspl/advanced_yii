@@ -28,6 +28,7 @@ use yii\helpers\ArrayHelper;
 use yii\data\ActiveDataProvider;
 use frontend\models\JudgmentCatgView;
 use frontend\models\JudgmentSubCatgView;
+use frontend\models\StatecollegelistView;
 
 
 
@@ -86,6 +87,18 @@ class JudgmentMastController extends Controller
         'dataProvider' => $dataProvider,
         'subdataProvider' => $subdataProvider
     ]);
+  }
+
+  public function actionColumn()
+  {
+    $dataProvider = new ActiveDataProvider([
+    'query' => StatecollegelistView::find()->orderBy(['state_name' => SORT_ASC]),
+    'pagination' => false
+    ]);
+    return $this->render('column', [
+        'dataProvider' => $dataProvider
+    ]);
+
   }
 
 
@@ -498,6 +511,7 @@ class JudgmentMastController extends Controller
     //$jcatg_description     = ArrayHelper::map(JcatgMast::find()->all(), 'jcatg_id', 'jcatg_description');
     //$jsub_catg_description = ArrayHelper::map(JsubCatgMast::find()->all(), 'jsub_catg_id', 'jsub_catg_description');
     $cache->set('courtMast', $courtMast);
+    
     //$cache->set('jcatg_description', $jsub_catg_description);
     //$cache->set('jsub_catg_description', $jsub_catg_description);
            
