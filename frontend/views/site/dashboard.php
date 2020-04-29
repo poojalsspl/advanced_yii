@@ -16,6 +16,10 @@ use frontend\models\SyllabusDetail;
 use frontend\models\Articles;
 use frontend\models\FdpView;
 use frontend\models\JudgmentMast;
+use frontend\models\CountryMast;
+use frontend\models\StateMast;
+use frontend\models\CityMast;
+use frontend\models\StudentDocs;
 
 $username = Yii::$app->user->identity->username;
 //$this->params['breadcrumbs'][] = $this->title;
@@ -32,14 +36,43 @@ $username = Yii::$app->user->identity->username;
                 <div class="col-md-3">
                     <!-- Profile  -->
                     <div class="box box-primary">
+                      <div class="box-header with-border">
+                            <h3 class="box-title">Student Detail</h3>
+                        </div>
                         <div class="box-body box-profile">
                             <?php 
                             foreach ($model as $key => $value) {
+                                $userid = $value['userid'];                              
                                 $course_code = $value['course_code'];
                                 $course_name = $value['course_name'];
+                                $course_fees = $value['course_fees'];
+                                $course_status = $value['course_status'];
+                                $start_date = $value['start_date'];
+                                $completion_date = $value['completion_date'];
+                                $result_date = $value['result_date'];
+                                $cert_delvdate = $value['cert_delvdate'];
+                                $country_code = $value['country_code'];
+                                $state_code = $value['state_code'];
+                                $city_code = $value['city_code'];
+                                $mobile = $value['mobile'];
+                                $email = $value['email'];
+                                $pincode = $value['pincode'];
+                                $address = $value['address'];
+                                $stage = $value['stage'];
+
                                 $course = CourseMast::find('course_duration')->where(['course_code'=>$value['course_code']])->one();
                                 $course_duration = $course->course_duration;
                                 if ($course_duration<=1){$month = 'Month';}else{ $month = 'Months';}
+
+                                $country = CountryMast::find('country_name')->where(['country_code'=>$country_code])->one();
+                                $country_name = $country->country_name;
+
+                                $state = StateMast::find('state_name')->where(['state_code'=>$state_code])->one();
+                                $state_name = $state->state_name;
+
+                                $city = CityMast::find('city_name')->where(['city_code'=>$city_code])->one();
+                                $city_name = $city->city_name;
+
                                 $path = Yii::$app->homeUrl . 'frontend/web/uploads/profile_img';
                                 $image = $value['profile_pic'];
                                 if ($image==""){$image = "profile.jpg";}
@@ -48,46 +81,202 @@ $username = Yii::$app->user->identity->username;
                             ?>
                             <img class="profile-user-img img-responsive img-circle" src="<?php echo $img = $path.'/'.$image ; ?>" alt="User profile picture">
                             <h3 class="profile-username text-center"><?php echo $value['student_name']; ?></h3>
-                            <p class="text-muted text-center"><?php echo $value['qual_desc']; ?></p>
+                            <!-- <p class="text-muted text-center"><?php //echo $value['qual_desc']; ?></p> -->
                              <ul class="list-group list-group-unbordered">
-                                 <li class="list-group-item">
+                                 <li class="list-group-item" style="padding: 5px 3px;">
+                                     <b>Registration Date</b> <span class="pull-right"><?php echo $value['regs_date']; ?></span>
+                                 </li>
+                                 <li class="list-group-item" style="padding: 5px 3px;">
+                                      <?php $gender = $value['gender'];?>
+                                     <b>Gender</b> <span class="pull-right"><?php if ($gender=='F'){echo "Female";}else{echo "Male";} ?></span>
+                                 </li>
+                                 <li class="list-group-item" style="padding: 5px 3px;">
                                      <b>DOB</b> <span class="pull-right"><?php echo $value['dob']; ?></span>
                                  </li>
-                                 <li class="list-group-item">
-                                     <b>Mobile</b> <span class="pull-right"><?php echo $value['mobile']; ?></span>
+                                 <li class="list-group-item" style="padding: 5px 3px;">
+                                     <b>Qualification</b> <span class="pull-right"><?php echo $value['qual_desc']; ?></span>
                                  </li>
-                                 <li class="list-group-item">
-                                     <b>College</b><span>
+                                 <!-- <li class="list-group-item">
+                                     <b>Mobile</b> <span class="pull-right"><?php //echo $value['mobile']; ?></span>
+                                 </li> -->
+                                 <li class="list-group-item" style="padding: 5px 3px;">
+                                     <b>College</b><span class="pull-right">
                                          <?php echo $value['college_name']; ?>
                                      </span>
                                  </li>
+                                 <li class="list-group-item" style="padding: 5px 3px;">
+                                     <b>Enroll. No.</b><span class="pull-right">
+                                         <?php echo $value['enrol_no']; ?>
+                                     </span>
+                                 </li>
+                                 <li class="list-group-item" style="padding: 5px 3px;">
+                                     <b>Semester</b><span class="pull-right">
+                                         <?php echo $value['semester']; ?>
+                                     </span>
+                                 </li>
                              </ul>
-                             <a href="#" class="btn btn-primary btn-block"><b>Update</b></a>
+                             
                              <?php } ?>
                         </div>
                     </div>
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Course</h3>
+                            <h3 class="box-title">Course Details</h3>
                         </div>
                         <div class="box-body">
-                            <strong><i class="fa fa-book margin-r-5"></i> Course Name</strong>
-                            <p class="text-muted">
-                                <?= $course_name; ?>
-                            </p>
-                            <hr>
-                            <strong><i class="fa fa-clock-o margin-r-5"></i> Duration</strong>
-                            <p class="text-muted">
-                                <?= $course_duration.' '.$month ;?>
-                            </p>
-                            <hr>
-                            <strong><i class="fa fa-calendar margin-r-5"></i> Srart Date</strong>
-                            <p class="text-muted"></p>
-                            <hr>
-                            <strong><i class="fa fa-calendar margin-r-5"></i> End Date</strong>
-                            <p class="text-muted"></p>
+                          <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Course Name</b><span>
+                              <?= $course_name; ?>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Fees</b><span class="pull-right">
+                              <?= $course_fees; ?>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Course status</b><span class="pull-right">
+                              <?= $course_status; ?>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Course Start Date</b><span class="pull-right">
+                              <?= $start_date; ?>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Course to be Completed</b><span class="pull-right">
+                              <?= $completion_date; ?>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Result Date</b><span class="pull-right">
+                              <?= $result_date; ?>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Certificate Dispatch Date</b><span class="pull-right">
+                              <?= $cert_delvdate; ?>
+                            </span>
+                            </li>
+                          </ul>
                         </div>
                     </div>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Contact Details</h3>
+                             <span class="pull-right"><a href="/advanced_yii/site/edits?uid=<?php echo $userid; ?>">Edit</a></span>
+                        </div>
+                        <div class="box-body">
+                          <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Country</b><span class="pull-right">
+                              <?= $country_name; ?>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>State</b><span class="pull-right">
+                              <?= $state_name; ?> 
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>City</b><span class="pull-right">
+                              <?= $city_name; ?>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Pin Code</b><span class="pull-right">
+                              <?= $pincode; ?>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Address</b><span>
+                              <?= $address; ?>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Mobile</b><span class="pull-right">
+                              <?= $mobile; ?>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Email</b><span class="pull-right">
+                              <?= $email; ?>
+                            </span>
+                            </li>
+                          </ul>
+                        </div>
+                    </div>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Documents</h3>
+                        </div>
+                        <div class="box-body">
+                                <?php $student_docs = StudentDocs::find()->where(['username'=> $username])->all();
+                             foreach ($student_docs as $all_docs) {
+                              $tenth = $all_docs['doc_tenth'];
+                              $twelth = $all_docs['doc_twelve'];
+                              $idproof = $all_docs['doc_id_proof'];
+                              $marksheet = $all_docs['marksheet'];
+                              $certificate = $all_docs['passing_certificate'];
+                              
+                              $path = Yii::$app->homeUrl . 'frontend/web/uploads';
+                             }
+                             ?>
+                          <ul class="list-group list-group-unbordered">
+                     
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>10th Board</b><span class="pull-right">
+                               <a href="<?php echo $img = $path.'/'.$tenth ; ?>" target="_blank" alt="pending">Preview</a> 
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>12th Board</b><span class="pull-right">
+                              <a href="<?php echo $img = $path.'/'.$twelth ; ?>" target="_blank" alt="pending">Preview</a>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Id Proof</b><span class="pull-right">
+                             <a href="<?php echo $img = $path.'/'.$idproof ; ?>" target="_blank" alt="pending">Preview</a>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Semester Marksheet</b><span class="pull-right">
+                            <a href="<?php echo $img = $path.'/'.$marksheet ; ?>" target="_blank" alt="pending"><?php if ($marksheet){echo "Preview";}else{echo"Pending";}?></a>
+                            </span>
+                            </li>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <b>Course Completion Certificate</b><span class="pull-right">
+                              <a href="<?php echo $img = $path.'/'.$certificate ; ?>" target="_blank" alt="pending">Preview</a>
+                            </span>
+                            </li>
+                           </ul>
+                            
+                          
+                        </div>
+                    </div>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Other Courses Offered</h3>
+                        </div>
+                        <div class="box-body">
+                          <ul class="list-group list-group-unbordered">
+                           <?php $other_courses = CourseMast::find()->select('course_name')->where(['!=', 'course_code', $course_code])->all();
+                             foreach ($other_courses as $all_courses) {
+                               
+                            
+                            ?>
+                            <li class="list-group-item" style="padding: 5px 3px;">
+                            <?php echo $all_courses['course_name'];?>
+                            </li>
+                            <?php } ?>
+                            
+                            
+                          </ul>
+                        </div>
+                    </div>
+    
                 </div>
                 <div class="col-md-9">
                     <div class="nav-tabs-custom">
@@ -105,7 +294,7 @@ $username = Yii::$app->user->identity->username;
                                             <span class="time"></span>
                                             <h3 class="timeline-header"><a href="#"></a></h3>
                                             <div class="timeline-body">
-                                                <a class="btn btn-primary" href="/advanced_yii/judgment-mast/index">Stage - 1</a>
+                                               <a class="btn btn-primary" href="/advanced_yii/judgment-mast/index">Stage - 1</a>
                                                 <a class="btn btn-primary" href="/advanced_yii/judgment-mast/j-element-list">Stage - 2</a>
                                                 <a class="btn btn-primary" href="/advanced_yii/articles/sample">Stage - 3</a>
                                             </div>
@@ -302,7 +491,7 @@ $username = Yii::$app->user->identity->username;
                                             </div>
                                         </div>
                                     </li>
-                                    <li>
+                                    <li class="vdp" <?php if ($course_code == 'ADCLRW01'){ ?> hidden <?php   } ?>>  
                                         <i class="fa fa-circle bg-blue"></i>
                                         <div class="timeline-item">
                                             <span class="time"></span>

@@ -19,7 +19,7 @@ $this->title = 'Signup';
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
-                <?= $form->field($model, 'email') ?>
+                <?= $form->field($model, 'username') ?>
                 <?= $form->field($model, 'mobile_number') ?>
 
                 <?= $form->field($model, 'password')->passwordInput() ?>

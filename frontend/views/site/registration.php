@@ -72,6 +72,19 @@ $this->title = 'Student';
 
                                 <?= $form->field($model, 'gender')->radioList(['M' => 'Male', 'F' => 'Female', 'O' => 'Other'])->label('Gender'); ?>
                                 <?= $form->field($model, 'qual_desc')->textInput() ?>
+                                <?php $semester = ['1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10'];?>
+                                
+                                 <?= $form->field($model, 'semester')->widget(Select2::classname(), [
+                                    'data' => $semester,
+
+                                    'options' => [
+                                        'placeholder' => Yii::t('app', 'Select Semester'),
+                                        'multiple' => false,
+                                        ],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ]); ?>
 
                             </div>
                             <div class="col-md-4 col-xs-12">
@@ -108,10 +121,11 @@ $this->title = 'Student';
                                 <?php
   echo $form->field($model, 'country_code')->dropDownList($country, ['id'=>'country_code','prompt'=>'Select...'])->label('Country');?>
 
+<?= $form->field($model, 'address')->textArea() ?>
                                 
                             </div>
                             <div class="col-md-4 col-xs-12">
-                                <?=$form->field($model, 'state_code')->widget(DepDrop::classname(), [
+                               <?=$form->field($model, 'state_code')->widget(DepDrop::classname(), [
                                     'data'=>ArrayHelper::map(StateMast::find()->all(), 'state_code', 'state_name' ),//will show dependent value while upate //27/07
                                     'options'=>['id'=>'state_code', 'placeholder' => 'Select state'],
 
@@ -121,6 +135,7 @@ $this->title = 'Student';
                                     'url'=>\yii\helpers\Url::to(['/site/subcat'])
                                      ]
                                     ])->label('State');?>
+                                    <?= $form->field($model, 'pincode')->textInput(); ?>
                                     
 
 
@@ -129,7 +144,7 @@ $this->title = 'Student';
                                 
                             </div>
                             <div class="col-md-4 col-xs-12">
-                                <?=$form->field($model, 'city_code')->widget(DepDrop::classname(), [
+                                 <?=$form->field($model, 'city_code')->widget(DepDrop::classname(), [
                                     'data'=>ArrayHelper::map(CityMast::find()->all(), 'city_code', 'city_name' ),//will show dependent value while upate //27/07
                                     'options'=>['placeholder' => 'Select city'],
                                     'pluginOptions'=>[

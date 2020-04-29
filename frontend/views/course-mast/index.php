@@ -8,7 +8,7 @@ table th,td{
 }
 </style>
  
-<?= Html::a('Create', ['course-mast/create'], ['class' => 'btn btn-success']); ?>
+<?= Html::a('Create', ['course-mast/creates'], ['class' => 'btn btn-success']); ?>
  
 <table border="1">
     <tr>
@@ -24,7 +24,7 @@ table th,td{
         <td><?= $field->course_name; ?></td>
         <td><?= $field->course_duration; ?></td>
         <td><?= $field->course_fees; ?></td>
-        <td><?= Html::a("Edit", ['course-mast/edit', 'course_code' => $field->course_code]); ?> | <?= Html::a("Delete", ['course-mast/delete', 'course_code' => $field->course_code]); ?></td>
+        <td><?= Html::a("Edit", ['course-mast/edits', 'course_code' => $field->course_code]); ?> | <?= Html::a("Delete", ['course-mast/delete', 'course_code' => $field->course_code]); ?></td>
     </tr>
     <?php } ?>
 </table>

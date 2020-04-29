@@ -4,7 +4,10 @@
 use yii\helpers\Html;
 
 use kartik\widgets\ActiveForm;
+use sjaakp\gcharts\ColumnChart;
+use yii\bootstrap\Carousel;
 $this->title = 'My Yii Application';
+
 ?>
 <style type="text/css">
   /*.features-icons {
@@ -32,9 +35,72 @@ span h1{
         background-color:#185886; 
         color: #ffffff;
     }
+    #section-testimonial {
+    padding-bottom: 50px;
+    padding-top: 50px;
+    background: #F9FAFF;
+}
+.align-items-center {
+    -ms-flex-align: center!important;
+    align-items: center!important;
+}
+#section-testimonial.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+#section-testimonial @media (min-width: 992px)
+.col-lg-4 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+#section-testimonial .test-inner:hover {
+    -webkit-box-shadow: 0 7px 22px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 7px 22px rgba(0, 0, 0, 0.08);
+}
+#section-testimonial .test-inner {
+    position: relative;
+    padding: 30px;
+    background: #fff;
+    border-top-right-radius: 35px;
+    margin-bottom: 25px;
+    -webkit-transition: all .7s ease;
+    -o-transition: all .7s ease;
+    transition: all .7s ease;
+}
+#section-testimonial .test-author-thumb {
+    margin-bottom: 15px;
+}
+#section-testimonial .d-flex {
+    display: -ms-flexbox!important;
+    display: flex!important;
+}
+.test-author-thumb img {
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
+    border: 1px dotted #ddd;
+    padding: 5px;
+}
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+#section-testimonial img {
+    vertical-align: middle;
+    border-style: none;
+}
 
+.imageCarousel .item img {
+    width: 50%;
+    height:50%;
+}
 </style>
-
+<!-- ====slider=== -->
   <div class="slider">
     <div id="about-slider">
       <div id="carousel-slider" class="carousel slide" data-ride="carousel">
@@ -106,43 +172,40 @@ span h1{
     </div>
     <!--/#about-slider-->
   </div>
-  <!--/#slider-->
+  <!--/end slider-->
+  <!-- ====columnchart==== -->
+  <span><h1 align="center">Law College Analytics Statewise</h1></span>
+<?= ColumnChart::widget([
+'height' => '400px',
+'dataProvider' => $dataProvider,
+'columns' => [
+    'state_name:string',  // first column: domain
+    'total',          // second column: data
+    [               // third column: tooltip
+        'value' => function($model, $a, $i, $w) {
+            return "$model->state_name: $model->total";
+        },
+        'type' => 'string',
+        'role' => 'tooltip',
+    ],
+],
+// 'options' => [
+//     'title' => 'Law College Analytics Statewise',
+//     'titleTextStyle'=> [
+//       'bold'=> 'true',
+//       'italic'=> 'true',
+//       'fontSize'=> '18',
+//       'color'=>'#185886',
+//   ],
+// ],
+]) ?>
 
-<!--feature-->
-<section class="features-icons bg-light text-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class="fa fa-desktop m-auto text-primary"></i>
-            </div>
-            <h3>Workshop</h3>
-            <p class="lead mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit!</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class="fa fa-certificate m-auto text-primary"></i>
-            </div>
-            <h3>Certificate</h3>
-            <p class="lead mb-0">Donec a quam et orci porta hendrerit ac nec libero!</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class="fa fa-book m-auto text-primary"></i>
-            </div>
-            <h3>Courses</h3>
-            <p class="lead mb-0">Nunc dolor dui, mollis quis ex quis, cursus tempus felis!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- ===== end columnchart===== --->
 
+
+
+
+<!-- ==== courses ====-->
 <div class="container">
      
 <span><h1 align="center">Research Courses Offered</h1></span>
@@ -168,171 +231,339 @@ span h1{
   
 </div>
 
+<!-- ==== end courses ====-->
 
- <!--FAQ-->
-<section id="faq" class="faq section bg-light">
-      <div class="container">
+<!--===== testimonial =====-->
+<section class="section" id="section-testimonial">
+        <div class="container">
+           <!-- <div class="row align-items-center"> -->
+               <!--  <div class="col-lg-12 col-sm-12 col-md-12"> -->
+                    <!-- <div class="section-heading testimonial-heading"> -->
+                        <span><h1 align="center">What they speak about us</h1></span>
+                       
+                   <!--  </div> -->
+                <!-- </div> -->
 
-        <div class="section-title">
-          <h2>Frequently Asked Questions</h2>
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <div class="row">
+                      
+                        <div class="col-lg-4" style="flex: 0 0 33%;">
+                          <div class="test-inner ">
+                               <div class="test-author-thumb d-flex">
+                                   <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
+                                   <div class="test-author-info">
+                                       <a href="web-articles/view/?id=4"><h4>Will Barrow</h4></a>
+                                       <h6>Sunrise Paradise Hotel</h6>
+                                   </div>
+                               </div>
+
+                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+
+                                <i class="fa fa-quote-right"></i>
+                            </div>
+                         </div>
+                      
+                        <div class="col-lg-4">
+                            <div class="test-inner ">
+                               <div class="test-author-thumb d-flex">
+                                   <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
+                                   <div class="test-author-info">
+                                       <a href="web-articles/view/?id=4"><h4>Will Barrow</h4></a>
+                                       <h6>Sunrise Paradise Hotel</h6>
+                                   </div>
+                               </div>
+
+                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+
+                                <i class="fa fa-quote-right"></i>
+                            </div>
+                        </div>
+                         <div class="col-lg-4">
+                            <div class="test-inner">
+                               <div class="test-author-thumb d-flex">
+                                   <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
+                                   <div class="test-author-info">
+                                       <a href="web-articles/view/?id=4"><h4>Will Barrow</h4></a>
+                                       <h6>Sunrise Paradise Hotel</h6>
+                                   </div>
+                               </div>
+
+                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+
+                                <i class="fa fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                     <div class="row">
+                        <div class="col-lg-4">
+                            <div class="test-inner ">
+                               <div class="test-author-thumb d-flex">
+                                   <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
+                                   <div class="test-author-info">
+                                       <h4>Will Barrow</h4>
+                                       <h6>Sunrise Paradise Hotel</h6>
+                                   </div>
+                               </div>
+
+                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+
+                                <i class="fa fa-quote-right"></i>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="test-inner ">
+                               <div class="test-author-thumb d-flex">
+                                   <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
+                                   <div class="test-author-info">
+                                       <h4>Will Barrow</h4>
+                                       <h6>Sunrise Paradise Hotel</h6>
+                                   </div>
+                               </div>
+
+                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+
+                                <i class="fa fa-quote-right"></i>
+                            </div>
+                        </div>
+                         <div class="col-lg-4">
+                            <div class="test-inner">
+                               <div class="test-author-thumb d-flex">
+                                   <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
+                                   <div class="test-author-info">
+                                       <h4>Will Barrow</h4>
+                                       <h6>Sunrise Paradise Hotel</h6>
+                                   </div>
+                               </div>
+
+                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+
+                                <i class="fa fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            <!-- </div> -->
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Non consectetur a erat nam at lectus urna duis?</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                </button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-          <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Non consectetur a erat nam at lectus urna duis?</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                </button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-           <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Non consectetur a erat nam at lectus urna duis?</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                </button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div><!----col-md-6----->
-
-        <div class="col-md-6">
-            <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Non consectetur a erat nam at lectus urna duis?</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                </button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-          <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Non consectetur a erat nam at lectus urna duis?</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                </button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-           <div class="box box-default collapsed-box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Non consectetur a erat nam at lectus urna duis?</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                </button>
-              </div>
-              <!-- /.box-tools -->
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div><!----col-md-6----->
-
-
-        </div>
-
-      </div>
     </section>
 
-    <!--FAQ-->
-<!--feature-->
-<!--   <div id="feature">
+<!--===== end testimonial =====-->
+
+  <!-- ====slider=== -->
+ <!-- ====slider=== -->
     <div class="container">
-      <div class="row">
-        <div class="text-center">
-          <h3>Features</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit<br>amet consectetur adipisicing elit</p>
-        </div>
-        <div class="col-md-4 wow fadeInRight" data-wow-offset="0" data-wow-delay="0.3s">
-          <div class="text-center">
-            <div class="hi-icon-wrap hi-icon-effect">
-              <i class="fa fa-bookmark"></i>
-              <h2>Certification</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 wow fadeInRight" data-wow-offset="0" data-wow-delay="0.3s">
-          <div class="text-center">
-            <div class="hi-icon-wrap hi-icon-effect">
-              <i class="fa fa-laptop"></i>
-              <h2>Courses</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 wow fadeInLeft" data-wow-offset="0" data-wow-delay="0.3s">
-          <div class="text-center">
-            <div class="hi-icon-wrap hi-icon-effect">
-              <i class="fa fa-cloud"></i>
-              <h2>Easily Customize</h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
-            </div>
-          </div>
-        </div>
+        <div class="row">
+            <div class="col-sm-12">
 
-      </div>
+                <div id="imageCarousel" class="carousel slide" data-interval="2000"
+                     data-ride="carousel" data-pause="hover" data-wrap="true">
+
+                    <ol class="carousel-indicators">
+                        <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#imageCarousel" data-slide-to="1"></li>
+                        <li data-target="#imageCarousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/adlaw-logo.png" class="img-responsive">
+                                    <!-- <div class="carousel-caption">
+                                        <h3>Dr. R. K. Barua Law College</h3>
+                                        <p>Dibrugarh</p>
+                                    </div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="" class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3></h3>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/logo_pioneer.png" class="img-responsive">
+                                   <!--  <div class="carousel-caption">
+                                        <h3>C. R. R. Law College</h3>
+                                        <p>Eluru</p>
+                                    </div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="" class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3></h3>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/advocate_mail.png" class="img-responsive">
+                                   <!--  <div class="carousel-caption">
+                                        <h3>Arunachal Law Academy,</h3>
+                                        <p>Itanagar</p>
+                                    </div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="" class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3></h3>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/adlaw-logo.png" class="img-responsive">
+                                    <!-- <div class="carousel-caption">
+                                        <h3>Dr. R. K. Barua Law College</h3>
+                                        <p>Dibrugarh</p>
+                                    </div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="" class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3></h3>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/logo_pioneer.png" class="img-responsive">
+                                   <!--  <div class="carousel-caption">
+                                        <h3>C. R. R. Law College</h3>
+                                        <p>Eluru</p>
+                                    </div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="" class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3></h3>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/advocate_mail.png" class="img-responsive">
+                                 <!--    <div class="carousel-caption">
+                                        <h3>Arunachal Law Academy,</h3>
+                                        <p>Itanagar</p>
+                                    </div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="" class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3></h3>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/adlaw-logo.png" class="img-responsive">
+                                    <!-- <div class="carousel-caption">
+                                        <h3>Dr. R. K. Barua Law College</h3>
+                                        <p>Dibrugarh</p>
+                                    </div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="" class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3></h3>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/logo_pioneer.png" class="img-responsive">
+                                    <!-- <div class="carousel-caption">
+                                        <h3>C. R. R. Law College</h3>
+                                        <p>Eluru</p>
+                                    </div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="" class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3></h3>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/advocate_mail.png" class="img-responsive">
+                                    <!-- <div class="carousel-caption">
+                                        <h3>Arunachal Law Academy,</h3>
+                                        <p>Itanagar</p>
+                                    </div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="" class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3></h3>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#imageCarousel" class="carousel-control left" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a href="#imageCarousel" class="carousel-control right" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
     </div>
-  </div> -->
 
 
 
 
+<!----=============================--->
+<div class="container">
+<div class='row'>
+  <div class="col-xs-12">
+     <div id="imageCarousel" class="carousel slide" data-interval="2000"
+                     data-ride="carousel" data-pause="hover" data-wrap="true">
+                     <ol class="carousel-indicators">
+                        <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#imageCarousel" data-slide-to="1"></li>
+                        <li data-target="#imageCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+<?php
+$i=0;
+foreach($models as $item) {
+  echo "<div class='item active'>";
+  echo "<div class='row'>";
+      echo "<div class='col-xs-4'>";
+      
+    echo  Html::img('@web/images/college_logo/'.$item->college_logo, ['class' => 'img-responsive']);
+        echo "<span><b>".$item->college_name."</b></span><br>";
+         echo "<span>".$item->city_name."</span>";
+      echo '</div>';
+  echo '</div>';
+  echo '</div>';
+  $i++;
+  if ($i % 10 == 0) {echo '</div><div class="row">';}
+}
+?>
+</div>
+<a href="#imageCarousel" class="carousel-control left" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a href="#imageCarousel" class="carousel-control right" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-----==============================---->
 
