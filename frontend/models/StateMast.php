@@ -8,18 +8,12 @@ use Yii;
  * This is the model class for table "state_mast".
  *
  * @property int $state_code
- * @property string $state_name
- * @property string $shrt_name
- * @property string $zone
+ * @property string|null $state_name
+ * @property string|null $shrt_name
+ * @property string|null $zone
  * @property int $country_code
- * @property string $country_name
- * @property string $country_shrt_name
- * @property string $cr_date
- * @property int $status
- *
- * @property CityMast[] $cityMasts
- * @property CourtMast[] $courtMasts
- * @property CountryMast $countryCode
+ * @property string $crdt
+ * @property int|null $population
  */
 class StateMast extends \yii\db\ActiveRecord
 {
@@ -36,13 +30,16 @@ class StateMast extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+
         return [
-            [['country_code', 'status'], 'integer'],
-            [['cr_date'], 'safe'],
-            [['state_name', 'country_name'], 'string', 'max' => 25],
-            [['shrt_name', 'country_shrt_name'], 'string', 'max' => 10],
+            [['country_code'], 'required'],
+            [['country_code', 'population'], 'integer'],
+            [['crdt'], 'safe'],
+            [['state_name'], 'string', 'max' => 25],
+            [['shrt_name'], 'string', 'max' => 10],
             [['zone'], 'string', 'max' => 3],
             [['country_code'], 'exist', 'skipOnError' => true, 'targetClass' => CountryMast::className(), 'targetAttribute' => ['country_code' => 'country_code']],
+
         ];
     }
 
@@ -57,10 +54,8 @@ class StateMast extends \yii\db\ActiveRecord
             'shrt_name' => 'Shrt Name',
             'zone' => 'Zone',
             'country_code' => 'Country Code',
-            'country_name' => 'Country Name',
-            'country_shrt_name' => 'Country Shrt Name',
-            'cr_date' => 'Cr Date',
-            'status' => 'Status',
+            'crdt' => 'Crdt',
+            'population' => 'Population',
         ];
     }
 
@@ -89,7 +84,7 @@ class StateMast extends \yii\db\ActiveRecord
     }
 
      //addded for fetching state list on registration form
-    public static function getSubCatList($id_cat) {
+ public static function getSubCatList($id_cat) {
         $out = [];
          $models = StateMast::find()
         ->where('country_code = :country_code')

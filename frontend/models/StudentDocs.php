@@ -2,16 +2,18 @@
 
 namespace frontend\models;
 
-use Yii;
+use Yii; 
 
 /**
  * This is the model class for table "student_docs".
  *
  * @property int $id
- * @property string $username
- * @property string $doc_tenth
- * @property string $doc_twelve
- * @property string $doc_id_proof
+ * @property string|null $username
+ * @property string|null $doc_tenth
+ * @property string|null $doc_twelve
+ * @property string|null $doc_id_proof
+ * @property string $marksheet
+ * @property string $passing_certificate
  */
 class StudentDocs extends \yii\db\ActiveRecord
 {
@@ -23,7 +25,7 @@ class StudentDocs extends \yii\db\ActiveRecord
         return 'student_docs';
     }
 
-    /**
+    /**s
      * {@inheritdoc}
      */
     public function rules()
@@ -31,10 +33,12 @@ class StudentDocs extends \yii\db\ActiveRecord
         return [
             [['username'], 'string', 'max' => 50],
             [['doc_tenth', 'doc_twelve', 'doc_id_proof'], 'required'],
-             [['doc_tenth','doc_twelve','doc_id_proof'], 'file', 'extensions' => 'pdf',],
+             [['doc_tenth','doc_twelve','doc_id_proof','marksheet', 'passing_certificate'], 'file', 'extensions' => 'pdf',],
             //[['doc_tenth', 'doc_twelve', 'doc_id_proof'], 'string', 'max' => 30],
         ];
     }
+
+
 
     /**
      * {@inheritdoc}
@@ -47,6 +51,8 @@ class StudentDocs extends \yii\db\ActiveRecord
             'doc_tenth' => 'Doc Tenth',
             'doc_twelve' => 'Doc Twelve',
             'doc_id_proof' => 'Doc Id Proof',
+             'marksheet' => 'Marksheet',
+            'passing_certificate' => 'Passing Certificate',
         ];
     }
 }

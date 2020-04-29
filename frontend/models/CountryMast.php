@@ -8,13 +8,9 @@ use Yii;
  * This is the model class for table "country_mast".
  *
  * @property int $country_code
- * @property string $country_name
+ * @property string|null $country_name
  * @property string $shrt_name
- * @property int $court_group_code
- *
- * @property CityMast[] $cityMasts
- * @property CourtMast[] $courtMasts
- * @property StateMast[] $stateMasts
+ * @property string $crdt
  */
 class CountryMast extends \yii\db\ActiveRecord
 {
@@ -31,11 +27,12 @@ class CountryMast extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['court_group_code'], 'integer'],
+
+          return [
+            [['shrt_name'], 'required'],
+            [['crdt'], 'safe'],
             [['country_name'], 'string', 'max' => 25],
             [['shrt_name'], 'string', 'max' => 10],
-            [['country_name'], 'unique'],
         ];
     }
 
@@ -44,11 +41,11 @@ class CountryMast extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-        return [
+     return [
             'country_code' => 'Country Code',
             'country_name' => 'Country Name',
             'shrt_name' => 'Shrt Name',
-            'court_group_code' => 'Court Group Code',
+            'crdt' => 'Crdt',
         ];
     }
 

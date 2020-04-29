@@ -41,7 +41,7 @@ class CourseMast extends \yii\db\ActiveRecord
 
         // Execute the command:
         $rows = $command->queryAll();
-        ;
+
          return $rows[0]['course_name'];
      } 
 }

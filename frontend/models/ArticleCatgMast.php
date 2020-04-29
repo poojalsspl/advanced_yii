@@ -7,9 +7,11 @@ use Yii;
 /**
  * This is the model class for table "article_catg_mast".
  *
- * @property int $art_catg_id
- * @property string $art_catg_name
- * @property int $role 1 for admin,2 for user
+ * @property int|null $art_catg_id
+ * @property string|null $art_catg_name
+ * @property int|null $role
+ * @property int $parent_catg_id
+ * @property string $menu_flag
  */
 class ArticleCatgMast extends \yii\db\ActiveRecord
 {
@@ -26,9 +28,11 @@ class ArticleCatgMast extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['art_catg_id', 'role'], 'integer'],
+      return [
+            [['art_catg_id', 'role', 'parent_catg_id'], 'integer'],
+            [['parent_catg_id', 'menu_flag'], 'required'],
             [['art_catg_name'], 'string', 'max' => 25],
+            [['menu_flag'], 'string', 'max' => 1],
         ];
     }
 
@@ -37,10 +41,12 @@ class ArticleCatgMast extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-        return [
+       return [
             'art_catg_id' => 'Art Catg ID',
             'art_catg_name' => 'Art Catg Name',
             'role' => 'Role',
+            'parent_catg_id' => 'Parent Catg ID',
+            'menu_flag' => 'Menu Flag',
         ];
     }
 }

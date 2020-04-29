@@ -10,7 +10,8 @@ use common\models\User;
  */
 class PasswordResetRequestForm extends Model
 {
-    public $email;
+    //public $email;
+    public $username;
 
 
     /**
@@ -19,10 +20,18 @@ class PasswordResetRequestForm extends Model
     public function rules()
     {
         return [
-            ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'exist',
+            // ['email', 'trim'],
+            // ['email', 'required'],
+            // ['email', 'email'],
+            // ['email', 'exist',
+            //     'targetClass' => '\common\models\User',
+            //     'filter' => ['status' => User::STATUS_ACTIVE],
+            //     'message' => 'There is no user with this email address.'
+            // ],
+            ['username', 'trim'],
+            ['username', 'required'],
+            ['username', 'email'],
+            ['username', 'exist',
                 'targetClass' => '\common\models\User',
                 'filter' => ['status' => User::STATUS_ACTIVE],
                 'message' => 'There is no user with this email address.'
@@ -40,7 +49,8 @@ class PasswordResetRequestForm extends Model
         /* @var $user User */
         $user = User::findOne([
             'status' => User::STATUS_ACTIVE,
-            'email' => $this->email,
+            //'email' => $this->email,
+            'username' => $this->username,
         ]);
 
         if (!$user) {
@@ -61,7 +71,7 @@ class PasswordResetRequestForm extends Model
                 ['user' => $user]
             )
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
+            ->setTo($this->username)
             ->setSubject('Password reset for ' . Yii::$app->name)
             ->send();
     }

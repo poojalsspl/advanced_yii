@@ -10,7 +10,7 @@ use common\models\User;
  */
 class SignupForm extends Model
 {
-    //public $username;
+    public $username;
     public $email;
     public $password;
     public $mobile_number;
@@ -24,16 +24,18 @@ class SignupForm extends Model
     {
         return [
             ['mobile_number', 'required'],
-            /*['username', 'trim'],
+            ['username', 'trim'],
             ['username', 'required'],
+            ['username', 'email'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],*/
+            
 
-            ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            // ['email', 'trim'],
+            // ['email', 'required'],
+            // ['email', 'email'],
+            // ['email', 'string', 'max' => 255],
+            // ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
@@ -53,8 +55,10 @@ class SignupForm extends Model
         }
         
         $user = new User();
-        $user->username = $this->email;
-        $user->email = $this->email;
+        $user->username = $this->username;
+        //$user->email = $this->email;
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $user->regs_ip = $ip;
         $user->mobile_number = $this->mobile_number;
         $user->log_det = 0;
         
