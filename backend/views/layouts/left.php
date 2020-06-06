@@ -63,18 +63,45 @@
                             ],
                         ],
                     ],*/
-                      [
-                        'label' => 'CMS',
+                     [
+                        'label' => 'Master Records',
                         'icon' => 'folder',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Course Mast', 'icon' => 'file-code-o', 'url' => ['/course-mast'],],
-                            ['label' => 'Article Writing', 'icon' => 'file-code-o', 'url' => ['/articles'],],
-                        ],
+                            ['label' => 'College', 'icon' => 'file-code-o', 'url' => ['/college-mast'],],
+                            ['label' => 'University', 'icon' => 'file-code-o', 'url' => ['/univ-mast'],],
+                            ['label' => 'Category', 'icon' => 'file-code-o', 'url' => ['/article-catg-mast'],],
+                            ['label' => 'Course', 'icon' => 'file-code-o', 'url' => ['/course-mast'],],
+                            ['label' => 'Syllabus Category', 'icon' => 'file-code-o', 'url' => ['/syllabus-catg-mast'],],
+                            ['label' => 'Syllabus', 'icon' => 'file-code-o', 'url' => ['/syllabus-detail'],],
+                                   ],
+                      ],
+
+
+                      [
+                        'label' => 'WEBSITE ARTICLES',
+                        'icon' => 'folder',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Article Writing', 'icon' => 'file-code-o', 'url' => ['../web-articles'],],
+                                   ],
+                      ],
+
+
+
+                      [
+                        'label' => 'EXAMINATION',
+                        'icon' => 'folder',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'Student Registration', 'icon' => 'file-code-o', 'url' => ['/student'],],
+                            ['label' => 'Correction', 'icon' => 'file-code-o', 'url' => ['/student'],],
+                                   ],
+                      ],
+
+
                     ],
-                ],
-            ]
-        ) ?>
+            ] )?>
 
     </section>
 

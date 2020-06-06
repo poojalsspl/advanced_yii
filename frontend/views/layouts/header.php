@@ -44,10 +44,57 @@ use yii\bootstrap\Nav;
 
                             
 
-                             [
-                                'label' => 'About Us',
-                                'url' => ['site/about-pioneer'],
+                            //  [
+                            //     'label' => 'Certification',
+                            //     'url' => ['site/about-pioneer'],
+                            //     'linkOptions' => [],
+                            // ],
+                            [
+                                'label' => 'Courses',
+                                'url' => '',
                                 'linkOptions' => [],
+                                'items' => [
+                                    [
+                                        'label' => 'Diploma',
+                                        'url' => '',
+                                        
+                                    ],
+                                    [
+                                        'label' => 'Workshop',
+                                        'url' => '',
+                                        'linkOptions' => [],
+                                        'items' => [
+                                            [
+                                                'label' => 'case law research',
+                                                'url' => ['site/college-analytics'],
+                                                'linkOptions' => [],
+                                            ],
+                                        ]
+                                        
+                                    ],
+                                    [
+                                        'label' => 'Certificate',
+                                        'url' => '',
+                                        'linkOptions' => [],
+                                        
+                                        
+                                    ],
+                                    
+                                ]
+                            ],
+
+
+                            [
+                                'label' => 'Analytics',
+                                'url' => '',
+                                'linkOptions' => [],
+                                'items' => [
+                                    [
+                                        'label' => 'Law college Analytics',
+                                        'url' => ['site/college-analytics']
+                                    ],
+                                    
+                                ]
                             ],
 
                             [
@@ -58,9 +105,20 @@ use yii\bootstrap\Nav;
                            
                           
                            [
-                                'label' => 'Contact Us',
-                                'url' => ['site/contact'],
+                                'label' => 'Contact',
+                                'url' => '',
                                 'linkOptions' => [],
+                                'items' => [
+                                    [
+                                        'label' => 'Contact us Online',
+                                        'url' => ['site/contact']
+                                    ],
+                                    [
+                                        'label' => 'Branches',
+                                        'url' => ['site/branch']
+                                    ],
+                                    
+                                ]
                             ],
                             
                           ];
