@@ -88,7 +88,10 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     <div class="col-xs-8">
     	<?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
     
-
+<?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
+     <?php if(!$model->isNewRecord) { ?>
+ 
+ <?php } ?>
          <?php /*if(!$model->isNewRecord) { 
   Html::a('Delete All', ['judgment-advocate/deleteall', 'jcode' => $jcode], ['class' => 'btn btn-danger pull-right']) 
   }*/ ?>
@@ -165,6 +168,8 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     </div>
     <div class="col-xs-8">
     <?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
+    <?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
+  	  
     
   	
   	<?php /*Html::a('Delete All', ['judgment-advocate/deleteall', 'jcode' => $jcode], ['class' => 'btn btn-danger pull-right'])*/ ?>
@@ -188,6 +193,10 @@ if($model->isNewRecord){
 	$('.addr-row').on('click',function(){
 		$('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-4"><div class="form-group field-judgmentadvocate-advocate_flag has-success"><select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false"><option value="1">Petitioner</option><option value="2">Appellant</option><option value="3">Applicant</option><option value="4">Defendant</option><option value="5">Respondent</option><option value="6">Intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentadvocate-advocate_name has-success"><input type="text" id="judgmentadvocate-advocate_name" class="form-control judgmentadvocate-advocate_name" name="JudgmentAdvocate[advocate_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');	
 	});
+	$('.deleted-row').on('click',function(){
+		console.log('test');
+		$('.dynamic-rows-field').last().remove();
+	});
 
 	$('#submit-button').on("click",function(){
  	$('.judgmentadvocate-advocate_name').each(function(){
@@ -210,6 +219,12 @@ else{
 	$('.addr-row').on('click',function(){
 		$('.judgmentadvocate-advocate_name').attr('name','JudgmentAdvocate[advocate_name][]')
 		$('.dynamic-rows').append('<div class="dynamic-rows-field row"  data-id=""><div class="col-xs-4"><div class="form-group field-judgmentadvocate-advocate_flag has-success"><select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false"><option value="1">Petitioner</option><option value="2">Appellant</option><option value="3">Applicant</option><option value="4">Defendant</option><option value="5">Respondent</option><option value="6">Intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentadvocate-advocate_name has-success"><input type="text" id="judgmentadvocate-advocate_name" class="form-control judgmentadvocate-advocate_name" name="JudgmentAdvocate[advocate_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div><input type="hidden" name="JudgmentAdvocate[id][]"></div></div></div>');	
+	});
+		$('.deleted-row').on('click',function(){
+		//console.log('test');
+		var data_id = $('.dynamic-rows-field').last().attr('data-id');
+				$('.dynamic-rows-field').last().remove();
+		
 	});
 
 	$('#submit-button').on("click",function(){

@@ -67,6 +67,7 @@ $judgment_title = implode($judgment,'');
                     'citation_ref',
                     'judgment_date_ref',
                     'judgment_title_ref',
+                    'ref_type',
                     
                 ],
             ]); ?>
@@ -77,8 +78,8 @@ $judgment_title = implode($judgment,'');
                     <div class="panel-heading">
                         <h3 class="panel-title pull-left"></h3>
                         <div class="pull-right">
-                            <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                            <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                            <button type="button" class="add-item btn btn-success btn-xs">Add More </button>
+                            <button type="button" class="remove-item btn btn-danger btn-xs">Delete Raw</button>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -94,7 +95,7 @@ $judgment_title = implode($judgment,'');
                              
                          <div class="row">
                            
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
 
         <?= $form->field($modelAddress, "[{$i}]court_code_ref")->dropDownList($court,['prompt'=>'']); ?>
 
@@ -103,16 +104,21 @@ $judgment_title = implode($judgment,'');
                              </div>
                              
 
-                              <div class="col-sm-3">
+                              <div class="col-sm-2">
                                 <?= $form->field($modelAddress, "[{$i}]citation_ref")->textInput(['maxlength' => true]) ?>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <?= $form->field($modelAddress, "[{$i}]judgment_date_ref")->textInput(['placeholder'=>'Y-mm-dd']) ?>
                                  
                              </div>
-                             <div class="col-sm-3">
+                             <div class="col-sm-4">
                                 
                                  <?= $form->field($modelAddress, "[{$i}]judgment_title_ref")->textInput() ?>
+                                 
+                             </div>
+                             <div class="col-sm-2">
+                                
+                                 <?= $form->field($modelAddress, "[{$i}]ref_type")->dropDownList(['Preceding'=>'Preceding','Refered'=>'Refered'],['prompt'=>'']) ?>
                                  
                              </div>
                             

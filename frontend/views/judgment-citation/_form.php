@@ -71,6 +71,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     </div>
     <div class="col-xs-8"> 
     <?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
+    <?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
     
     </div>
     </div> 
@@ -114,6 +115,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     </div>
     <div class="col-xs-8"> 
     <?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
+    <?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
 
     </div>
     </div>
@@ -134,6 +136,10 @@ if($model->isNewRecord){
     $('.addr-row').on('click',function(){
         console.log('test');
         $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentcitation-citation has-success"><label class="control-label" for="judgmentcitation-citation"></label><input type="text" id="judgmentcitation-citation" class="form-control judgmentcitation-citation" name="JudgmentCitation[citation][]" maxlength="20" aria-invalid="false"><div class="help-block"></div></div></div></div>');    
+    });
+        $('.deleted-row').on('click',function(){
+        console.log('test');
+        $('.dynamic-rows-field').last().remove();
     });
     
     $('#submit-button').on("click",function(){
@@ -156,6 +162,10 @@ else{
     $('.addr-row').on('click',function(){
         $('.judgmentcitation-citation').attr('name','JudgmentCitation[citation][]')
         $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentcitation-citation has-success"><label class="control-label" for="judgmentcitation-citation"></label><input type="text" id="judgmentcitation-citation" class="form-control judgmentcitation-citation" name="JudgmentCitation[citation][]" maxlength="20" aria-invalid="false"><div class="help-block"></div></div></div></div>');    
+    });
+          $('.deleted-row').on('click',function(){
+        console.log('test');
+        $('.dynamic-rows-field').last().remove();
     });
     
     $('#submit-button').on("click",function(){
