@@ -100,6 +100,7 @@ span h1{
     height:50%;
 }
 </style>
+ 
 <!-- ====slider=== -->
   <div class="slider">
     <div id="about-slider">
@@ -145,7 +146,23 @@ span h1{
           </div>
           <div class="item">
            <!--  <img src="img/1.jpg" class="img-responsive" alt=""> -->
-             <?=Html::img('@web/images/landing/Legal_Fraternity.jpg', ['class' => 'img-responsive'])?>
+             
+            <?= ColumnChart::widget([
+'height' => '800px',
+'dataProvider' => $dataProvider,
+'columns' => [
+    'shrt_name:string',  // first column: domain
+    'total',          // second column: data
+    [               // third column: tooltip
+        'value' => function($model, $a, $i, $w) {
+            return "$model->state_name: $model->total";
+        },
+        'type' => 'string',
+        'role' => 'tooltip',
+    ],
+],
+])
+?>
             <div class="carousel-caption">
               <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.3s">
                 <h2></h2>
@@ -524,7 +541,7 @@ span h1{
 
 
 <!----=============================--->
-<div class="container">
+<!-- <div class="container">
 <div class='row'>
   <div class="col-xs-12">
      <div id="imageCarousel" class="carousel slide" data-interval="2000"
@@ -534,25 +551,25 @@ span h1{
                         <li data-target="#imageCarousel" data-slide-to="1"></li>
                         <li data-target="#imageCarousel" data-slide-to="2"></li>
                     </ol>
-                    <div class="carousel-inner">
+                    <div class="carousel-inner"> -->
 <?php
-$i=0;
-foreach($models as $item) {
-  echo "<div class='item active'>";
-  echo "<div class='row'>";
-      echo "<div class='col-xs-4'>";
+// $i=0;
+// foreach($models as $item) {
+//   echo "<div class='item active'>";
+//   echo "<div class='row'>";
+//       echo "<div class='col-xs-4'>";
       
-    echo  Html::img('@web/images/college_logo/'.$item->college_logo, ['class' => 'img-responsive']);
-        echo "<span><b>".$item->college_name."</b></span><br>";
-         echo "<span>".$item->city_name."</span>";
-      echo '</div>';
-  echo '</div>';
-  echo '</div>';
-  $i++;
-  if ($i % 10 == 0) {echo '</div><div class="row">';}
-}
+//     echo  Html::img('@web/images/college_logo/'.$item->college_logo, ['class' => 'img-responsive']);
+//         echo "<span><b>".$item->college_name."</b></span><br>";
+//          echo "<span>".$item->city_name."</span>";
+//       echo '</div>';
+//   echo '</div>';
+//   echo '</div>';
+//   $i++;
+//   if ($i % 10 == 0) {echo '</div><div class="row">';}
+// }
 ?>
-</div>
+<!-- </div>
 <a href="#imageCarousel" class="carousel-control left" data-slide="prev">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
@@ -563,7 +580,6 @@ foreach($models as $item) {
 </div>
 </div>
 </div>
-
+ -->
 
 <!-----==============================---->
-

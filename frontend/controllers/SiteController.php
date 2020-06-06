@@ -26,6 +26,7 @@ use frontend\models\StateMast;
 use frontend\models\CityMast;
 use frontend\models\CollegeMast;
 use frontend\models\JudgmentMast;
+use frontend\models\JudgmentAct;
 use app\models\CourseMast;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -321,7 +322,109 @@ class SiteController extends Controller
     {
         return $this->render('check-valid-js');
     }
+
+    public function actionBranch()
+    { 
+     return $this->render('branch');
+    }
+    
+     public function actionCollegeAnalytics()
+    {   // for all states 
+        $dataProvider = new ActiveDataProvider([
+        'query' => StatecollegelistView::find()->orderBy(['state_name' => SORT_ASC]),
+        'pagination' => false
+        ]);
+        
+        //for mp
+        $dataProvider_mp = new ActiveDataProvider([
+        'query' => CollegeMast::find()->select(['count(city_code) AS total,city_name'])->where(['state_code'=>'20'])->groupBy(['city_name']),
+        'pagination' => false
+        ]);
+
+        //for mh
+        $dataProvider_mh = new ActiveDataProvider([
+        'query' => CollegeMast::find()->select(['count(city_code) AS total,city_name'])->where(['state_code'=>'21'])->groupBy(['city_name']),
+        'pagination' => false
+        ]);
+
+        return $this->render('college-analytics',
+        [
+          'dataProvider' => $dataProvider,
+          'dataProvidermp' => $dataProvider_mp,
+          'dataProvidermh' => $dataProvider_mh,
+      ]);
+    }
     /*static pages end*/
+
+    /* chart section begin */
+
+    /*  Disposition Chart */
+     public function actionChartDisposition()
+      {
+        $username = Yii::$app->user->identity->username;
+       $dataProvider = new ActiveDataProvider([
+        'query' => JudgmentMast::find()->select(['count(disposition_id) AS total,disposition_text'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['disposition_text']),
+        'pagination' => false
+        ]); 
+       return $this->render('charts/disposition', [
+            'dataProvider' => $dataProvider,
+      ]);
+      }
+
+       /*  Bench Chart */
+      public function actionChartBench()
+      {
+        $username = Yii::$app->user->identity->username;
+        $dataProvider = new ActiveDataProvider([
+        'query' => JudgmentMast::find()->select(['count(bench_type_id) AS total,bench_type_text'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['bench_type_text']),
+        'pagination' => false
+        ]);
+        return $this->render('charts/bench', [
+            'dataProvider' => $dataProvider,
+      ]);
+      }
+
+      /* Jurisdiction Chart */
+      public function actionChartJurisdiction()
+      {
+        $username = Yii::$app->user->identity->username;
+        $dataProvider = new ActiveDataProvider([
+        'query' => JudgmentMast::find()->select(['count(judgment_jurisdiction_id) AS total,judgmnent_jurisdiction_text'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['judgmnent_jurisdiction_text']),
+        'pagination' => false
+        ]);
+        return $this->render('charts/jurisdiction', [
+            'dataProvider' => $dataProvider,
+      ]);
+      }
+
+      /* Jcatg Chart */
+      public function actionChartJcatg()
+      {
+        $username = Yii::$app->user->identity->username;
+        $dataProvider = new ActiveDataProvider([
+        'query' => JudgmentMast::find()->select(['count(jcatg_id) AS total,jcatg_description'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['jcatg_description']),
+        'pagination' => false
+        ]);
+        return $this->render('charts/jcatg', [
+            'dataProvider' => $dataProvider,
+      ]);
+      }
+
+      /* Bareact Chart */
+      public function actionChartBareact()
+      {
+        $username = Yii::$app->user->identity->username;
+         $dataProvider = new ActiveDataProvider([
+        'query' => JudgmentAct::find()->select(['count(bareact_code) AS total,bareact_desc'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['bareact_desc']),
+        'pagination' => false
+        ]);
+        return $this->render('charts/bareact', [
+            'dataProvider' => $dataProvider,
+      ]);
+      } 
+
+
+    /*end of chart section*/
 
     //addded for fetching state list on registration form
        //addded for fetching state list on registration form
@@ -568,7 +671,38 @@ class SiteController extends Controller
         /*   High Court judgment   */
         $hc_judgment = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['court_code' => '1']])->count();
         $hc_judgment_worked = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['court_code' => '1']])->andWhere(['not', ['completion_date' => null]])->count();
-        $hc_judgment_pending = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['court_code' => '1']])->andWhere(['is', 'completion_date', new \yii\db\Expression('null')])->count(); 
+        $hc_judgment_pending = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['court_code' => '1']])->andWhere(['is', 'completion_date', new \yii\db\Expression('null')])->count();
+
+        /*  Disposition Chart */
+        $dataProvider = new ActiveDataProvider([
+        'query' => JudgmentMast::find()->select(['count(disposition_id) AS total,disposition_text'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['disposition_text']),
+        'pagination' => false
+        ]); 
+
+        /*  Bench Chart */
+        $dataProvider_bench = new ActiveDataProvider([
+        'query' => JudgmentMast::find()->select(['count(bench_type_id) AS total,bench_type_text'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['bench_type_text']),
+        'pagination' => false
+        ]);
+
+        /* Jurisdiction Chart */
+        $dataProvider_jrdct = new ActiveDataProvider([
+        'query' => JudgmentMast::find()->select(['count(judgment_jurisdiction_id) AS total,judgmnent_jurisdiction_text'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['judgmnent_jurisdiction_text']),
+        'pagination' => false
+        ]);
+
+        /* Jcatg Chart */
+        $dataProvider_jcatg = new ActiveDataProvider([
+        'query' => JudgmentMast::find()->select(['count(jcatg_id) AS total,jcatg_description'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['jcatg_description']),
+        'pagination' => false
+        ]);
+
+        /* Bareact Chart */
+        $dataProvider_bareact = new ActiveDataProvider([
+        'query' => JudgmentAct::find()->select(['count(bareact_code) AS total,bareact_desc'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['bareact_desc']),
+        'pagination' => false
+        ]);
+
          return $this->render('dashboard', [
             'model' => $model,
             'tot_judgment' => $tot_judgment,
@@ -580,6 +714,11 @@ class SiteController extends Controller
             'hc_judgment' => $hc_judgment,
             'hc_judgment_worked' => $hc_judgment_worked,
             'hc_judgment_pending' => $hc_judgment_pending,
+            'dataProvider' => $dataProvider,
+            'dataProviderbench' => $dataProvider_bench,
+            'dataProviderjrdct' => $dataProvider_jrdct,
+            'dataProviderjcatg' => $dataProvider_jcatg,
+            'dataProviderbareact' => $dataProvider_bareact,
             ]); 
        
     

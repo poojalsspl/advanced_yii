@@ -20,10 +20,11 @@ use frontend\models\CountryMast;
 use frontend\models\StateMast;
 use frontend\models\CityMast;
 use frontend\models\StudentDocs;
+use sjaakp\gcharts\PieChart;
 
 $username = Yii::$app->user->identity->username;
 //$this->params['breadcrumbs'][] = $this->title;
-
+$this->title = 'Dashboard';
 
 ?>
 
@@ -282,10 +283,10 @@ $username = Yii::$app->user->identity->username;
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#timeline" data-toggle="tab">Summary</a></li>
-                           <!--  <li><a href="#settings" data-toggle="tab">Marks</a></li> -->
+                           <li><a href="#activity" data-toggle="tab">Charts</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div class="active tab-pane" id="timeline">
+                            <div class="tab-pane active" id="timeline">
                                 <ul class="timeline timeline-inverse">
                                     <li class="time-label"></li>
                                     <li>
@@ -295,8 +296,15 @@ $username = Yii::$app->user->identity->username;
                                             <h3 class="timeline-header"><a href="#"></a></h3>
                                             <div class="timeline-body">
                                                <a class="btn btn-primary" href="/advanced_yii/judgment-mast/index">Stage - 1</a>
+                                               <?php if ($course_code == 'RCCLRW01'){ ?>
+                                                <a class="btn btn-primary" href="/advanced_yii/project">Stage - 2</a>
+                                                <?php   } ?>
+
+                                                 <?php if ($course_code == 'RDCLRA01'){ ?>  
                                                 <a class="btn btn-primary" href="/advanced_yii/judgment-mast/j-element-list">Stage - 2</a>
+
                                                 <a class="btn btn-primary" href="/advanced_yii/articles/sample">Stage - 3</a>
+                                                <?php   } ?>
                                             </div>
                                         </div>
                                     </li>
@@ -491,7 +499,7 @@ $username = Yii::$app->user->identity->username;
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="vdp" <?php if ($course_code == 'ADCLRW01'){ ?> hidden <?php   } ?>>  
+                                    <li class="vdp" <?php if ($course_code == 'RCCLRW01'){ ?> hidden <?php   } ?>>  
                                         <i class="fa fa-circle bg-blue"></i>
                                         <div class="timeline-item">
                                             <span class="time"></span>
@@ -519,8 +527,113 @@ $username = Yii::$app->user->identity->username;
                                     </li>
                                 </ul>
                             </div>
-                            <div class="tab-pane" id="settings">
-                                
+                            <div class="tab-pane" id="activity">
+                                                <!-- Post -->
+                
+                  <div class="row">
+                  <div class="col-sm-6">
+                    <h5><b><a href="/advanced_yii/site/chart-disposition">Disposition</a></b></h5>
+                    <?= PieChart::widget([
+                    //'height' => '600px',
+                    'dataProvider' => $dataProvider,
+                    'columns' => [
+                        'disposition_text:string',
+                        'total'
+                          ],
+                    'options' => [
+                        //'title' => 'Disposition',
+                        'is3D' => true,
+                    ],
+                      ]) ?>
+                   
+                  </div>
+                  <div class="col-sm-6">
+                    <h5><b><a href="/advanced_yii/site/chart-bench">Judgment Bench</a></b></h5>
+                    <?= PieChart::widget([
+                   // 'height' => '600px',
+                    'dataProvider' => $dataProviderbench,
+                    'columns' => [
+                        'bench_type_text:string',
+                        'total'
+                          ],
+                    'options' => [
+                        //'title' => 'Judgment Bench',
+                        'is3D' => true,
+                    ],
+                      ]) ?>
+                   
+                  </div>
+                  </div>
+                  <!-- /.row -->
+                  <div class="row">
+
+                    <div class="col-sm-6">
+                      
+                      <h5><b><a href="/advanced_yii/site/chart-jurisdiction">Judgment Jurisdiction</a></b></h5>  
+                       <?= PieChart::widget([
+                    //'height' => '600px',
+                    'dataProvider' => $dataProviderjrdct,
+                    'columns' => [
+                        'judgmnent_jurisdiction_text:string',
+                        'total'
+                          ],
+                    'options' => [
+                       // 'title' => 'Judgment Jurisdiction',
+                        'is3D' => true,
+
+                    ],
+                      ]) ?>
+                      
+                    
+                    </div>
+                    <div class="col-sm-6">
+                      
+                        <h5><b><a href="/advanced_yii/site/chart-jcatg">Judgment Category</a></b></h5> 
+                       <?= PieChart::widget([
+                   // 'height' => '600px',
+                    'dataProvider' => $dataProviderjcatg,
+                    'columns' => [
+                        'jcatg_description:string',
+                        'total'
+                          ],
+                    'options' => [
+                        //'title' => 'Judgment Category',
+                        'is3D' => true,
+                    ],
+                      ]) ?>
+                      
+                    
+                    </div>
+                    
+                  </div>
+                   <!-- /.row -->
+                  <div class="row">
+
+                    <div class="col-sm-6">
+                      
+                       <h5><b><a href="/advanced_yii/site/chart-bareact">Bareact</a></b></h5>  
+                       <?= PieChart::widget([
+                    //'height' => '600px',
+                    'dataProvider' => $dataProviderbareact,
+                    'columns' => [
+                        'bareact_desc:string',
+                        'total'
+                          ],
+                    'options' => [
+                        //'title' => 'Bareact',
+                        'is3D' => true,
+                    ],
+                      ]) ?>
+                      
+                    
+                    </div>
+                  </div>
+                  
+                  
+
+
+
+
                             </div>
                         </div>
                     </div>
