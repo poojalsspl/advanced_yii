@@ -22,6 +22,7 @@ class CollegeMast extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public $total;
     public static function tableName()
     {
         return 'college_mast';
