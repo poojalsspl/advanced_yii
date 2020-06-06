@@ -127,6 +127,47 @@ class JudgmentActController extends Controller
            
     }
 
+    public function actionAct($jcode="",$doc_id="")
+    {
+        $username = \Yii::$app->user->identity->username;
+        $model = new JudgmentAct();
+
+        if ($model->load(Yii::$app->request->post()) ) {
+            $count =  count($_POST['JudgmentAct']['act_title']);
+            for($i=0;$i<$count;$i++)
+            {
+            $model = new JudgmentAct();
+            
+             $model->judgment_code = $jcode;
+             $model->j_doc_id = $doc_id;
+             $model->username = $username;
+             $model->act_title = $_POST['JudgmentAct']['act_title'][$i] ;
+             $model->bareact_desc = $_POST['JudgmentAct']['bareact_desc'] ;
+             $model->save(); 
+            }
+             $model->save(false);
+    
+            $check = JudgmentAct::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
+             $count = $check->work_status;
+              if($count==''){ 
+                $date = date('Y-m-d');
+                \Yii::$app->db->createCommand("UPDATE judgment_act SET work_status = 'C' WHERE judgment_code=".$jcode)->execute();  
+                \Yii::$app->db->createCommand("UPDATE judgment_mast SET completion_date = '".$date."' WHERE judgment_code=".$jcode)->execute();                 
+                
+                 Yii::$app->session->setFlash('success', "Created successfully!!");
+                  $model->save(false);
+                
+            return $this->redirect(['judgment-mast/success', 'jcode' => $jcode,'doc_id'=>$doc_id]);
+                }
+                
+        }
+         
+        return $this->render('_form_new', [
+            'model' => $model,
+        ]);
+           
+    }
+
      public function actionCreate1($jcode="",$doc_id="")
     {
          //$user_id = Yii::$app->user->identity->id;

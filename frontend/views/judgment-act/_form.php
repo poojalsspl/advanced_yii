@@ -11,7 +11,19 @@ use kartik\select2\Select2;
 /* @var $model frontend\models\JudgmentAct */
 /* @var $form yii\widgets\ActiveForm */
 $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
+    if($_GET)
+{
+    $jcode = $_GET['jcode'];
+   
+    $doc_id = $_GET['doc_id'];
+}
 ?>
+<p>If you are not getting proper category, you may insert manually</p>
+<a href="act?jcode=<?php echo $jcode?>&doc_id=<?php echo $doc_id?>" class="btn btn-success">Create</a>
+
+
+
+<hr>
 
 <!---code for tabs------->
 <?= $this->render("/judgment-mast/view_tabs") ?>
@@ -22,12 +34,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
 <div class="judgment-act-form">
       <div class="box box-blue">
     <?php
-    if($_GET)
-{
-    $jcode = $_GET['jcode'];
-   
-    $doc_id = $_GET['doc_id'];
-}
+
 $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcode])->all(),
     'judgment_code',
     function($result) {
@@ -76,30 +83,28 @@ print_r($ids);*/
              <?php /*echo $form->field($model, "bareact_desc")->dropDownList($bareactmast,['prompt'=>''])->label('Element Name'); */?>
              <?= $form->field($model, 'bareact_desc')->widget(Select2::classname(), [
         'data' => $bareactmast,
-        'options' => ['placeholder' => 'Select Element Name'],
+        'options' => ['placeholder' => 'Select Bareact'],
          
           ]); ?>
     </div>
     <div class="act_data">
     <div class="col-md-3 col-xs-12">
-        <?= $form->field($model, 'act_catg_desc')->textInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label('Main Act Category') ?>
+        <?= $form->field($model, 'act_catg_desc')->hiddenInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label(false) ?>
          <?= $form->field($model, 'act_catg_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
     </div>
     <div class="col-md-3 col-xs-12">
-        <?= $form->field($model, 'act_sub_catg_desc')->textInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label('Act SubCategory') ?>
+        <?= $form->field($model, 'act_sub_catg_desc')->hiddenInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label(false) ?>
          <?= $form->field($model, 'act_sub_catg_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
     </div>  
     <div class="col-md-3 col-xs-12">
-        <?= $form->field($model, 'act_group_desc')->textInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label('Group') ?>
+        <?= $form->field($model, 'act_group_desc')->hiddenInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label(false) ?>
          <?= $form->field($model, 'act_group_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
     </div>  
     </div>
     <div>
         
     </div>
-    <div class="act_row">
-      
-    </div>
+   
     <p></p>
 
  <div class="col-md-4 col-xs-12">
@@ -117,6 +122,13 @@ print_r($ids);*/
 
 </div>
 
+</div>
+<div class="row">
+     <div class="act_row">
+      
+
+
+    </div>
 </div>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
@@ -160,13 +172,14 @@ group_code = e.act_group_code;
 act_title  = e.act_title;
 
 //console.log(act_title);
-checkbox = checkbox + '<input type="checkbox" name="JudgmentAct[act_title][]" value="' + act_title + '">'+act_title+ '<br />';
+//checkbox = checkbox + '<input type="checkbox" name="JudgmentAct[act_title][]" value="' + act_title + '">'+act_title;
 //$('.act_row').append('<input type="checkbox" id="judgmentact-act_title"  name="JudgmentAct[act_title][]"  aria-invalid="false" value="'+act_title+'">'+act_title+ '<br />');
+$('.act_row').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentact-act_title has-success"><input type="checkbox" id="judgmentact-act_title"  name="JudgmentAct[act_title][]"   aria-invalid="false" value="'+act_title+'"></div></div></div></div>'+act_title); 
 
 });
 
 
-$('.act_row').append(checkbox);
+//$('.act_row').html(checkbox);
 $('#judgmentact-act_catg_desc').val(catg_desc); 
 $('#judgmentact-act_catg_code').val(catg_code);
 $('#judgmentact-act_sub_catg_desc').val(sub_desc);
