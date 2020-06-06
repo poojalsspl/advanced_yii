@@ -144,7 +144,7 @@ and open the template in the editor.
 }
 .footer-block {
     padding: 0px 10px;
-    min-height: 200px;
+    min-height: 100px;
     
 }
 .side-menu-content {
@@ -680,7 +680,7 @@ now override the 3.3 new styles for modern browsers & apply opacity
     padding-top: 20px;
 }
 .main-footer-alt {
-    padding-top: 50px;
+    padding-top: 10px;
 }
 .footer-column-1 {
     font-size: 15px;
@@ -713,7 +713,7 @@ now override the 3.3 new styles for modern browsers & apply opacity
     list-style: none;
     text-align: center;
     font-size: 15px;
-    padding-left: 0px;
+   /* padding-left: 0px;*/
 }
 .footer-column-2 > li > a {
     color: #bcdef5;
@@ -743,7 +743,7 @@ now override the 3.3 new styles for modern browsers & apply opacity
 .footer-title {
     font-weight: bold;
     color: white;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     font-size: 15px;
     text-align: left;
     padding-left: 45px;
@@ -1108,6 +1108,7 @@ ul ul li {
 ul ul ul li  {
     padding-left: 30px;
 }
+
 .item-label {
     padding-left: 25px;
     text-transform: capitalize;

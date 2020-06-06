@@ -24,7 +24,8 @@ class LandingAppAsset extends AssetBundle
         'js/landing_page/jquery.slicknav.min.js',
         'js/landing_page/jquery-ui.js',
         'js/landing_page/counterup.js',
-        'js/landing_page/theme.js'
+        'js/landing_page/theme.js',
+        
 
 
          
