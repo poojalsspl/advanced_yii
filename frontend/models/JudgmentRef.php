@@ -51,6 +51,7 @@ class JudgmentRef extends \yii\db\ActiveRecord
             [['court_name_ref'], 'string', 'max' => 100],
             [['citation_ref'], 'string', 'max' => 2000],
             [['work_status'], 'string', 'max' => 2],
+            [['ref_type'], 'string', 'max' => 15],
         ];
     }
 
@@ -78,6 +79,7 @@ class JudgmentRef extends \yii\db\ActiveRecord
             'court_name_ref' => 'Court Name Referred',
             'citation_ref' => 'Citation Referred',
             'judgment_date_ref' => 'Judgment Date Referred',
+            'ref_type' => 'Ref Type',
             'work_status' => 'Work Status',
         ];
     }
