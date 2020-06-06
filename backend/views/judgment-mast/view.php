@@ -64,7 +64,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'jsub_catg_id',
             'jsub_catg_id1',
             'jsub_catg_description',
-            'overrule_judgment',
             'overruled_by_judgment',
             'remark',
             'time',
@@ -74,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'status_2',
             'completion_status',
             'completion_date',
-            'research_date',
+            //'research_date',
         ],
     ]) ?>
 

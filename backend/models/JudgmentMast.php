@@ -4,55 +4,56 @@ namespace backend\models;
 
 use Yii;
 
+
 /**
  * This is the model class for table "judgment_mast".
  *
- * @property string $username
- * @property string $college_code
+ * @property string|null $username
+ * @property int $u_id admin id
+ * @property string|null $college_code
  * @property int $judgment_code
- * @property int $court_code
- * @property string $court_name
- * @property string $court_type
- * @property string $appeal_numb
- * @property string $appeal_numb1
- * @property string $judgment_date
- * @property string $judgment_date1
- * @property string $judgment_title
- * @property string $appeal_status
- * @property int $disposition_id
- * @property int $disposition_id1
- * @property string $disposition_text
- * @property int $bench_type_id
- * @property int $bench_type_id1
- * @property string $bench_type_text
- * @property int $judgment_jurisdiction_id
- * @property int $judgment_jurisdiction_id1
- * @property string $judgmnent_jurisdiction_text
- * @property string $judgment_abstract
- * @property string $judgment_analysis
- * @property string $judgment_text
- * @property string $judgment_text1
- * @property string $search_tag
- * @property string $doc_id
- * @property string $judgment_type
- * @property string $judgment_type1
- * @property int $jcatg_id
- * @property int $jcatg_id1
- * @property string $jcatg_description
- * @property int $jsub_catg_id
- * @property int $jsub_catg_id1
- * @property string $jsub_catg_description
- * @property string $overrule_judgment
- * @property string $overruled_by_judgment
- * @property string $remark
- * @property string $time
- * @property int $approved
- * @property string $approved_date
- * @property int $status_1 for_all_tabs
- * @property int $status_2 for_elements&datapoints
- * @property string $completion_status
- * @property string $completion_date
- * @property string $research_date
+ * @property int|null $court_code
+ * @property string|null $court_name
+ * @property string|null $court_type
+ * @property string|null $appeal_numb
+ * @property string|null $appeal_numb1
+ * @property string|null $judgment_date
+ * @property string|null $judgment_date1
+ * @property string|null $judgment_title
+ * @property string|null $appeal_status
+ * @property int|null $disposition_id
+ * @property int|null $disposition_id1
+ * @property string|null $disposition_text
+ * @property int|null $bench_type_id
+ * @property int|null $bench_type_id1
+ * @property string|null $bench_type_text
+ * @property int|null $judgment_jurisdiction_id
+ * @property int|null $judgment_jurisdiction_id1
+ * @property string|null $judgmnent_jurisdiction_text
+ * @property string|null $judgment_abstract
+ * @property string|null $judgment_analysis
+ * @property string|null $judgment_text
+ * @property string|null $judgment_text1
+ * @property string|null $search_tag
+ * @property string|null $doc_id
+ * @property string|null $judgment_type
+ * @property string|null $judgment_type1
+ * @property int|null $jcatg_id
+ * @property int|null $jcatg_id1
+ * @property string|null $jcatg_description
+ * @property int|null $jsub_catg_id
+ * @property int|null $jsub_catg_id1
+ * @property string|null $jsub_catg_description
+ * @property string|null $overruled_by_judgment
+ * @property string|null $remark
+ * @property string|null $time
+ * @property int|null $approved
+ * @property string|null $approved_date
+ * @property string|null $work_status for_all_tabs
+ * @property int|null $status_2 for_elements&datapoints
+ * @property string|null $completion_status
+ * @property string|null $completion_date
+ * @property string|null $start_date
  */
 class JudgmentMast extends \yii\db\ActiveRecord
 {
@@ -69,14 +70,17 @@ class JudgmentMast extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'approved', 'work_status', 'status_2'], 'integer'],
+
+
+         return [
+            
+            [['u_id', 'court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'approved', 'status_2'], 'integer'],
             [['judgment_date', 'judgment_date1', 'time', 'approved_date', 'completion_date', 'start_date'], 'safe'],
             [['judgment_abstract', 'judgment_analysis', 'judgment_text', 'judgment_text1'], 'string'],
             [['username'], 'string', 'max' => 50],
             [['college_code'], 'string', 'max' => 4],
             [['court_name'], 'string', 'max' => 100],
-            [['court_type'], 'string', 'max' => 2],
+            [['court_type', 'work_status'], 'string', 'max' => 2],
             [['appeal_numb', 'appeal_numb1'], 'string', 'max' => 250],
             [['judgment_title', 'disposition_text', 'bench_type_text', 'judgmnent_jurisdiction_text'], 'string', 'max' => 255],
             [['appeal_status'], 'string', 'max' => 10],
@@ -96,6 +100,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
     {
         return [
             'username' => 'Username',
+            'u_id' => 'U ID',
             'college_code' => 'College Code',
             'judgment_code' => 'Judgment Code',
             'court_code' => 'Court Code',
