@@ -19,6 +19,7 @@ use frontend\models\JudgmentRef;
 use frontend\models\JudgmentAct;
 use frontend\models\BareactDetl;
 use frontend\models\JudgmentSearchTag;
+use frontend\models\StateMast;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
@@ -29,7 +30,7 @@ use yii\data\ActiveDataProvider;
 use frontend\models\JudgmentCatgView;
 use frontend\models\JudgmentSubCatgView;
 use frontend\models\StatecollegelistView;
-
+use frontend\models\CollegeMast;
 
 
 
@@ -73,33 +74,54 @@ class JudgmentMastController extends Controller
 
     public function actionPie() {
     $username = \Yii::$app->user->identity->username;
-    $dataProvider = new ActiveDataProvider([
-        'query' => JudgmentCatgView::find()->where(['username'=>$username]),
-        'pagination' => false
-    ]);
+    // $dataProvider = new ActiveDataProvider([
+    //     'query' => JudgmentCatgView::find()->where(['username'=>$username]),
+    //     'pagination' => false
+    // ]);
     
-    $subdataProvider = new ActiveDataProvider([
-        'query' => JudgmentSubCatgView::find()->where(['username'=>$username]),
+    // $subdataProvider = new ActiveDataProvider([
+    //     'query' => JudgmentSubCatgView::find()->where(['username'=>$username]),
+    //     'pagination' => false
+    // ]);
+
+    $dataProvider = new ActiveDataProvider([
+        'query' => JudgmentAct::find()->select(['count(bareact_code) AS total,bareact_desc'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['bareact_desc']),
         'pagination' => false
-    ]);
+     ]);
     
     return $this->render('pie', [
-        'dataProvider' => $dataProvider,
-        'subdataProvider' => $subdataProvider
+        'dataProvider' => $dataProvider
+        
     ]);
   }
 
   public function actionColumn()
   {
+    $model = new StateMast();
     $dataProvider = new ActiveDataProvider([
     'query' => StatecollegelistView::find()->orderBy(['state_name' => SORT_ASC]),
     'pagination' => false
     ]);
     return $this->render('column', [
-        'dataProvider' => $dataProvider
+        'dataProvider' => $dataProvider,
+        'model' => $model,
     ]);
 
   }
+
+  public function actionStategraph($id)
+    {
+       // $dictionary = StateMast::find()->select(['word','synonym','defination'])->where(['id'=>$id])->asArray()->all();
+     //$result = Json::encode($dictionary);
+      $dataProvider = new ActiveDataProvider([
+        'query' => CollegeMast::find()->select(['count(city_code) AS total,city_name'])->where(['state_code'=>$id])->groupBy(['city_name']),
+        'pagination' => false
+        ]);
+      // $dictionary = CollegeMast::find()->select(['count(city_code) AS total,city_name'])->where(['state_code'=>$id])->groupBy(['city_name'])->all();
+      $result = Json::encode($dataProvider);
+     return $result;   
+    }
+  
 
 
           
@@ -554,7 +576,7 @@ class JudgmentMastController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-         $username = \Yii::$app->user->identity->username;
+        $username = \Yii::$app->user->identity->username;
         if ($model->load(Yii::$app->request->post())) {
           $jcode = $model->judgment_code;
           $doc_id = $model->doc_id;
