@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\models\JudgmentMast;
 use frontend\models\BareactMast;
+use frontend\models\JudgmentAct;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 
@@ -28,6 +29,32 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
 <!---code for tabs------->
 <?= $this->render("/judgment-mast/view_tabs") ?>
 <!---end of code for tabs------->
+
+<!---------submitted data show here------->
+<?php
+ $judgmentAct= JudgmentAct::find()->where(['j_doc_id'=>$doc_id])->all();
+?>
+    <table class="table table-bordered table-inverse">
+  <thead>
+    <tr>
+      <th hidden="hidden">#</th>
+      <th>Bareact Category </th>
+      <th>Act title</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($judgmentAct as $judgmentActSingle) { ?>
+    <tr>
+      <th hidden="hidden" scope="row"><?= $ids = $judgmentActSingle->id ?></th>
+      <td><?= $judgmentActSingle->bareact_desc ?></td>
+      <td><?= $judgmentActSingle->act_title ?></td>
+      <td><a href="/advanced_yii/judgment-act/delete?id=<?php echo $ids ?>" data-confirm="Are you sure you want to delete this item?" data-method="post"><span class="glyphicon glyphicon-trash"></span></a></td>
+     </tr>
+    <?php } ?>
+  </tbody>
+</table>
+<!---- end of submitted data ----->
 
 <!------start of form------>
 

@@ -344,9 +344,13 @@ class JudgmentActController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+         
+        $model = JudgmentAct::findOne($id);
+        $jcode = $model->judgment_code;
+        $doc_id = $model->j_doc_id;
+        $model->delete();
+        return $this->redirect(['update', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);
+       
     }
 
 
