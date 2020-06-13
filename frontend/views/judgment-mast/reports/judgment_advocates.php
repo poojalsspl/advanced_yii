@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use frontend\models\JudgmentAdvocate;
 use frontend\models\JudgmentMast;
+use yii\widgets\LinkPager;
 
 $this->title = 'Advocate Appeared';
 //print_r($models);die;
@@ -38,6 +39,11 @@ $this->title = 'Advocate Appeared';
 
     <?php }} ?>
   </tbody>
-</table>
-
+</table>    
+<!-- display pagination -->
+    <?php 
+echo LinkPager::widget([
+    'pagination' => $pages,
+]);
+?>
 

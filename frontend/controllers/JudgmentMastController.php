@@ -299,6 +299,8 @@ class JudgmentMastController extends Controller
     }
     // //End Section - 3
 
+    // Analytics Summary Start (title and count)
+
     public function actionJudgmentAdvocates()
     {
         $username = \Yii::$app->user->identity->username;
@@ -307,10 +309,16 @@ class JudgmentMastController extends Controller
             ->from('judgment_advocate')
             ->where(['username'=>$username])
             ->groupBy(['judgment_code'])
-            ->having('advocate_count' > 0)->all();
+            ->having('advocate_count' > 0);
+        $countQuery = clone $models;
+             $pages = new Pagination(['totalCount' => $countQuery->count()]);
+            $models = $models->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
        // $models = $query->createCommand();
         return $this->render('reports/judgment_advocates', [
             'models' => $models,
+            'pages' => $pages,
          ]);
     }
 
@@ -322,10 +330,17 @@ class JudgmentMastController extends Controller
             ->from('judgment_judge')
             ->where(['username'=>$username])
             ->groupBy(['judgment_code'])
-            ->having('judge_count' > 0)->all();
+            ->having('judge_count' > 0);
+        $countQuery = clone $models;
+             $pages = new Pagination(['totalCount' => $countQuery->count()]);
+            $models = $models->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
         return $this->render('reports/judgment_judges', [
             'models' => $models,
+             'pages' => $pages,
          ]);
+
     }
 
     public function actionJudgmentCitations()
@@ -337,9 +352,15 @@ class JudgmentMastController extends Controller
             ->where(['username'=>$username])
             ->andwhere(['not', ['citation' => null]])
             ->groupBy(['judgment_code'])
-            ->having('citation_count' > 0)->all();
+            ->having('citation_count' > 0);
+        $countQuery = clone $models;
+             $pages = new Pagination(['totalCount' => $countQuery->count()]);
+            $models = $models->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
         return $this->render('reports/judgment_citations', [
             'models' => $models,
+             'pages' => $pages,
          ]);
     }
 
@@ -352,9 +373,15 @@ class JudgmentMastController extends Controller
             ->where(['username'=>$username])
             ->andwhere(['is', 'citation', new \yii\db\Expression('null')])
             ->groupBy(['judgment_code'])
-            ->having('citation_count' > 0)->all();
+            ->having('citation_count' > 0);
+        $countQuery = clone $models;
+             $pages = new Pagination(['totalCount' => $countQuery->count()]);
+            $models = $models->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
         return $this->render('reports/judgment_uncited', [
             'models' => $models,
+             'pages' => $pages,
          ]);
     }
 
@@ -366,9 +393,15 @@ class JudgmentMastController extends Controller
             ->from('judgment_ref')
             ->where(['username'=>$username])
             ->groupBy(['judgment_code'])
-            ->having('referred_count' > 0)->all();
+            ->having('referred_count' > 0);
+        $countQuery = clone $models;
+             $pages = new Pagination(['totalCount' => $countQuery->count()]);
+            $models = $models->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
         return $this->render('reports/judgment_referred', [
             'models' => $models,
+            'pages' => $pages,
          ]);
     }
 
@@ -376,13 +409,19 @@ class JudgmentMastController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $models = (new \yii\db\Query())
-            ->select('count(*) as acts_count,judgment_code')
+            ->select('count(*) as acts_count,j_doc_id')
             ->from('judgment_act')
             ->where(['username'=>$username])
-            ->groupBy(['judgment_code'])
-            ->having('acts_count' > 0)->all();
+            ->groupBy(['j_doc_id'])
+            ->having('acts_count' > 0);
+        $countQuery = clone $models;
+             $pages = new Pagination(['totalCount' => $countQuery->count()]);
+            $models = $models->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
         return $this->render('reports/judgment_acts', [
             'models' => $models,
+            'pages' => $pages,
          ]);
     }
 
@@ -413,7 +452,9 @@ class JudgmentMastController extends Controller
             'models' => $models,
          ]);
     }
+     // Analytics Summary End
 
+     // List wise Analytics start(judges name, advocate name, citation used, refered etc etc)
     
     public function actionAdvocateList($jcode="")
     {
@@ -471,13 +512,13 @@ class JudgmentMastController extends Controller
          ]);
     } 
 
-     public function actionActsList($jcode="")
+     public function actionActsList($dcode="")
     {
          $username = \Yii::$app->user->identity->username;
         $query = JudgmentAct::find()
         ->select('act_group_desc,act_catg_desc,act_sub_catg_desc,act_title,bareact_desc,bareact_code')
         ->where(['username'=>$username])
-        ->andWhere(['judgment_code'=>$jcode]);
+        ->andWhere(['j_doc_id'=>$dcode]);
         $models = $query->all();
         return $this->render('lists/acts_list', [
             'models' => $models,
@@ -512,7 +553,7 @@ class JudgmentMastController extends Controller
          ]);
     } 
 
-   
+   // List wise Analytics end
 
     
     //<!-----------End Of Reports------>

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use frontend\models\JudgmentRef;
 use frontend\models\JudgmentMast;
+use yii\widgets\LinkPager;
 
 $this->title = 'Judgment Referred';
 //print_r($models);die;
@@ -39,5 +40,11 @@ $this->title = 'Judgment Referred';
     <?php }} ?>
   </tbody>
 </table>
+<!-- display pagination -->
+    <?php 
+echo LinkPager::widget([
+    'pagination' => $pages,
+]);
+?>
 
 
