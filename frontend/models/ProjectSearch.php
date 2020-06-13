@@ -18,7 +18,7 @@ class ProjectSearch extends Project
     {
         return [
             [['id'], 'integer'],
-            [['username', 'project_title', 'pabstract', 'judges', 'advocates', 'acts', 'citation', 'refrence', 'preceeding', 'disposition', 'bench', 'jurisdiction', 'searchtag', 'jcategory', 'jsubcategory', 'jlength', 'bibliography', 'overruled', 'completion_date', 'start_date'], 'safe'],
+            [['username', 'project_title', 'pabstract', 'judges', 'advocates', 'acts', 'citation', 'refrence', 'preceeding', 'disposition', 'bench', 'jurisdiction', 'searchtag', 'jcategory', 'jsubcategory', 'jlength', 'bibliography', 'overruled','Conclusion', 'completion_date', 'start_date'], 'safe'],
         ];
     }
 

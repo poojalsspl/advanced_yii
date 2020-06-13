@@ -26,6 +26,7 @@ use Yii;
  * @property string|null $jlength
  * @property string $bibliography
  * @property string|null $overruled
+ * @property string|null $Conclusion
  * @property string|null $completion_date
  * @property string|null $start_date
  */
@@ -52,7 +53,7 @@ class Project extends \yii\db\ActiveRecord
             [['pabstract'], 'string'],
             [['judges', 'advocates', 'jlength'], 'string'],
             [['acts', 'preceeding', 'disposition', 'bench', 'jcategory', 'jsubcategory', 'bibliography'], 'string'],
-            [['citation', 'refrence', 'jurisdiction', 'searchtag'], 'string'],
+            [['citation', 'refrence', 'jurisdiction', 'searchtag','Conclusion'], 'string'],
         ];
     }
 
@@ -65,24 +66,26 @@ class Project extends \yii\db\ActiveRecord
             'id' => 'ID',
             'username' => 'Username',
             'project_title' => 'Project Title',
-            'pabstract' => 'Pabstract',
+            'pabstract' => 'Project Abstract',
             'judges' => 'Judges',
             'advocates' => 'Advocates',
-            'acts' => 'Acts',
+            'acts' => 'Acts Imposed',
             'citation' => 'Citation',
             'refrence' => 'Refrence',
             'preceeding' => 'Preceeding',
             'disposition' => 'Disposition',
             'bench' => 'Bench',
             'jurisdiction' => 'Jurisdiction',
-            'searchtag' => 'Searchtag',
-            'jcategory' => 'Jcategory',
-            'jsubcategory' => 'Jsubcategory',
-            'jlength' => 'Jlength',
+            'searchtag' => 'Search Tag',
+            'jcategory' => 'Main Category',
+            'jsubcategory' => 'Sub Category',
+            'jlength' => 'Judgment Magnitude',
             'bibliography' => 'Bibliography',
             'overruled' => 'Overruled',
+            'Conclusion' => 'Conclusion',
             'completion_date' => 'Completion Date',
             'start_date' => 'Start Date',
+            
         ];
     }
 }
