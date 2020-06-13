@@ -78,7 +78,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
     public function rules()
     { 
         return [
-            [['court_code', 'jcatg_id', 'jsub_catg_id'], 'integer'],
+            [['court_code', 'jcatg_id', 'jsub_catg_id','search_tag_count'], 'integer'],
             [['judgment_date', 'disposition_id','disposition_text','judgment_jurisdiction_id','judgmnent_jurisdiction_text','bench_type_id','bench_type_text'], 'safe'],
             [['judgment_title','bench_type_id','judgment_jurisdiction_id','disposition_id'], 'required'],
             [['judgment_abstract', 'judgment_text','judgment_text1','username'], 'string'],
@@ -115,8 +115,8 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'judgment_title'           => 'Judgment Title',
             'appeal_status'            => 'Status',
             'judgment_abstract'        => 'Judgment Abstract',
-            'judgment_text'            => 'Judgment Text',
-            'judgment_text1'           => 'Judgment Text1',
+            'judgment_text'            => 'Raw Judgment Text',
+            'judgment_text1'           => 'Judgment Body',
             'doc_id'                   => 'Judgment Source Code',
             'judgment_type'            => 'Judgment Type',
             'jcatg_description'        => 'Judgment Category',
@@ -129,6 +129,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'disposition_id'           => 'Disposition',
             'judgment_jurisdiction_id' => 'Jurisdiction',
             'search_tag'               => 'Search Tag',
+            'search_tag_count'         => 'Search Tag Count',   
             'username'                 => 'Username'
         ];
     }

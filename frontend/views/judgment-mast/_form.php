@@ -218,8 +218,9 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->orderBy('jcatg_descript
      <?=  $form->field($model, 'search_tag',['hintType' => ActiveField::HINT_SPECIAL])->textInput()->label('Search Tag(insert multiple values with semicolon(;)')->hint($tag_hint) ?> 
    </div>
    <div class="col-md-2 col-xs-12">
-    <label>Search Tag Count</label>
-    <input type="" name="" id="judgmentmast-search_tag_count" readonly="readonly" class="form-control">
+   
+    <!-- <input type="" name="" id="judgmentmast-search_tag_count" readonly="readonly" class="form-control"> -->
+      <?= $form->field($model, 'search_tag_count')->textInput(['readonly'=>true]); ?>
    </div>
   </div>
 
@@ -322,9 +323,16 @@ function master1()
  <?php
 
 $this->registerJs("$('#judgmentmast-search_tag').keyup(function(e){
+  var scount = null;
     var count = $(this).val().split(';').length;
-  
+     var searchtag = $(this).val();
+     console.log('searchtag : ',searchtag);
+     if(searchtag !== null && searchtag !== '') {
     $('#judgmentmast-search_tag_count').val(count);
+    }else{
+ $('#judgmentmast-search_tag_count').val(scount);
+    }
+    
     });
  /* $('#judgmentmast-respondant_adv').keyup(function(e){
     var count = $(this).val().split(';').length;
