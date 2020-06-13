@@ -316,7 +316,6 @@ $this->title = 'Dashboard';
                                                 <div class="timeline-body">
                                                     <table class="table table-striped">
                                                         <tr>
-                                                            <th style="width: 10px">#</th>
                                                             <th>Job Name</th>
                                                             <th>Total</th>
                                                             <th>Pending</th>
@@ -327,30 +326,27 @@ $this->title = 'Dashboard';
                                                         $complete_article = Articles::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
                                                         $pending_article = Articles::find()->where(['username'=>$username])->andWhere(['is', 'completion_date', new \yii\db\Expression('null')])->count();
                                                         ?>
-                                                        <tr>
-                                                            <td>1.</td>
+                                                         <?php if ($course_code == 'RCCLRW01'){ ?>
+                                                        <tr hidden="hidden">
                                                             <td>Article Alloted</td>
                                                             <td><?= $tot_article;?></td>
                                                             <td><?= $pending_article;?></td>
                                                             <td><?= $complete_article;?></td>
-                                                            
                                                         </tr>
+                                                      <?php } ?>
                                                         <tr>
-                                                            <td>2.</td>
                                                             <td>Judgment Alloted</td>
                                                             <td><?= $tot_judgment;?></td>
                                                             <td><?= $tot_judgment_pending; ?></td>
                                                             <td><?= $tot_judgment_worked; ?></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>3.</td>
                                                             <td>Supreme Court Judgments Alloted</td>
                                                             <td><?= $sc_judgment;?></td>
                                                             <td><?= $sc_judgment_pending;?></td>
                                                             <td><?= $sc_judgment_worked; ?></td>
                                                         </tr>
                                                         <tr>
-                                                            <td>4.</td>
                                                             <td>High Court Judgments Alloted</td>
                                                             <td><?= $hc_judgment;?></td>
                                                             <td><?= $hc_judgment_pending; ?></td>
@@ -472,23 +468,26 @@ $this->title = 'Dashboard';
                                                     <tr>
                                                         <th>Advocates</th>
                                                         <th>Judges</th>
+                                                        <th>SearchTag</th>
                                                         <th>Citations Journals</th>
                                                         <th>UnCited Journals</th>
                                                         <th>Judgment Referred</th>
                                                         <th>Acts/Sections</th>
                                                     </tr>
                                                      <?php
-                                                     $tot_advocate = JudgmentAdvocate::find()->where(['username'=>$username])->count();
-                                                     $tot_judge = JudgmentJudge::find()->where(['username'=>$username])->count();
-                                                     $tot_citation = JudgmentCitation::find()->where(['username'=>$username])->andWhere(['not', ['citation' => null]])->count();
+                                                     $tot_advocate = JudgmentAdvocate::find()->where(['username'=>$username])->andWhere(['work_status'=>'C'])->count();
+                                                     $tot_judge = JudgmentJudge::find()->where(['username'=>$username])->andWhere(['work_status'=>'C'])->count();
+                                                     $tot_searchtag = JudgmentMast::find()->where(['username'=>$username])->andWhere(['work_status'=>'C'])->andWhere(['not', ['search_tag_count' => null]])->sum('search_tag_count');
+                                                     $tot_citation = JudgmentCitation::find()->where(['username'=>$username])->andWhere(['not', ['citation' => null]])->andWhere(['work_status'=>'C'])->count();
                                                      $tot_uncited = JudgmentCitation::find()->where(['username'=>$username])->andWhere(['is', 'citation', new \yii\db\Expression('null')])->count();
-                                                     $tot_ref = JudgmentRef::find()->where(['username'=>$username])->count();
-                                                     $tot_act = JudgmentAct::find()->where(['username'=>$username])->count();
+                                                     $tot_ref = JudgmentRef::find()->where(['username'=>$username])->andWhere(['work_status'=>'C'])->count();
+                                                     $tot_act = JudgmentAct::find()->where(['username'=>$username])->andWhere(['work_status'=>'C'])->count();
                                                      ?>
 
                                                     <tr>
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-advocates"><?= $tot_advocate;?></a></td>
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-judges"><?= $tot_judge;?></a></td>
+                                                        <td><a href="#"><?= $tot_searchtag;?></a></td>
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-citations"><?= $tot_citation;?></a></td>
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-uncited"><?= $tot_uncited;?></a></td>
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-referred"><?= $tot_ref;?></a></td>
@@ -529,10 +528,10 @@ $this->title = 'Dashboard';
                             </div>
                             <div class="tab-pane" id="activity">
                                                 <!-- Post -->
-                
+                            <h2><center>Graphical Representation of Data Points</center></h2>
                   <div class="row">
-                  <div class="col-sm-6">
-                    <h5><b><a href="/advanced_yii/site/chart-disposition">Disposition</a></b></h5>
+                  <div class="col-sm-6" style="border: 1px solid #000000">
+                    <h5><b><a target="_blank" href="/advanced_yii/site/chart-disposition"><center>Disposition</center></a></b></h5>
                     <?= PieChart::widget([
                     //'height' => '600px',
                     'dataProvider' => $dataProvider,
@@ -547,8 +546,8 @@ $this->title = 'Dashboard';
                       ]) ?>
                    
                   </div>
-                  <div class="col-sm-6">
-                    <h5><b><a href="/advanced_yii/site/chart-bench">Judgment Bench</a></b></h5>
+                  <div class="col-sm-6" style="border: 1px solid #000000">
+                    <h5><b><a target="_blank" href="/advanced_yii/site/chart-bench"><center>Judgment Bench</center></a></b></h5>
                     <?= PieChart::widget([
                    // 'height' => '600px',
                     'dataProvider' => $dataProviderbench,
@@ -567,9 +566,9 @@ $this->title = 'Dashboard';
                   <!-- /.row -->
                   <div class="row">
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="border: 1px solid #000000">
                       
-                      <h5><b><a href="/advanced_yii/site/chart-jurisdiction">Judgment Jurisdiction</a></b></h5>  
+                      <h5><b><a target="_blank" href="/advanced_yii/site/chart-jurisdiction"><center>Judgment Jurisdiction</center></a></b></h5>  
                        <?= PieChart::widget([
                     //'height' => '600px',
                     'dataProvider' => $dataProviderjrdct,
@@ -586,9 +585,9 @@ $this->title = 'Dashboard';
                       
                     
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="border: 1px solid #000000">
                       
-                        <h5><b><a href="/advanced_yii/site/chart-jcatg">Judgment Category</a></b></h5> 
+                        <h5><b><a target="_blank" href="/advanced_yii/site/chart-jcatg"><center>Judgment Category</center></a></b></h5> 
                        <?= PieChart::widget([
                    // 'height' => '600px',
                     'dataProvider' => $dataProviderjcatg,
@@ -609,9 +608,9 @@ $this->title = 'Dashboard';
                    <!-- /.row -->
                   <div class="row">
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="border: 1px solid #000000">
                       
-                       <h5><b><a href="/advanced_yii/site/chart-bareact">Bareact</a></b></h5>  
+                       <h5><b><a target="_blank" href="/advanced_yii/site/chart-bareact"><center>Bareact</center></a></b></h5>  
                        <?= PieChart::widget([
                     //'height' => '600px',
                     'dataProvider' => $dataProviderbareact,
