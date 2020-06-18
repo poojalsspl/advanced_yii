@@ -83,7 +83,8 @@ class JudgmentPartiesController extends Controller
             $model->doc_id  = $doc_id;
             $model->username  = $username;
             $model->party_flag = $_POST['JudgmentParties']['party_flag'][$i];
-            $model->party_name = $_POST['JudgmentParties']['party_name'][$i];            
+            $model->party_name = $_POST['JudgmentParties']['party_name'][$i]; 
+            $model->appeal_numb = $_POST['JudgmentParties']['appeal_numb'][$i];           
             $model->save(); 
             }
             } 
@@ -135,7 +136,9 @@ class JudgmentPartiesController extends Controller
             $parties->doc_id = $doc_id;
             $parties->username = $username;
             $parties->party_flag = $_POST['JudgmentParties']['party_flag'][$i];
-            $parties->party_name = $_POST['JudgmentParties']['party_name'][$i];                        
+            $parties->party_name = $_POST['JudgmentParties']['party_name'][$i];
+            $parties->appeal_numb = $_POST['JudgmentParties']['appeal_numb'][$i];
+           // print_r($parties);die;
             $parties->save();
              }
             }
