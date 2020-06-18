@@ -29,8 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             //'username',
             'project_title',
-            'pabstract',
-            'judges',
+            //'pabstract',
+             [
+             'attribute'=>'pabstract',
+             'value'=>'truncatedAbstract',//show limited characters
+            ],
+            //'judges',
             //'advocates',
             //'acts',
             //'citation',
@@ -48,7 +52,17 @@ $this->params['breadcrumbs'][] = $this->title;
             //'completion_date',
             'start_date',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+            'header'=>'Actions',
+            'template' => '{Edit}', 
+            'buttons' => [
+               'Edit' => function ($url, $model, $key) {
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id'=>$model->id]);
+            },
+             'format' => 'raw',
+            ],
+                 'contentOptions' => [ "class"=>'action-btns', 'width'=>''],
+        ],
         ],
     ]); ?>
 

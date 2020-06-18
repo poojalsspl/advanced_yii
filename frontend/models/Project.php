@@ -88,4 +88,14 @@ class Project extends \yii\db\ActiveRecord
             
         ];
     }
+
+
+
+    public function getTruncatedAbstract()
+    {
+    if (strlen($this->pabstract) <= 30)
+        return $this->pabstract;
+    else
+        return substr($this->pabstract, 0, 30) . '...';
+    }
 }
