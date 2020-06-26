@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
     <tr>
       <th hidden="hidden" scope="row"><?= $ids = $judgmentActSingle->id ?></th>
       <td><?= $judgmentActSingle->bareact_desc ?></td>
-      <td><?= $judgmentActSingle->act_title ?></td>
+      <td><?= $judgmentActSingle->sec_title ?></td>
       <td><a href="/advanced_yii/judgment-act/delete?id=<?php echo $ids ?>" data-confirm="Are you sure you want to delete this item?" data-method="post"><span class="glyphicon glyphicon-trash"></span></a></td>
      </tr>
     <?php } ?>
@@ -153,8 +153,6 @@ print_r($ids);*/
 <div class="row">
      <div class="act_row">
       
-
-
     </div>
 </div>
     <div class="form-group">
@@ -175,7 +173,7 @@ print_r($ids);*/
 $('#judgmentact-bareact_desc').on('change', function(){
     var bareact_desc = $(this).val();
 
- //console.log(bareact_desc);
+ console.log(bareact_desc);
  if(bareact_desc=='')
  {
     alert('Please Select Judgement code');
@@ -196,17 +194,16 @@ sub_desc  = e.act_sub_catg_desc;
 sub_code  = e.act_sub_catg_code;
 group_desc = e.act_group_desc;
 group_code = e.act_group_code;
-act_title  = e.act_title;
+sec_title  = e.sec_title;
 
-//console.log(act_title);
-//checkbox = checkbox + '<input type="checkbox" name="JudgmentAct[act_title][]" value="' + act_title + '">'+act_title;
-//$('.act_row').append('<input type="checkbox" id="judgmentact-act_title"  name="JudgmentAct[act_title][]"  aria-invalid="false" value="'+act_title+'">'+act_title+ '<br />');
-$('.act_row').append('<div class="dynamic-rows-field row"><div class="col-xs-6"><div class="form-group field-judgmentact-act_title has-success"><input type="checkbox" id="judgmentact-act_title"  name="JudgmentAct[act_title][]"   aria-invalid="false" value="'+act_title+'"></div></div></div></div>'+act_title); 
+//console.log(sec_title);
+checkbox = checkbox + '<div class="col-md-2 col-xs-12"><input type="checkbox" name="JudgmentAct[sec_title][]" value="' + sec_title + '">'+sec_title+'</div>';
+
 
 });
 
 
-//$('.act_row').html(checkbox);
+$('.act_row').html(checkbox);
 $('#judgmentact-act_catg_desc').val(catg_desc); 
 $('#judgmentact-act_catg_code').val(catg_code);
 $('#judgmentact-act_sub_catg_desc').val(sub_desc);

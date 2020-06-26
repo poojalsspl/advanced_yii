@@ -73,16 +73,17 @@ class JudgmentActController extends Controller
         $model = new JudgmentAct();
 
         if ($model->load(Yii::$app->request->post()) ) {
-            $count =  count($_POST['JudgmentAct']['act_title']);
+            $count =  count($_POST['JudgmentAct']['sec_title']);
             for($i=0;$i<$count;$i++)
             {
+
             $model = new JudgmentAct();
             
              $model->judgment_code = $jcode;
              $model->j_doc_id = $doc_id;
              $model->username = $username;
              $model->bareact_code = $model->bareact_desc ;
-             $model->act_title = $_POST['JudgmentAct']['act_title'][$i] ;
+             $model->sec_title = $_POST['JudgmentAct']['sec_title'][$i] ;
              $model->act_catg_desc = $_POST['JudgmentAct']['act_catg_desc'] ;
              $model->act_catg_code = $_POST['JudgmentAct']['act_catg_code'] ;
              $model->act_sub_catg_code = $_POST['JudgmentAct']['act_sub_catg_code'] ;
@@ -291,7 +292,7 @@ class JudgmentActController extends Controller
         $adv = new JudgmentAct();
         if ($adv->load(Yii::$app->request->post())) {
 
-            $count =  count($_POST['JudgmentAct']['act_title']);
+            $count =  count($_POST['JudgmentAct']['sec_title']);
             for($i=0;$i<$count;$i++)
             {
             $model = new JudgmentAct();
@@ -300,7 +301,7 @@ class JudgmentActController extends Controller
              $model->j_doc_id = $doc_id;
              $model->username = $username;
              $model->bareact_code = $model->bareact_desc ;
-             $model->act_title = $_POST['JudgmentAct']['act_title'][$i] ;
+             $model->sec_title = $_POST['JudgmentAct']['sec_title'][$i] ;
              $model->act_catg_desc = $_POST['JudgmentAct']['act_catg_desc'] ;
              $model->act_catg_code = $_POST['JudgmentAct']['act_catg_code'] ;
              $model->act_sub_catg_code = $_POST['JudgmentAct']['act_sub_catg_code'] ;
@@ -367,7 +368,7 @@ class JudgmentActController extends Controller
     public function actionBareact($id)
     {
         
-         $bareact = BareactDetl::find()->select(['act_group_code','act_group_desc','act_catg_code','act_catg_desc','act_sub_catg_code','act_sub_catg_desc','act_title'])->where(['bareact_code'=>$id])->orderBy('sno,level')->asArray()->all();
+         $bareact = BareactDetl::find()->select(['act_group_code','act_group_desc','act_catg_code','act_catg_desc','act_sub_catg_code','act_sub_catg_desc','sec_title'])->where(['bareact_code'=>$id])->andWhere(['!=', 'level', '0'])->orderBy('sno,level')->asArray()->all();
      $result = Json::encode($bareact);
 
      // return 'test';

@@ -17,7 +17,7 @@ class JudgmentActSearch extends JudgmentAct
     public function rules()
     {
         return [
-            [['j_doc_id', 'judgment_title', 'doc_id', 'act_group_desc', 'act_catg_desc', 'act_sub_catg_desc', 'act_title', 'country_shrt_name', 'bareact_code', 'bareact_desc', 'court_name', 'court_shrt_name', 'bench_name', 'level'], 'safe'],
+            [['j_doc_id', 'judgment_title', 'doc_id', 'act_group_desc', 'act_catg_desc', 'act_sub_catg_desc', 'sec_title', 'country_shrt_name', 'bareact_code', 'bareact_desc', 'court_name', 'court_shrt_name', 'bench_name', 'level'], 'safe'],
             [['judgment_code', 'id', 'act_group_code', 'act_catg_code', 'act_sub_catg_code', 'country_code', 'court_code', 'bench_code'], 'integer'],
         ];
     }
@@ -74,7 +74,7 @@ class JudgmentActSearch extends JudgmentAct
             ->andFilterWhere(['like', 'act_group_desc', $this->act_group_desc])
             ->andFilterWhere(['like', 'act_catg_desc', $this->act_catg_desc])
             ->andFilterWhere(['like', 'act_sub_catg_desc', $this->act_sub_catg_desc])
-            ->andFilterWhere(['like', 'act_title', $this->act_title])
+            ->andFilterWhere(['like', 'sec_title', $this->sec_title])
             ->andFilterWhere(['like', 'country_shrt_name', $this->country_shrt_name])
             ->andFilterWhere(['like', 'bareact_code', $this->bareact_code])
             ->andFilterWhere(['like', 'bareact_desc', $this->bareact_desc])

@@ -18,7 +18,7 @@ use Yii;
  * @property string $act_catg_desc
  * @property int $act_sub_catg_code
  * @property string $act_sub_catg_desc
- * @property string $act_title
+ * @property string $sec_title
  * @property int $country_code
  * @property string $country_shrt_name
  * @property string $bareact_code
@@ -49,7 +49,7 @@ class JudgmentAct extends \yii\db\ActiveRecord
         return [
             [['judgment_code', 'act_group_code', 'act_catg_code', 'act_sub_catg_code', 'country_code', 'court_code', 'bench_code'], 'integer'],
             [['j_doc_id', 'doc_id'], 'string', 'max' => 40],
-            [['judgment_title', 'act_title', 'bareact_desc'], 'string', 'max' => 255],
+            [['judgment_title', 'sec_title', 'bareact_desc'], 'string', 'max' => 255],
             [['act_group_desc'], 'string', 'max' => 25],
             [['act_catg_desc', 'act_sub_catg_desc', 'court_name', 'bench_name'], 'string', 'max' => 100],
             [['country_shrt_name', 'bareact_code'], 'string', 'max' => 10],
@@ -75,7 +75,7 @@ class JudgmentAct extends \yii\db\ActiveRecord
             'act_catg_desc' => 'Act Catg Desc',
             'act_sub_catg_code' => 'Act Sub Catg Code',
             'act_sub_catg_desc' => 'Act Sub Catg Desc',
-            'act_title' => 'Act Title',
+            'sec_title' => 'Act Title',
             'country_code' => 'Country Code',
             'country_shrt_name' => 'Country Shrt Name',
             'bareact_code' => 'Bareact Code',
