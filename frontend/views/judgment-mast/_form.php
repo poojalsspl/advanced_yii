@@ -112,16 +112,29 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
   <div class="box box-blue">
      <div class="box-body">
         <div class="col-md-12">
-            <div class="col-md-4 col-xs-12">
-            <?= $form->field($model, 'court_name')->textInput(['readonly'=> true]);?> 
+            <div class="col-md-3 col-xs-12">
+<?php $courts = ArrayHelper::map(CourtMast::find()->where(['is', 'parent_court_code', new \yii\db\Expression('null')])->all(), 'court_code', 'court_name'); 
+
+?>
+<?= $form->field($model, 'court_name')->widget(Select2::classname(), [
+        'data' => $courts,
+        'options' => ['placeholder' => 'Select court '],
+         'pluginEvents'=>[
+          ]
+          ]); ?>
+
+            <?php /*echo $form->field($model, 'court_name')->textInput(['readonly'=> true]);*/?> 
                            
            <?= $form->field($model, 'court_code')->hiddenInput(['readonly'=>true])->label(false); ?>
            <?php $appeal_hint = '(crl.) 1230 of  1998'?>
            <?=  $form->field($model, 'appeal_numb',['hintType' => ActiveField::HINT_SPECIAL])->hint($appeal_hint) ?> 
 
-           <?= $form->field($model, 'judgment_type')->dropDownList(["0"=>'Order', "1"=>"Oral Order","2"=>"Judgment"],['prompt'=>'Select Judgment Type']) ?>                           
+           <?= $form->field($model, 'judgment_type')->dropDownList(["0"=>'Order', "1"=>"Oral Order","2"=>"Judgment"],['prompt'=>'Select Judgment Type']) ?>
+
+           
+
              </div>
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-3 col-xs-12">
 <?php
 $benchType    = ArrayHelper::map(JudgmentBenchType::find()->all(), 'bench_type_id', 'bench_type_text'); 
 $disposition  = ArrayHelper::map(JudgmentDisposition::find()->all(), 'disposition_id', 'disposition_text'); 
@@ -182,7 +195,7 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->orderBy('jcatg_descript
       <?= $form->field($model, 'jcatg_id')->HiddenInput(['readonly'=>true])->label(false); ?>
           
         </div>
-        <div class="col-md-4 col-xs-12">
+        <div class="col-md-3 col-xs-12">
         <?= $form->field($model, 'judgment_jurisdiction_id')->widget(Select2::classname(), [
           
           'data' => $jurisdiction,
@@ -211,16 +224,19 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->orderBy('jcatg_descript
    
                                
         </div>
+        <div class="col-md-3 col-xs-12">
+          <?= $form->field($model, 'appeal_count')->radioList(["S"=>'Single', "M"=>"Multiple"]) ?> 
+        </div>
   </div>
   <div class="col-md-12">
     <div class="col-md-10 col-xs-12">
-      <?php $tag_hint = 'Generate tag from judgment in this format  '."<b>tag:percentagevalue;</b>".'  Eg if the judgment has 5 tags then it should be generated in this format '."<br>".'Search tag1:40; Search tag2:25; Search tag3:35; Search tag4:55; Search tag5:45'?>
-     <?=  $form->field($model, 'search_tag',['hintType' => ActiveField::HINT_SPECIAL])->textInput()->label('Search Tag(insert multiple values with semicolon(;)')->hint($tag_hint) ?> 
+      <?php /*$tag_hint = 'Generate tag from judgment in this format  '."<b>tag:percentagevalue;</b>".'  Eg if the judgment has 5 tags then it should be generated in this format '."<br>".'Search tag1:40; Search tag2:25; Search tag3:35; Search tag4:55; Search tag5:45' */?>
+     <?php /* $form->field($model, 'search_tag',['hintType' => ActiveField::HINT_SPECIAL])->textInput()->label('Search Tag(insert multiple values with semicolon(;)')->hint($tag_hint)*/ ?> 
    </div>
    <div class="col-md-2 col-xs-12">
    
     <!-- <input type="" name="" id="judgmentmast-search_tag_count" readonly="readonly" class="form-control"> -->
-      <?= $form->field($model, 'search_tag_count')->textInput(['readonly'=>true]); ?>
+      <?php /* $form->field($model, 'search_tag_count')->textInput(['readonly'=>true]); */?>
    </div>
   </div>
 
@@ -266,17 +282,21 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->orderBy('jcatg_descript
     <div class="box box-blue">
         <div class="box-body">
             <div class="col-md-12">
-                <div class="col-md-6 col-xs-12">
-                 <?= $form->field($model, 'judgment_text')->textarea(['rows' => 6]) ?>
-                </div>
-                <div class="col-md-6 col-xs-12">
+               
                 <?= $form->field($model, 'judgment_text1')->textarea(['readonly'=>true]) ?>
-                </div>
+               
+                
             </div>
+            <div class="col-md-12 col-xs-12">
+                
+                 <?= $form->field($model, 'judgment_text')->textarea(['rows' => 8]) ?>
+                </div>
                      
         </div>
     </div>
 </div>
+
+
 
 <div class="form-group" style="text-align: center">
     <div class="col-md-4 col-md-offset-4">

@@ -621,10 +621,15 @@ class JudgmentMastController extends Controller
         if ($model->load(Yii::$app->request->post())) {
           $jcode = $model->judgment_code;
           $doc_id = $model->doc_id;
+          if($model->disposition_id!=''){
           $model->disposition_text = $model->judgmentDisposition->disposition_text;
+          }
+          if($model->judgment_jurisdiction_id!=''){
           $model->judgmnent_jurisdiction_text = $model->judgmentJurisdiction->judgment_jurisdiction_text;
+          }
+          if($model->bench_type_id!=''){
           $model->bench_type_text = $model->judgmentBenchType->bench_type_text;
-         
+         }
             
           if($model->jcatg_id!=''){
             $jcatg = new JcatgMast();
@@ -640,6 +645,8 @@ class JudgmentMastController extends Controller
             $model->jsub_catg_description = NULL;
           }*/
 
+          /*
+              Search tag code commented
           if($model->search_tag!=''){
 
             \Yii::$app
@@ -665,7 +672,7 @@ class JudgmentMastController extends Controller
                       ->bindValue(':doid', $doc_id)
                       ->execute();
          
-          }
+          }*/
 
           $check = JudgmentMast::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
           
