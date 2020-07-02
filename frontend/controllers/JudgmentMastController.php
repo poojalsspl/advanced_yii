@@ -614,6 +614,22 @@ class JudgmentMastController extends Controller
       
     }
 
+    public function actionEdit($id)
+    {
+        $model = $this->findModel($id);
+        $username = \Yii::$app->user->identity->username;
+        if ($model->load(Yii::$app->request->post())) {
+          $jcode = $model->judgment_code;
+          $doc_id = $model->doc_id;
+           Yii::$app->session->setFlash('success', "Updated successfully!!");
+                $model->save();
+           return $this->redirect(['update', 'id' => $jcode]);
+      }
+      return $this->render('edit', [
+            'model' => $model,
+        ]);
+    }
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -630,12 +646,16 @@ class JudgmentMastController extends Controller
           if($model->bench_type_id!=''){
           $model->bench_type_text = $model->judgmentBenchType->bench_type_text;
          }
+         if($model->court_code!=''){
+          $model->court_name = $model->courtCode->court_name;
+         }
             
           if($model->jcatg_id!=''){
             $jcatg = new JcatgMast();
             $jcatg_desc = $jcatg->getCatgName($model->jcatg_id);
             $model->jcatg_description = $jcatg_desc;
            }
+
            /*if($model->jsub_catg_description!=''){
             $model->jsub_catg_id = $model->jsub_catg_description;
           $model->jsub_catg_description = $model->jsubCatg->jsub_catg_description;
@@ -694,6 +714,23 @@ class JudgmentMastController extends Controller
             'model' => $model,
         ]);
     }
+
+     public function actionSubcat() {
+        $out = [];
+        $statemodel = new CourtMast();
+        if (isset($_POST['depdrop_parents'])) {
+            
+        $parents = $_POST['depdrop_parents'];
+        if ($parents != null) {
+            $cat_id = $parents[0];
+            $out =  $statemodel->getBenchList($cat_id); 
+                   return \yii\helpers\Json::encode(['output'=>$out, 'selected'=>'']);
+        }
+        }
+
+         echo \yii\helpers\Json::encode(['output'=>'', 'selected'=>'']);
+
+        }
 
     public function actionSuccess($jcode="",$doc_id="")
     {

@@ -16,6 +16,7 @@ use frontend\models\JudgmentBenchType;
 use frontend\models\JudgmentDisposition;
 use frontend\models\JudgmentJurisdiction;
 use yii\helpers\Url;
+use kartik\widgets\DepDrop;
 
 
 /* @var $this yii\web\View */
@@ -70,8 +71,8 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 
 <div class="tabs">
 
-<?= Html::a('Judgments',['/judgment-mast/update','id'=>$jcode],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
-
+<?= Html::a('Judgment1',['/judgment-mast/edit','id'=>$jcode],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
+<?= Html::a('Judgment2',['/judgment-mast/update','id'=>$jcode],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
 <?php echo Html::a('Lawyers Appeared',[$advocate,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$advocatecls ]) ?>
 <?= Html::a('Judges Bench',[$judge,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$judgecls ]) ?>
 
@@ -115,59 +116,20 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
             <div class="col-md-3 col-xs-12">
 <?php $courts = ArrayHelper::map(CourtMast::find()->where(['is', 'parent_court_code', new \yii\db\Expression('null')])->all(), 'court_code', 'court_name'); 
 
-?>
-<?= $form->field($model, 'court_name')->widget(Select2::classname(), [
-        'data' => $courts,
-        'options' => ['placeholder' => 'Select court '],
-         'pluginEvents'=>[
-          ]
-          ]); ?>
-
-            <?php /*echo $form->field($model, 'court_name')->textInput(['readonly'=> true]);*/?> 
-                           
-           <?= $form->field($model, 'court_code')->hiddenInput(['readonly'=>true])->label(false); ?>
-           <?php $appeal_hint = '(crl.) 1230 of  1998'?>
-           <?=  $form->field($model, 'appeal_numb',['hintType' => ActiveField::HINT_SPECIAL])->hint($appeal_hint) ?> 
-
-           <?= $form->field($model, 'judgment_type')->dropDownList(["0"=>'Order', "1"=>"Oral Order","2"=>"Judgment"],['prompt'=>'Select Judgment Type']) ?>
-
-           
-
-             </div>
-        <div class="col-md-3 col-xs-12">
-<?php
-$benchType    = ArrayHelper::map(JudgmentBenchType::find()->all(), 'bench_type_id', 'bench_type_text'); 
-$disposition  = ArrayHelper::map(JudgmentDisposition::find()->all(), 'disposition_id', 'disposition_text'); 
-$jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_jurisdiction_id', 'judgment_jurisdiction_text'); 
 $jcatg_description = ArrayHelper::map(JcatgMast::find()->orderBy('jcatg_description')->all(),'jcatg_id','jcatg_description');
 
 ?>
 
-<?= $form->field($model, 'bench_type_id')->widget(Select2::classname(), [
-        'data' => $benchType,
-        'options' => ['placeholder' => 'Select Judgment Bench Type'],
-         'pluginEvents'=>[
-          ]
-          ]); ?>
-          
-<?= $form->field($model, 'disposition_id')->widget(Select2::classname(), [
-          
-          'data' => $disposition,
-          //'language' => '',
-          'options' => ['placeholder' => 'Select Judgment Disposition'],
-          'pluginEvents'=>[
-            ]
-          ]); ?>   
-           <?php /*echo $form->field($model, 'jcatg_id')->widget(Select2::classname(), [
-          
-          'data' => $j_catg,
-          //'language' => '',
-          'options' => ['placeholder' => 'Select judgment category'],
-          'pluginEvents'=>[
-            ]
-          ]);*/ ?> 
+    <?php
+  echo $form->field($model, 'court_code')->dropDownList($courts, ['id'=>'court_code','prompt'=>'Select court for the judgment'])->label('Court Name');?>
 
-          <?= $form->field($model, 'jcatg_description')->widget(Select2::classname(), [
+            <?php /*echo $form->field($model, 'court_name')->textInput(['readonly'=> true]);*/?> 
+                           
+           
+           <?php $appeal_hint = '(crl.) 1230 of  1998'?>
+           <?=  $form->field($model, 'appeal_numb',['hintType' => ActiveField::HINT_SPECIAL])->hint($appeal_hint) ?> 
+
+            <?= $form->field($model, 'jcatg_description')->widget(Select2::classname(), [
             'data' => $jcatg_description,           
             'options' => ['placeholder' => 'Select Judgment Category','value' => ($model->jcatg_id != "") ? $model->jcatg_id : ''],
       'pluginEvents'=>[
@@ -192,6 +154,58 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->orderBy('jcatg_descript
 
              ]); ?>
 
+           
+
+             </div>
+        <div class="col-md-3 col-xs-12">
+<?php
+$benchType    = ArrayHelper::map(JudgmentBenchType::find()->all(), 'bench_type_id', 'bench_type_text'); 
+
+$jurisdiction = ArrayHelper::map(JudgmentJurisdiction::find()->all(), 'judgment_jurisdiction_id', 'judgment_jurisdiction_text'); 
+
+
+?>
+
+<?php /* $form->field($model, 'bench_code')->widget(Select2::classname(), [
+        'data' => $courts,
+        'options' => ['placeholder' => 'Select bench court for the judgment '],
+         'pluginEvents'=>[
+          ]
+          ])->label('Bench of the court if exists'); */?>
+          <?=$form->field($model, 'bench_code')->widget(DepDrop::classname(), [
+                                  'data'=>ArrayHelper::map(CourtMast::find()->all(), 'bench_code', 'court_name' ),
+                                  'options'=>['id'=>'bench_code', 'placeholder' => 'Select bench court for the judgment'],
+
+          'pluginOptions'=>[
+                            'depends'=>['court_code'],
+                            'placeholder'=>'Select bench court for the judgment',
+                            'url'=>\yii\helpers\Url::to(['/judgment-mast/subcat'])
+                           ]
+          ])->label('Bench of the court if exists');?>
+
+           
+
+<?= $form->field($model, 'bench_type_id')->widget(Select2::classname(), [
+        'data' => $benchType,
+        'options' => ['placeholder' => 'Select Judgment Bench Type'],
+         'pluginEvents'=>[
+          ]
+          ]); ?>
+
+          
+  
+          
+           <?php 
+      $jsub_catg_description = ($model->jsub_catg_id != "") ?  ArrayHelper::map(JsubCatgMast::find()->where(["jsub_catg_id"=>$model->jsub_catg_id])->all(), 'jsub_catg_id', 'jsub_catg_description') : "" ; ?>
+    
+      <?= $form->field($model, 'jsub_catg_description')->dropDownList([
+        'data' => $jsub_catg_description,
+        'prompt' => 'Select sub category'
+        ]);?>
+        <?= $form->field($model, 'jsub_catg_id')->HiddenInput(['readonly'=>true])->label(false); ?>
+
+         
+
       <?= $form->field($model, 'jcatg_id')->HiddenInput(['readonly'=>true])->label(false); ?>
           
         </div>
@@ -200,7 +214,7 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->orderBy('jcatg_descript
           
           'data' => $jurisdiction,
           //'language' => '',
-          'options' => ['placeholder' => 'Select judgment_jurisdiction'],
+          'options' => ['placeholder' => 'Select judgment jurisdiction'],
           'pluginEvents'=>[
             ]
           ]); ?>
@@ -212,20 +226,32 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->orderBy('jcatg_descript
       ],
   ])->hint('YYYY-MM-DD');
     ?>
-     <?php 
-      $jsub_catg_description = ($model->jsub_catg_id != "") ?  ArrayHelper::map(JsubCatgMast::find()->where(["jsub_catg_id"=>$model->jsub_catg_id])->all(), 'jsub_catg_id', 'jsub_catg_description') : "" ; ?>
     
-      <?= $form->field($model, 'jsub_catg_description')->dropDownList([
-        'data' => $jsub_catg_description,
-        'prompt' => 'Select sub category'
-        ]);?>
-        <?= $form->field($model, 'jsub_catg_id')->HiddenInput(['readonly'=>true])->label(false); ?>
-      
+      <?= $form->field($model, 'appeal_count')->radioList(["S"=>'Single', "M"=>"Multiple"]) ?>  
+           <?php /*echo $form->field($model, 'jcatg_id')->widget(Select2::classname(), [
+          
+          'data' => $j_catg,
+          //'language' => '',
+          'options' => ['placeholder' => 'Select judgment category'],
+          'pluginEvents'=>[
+            ]
+          ]);*/ ?> 
    
                                
         </div>
         <div class="col-md-3 col-xs-12">
-          <?= $form->field($model, 'appeal_count')->radioList(["S"=>'Single', "M"=>"Multiple"]) ?> 
+          <?= $form->field($model, 'judgment_type')->dropDownList(["0"=>'Order', "1"=>"Oral Order","2"=>"Judgment"],['prompt'=>'Select Judgment Type']) ?>
+          <?php
+          $disposition  = ArrayHelper::map(JudgmentDisposition::find()->all(), 'disposition_id', 'disposition_text'); 
+          ?>
+          <?= $form->field($model, 'disposition_id')->widget(Select2::classname(), [
+          
+          'data' => $disposition,
+           'options' => ['placeholder' => 'Select Judgment Disposition'],
+          'pluginEvents'=>[
+            ]
+          ]); ?>
+          
         </div>
   </div>
   <div class="col-md-12">
@@ -281,15 +307,10 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->orderBy('jcatg_descript
 <div class="row">
     <div class="box box-blue">
         <div class="box-body">
-            <div class="col-md-12">
-               
-                <?= $form->field($model, 'judgment_text1')->textarea(['readonly'=>true]) ?>
-               
-                
-            </div>
+            
             <div class="col-md-12 col-xs-12">
                 
-                 <?= $form->field($model, 'judgment_text')->textarea(['rows' => 8]) ?>
+                 <?= $form->field($model, 'judgment_text')->textarea(['readonly'=>true]) ?>
                 </div>
                      
         </div>

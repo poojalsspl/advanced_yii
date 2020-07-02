@@ -49,7 +49,7 @@ foreach ($student_name as $student) {
             'buttons' => [
                 
                'Edit' => function ($url, $model, $key) {
-                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id'=>$model->judgment_code]);
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['edit', 'id'=>$model->judgment_code]);
             },
              
                 'format' => 'raw',
