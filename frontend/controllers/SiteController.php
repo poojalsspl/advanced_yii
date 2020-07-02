@@ -101,6 +101,11 @@ class SiteController extends Controller
     ]);
     }
 
+    public function actionAdmin3()
+    {
+      return $this->render('admin3');
+    } 
+
     /**
      * Logs in a user.
      *
@@ -543,7 +548,7 @@ class SiteController extends Controller
 
      public function actionStudentDoc()
     {
-        $user = new LoginForm();
+        $user = new LoginForm(); 
         $id = Yii::$app->user->identity->id;
         $model = new StudentDocs();
 
@@ -567,6 +572,19 @@ class SiteController extends Controller
             $model->doc_tenth = UploadedFile::getInstance($model, 'doc_tenth');
             $model->doc_twelve = UploadedFile::getInstance($model, 'doc_twelve');
             $model->doc_id_proof = UploadedFile::getInstance($model, 'doc_id_proof');
+            // if ($model->marksheet){
+            //   $marksheet = mt_rand(1, 99);
+            //   $model->marksheet = UploadedFile::getInstance($model, 'marksheet');
+            //   $model->marksheet->saveAs('uploads/'.$path.'/'.$marksheet.'.'.$model->marksheet->extension );
+            //   $model->marksheet = $path.'/'.$marksheet.'.'.$model->marksheet->extension;
+            // }
+
+            // if ($_POST['StudentDocs']['passing_certificate']){
+            //   $passing_certificate = mt_rand(100, 999);
+            //   $model->passing_certificate = UploadedFile::getInstance($model, 'passing_certificate');
+            //   $model->passing_certificate->saveAs('uploads/'.$path.'/'.$passing_certificate.'.'.$model->passing_certificate->extension );
+            //   $model->passing_certificate = $path.'/'.$passing_certificate.'.'.$model->passing_certificate->extension;
+            // }
 
             $model->doc_tenth->saveAs('uploads/'.$path.'/'.$doc_tenth.'.'.$model->doc_tenth->extension );
             $model->doc_twelve->saveAs('uploads/'.$path.'/'.$doc_twelve.'.'.$model->doc_twelve->extension );

@@ -14,7 +14,7 @@ $this->title = 'My Yii Application';
     padding-top: 112px;
     padding-bottom: 112px;
 }*/
-.text-center {
+/*.text-center {
     text-align: center!important;
 }
 .bg-light {
@@ -24,7 +24,7 @@ $this->title = 'My Yii Application';
 }
 .features-icons .features-icons-item .features-icons-icon i {
     font-size: 50px;
-}
+}*/
 span h1{
     color: #185886;
     } 
@@ -35,65 +35,7 @@ span h1{
         background-color:#185886; 
         color: #ffffff;
     }
-    #section-testimonial {
-    padding-bottom: 50px;
-    padding-top: 50px;
-    background: #F9FAFF;
-}
-.align-items-center {
-    -ms-flex-align: center!important;
-    align-items: center!important;
-}
-#section-testimonial.row {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-#section-testimonial @media (min-width: 992px)
-.col-lg-4 {
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
-}
-#section-testimonial .test-inner:hover {
-    -webkit-box-shadow: 0 7px 22px rgba(0, 0, 0, 0.08);
-    box-shadow: 0 7px 22px rgba(0, 0, 0, 0.08);
-}
-#section-testimonial .test-inner {
-    position: relative;
-    padding: 30px;
-    background: #fff;
-    border-top-right-radius: 35px;
-    margin-bottom: 25px;
-    -webkit-transition: all .7s ease;
-    -o-transition: all .7s ease;
-    transition: all .7s ease;
-}
-#section-testimonial .test-author-thumb {
-    margin-bottom: 15px;
-}
-#section-testimonial .d-flex {
-    display: -ms-flexbox!important;
-    display: flex!important;
-}
-.test-author-thumb img {
-    width: 90px;
-    height: 90px;
-    border-radius: 100%;
-    border: 1px dotted #ddd;
-    padding: 5px;
-}
-.img-fluid {
-    max-width: 100%;
-    height: auto;
-}
-#section-testimonial img {
-    vertical-align: middle;
-    border-style: none;
-}
+
 
 .imageCarousel .item img {
     width: 50%;
@@ -231,7 +173,7 @@ span h1{
                 
                 <h3>Workshop Case Law Research</h3>
                 <hr>
-                <p>Case Law Research is a 2 days workshop related with the various case laws delivered by india court of law.This 2 days online case law research workshop is custom designed for law students. An online platform is provided to the law student to analysis and research in depth the various case law and generate the data points that are available in the case law and each data point has it own important in research a case law with a relevant objective</p>
+                <p>Case Law Research is a workshop related with the various case laws delivered by india court of law.This is an online program. Case law research workshop is custom designed for law students.online platform is provided to the law student to research in depth the various case law and generate the fixed data points in case laws.The objective of the workshop is to make an student understand the fixed data pointsin a case law.A luacnhing pad law research workshop for law foreeig themself as legal research analyst.</p>
              <p><a class="btn btn_new" href="course-mast/view/?id=CLRW">Read More &raquo;</a>
                
                 </p>
@@ -239,7 +181,7 @@ span h1{
             <div class="col-lg-6">
                 <h3>Diploma in Case Law Research & Analytics</h3>
                 <hr>
-                <p>This course includes in depth study of Judgments delivered by various High Courts, Tribunals and Supreme Court of India. The diploma in case law analytic and research provides a strong foundation and a launching pad......... </p>
+                <p>This Diploma course includes in depth study of Judgments delivered by various High Courts, Tribunals and Supreme Court of India. The diploma in case law analytic and research provides a strong foundation and a launching pad for students looking to persue their career as law research analyst. The study of variable data point in the predefined case law elements enables the law research students to understand various fixed and variable data point in judgments that has impact in the final disposition of judgments.....</p>
 
                 <p> <?= Html::a('Read More ' . "&raquo;",'course-mast/view/?id=ADCLR002', ['class' => 'btn btn_new'])?></p>
             </div>
@@ -269,12 +211,12 @@ span h1{
                                <div class="test-author-thumb d-flex">
                                    <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
                                    <div class="test-author-info">
-                                       <a href="web-articles/view/?id=4"><h4>Will Barrow</h4></a>
-                                       <h6>Sunrise Paradise Hotel</h6>
+                                       <a href="web-articles/view/?id=4"><h4>AI & Law</h4></a>
+                                       <h6>Can AI Replace Law</h6>
                                    </div>
                                </div>
 
-                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+                                AI, term used for Artificial intellegence,is like robots replacing humans. As many companies are now focusing AI in law.Question that arises,can lawyers be replaced by Robots or Machines. While we all know computers work on digital data or boolean for, while human mind follows the lograthmic nature of thought.
 
                                 <i class="fa fa-quote-right"></i>
                             </div>
@@ -285,12 +227,12 @@ span h1{
                                <div class="test-author-thumb d-flex">
                                    <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
                                    <div class="test-author-info">
-                                       <a href="web-articles/view/?id=4"><h4>Will Barrow</h4></a>
-                                       <h6>Sunrise Paradise Hotel</h6>
+                                       <a href="web-articles/view/?id=4"><h4>Roles Of Legal Analyst</h4></a>
+                                       <h6>Legal Analyst responsibilities</h6>
                                    </div>
                                </div>
 
-                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+                                 A legal analyst works mainly in a law firm.Legal analyst is a law research professional. The roles are pertaining to the various activities in legal proceedings. The roles of the legal analyst depends on the experiance and the level of responsibilities allocated.Among the gammut of roles main can be the case law research.
 
                                 <i class="fa fa-quote-right"></i>
                             </div>
@@ -300,12 +242,12 @@ span h1{
                                <div class="test-author-thumb d-flex">
                                    <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
                                    <div class="test-author-info">
-                                       <a href="web-articles/view/?id=4"><h4>Will Barrow</h4></a>
-                                       <h6>Sunrise Paradise Hotel</h6>
+                                       <a href="web-articles/view/?id=4"><h4>Law Analytics</h4></a>
+                                       <h6>Data Driven Legal Analtics</h6>
                                    </div>
                                </div>
 
-                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+                                Law Analytics as seems to be still in the sunrise era, but its time this market can shiver the tech arena of Law. The law analytics mainly data driven and machines can supplement the law reasearch profession to dig data for analysis and research. Law Analytics can also have a impact on the nature of business of Law companies,save time.
 
                                 <i class="fa fa-quote-right"></i>
                             </div>
@@ -318,12 +260,12 @@ span h1{
                                <div class="test-author-thumb d-flex">
                                    <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
                                    <div class="test-author-info">
-                                       <h4>Will Barrow</h4>
-                                       <h6>Sunrise Paradise Hotel</h6>
+                                       <h4>Case Law Analytics</h4>
+                                       <h6>Data points with Value</h6>
                                    </div>
                                </div>
 
-                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+                                Case laws are one of the most researched documents among the legal fraternity. Addding weight to the case law research,is case law analytics.Case Law analtics can always influence the the way lawyers appears with their legal proceedings. The Case Law Analytics enables the lawyers to stay focused on the key points with efficient use can help in predictive analysis.
 
                                 <i class="fa fa-quote-right"></i>
                             </div>
@@ -333,12 +275,13 @@ span h1{
                                <div class="test-author-thumb d-flex">
                                    <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
                                    <div class="test-author-info">
-                                       <h4>Will Barrow</h4>
-                                       <h6>Sunrise Paradise Hotel</h6>
+                                       <h4>Big Data In Law</h4>
+                                       <h6>Data Mining in Law</h6>
                                    </div>
                                </div>
 
-                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+                                Big Data and Datamining is taking on the law.Legal data means volumes of data,dig data.Data Mining of legal data assist in descision making,arguments made by lawyers in a court of law. Law companies and lawyers are now exploring the legal data that has been influencing the lawyer in the process of the complete legal proceedings.
+
 
                                 <i class="fa fa-quote-right"></i>
                             </div>
@@ -348,12 +291,12 @@ span h1{
                                <div class="test-author-thumb d-flex">
                                    <img src="/advanced_yii/frontend/web/images/landing/test-1.jpg" alt="Testimonial author" class="img-fluid">
                                    <div class="test-author-info">
-                                       <h4>Will Barrow</h4>
-                                       <h6>Sunrise Paradise Hotel</h6>
+                                       <h4>Legal Data Science</h4>
+                                       <h6>Legal Data With Graphical Charts</h6>
                                    </div>
                                </div>
 
-                                Quas ut distinctio tenetur animi nihil rem, amet dolorum totam. Ab repudiandae tempore qui fugiat amet ipsa id omnis ipsam, laudantium! Dolorem.
+                        Legal Data Science is blossoming in legal arena.Legal data growth is prolific,data science is like a loaded ship on deck, set to sail deep seas. Legal Data Science in simple worlds are scraping of valuable information from the unstructed legal data and presenting in a format that makes decision making easy.Legal Data Science combines with Law data & analytics.
 
                                 <i class="fa fa-quote-right"></i>
                             </div>
@@ -387,7 +330,7 @@ span h1{
                         <div class="item active">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <img src="/advanced_yii/frontend/web/images/college_logo/adlaw-logo.png" class="img-responsive">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/8.jpg" class="img-responsive">
                                     <!-- <div class="carousel-caption">
                                         <h3>Dr. R. K. Barua Law College</h3>
                                         <p>Dibrugarh</p>
@@ -401,7 +344,7 @@ span h1{
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <img src="/advanced_yii/frontend/web/images/college_logo/logo_pioneer.png" class="img-responsive">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/46.jpg" class="img-responsive">
                                    <!--  <div class="carousel-caption">
                                         <h3>C. R. R. Law College</h3>
                                         <p>Eluru</p>
@@ -415,7 +358,7 @@ span h1{
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <img src="/advanced_yii/frontend/web/images/college_logo/advocate_mail.png" class="img-responsive">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/81.jpg" class="img-responsive">
                                    <!--  <div class="carousel-caption">
                                         <h3>Arunachal Law Academy,</h3>
                                         <p>Itanagar</p>
@@ -433,7 +376,7 @@ span h1{
                         <div class="item">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <img src="/advanced_yii/frontend/web/images/college_logo/adlaw-logo.png" class="img-responsive">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/82.jpg" class="img-responsive">
                                     <!-- <div class="carousel-caption">
                                         <h3>Dr. R. K. Barua Law College</h3>
                                         <p>Dibrugarh</p>
@@ -447,7 +390,7 @@ span h1{
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <img src="/advanced_yii/frontend/web/images/college_logo/logo_pioneer.png" class="img-responsive">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/122.jpg" class="img-responsive">
                                    <!--  <div class="carousel-caption">
                                         <h3>C. R. R. Law College</h3>
                                         <p>Eluru</p>
@@ -461,7 +404,7 @@ span h1{
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <img src="/advanced_yii/frontend/web/images/college_logo/advocate_mail.png" class="img-responsive">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/154.jpg" class="img-responsive">
                                  <!--    <div class="carousel-caption">
                                         <h3>Arunachal Law Academy,</h3>
                                         <p>Itanagar</p>
@@ -480,7 +423,7 @@ span h1{
                         <div class="item">
                             <div class="row">
                                 <div class="col-sm-2">
-                                    <img src="/advanced_yii/frontend/web/images/college_logo/adlaw-logo.png" class="img-responsive">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/169.jpg" class="img-responsive">
                                     <!-- <div class="carousel-caption">
                                         <h3>Dr. R. K. Barua Law College</h3>
                                         <p>Dibrugarh</p>
@@ -494,7 +437,7 @@ span h1{
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <img src="/advanced_yii/frontend/web/images/college_logo/logo_pioneer.png" class="img-responsive">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/178.jpg" class="img-responsive">
                                     <!-- <div class="carousel-caption">
                                         <h3>C. R. R. Law College</h3>
                                         <p>Eluru</p>
@@ -508,7 +451,7 @@ span h1{
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <img src="/advanced_yii/frontend/web/images/college_logo/advocate_mail.png" class="img-responsive">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/276.jpg" class="img-responsive">
                                     <!-- <div class="carousel-caption">
                                         <h3>Arunachal Law Academy,</h3>
                                         <p>Itanagar</p>
@@ -554,21 +497,27 @@ span h1{
                     <div class="carousel-inner"> -->
 <?php
 // $i=0;
-// foreach($models as $item) {
 //   echo "<div class='item active'>";
 //   echo "<div class='row'>";
+// foreach($models as $item) {
+
+  
 //       echo "<div class='col-xs-4'>";
       
-//     echo  Html::img('@web/images/college_logo/'.$item->college_logo, ['class' => 'img-responsive']);
+//     echo  Html::img('@web/images/college_logo/'.$item->college_logo, ['class' => 'img-responsive','style' => 'width:50px;height: 50px']);
 //         echo "<span><b>".$item->college_name."</b></span><br>";
 //          echo "<span>".$item->city_name."</span>";
 //       echo '</div>';
-//   echo '</div>';
-//   echo '</div>';
+ 
+ 
 //   $i++;
-//   if ($i % 10 == 0) {echo '</div><div class="row">';}
+//  // if ($i % 10 == 0) {echo '</div><div class="row">';}
 // }
+//  echo '</div>';
+//   echo '</div>';
 ?>
+
+
 <!-- </div>
 <a href="#imageCarousel" class="carousel-control left" data-slide="prev">
                         <span class="glyphicon glyphicon-chevron-left"></span>
@@ -579,7 +528,165 @@ span h1{
 </div>
 </div>
 </div>
-</div>
- -->
+</div> -->
+
 
 <!-----==============================---->
+<hr>
+<div class="container">
+<div class='row'>
+  <div class="col-sm-12">
+     <div id="imageCarousel" class="carousel slide" data-interval="2000"
+                     data-ride="carousel" data-pause="hover" data-wrap="true">
+                     <ol class="carousel-indicators">
+                        <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#imageCarousel" data-slide-to="1"></li>
+                        <li data-target="#imageCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+<?php
+
+$i = 0;
+foreach ($models as $item) {
+
+if ($i == 0) {
+    echo '<div class="item active"><div class="row"><div class="col-sm-4"><img class="img-responsive" src="frontend/web/images/college_logo/' . $item->college_logo . '" >' .$item->college_name . ': <br><strong>' .$item->city_name . '</strong></div></div></div>';
+    
+
+} else {
+    echo '<div class="item"><div class="row"><div class="col-xs-4"><img class="img-responsive" src="frontend/web/images/college_logo/' . $item->college_logo . '" >' .$item->college_name . ': <br><strong>' .$item->city_name . '</strong></div></div></div>';
+}
+$i++;
+}
+   
+?>
+</div>
+<a href="#imageCarousel" class="carousel-control left" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a href="#imageCarousel" class="carousel-control right" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+</div>
+</div>
+</div>
+</div>
+
+
+<hr style="color:#E5735A">
+<hr style="color:#9AEA54 ">
+
+  <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div id="imageCarousel 1" class="carousel slide" data-interval="2000"
+                     data-ride="carousel" data-pause="hover" data-wrap="true">
+
+                    <ol class="carousel-indicators">
+                        <li data-target="#imageCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#imageCarousel" data-slide-to="1"></li>
+                        <li data-target="#imageCarousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="row">
+                               <?php 
+                                     /*$logo = $models[0]['college_logo'];
+                                     $logo1 = $models[1]['college_logo'];
+                                     $logo2 = $models[2]['college_logo'];*/
+                               ?>
+                                <div class="col-sm-2">
+
+                                  <img src="/advanced_yii/frontend/web/images/college_logo/<?php //echo $logo;?>" class="img-responsive">
+                                    <?php //echo $models[0]['college_name'] ?><br>
+                                    <b><?php //echo $models[0]['city_name'] ?></b>
+                                    <!-- <div class="carousel-caption">
+                                        <h3>Dr. R. K. Barua Law College</h3>
+                                        <p>Dibrugarh</p>
+                                    </div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="" class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3></h3>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                   <img src="/advanced_yii/frontend/web/images/college_logo/<?php //echo $logo1;?>" class="img-responsive">
+                                   <?php //echo $models[1]['college_name'] ?><br>
+                                   <b><?php //echo $models[1]['city_name'] ?></b>
+                                   <!--  <div class="carousel-caption">
+                                        <h3>C. R. R. Law College</h3>
+                                        <p>Eluru</p>
+                                    </div> -->
+                                </div>
+                                <div class="col-sm-2">
+                                    <img src="" class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3></h3>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                   <img src="/advanced_yii/frontend/web/images/college_logo/<?php //echo $logo2;?>" class="img-responsive">
+                                   <?php //echo $models[2]['college_name'] ?><br>
+                                   <b><?php //echo $models[2]['city_name'] ?></b>
+                                   <!--  <div class="carousel-caption">
+                                        <h3>Arunachal Law Academy,</h3>
+                                        <p>Itanagar</p>
+                                    </div> -->
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="item">
+                          <div class="row">
+                          <?php 
+                          $count = 0;
+                          //$x = print_r(array_chunk($models, 2));
+                          foreach ($models as $singlemodel){
+                            
+                            ?>
+                            
+                                <div class="col-sm-4">
+                                    <img src="/advanced_yii/frontend/web/images/college_logo/<?php echo $singlemodel->college_logo; ?>" class="img-responsive">
+                                    <?php echo $singlemodel->college_name; ?><br>
+                                    <?php echo $singlemodel->city_name; ?>
+                                </div>
+                                
+
+                                
+                           
+                          <?php } ?>
+                           </div>
+                        </div>
+
+
+                    </div>
+
+                    <a href="#imageCarousel" class="carousel-control left" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a href="#imageCarousel" class="carousel-control right" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <?php
+
+$this->registerJs("$('.carousel').each(function(e){
+      
+     console.log('hello');
+        });
+          ");
+
+
+
+  ?>

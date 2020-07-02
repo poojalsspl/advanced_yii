@@ -21,6 +21,7 @@ use frontend\models\StateMast;
 use frontend\models\CityMast;
 use frontend\models\StudentDocs;
 use sjaakp\gcharts\PieChart;
+use frontend\models\Project;
 
 $username = Yii::$app->user->identity->username;
 //$this->params['breadcrumbs'][] = $this->title;
@@ -281,7 +282,7 @@ $this->title = 'Dashboard';
                 </div>
                 <div class="col-md-9">
                     <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-pills">
                             <li class="active"><a href="#timeline" data-toggle="tab">Summary</a></li>
                            <li><a href="#activity" data-toggle="tab">Charts</a></li>
                         </ul>
@@ -295,10 +296,16 @@ $this->title = 'Dashboard';
                                             <span class="time"></span>
                                             <h3 class="timeline-header"><a href="#"></a></h3>
                                             <div class="timeline-body">
-                                               <a class="btn btn-primary" href="/advanced_yii/judgment-mast/index">Stage - 1</a>
+                                             
+                                               <a class="btn btn-primary" href="/advanced_yii/judgment-mast/index">Judgments</a>
                                                <?php if ($course_code == 'RCCLRW01'){ ?>
-                                                <a class="btn btn-primary" href="/advanced_yii/project">Stage - 2</a>
-                                                <?php   } ?>
+                                               <?php $pro_check = Project::find()->where(['username'=>$username])->one();
+                                                $project_id = $pro_check['id'];
+                                                if ($project_id == ''){ ?>
+                                                <a class="btn btn-primary" href="/advanced_yii/project/create">Project Report</a>
+                                                <?php }else{ ?>
+                                                 <a class="btn btn-primary" href="/advanced_yii/project/update?id=<?php echo $project_id ;?>">Project Report</a>
+                                                <?php }  } ?>
 
                                                  <?php if ($course_code == 'RDCLRA01'){ ?>  
                                                 <a class="btn btn-primary" href="/advanced_yii/judgment-mast/j-element-list">Stage - 2</a>
