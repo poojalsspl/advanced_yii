@@ -19,7 +19,7 @@ class JudgmentMastSearch extends JudgmentMast
     {
         return [
             [['judgment_code', 'court_code', 'jcatg_id', 'jsub_catg_id'], 'integer'],
-            [['court_name', 'appeal_numb', 'judgment_date', 'judgment_title', 'appeal_status','judgment_abstract', 'judgment_text', 'judgment_type', 'jcatg_description', 'jsub_catg_description','overruled_by_judgment','completion_date'], 'safe'],
+            [['court_name', 'appeal_numb', 'judgment_date', 'judgment_title', 'appeal_status','judgment_abstract', 'judgment_text', 'judgment_type', 'jcatg_description', 'jsub_catg_description','overruled_by_judgment','completion_date','start_date'], 'safe'],
         ];
     }
 
@@ -66,6 +66,7 @@ class JudgmentMastSearch extends JudgmentMast
             'judgment_abstract' => $this->judgment_abstract,
             'jcatg_id' => $this->jcatg_id,
             'jsub_catg_id' => $this->jsub_catg_id,
+            'start_date' => $this->start_date,
             'completion_date' => $this->completion_date,
          ]);
 

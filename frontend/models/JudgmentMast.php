@@ -161,6 +161,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'search_tag'               => 'Search Tag',
             'search_tag_count'         => 'Search Tag Count',   
             'username'                 => 'Username',
+            'start_date'               => 'Allocation Date',
             'bench_code'               => 'Bench Code'
             
         ];

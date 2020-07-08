@@ -40,7 +40,7 @@ foreach ($student_name as $student) {
             'court_name',
             'judgment_date',
             'completion_date',
-            //'jyear',
+            'start_date',
             
 
            ['class' => 'yii\grid\ActionColumn',
