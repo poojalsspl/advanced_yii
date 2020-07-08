@@ -31,12 +31,12 @@ class JudgmentAdvocate extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['judgment_code'], 'integer'],
-            [['judgment_code','advocate_name','advocate_flag'], 'required'],
+          
+            [['advocate_name','advocate_flag'], 'required'],
            
             [['advocate_flag'], 'string', 'max' => 1],
-            //[['doc_id'], 'string', 'max' => 40],
-            [['judgment_code'], 'exist', 'skipOnError' => true, 'targetClass' => JudgmentMast::className(), 'targetAttribute' => ['judgment_code' => 'judgment_code']],
+            [['doc_id'], 'string', 'max' => 40],
+           /* [['judgment_code'], 'exist', 'skipOnError' => true, 'targetClass' => JudgmentMast::className(), 'targetAttribute' => ['judgment_code' => 'judgment_code']],*/
         ];
     }
 
@@ -47,7 +47,7 @@ class JudgmentAdvocate extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'judgment_code' => 'Judgment Code',
+            
             'advocate_name' => 'Advocate Name',
             'advocate_flag' => 'Advocate Flag',
             'doc_id' => 'Doc ID',

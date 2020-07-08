@@ -14,13 +14,13 @@ use kartik\select2\Select2;
 $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
     if($_GET)
 {
-    $jcode = $_GET['jcode'];
+    //$jcode = $_GET['jcode'];
    
     $doc_id = $_GET['doc_id'];
 }
 ?>
 <p>If you are not getting proper category, you may insert manually</p>
-<a href="act?jcode=<?php echo $jcode?>&doc_id=<?php echo $doc_id?>" class="btn btn-success">Create</a>
+<a href="act?doc_id=<?php echo $doc_id?>" class="btn btn-success">Create</a>
 
 
 
@@ -62,8 +62,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
       <div class="box box-blue">
     <?php
 
-$judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcode])->all(),
-    'judgment_code',
+$judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->all(),
+    'doc_id',
     function($result) {
         return $result['court_name'].'::'.$result['judgment_title'];
     });

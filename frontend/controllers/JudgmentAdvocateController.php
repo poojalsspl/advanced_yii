@@ -66,7 +66,7 @@ class JudgmentAdvocateController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="",$doc_id="")
+    public function actionCreate($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $model = new JudgmentAdvocate();
@@ -77,7 +77,7 @@ class JudgmentAdvocateController extends Controller
               for($i=0;$i<$count;$i++)
             {
             $model = new JudgmentAdvocate();
-            $model->judgment_code = $jcode;
+            //$model->judgment_code = $jcode;
             $model->doc_id = $doc_id;
             $model->username = $username;
             $model->advocate_flag = $_POST['JudgmentAdvocate']['advocate_flag'][$i];
@@ -85,14 +85,14 @@ class JudgmentAdvocateController extends Controller
             // $judgment_code = $_POST['JudgmentAdvocate']['judgment_code']; 
             $model->save(); 
             }
-             $check = JudgmentAdvocate::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
+             $check = JudgmentAdvocate::find()->select('work_status')->where(['doc_id'=>$doc_id])->one();
              $count = $check->work_status;
           
              if($count==''){
-                \Yii::$app->db->createCommand("UPDATE judgment_advocate SET work_status = 'C' WHERE judgment_code=".$jcode." ")->execute();                
+                \Yii::$app->db->createCommand("UPDATE judgment_advocate SET work_status = 'C' WHERE doc_id=".$doc_id." ")->execute();                
                 Yii::$app->session->setFlash('success', "Created successfully!!");
                 $model->save();
-            return $this->redirect(['judgment-judge/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
+            return $this->redirect(['judgment-judge/create', 'doc_id'=>$doc_id]);
                 }
                 
             
@@ -124,20 +124,20 @@ class JudgmentAdvocateController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($jcode="",$doc_id="")
+    public function actionUpdate($doc_id="")
     {
          /*Yii::$app->session->setFlash('error', 'After succssfully submission of form once, you are not authorize to access this form again!');
                 return $this->render('message');*/
          $username = \Yii::$app->user->identity->username;
-         $model =  JudgmentAdvocate::find()->where(['judgment_code'=>$jcode])->one();
-         $judgmentAdvocate =$model->judgment_code;
+         $model =  JudgmentAdvocate::find()->where(['doc_id'=>$doc_id])->one();
+         //$judgmentAdvocate =$model->doc_id;
          $adv = new JudgmentAdvocate();
          if($adv->load(Yii::$app->request->post())) {
           
             \Yii::$app
             ->db
             ->createCommand()
-            ->delete('judgment_advocate', ['judgment_code' => $jcode])
+            ->delete('judgment_advocate', ['doc_id' => $doc_id])
             ->execute();
 
             $count =  count($_POST['JudgmentAdvocate']['advocate_flag']);                
@@ -145,18 +145,19 @@ class JudgmentAdvocateController extends Controller
             {
           
             $advocate = new JudgmentAdvocate();
-            $advocate->judgment_code  = $judgmentAdvocate;
+            //$advocate->judgment_code  = $judgmentAdvocate;
             $advocate->doc_id = $doc_id;
             $advocate->username = $username;
+            $advocate->work_status = 'C';
             $advocate->advocate_flag = $_POST['JudgmentAdvocate']['advocate_flag'][$i];
             $advocate->advocate_name = $_POST['JudgmentAdvocate']['advocate_name'][$i];                        
             $advocate->save(); 
      
             }
 
-             if($jcode!="" && $doc_id!=""){ 
+             if($doc_id!=""){ 
                 Yii::$app->session->setFlash('success', "Updated successfully!!");
-            return $this->redirect(['update', 'jcode'=>$jcode, 'doc_id'=>$doc_id ]);
+            return $this->redirect(['update',  'doc_id'=>$doc_id ]);
              /* Yii::$app->getSession()->setFlash('success',' Updated Successfully'); 
                         $this->redirect(['judgment-mast/judgmentupdate', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);*/    
                 }

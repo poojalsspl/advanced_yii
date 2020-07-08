@@ -22,18 +22,18 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
 
 <!------start of form------>
 <?php
-    $jcode  = '';
+    //$jcode  = '';
     $doc_id = '';
     
 if($_GET)
 {
-    $jcode  = $_GET['jcode'];
+    //$jcode  = $_GET['jcode'];
     $doc_id  = $_GET['doc_id'];
    
 }
 
-$judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcode])->all(),
-    'judgment_code',
+$judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->all(),
+    'doc_id',
     function($result) {
         return $result['court_name'].'::'.$result['judgment_title'];
     });

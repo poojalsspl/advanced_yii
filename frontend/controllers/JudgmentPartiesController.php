@@ -64,7 +64,7 @@ class JudgmentPartiesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="",$doc_id="")
+    public function actionCreate($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $model = new JudgmentParties();
@@ -72,14 +72,14 @@ class JudgmentPartiesController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $count =  count($_POST['JudgmentParties']['party_flag']);
-            $judgmentParties = $jcode;
-            $judgment_code = $jcode;
+            //$judgmentParties = $jcode;
+            //$judgment_code = $jcode;
             for($i=0;$i<$count;$i++)
             {
             $model = new JudgmentParties();
             if($_POST['JudgmentParties']['party_name'][$i] !='')
             {
-            $model->judgment_code  = $judgmentParties;
+            //$model->judgment_code  = $judgmentParties;
             $model->doc_id  = $doc_id;
             $model->username  = $username;
             $model->party_flag = $_POST['JudgmentParties']['party_flag'][$i];
@@ -89,13 +89,13 @@ class JudgmentPartiesController extends Controller
             }
             } 
 
-            $check = JudgmentParties::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
+            $check = JudgmentParties::find()->select('work_status')->where(['doc_id'=>$doc_id])->one();
              $count = $check->work_status;
              if($count==''){ 
-                \Yii::$app->db->createCommand("UPDATE judgment_parties SET work_status = 'C' WHERE judgment_code=".$jcode." ")->execute();                
+                \Yii::$app->db->createCommand("UPDATE judgment_parties SET work_status = 'C' WHERE doc_id=".$doc_id." ")->execute();                
                  Yii::$app->session->setFlash('success', "Created successfully!!");
                  $model->save();
-            return $this->redirect(['judgment-ref/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
+            return $this->redirect(['judgment-ref/create', 'doc_id'=>$doc_id]);
                 }
            }
         
@@ -112,27 +112,26 @@ class JudgmentPartiesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($jcode="",$doc_id="")
+    public function actionUpdate($doc_id="")
     {
         /*Yii::$app->session->setFlash('error', 'After succssfully submission of form once, you are not authorize to access this form again!');
          return $this->render('message');*/
         $username = \Yii::$app->user->identity->username;
-        $model =  JudgmentParties::find()->where(['judgment_code'=>$jcode])->one();
-        $judgmentParties =$model->judgment_code;  
+        $model =  JudgmentParties::find()->where(['doc_id'=>$doc_id])->one();
+       // $judgmentParties =$model->judgment_code;  
         $adv = new JudgmentParties();
          if ($model->load(Yii::$app->request->post())) {
             $count =  count($_POST['JudgmentParties']['party_flag']);
             \Yii::$app
             ->db
             ->createCommand()
-            ->delete('judgment_parties', ['judgment_code' => $jcode])
+            ->delete('judgment_parties', ['doc_id' => $doc_id])
             ->execute(); 
             for($i=0;$i<$count;$i++)
             {
             if($_POST['JudgmentParties']['party_name'][$i] !='')
             {  
             $parties = new JudgmentParties();
-            $parties->judgment_code  = $judgmentParties;
             $parties->doc_id = $doc_id;
             $parties->username = $username;
             $parties->party_flag = $_POST['JudgmentParties']['party_flag'][$i];
@@ -142,10 +141,10 @@ class JudgmentPartiesController extends Controller
             $parties->save();
              }
             }
-             if($jcode!="" && $doc_id!=""){ 
+             if($doc_id!=""){ 
 
              Yii::$app->getSession()->setFlash('success',' Updated Successfully'); 
-             $this->redirect(['update', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);
+             $this->redirect(['update', 'doc_id'=>$doc_id ]);
         }
        }
 

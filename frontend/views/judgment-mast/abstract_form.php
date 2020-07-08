@@ -38,13 +38,13 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['in
 
 if($_GET)
 {
-  $jcode = $_GET['jcode'];echo "<br>";
+  //$jcode = $_GET['jcode'];echo "<br>";
   $doc_id = $_GET['doc_id'];
 
     
 }
 
-$master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
+$master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
     $JudgmentAct         = $master->judgmentActs;
     $JudgmentAdvocate    = $master->judgmentAdvocates; //functions available in JudgmentMast model 
     $JudgmentJudge       = $master->judgmentJudges;//like (getJudgmentAdvocates, getJudgmentParties etc)
@@ -71,16 +71,16 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 
 <div class="tabs">
 
-<?= Html::a('Judgments',['/judgment-mast/update','id'=>$jcode],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
+<?= Html::a('Judgments',['/judgment-mast/update','id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
 
-<?php echo Html::a('Lawyers Appeared',[$advocate,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$advocatecls ]) ?>
-<?= Html::a('Judges Bench',[$judge,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$judgecls ]) ?>
+<?php echo Html::a('Lawyers Appeared',[$advocate,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$advocatecls ]) ?>
+<?= Html::a('Judges Bench',[$judge,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$judgecls ]) ?>
 
-<?= Html::a('Citations',[$citation,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$citationcls ]) ?>
-<?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$partiescls ]) ?>
-<?php echo Html::a('Judgment Referred',[$ref,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$refcls ]) ?>
-<?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ]) ?>
-<?php echo Html::a('Abstract',['judgment-mast/judgment-abstract','jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ]) ?>
+<?= Html::a('Citations',[$citation,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$citationcls ]) ?>
+<?= Html::a('Parties',[$parties,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$partiescls ]) ?>
+<?php echo Html::a('Judgment Referred',[$ref,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$refcls ]) ?>
+<?php echo Html::a('Acts & Sections',[$act,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ]) ?>
+<?php echo Html::a('Abstract',['judgment-mast/judgment-abstract','doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ]) ?>
 
 <?php //echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$elementcls ]) ?>
 <?php //echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%","class"=>"btn btn-block  ".$datapointscls ]) ?>

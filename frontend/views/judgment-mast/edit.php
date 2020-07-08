@@ -23,10 +23,10 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['in
 </style>
 
 <?php
-$jcode = $model->judgment_code;
+//$jcode = $model->judgment_code;
 $doc_id = $model->doc_id;
 
-$master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
+$master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
 $JudgmentAct         = $master->judgmentActs;
 $JudgmentAdvocate    = $master->judgmentAdvocates;
 $JudgmentJudge       = $master->judgmentJudges;
@@ -35,6 +35,7 @@ $JudgmentParties     = $master->judgmentParties;
 $JudgmentElement     = $master->judgmentElement;
 $JudgmentDatapoints  = $master->judgmentDatapoints;
 $JudgmentReferred    = $master->judgmentReferred;
+$JudgmentTags        = $master->judgmentTags;
 $mastcls = "btn-primary";
 
     if(!empty($JudgmentAdvocate)){ $advocate =  '/judgment-advocate/update'; $advocatecls = "btn-primary"; } else { $advocate =  '/judgment-advocate/create'; $advocatecls = "btn-primary";}
@@ -42,20 +43,22 @@ $mastcls = "btn-primary";
     if(!empty($JudgmentCitation)){ $citation =  '/judgment-citation/update'; $citationcls = "btn-primary";} else { $citation =  '/judgment-citation/create';  $citationcls = "btn-primary"; } 
     if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-primary";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-primary"; }
     if(!empty($JudgmentReferred)){ $ref           =  '/judgment-ref/update'; $refcls = "btn-primary"; } else { $ref =  '/judgment-ref/create'; $refcls = "btn-primary"; }
-    if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-primary"; } else { $act =  '/judgment-act/create'; $actcls = "btn-primary"; }  
+    if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-primary"; } else { $act =  '/judgment-act/create'; $actcls = "btn-primary"; }
+    if(!empty($JudgmentTags)){ $tag           =  '/judgment-tags/update'; $tagcls = "btn-primary"; } else { $tag =  '/judgment-tags/create'; $tagcls = "btn-primary"; }  
    
 ?>
 
 <div class="tabs">
-<?= Html::a('Judgment1',['/judgment-mast/edit','id'=>$jcode],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
-<?= Html::a('Judgment2',['/judgment-mast/update','id'=>$jcode],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
-<?php echo Html::a('Lawyers Appeared',[$advocate,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$advocatecls ]) ?>
-<?= Html::a('Judges Bench',[$judge,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$judgecls ]) ?>
-<?= Html::a('Citations',[$citation,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$citationcls ]) ?>
-<?= Html::a('Parties',[$parties,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$partiescls ]) ?>
-<?php echo Html::a('Judgment Referred',[$ref,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$refcls ]) ?>
-<?php echo Html::a('Acts & Sections',[$act,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ]) ?>
-<?php echo Html::a('Abstract',['judgment-mast/judgment-abstract','jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ]) ?>
+<?= Html::a('Judgment1',['/judgment-mast/edit','id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
+<?= Html::a('Judgment2',['/judgment-mast/update','id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
+<?php echo Html::a('Lawyers Appeared',[$advocate,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$advocatecls ]) ?>
+<?= Html::a('Judges Bench',[$judge,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$judgecls ]) ?>
+<?= Html::a('Citations',[$citation,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$citationcls ]) ?>
+<?= Html::a('Parties',[$parties,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$partiescls ]) ?>
+<?php echo Html::a('Judgment Referred',[$ref,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$refcls ]) ?>
+<?php echo Html::a('Acts & Sections',[$act,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ]) ?>
+<?php echo Html::a('Judgment Tags',[$tag,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$tagcls ]) ?>
+<?php /*echo Html::a('Abstract',['judgment-mast/judgment-abstract','jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ])*/ ?>
 </div>  
 <!---code for tabs------->
 

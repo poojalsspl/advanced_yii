@@ -5,8 +5,8 @@ use frontend\models\JudgmentMast;
 use yii\helpers\ArrayHelper;
 
 
-$judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcode])->all(),
-    'judgment_code','judgment_title');
+$judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->all(),
+    'doc_id','judgment_title');
  foreach ($judgment as $jtitle) {
  $jtitle;
   }
@@ -18,5 +18,5 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
 </p>
 <p>You may write abstract for this judgment also, if you haven't write before.</p><br><br>
  <a class="btn btn-primary" href="/advanced_yii/judgment-mast/index">List of judgment</a>
- <a class="btn btn-primary" href="/advanced_yii/judgment-mast/judgment-abstract?jcode=<?php echo $jcode; ?>&doc_id=<?php echo $doc_id; ?>">Abstract Writing</a>
+ <a class="btn btn-primary" href="/advanced_yii/judgment-mast/judgment-abstract?doc_id=<?php echo $doc_id; ?>">Abstract Writing</a>
 </div>

@@ -18,18 +18,18 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
 
 <!------start of form------>
 <?php
-$judgmentAdvocate = JudgmentAdvocate::find()->select('judgment_code')->groupBy('judgment_code')->all();
+$judgmentAdvocate = JudgmentAdvocate::find()->select('doc_id')->groupBy('doc_id')->all();
 
-$j_code[] ='';
+$doc_id[] ='';
 foreach ($judgmentAdvocate as $code) {
-	$j_code[]= $code->judgment_code; 
+	$doc_id[]= $code->doc_id; 
 	
 }
-$jcode  = '';
+$doc_id  = '';
    
 if($_GET)
 {
-	$jcode = $_GET['jcode'];
+	//$jcode = $_GET['jcode'];
 	$doc_id = $_GET['doc_id'];
 
     
@@ -37,9 +37,9 @@ if($_GET)
 
 $judgment = ArrayHelper::map(JudgmentMast::find()
 	//->andWhere(['not in','judgment_code',$j_code])
-	->where(['judgment_code'=>$jcode])
+	->where(['doc_id'=>$doc_id])
 	->all(),
-    'judgment_code',
+    'doc_id',
     function($result) {
 
         return $result['court_name'].'::'.$result['judgment_title'];
@@ -55,11 +55,11 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
 
             </div>
            
-            <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
+            <?= $form->field($model, 'doc_id')->widget(Select2::classname(), [
     'data' => $judgment,
-    'initValueText' => $jcode,
+    'initValueText' => $doc_id,
     'disabled'=>true,
-    'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
+    'options' => ['placeholder' => 'Select Judgment Code','value'=>$doc_id],
    
      ])->label('Judgment Title'); ?>
      <?php echo $form->field($model, 'doc_id')->hiddenInput(['value' => $doc_id])->label(false);?>
@@ -107,7 +107,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     	$judgment = ArrayHelper::map(JudgmentMast::find()
 	//->where(['not in','judgment_code',$j_code])
 	->all(),
-    'judgment_code',
+    'doc_id',
     function($result) {
         return $result['court_name'].'::'.$result['judgment_title'];
     });
@@ -118,15 +118,15 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
 			<div class="box-header with-border"><h3 class="box-title"></h3></div>
 			<?php // $form->field($model, 'judgment_code')->hiddenInput(); ?>
 
-			<?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
+			<?= $form->field($model, 'doc_id')->widget(Select2::classname(), [
 			'data' => $judgment,
-			'initValueText' => $jcode,
+			'initValueText' => $doc_id,
 			'disabled'=>true,
-			'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
+			'options' => ['placeholder' => 'Select Judgment Code','value'=>$doc_id],
 
 			])->label('Judgment Title'); ?>
 
-       <?php $advocate = JudgmentAdvocate::find()->where(['judgment_code'=>$model->judgment_code])->all();    ?>
+       <?php $advocate = JudgmentAdvocate::find()->where(['doc_id'=>$model->doc_id])->all();    ?>
 	<div class="dynamic-rows rows col-xs-12">
 		 <label>Select</label>
 		 <label style="margin-left: 400px">Lawyers Name (One Lawyer Name in Each Row) </label>

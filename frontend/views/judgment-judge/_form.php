@@ -22,17 +22,17 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
 
 
 <?php
-    $jcode  = '';
+   // $jcode  = '';
     $doc_id = ''; 
 if($_GET)
 {
-    $jcode = $_GET['jcode'];
+   // $jcode = $_GET['jcode'];
     $doc_id = $_GET['doc_id'];
    
 }
 
-$judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcode])->all(),
-    'judgment_code',
+$judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->all(),
+    'doc_id',
     function($result) {
         return $result['court_name'].'::'.$result['judgment_title'];
     });
@@ -49,12 +49,12 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
               <h3 class="box-title"></h3>
             </div>
 
-            <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
+            <?= $form->field($model, 'doc_id')->widget(Select2::classname(), [
     'data' => $judgment,
     'disabled'=>true,
-     'initValueText' => $jcode,        
+     'initValueText' => $doc_id,        
     //'language' => '',
-    'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
+    'options' => ['placeholder' => 'Select Judgment Code','value'=>$doc_id],
 
 ])->label('Judgment Title'); ?>
 
@@ -90,16 +90,16 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
            <div class="box-header with-border">
               <h3 class="box-title"></h3>
             </div>
-  <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
+  <?= $form->field($model, 'doc_id')->widget(Select2::classname(), [
     'data' => $judgment,
     'disabled'=>true,
-     'initValueText' => $jcode,        
+     'initValueText' => $doc_id,        
     //'language' => '',
-    'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
+    'options' => ['placeholder' => 'Select Judgment Code','value'=>$doc_id],
 
 ])->label('Judgment Title'); ?>
     <div class="dynamic-rows rows col-xs-12"> 
-    	        <?php $judge = JudgmentJudge::find()->where(['judgment_code'=>$model->judgment_code])->all();    ?>
+    	        <?php $judge = JudgmentJudge::find()->where(['doc_id'=>$model->doc_id])->all();    ?>
                 <label>Judge Name(One Judge Name in Each Row)</label>
 <?php foreach ($judge as $jdg) { ?>
      <div class="dynamic-rows-field row">
@@ -200,7 +200,7 @@ SCRIPT;
  <?php 
 $customScript = <<< SCRIPT
 $('.generate-row').on('click', function(){
- var judge =  $('#judgmentjudge-judgment_code').val();
+ var judge =  $('#judgmentjudge-doc_id').val();
  console.log('judge : ',judge);
  if(judge=='')
  {

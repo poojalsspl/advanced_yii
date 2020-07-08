@@ -26,8 +26,8 @@ $this->title = 'Citations Referred';
   </thead>
   <tbody>
   <?php foreach ($models as $key => $model) { 
-  $jcode = $model['judgment_code'];
-   $judgment_title = JudgmentMast::find()->select('judgment_title')->where(['username'=>$username])->andWhere(['judgment_code' => $jcode])->all();
+  $doc_id = $model['doc_id'];
+   $judgment_title = JudgmentMast::find()->select('judgment_title')->where(['username'=>$username])->andWhere(['doc_id' => $doc_id])->all();
    foreach($judgment_title as $j_title){
     ?>
     <tr>

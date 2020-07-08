@@ -24,14 +24,14 @@ $this->title = 'Judgment Elements';
   </thead>
   <tbody>
   <?php foreach ($models as $key => $model) { 
-  $jcode = $model['judgment_code'];
-   $judgment_title = JudgmentMast::find()->select('judgment_title')->where(['username'=>$username])->andWhere(['judgment_code' => $jcode])->all();
+  $doc_id = $model['doc_id'];
+   $judgment_title = JudgmentMast::find()->select('judgment_title')->where(['username'=>$username])->andWhere(['doc_id' => $doc_id])->all();
    foreach($judgment_title as $j_title){
     ?>
     <tr>
       
       <td><?= $j_title['judgment_title'] ?></td>
-      <td><a href="/advanced_yii/judgment-mast/element-list?jcode=<?php echo $jcode; ?>"><?= $model['element_count'] ?></a></td>
+      <td><a href="/advanced_yii/judgment-mast/element-list?doc_id=<?php echo $doc_id; ?>"><?= $model['element_count'] ?></a></td>
 
       
     </tr>

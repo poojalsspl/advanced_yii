@@ -214,41 +214,45 @@ class JudgmentMast extends \yii\db\ActiveRecord
 
      public function getJudgmentAdvocates()
     {
-        return $this->hasMany(JudgmentAdvocate::className(), ['judgment_code' => 'judgment_code']);
+        return $this->hasMany(JudgmentAdvocate::className(), ['doc_id' => 'doc_id']);
     }
 
       public function getJudgmentActs()
     {
-        return $this->hasMany(JudgmentAct::className(), ['judgment_code' => 'judgment_code']);
+        return $this->hasMany(JudgmentAct::className(), ['doc_id' => 'doc_id']);
     }
 
       public function getJudgmentJudges()
     {
-        return $this->hasMany(JudgmentJudge::className(), ['judgment_code' => 'judgment_code']);
+        return $this->hasMany(JudgmentJudge::className(), ['doc_id' => 'doc_id']);
     }
        public function getJudgmentCitations()
     {
-        return $this->hasMany(JudgmentCitation::className(), ['judgment_code' => 'judgment_code']);
+        return $this->hasMany(JudgmentCitation::className(), ['doc_id' => 'doc_id']);
     }
 
        public function getJudgmentParties()
     {
-        return $this->hasMany(JudgmentParties::className(), ['judgment_code' => 'judgment_code']);
+        return $this->hasMany(JudgmentParties::className(), ['doc_id' => 'doc_id']);
     }
 
      public function getJudgmentElement()
     {
-        return $this->hasMany(JudgmentElement::className(), ['judgment_code' => 'judgment_code']);
+        return $this->hasMany(JudgmentElement::className(), ['doc_id' => 'doc_id']);
     }
 
      public function getJudgmentDatapoints()
     {
-        return $this->hasMany(JudgmentDataPoint::className(), ['judgment_code' => 'judgment_code']);
+        return $this->hasMany(JudgmentDataPoint::className(), ['doc_id' => 'doc_id']);
     }
 
     public function getJudgmentReferred()
     {
-        return $this->hasMany(JudgmentRef::className(), ['judgment_code' => 'judgment_code']);
+        return $this->hasMany(JudgmentRef::className(), ['doc_id' => 'doc_id']);
+    }
+    public function getJudgmentTags()
+    {
+        return $this->hasMany(JudgmentTags::className(), ['doc_id' => 'doc_id']);
     }
 
     /* Reason : For display limited characters in gridview column 

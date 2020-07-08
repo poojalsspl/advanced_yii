@@ -65,7 +65,7 @@ class JudgmentCitationController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="",$doc_id="")
+    public function actionCreate($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         
@@ -76,20 +76,19 @@ class JudgmentCitationController extends Controller
         	for($i=0;$i<$count;$i++)
             {
                 $model = new JudgmentCitation();
-                $model->judgment_code = $jcode;
                 $model->doc_id = $doc_id;
                 $model->username = $username;
                 $model->citation = $_POST['JudgmentCitation']['citation'][$i];
                 $model->save(false); 
             } 
 
-            $check = JudgmentCitation::find()->select('work_status')->where(['judgment_code'=>$jcode])->one();
+            $check = JudgmentCitation::find()->select('work_status')->where(['doc_id'=>$doc_id])->one();
              $count = $check->work_status;
            if($count==''){  
-                \Yii::$app->db->createCommand("UPDATE judgment_citation SET work_status ='C' WHERE judgment_code=".$jcode." ")->execute();                
+                \Yii::$app->db->createCommand("UPDATE judgment_citation SET work_status ='C' WHERE doc_id=".$doc_id." ")->execute();                
               Yii::$app->session->setFlash('success', "Created successfully!!"); 
               $model->save(false);
-            return $this->redirect(['judgment-parties/create', 'jcode' => $jcode,'doc_id'=>$doc_id]);
+            return $this->redirect(['judgment-parties/create', 'doc_id'=>$doc_id]);
                 }
                 
           }
@@ -125,31 +124,31 @@ class JudgmentCitationController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($jcode="",$doc_id="")
+    public function actionUpdate($doc_id="")
     {
          /*Yii::$app->session->setFlash('error', 'After succssfully submission of form once, you are not authorize to access this form again!');
          return $this->render('message');*/
         $username = \Yii::$app->user->identity->username;
         
-        $model =  JudgmentCitation::find()->where(['judgment_code'=>$jcode])->one();    
+        $model =  JudgmentCitation::find()->where(['doc_id'=>$doc_id])->one();    
         if($model->load(Yii::$app->request->post())) {
             $count = count($_POST['JudgmentCitation']['citation']);
             \Yii::$app
             ->db
             ->createCommand()
-            ->delete('judgment_citation', ['judgment_code' => $jcode])
+            ->delete('judgment_citation', ['doc_id' => $doc_id])
             ->execute();
             for($i=0;$i<$count;$i++)
             {        
                 $judgment                = new JudgmentCitation();
-                $judgment->judgment_code = $jcode;
                 $judgment->doc_id = $doc_id;
                 $judgment->username = $username;
+                $judgment->work_status = 'C';
                 $judgment->citation    = $_POST['JudgmentCitation']['citation'][$i];                        
                 $judgment->save(); 
             }
                  Yii::$app->session->setFlash('Updated successfully!!');
-                 $this->redirect(['update', 'jcode'=>$jcode,'doc_id'=>$doc_id ]);
+                 $this->redirect(['update', 'doc_id'=>$doc_id ]);
 
             } else {
             return $this->render('update', [

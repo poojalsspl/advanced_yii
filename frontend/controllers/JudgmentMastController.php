@@ -305,10 +305,10 @@ class JudgmentMastController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $models = (new \yii\db\Query())
-            ->select('count(*) as advocate_count,judgment_code')
+            ->select('count(*) as advocate_count,doc_id')
             ->from('judgment_advocate')
             ->where(['username'=>$username])
-            ->groupBy(['judgment_code'])
+            ->groupBy(['doc_id'])
             ->having('advocate_count' > 0);
         $countQuery = clone $models;
              $pages = new Pagination(['totalCount' => $countQuery->count()]);
@@ -326,10 +326,10 @@ class JudgmentMastController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $models = (new \yii\db\Query())
-            ->select('count(*) as judge_count,judgment_code')
+            ->select('count(*) as judge_count,doc_id')
             ->from('judgment_judge')
             ->where(['username'=>$username])
-            ->groupBy(['judgment_code'])
+            ->groupBy(['doc_id'])
             ->having('judge_count' > 0);
         $countQuery = clone $models;
              $pages = new Pagination(['totalCount' => $countQuery->count()]);
@@ -347,11 +347,11 @@ class JudgmentMastController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $models = (new \yii\db\Query())
-            ->select('count(*) as citation_count,judgment_code')
+            ->select('count(*) as citation_count,doc_id')
             ->from('judgment_citation')
             ->where(['username'=>$username])
             ->andwhere(['not', ['citation' => null]])
-            ->groupBy(['judgment_code'])
+            ->groupBy(['doc_id'])
             ->having('citation_count' > 0);
         $countQuery = clone $models;
              $pages = new Pagination(['totalCount' => $countQuery->count()]);
@@ -368,11 +368,11 @@ class JudgmentMastController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $models = (new \yii\db\Query())
-            ->select('count(*) as citation_count,judgment_code')
+            ->select('count(*) as citation_count,doc_id')
             ->from('judgment_citation')
             ->where(['username'=>$username])
             ->andwhere(['is', 'citation', new \yii\db\Expression('null')])
-            ->groupBy(['judgment_code'])
+            ->groupBy(['doc_id'])
             ->having('citation_count' > 0);
         $countQuery = clone $models;
              $pages = new Pagination(['totalCount' => $countQuery->count()]);
@@ -389,10 +389,10 @@ class JudgmentMastController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $models = (new \yii\db\Query())
-            ->select('count(*) as referred_count,judgment_code')
+            ->select('count(*) as referred_count,doc_id')
             ->from('judgment_ref')
             ->where(['username'=>$username])
-            ->groupBy(['judgment_code'])
+            ->groupBy(['doc_id'])
             ->having('referred_count' > 0);
         $countQuery = clone $models;
              $pages = new Pagination(['totalCount' => $countQuery->count()]);
@@ -429,10 +429,10 @@ class JudgmentMastController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $models = (new \yii\db\Query())
-            ->select('count(*) as element_count,judgment_code')
+            ->select('count(*) as element_count,doc_id')
             ->from('judgment_element')
             ->where(['username'=>$username])
-            ->groupBy(['judgment_code'])
+            ->groupBy(['doc_id'])
             ->having('element_count' > 0)->all();
         return $this->render('reports/judgment_elements', [
             'models' => $models,
@@ -443,10 +443,10 @@ class JudgmentMastController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $models = (new \yii\db\Query())
-            ->select('count(*) as datapoint_count,judgment_code')
+            ->select('count(*) as datapoint_count,doc_id')
             ->from('judgment_data_point')
             ->where(['username'=>$username])
-            ->groupBy(['judgment_code'])
+            ->groupBy(['doc_id'])
             ->having('datapoint_count' > 0)->all();
         return $this->render('reports/judgment_datapoints', [
             'models' => $models,
@@ -456,13 +456,13 @@ class JudgmentMastController extends Controller
 
      // List wise Analytics start(judges name, advocate name, citation used, refered etc etc)
     
-    public function actionAdvocateList($jcode="")
+    public function actionAdvocateList($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentAdvocate::find()
         ->select('advocate_name,advocate_flag')
         ->where(['username'=>$username])
-        ->andWhere(['judgment_code'=>$jcode])
+        ->andWhere(['doc_id'=>$doc_id])
         ->orderBy(['advocate_flag' => SORT_ASC]);
         $models = $query->all();
         return $this->render('lists/advocate_list', [
@@ -470,13 +470,13 @@ class JudgmentMastController extends Controller
          ]);
     }
 
-    public function actionJudgeList($jcode="")
+    public function actionJudgeList($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentJudge::find()
         ->select('judge_name')
         ->where(['username'=>$username])
-        ->andWhere(['judgment_code'=>$jcode]);
+        ->andWhere(['doc_id'=>$doc_id]);
         $models = $query->all();
         return $this->render('lists/judge_list', [
             'models' => $models,
@@ -485,26 +485,26 @@ class JudgmentMastController extends Controller
 
    
 
-    public function actionCitationList($jcode="")
+    public function actionCitationList($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentCitation::find()
         ->select('citation')
         ->where(['username'=>$username])
-        ->andWhere(['judgment_code'=>$jcode]);
+        ->andWhere(['doc_id'=>$doc_id]);
         $models = $query->all();
         return $this->render('lists/citation_list', [
             'models' => $models,
          ]);
     }
 
-     public function actionReferredList($jcode="")
+     public function actionReferredList($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentRef::find()
         ->select('distinct(judgment_title_ref)')
         ->where(['username'=>$username])
-        ->andWhere(['judgment_code'=>$jcode]);
+        ->andWhere(['doc_id'=>$doc_id]);
         $models = $query->all();
         //print_r($models);die;
         return $this->render('lists/referred-list', [
@@ -516,7 +516,7 @@ class JudgmentMastController extends Controller
     {
          $username = \Yii::$app->user->identity->username;
         $query = JudgmentAct::find()
-        ->select('act_group_desc,act_catg_desc,act_sub_catg_desc,act_title,bareact_desc,bareact_code')
+        ->select('act_group_desc,act_catg_desc,act_sub_catg_desc,sec_title,bareact_desc,bareact_code')
         ->where(['username'=>$username])
         ->andWhere(['j_doc_id'=>$dcode]);
         $models = $query->all();
@@ -525,13 +525,13 @@ class JudgmentMastController extends Controller
          ]);
     } 
 
-     public function actionElementList($jcode="")
+     public function actionElementList($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentElement::find()
         ->select('element_name,element_text')
         ->where(['username'=>$username])
-        ->andWhere(['judgment_code'=>$jcode])
+        ->andWhere(['doc_id'=>$doc_id])
         ->orderBy(['element_name' => SORT_ASC]);
         $models = $query->all();
         return $this->render('lists/element_list', [
@@ -539,13 +539,13 @@ class JudgmentMastController extends Controller
          ]);
     } 
 
-    public function actionDatapointsList($jcode="")
+    public function actionDatapointsList($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $query = JudgmentDataPoint::find()
         ->select('element_name,data_point')
         ->where(['username'=>$username])
-        ->andWhere(['judgment_code'=>$jcode])
+        ->andWhere(['doc_id'=>$doc_id])
         ->orderBy(['element_name' => SORT_ASC]);
         $models = $query->all();
         return $this->render('lists/datapoints_list', [
@@ -616,6 +616,23 @@ class JudgmentMastController extends Controller
 
     public function actionEdit($id)
     {
+        $username = \Yii::$app->user->identity->username;
+        $model = JudgmentMast::find()->where(['username'=>$username])->andwhere(['doc_id'=>$id])->one();
+        
+        if ($model->load(Yii::$app->request->post())) {
+          //$jcode = $model->judgment_code;
+          $doc_id = $model->doc_id;
+           Yii::$app->session->setFlash('success', "Updated successfully!!");
+                $model->save();
+           return $this->redirect(['update', 'id' => $doc_id]);
+      }
+      return $this->render('edit', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEditbkup($id)
+    {
         $model = $this->findModel($id);
         $username = \Yii::$app->user->identity->username;
         if ($model->load(Yii::$app->request->post())) {
@@ -630,7 +647,92 @@ class JudgmentMastController extends Controller
         ]);
     }
 
+
     public function actionUpdate($id)
+    {
+        $username = \Yii::$app->user->identity->username;
+        $model = JudgmentMast::find()->where(['username'=>$username])->andwhere(['doc_id'=>$id])->one();
+        
+        if ($model->load(Yii::$app->request->post())) {
+          //$jcode = $model->judgment_code;
+          $doc_id = $model->doc_id;
+          if($model->disposition_id!=''){
+          $model->disposition_text = $model->judgmentDisposition->disposition_text;
+          }
+          if($model->judgment_jurisdiction_id!=''){
+          $model->judgmnent_jurisdiction_text = $model->judgmentJurisdiction->judgment_jurisdiction_text;
+          }
+          if($model->bench_type_id!=''){
+          $model->bench_type_text = $model->judgmentBenchType->bench_type_text;
+         }
+         if($model->court_code!=''){
+          $model->court_name = $model->courtCode->court_name;
+         }
+            
+          if($model->jcatg_id!=''){
+            $jcatg = new JcatgMast();
+            $jcatg_desc = $jcatg->getCatgName($model->jcatg_id);
+            $model->jcatg_description = $jcatg_desc;
+           }
+
+           /*if($model->jsub_catg_description!=''){
+            $model->jsub_catg_id = $model->jsub_catg_description;
+          $model->jsub_catg_description = $model->jsubCatg->jsub_catg_description;
+          }
+          else{
+            $model->jsub_catg_id = NULL;
+            $model->jsub_catg_description = NULL;
+          }*/
+
+          /*
+              Search tag code commented
+          if($model->search_tag!=''){
+
+            \Yii::$app
+            ->db
+            ->createCommand()
+            ->delete('judgment_search_tag', ['judgment_code' => $jcode])
+            ->execute();
+          $search_tag = $model->search_tag;
+          $search_ex = explode(";",$search_tag);
+          
+          
+          foreach ($search_ex as $k => $v) {
+             $model_search = new JudgmentSearchTag();  
+             $model_search->search_tag = $v;
+             $model_search->username = $username;
+             $model_search->judgment_code = $jcode;
+             $model_search->doc_id = $doc_id;
+              $model_search->save(false);
+           }
+          $result = \Yii::$app->db->createCommand("CALL search_tag(:jcode , :usrname, :doid)") 
+                      ->bindValue(':jcode' , $jcode )
+                      ->bindValue(':usrname', $username)
+                      ->bindValue(':doid', $doc_id)
+                      ->execute();
+         
+          }*/
+
+          $check = JudgmentMast::find()->select('work_status')->where(['doc_id'=>$doc_id])->one();
+          
+              $count = $check->work_status;
+              if($count==''){
+               \Yii::$app->db->createCommand("UPDATE judgment_mast SET work_status = 'C' WHERE doc_id=".$doc_id."")->execute();                
+               Yii::$app->session->setFlash('success', "Updated successfully!!");
+
+               $model->save();
+            return $this->redirect(['judgment-advocate/create', 'doc_id'=>$doc_id]);
+                }
+                Yii::$app->session->setFlash('success', "Updated successfully!!");
+                $model->save();
+                
+            }
+       return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionUpdatebkup($id)
     {
         $model = $this->findModel($id);
         $username = \Yii::$app->user->identity->username;
@@ -732,10 +834,9 @@ class JudgmentMastController extends Controller
 
         }
 
-    public function actionSuccess($jcode="",$doc_id="")
+    public function actionSuccess($doc_id="")
     {
      return $this->render('j_sucess',[
-          'jcode' => $jcode,
           'doc_id' => $doc_id,
      ]);
     }
@@ -766,12 +867,12 @@ class JudgmentMastController extends Controller
         
     }
 
-    public function actionJudgmentAbstract($jcode,$doc_id)
+    public function actionJudgmentAbstract($doc_id)
     {
-         $model = $this->findModel($jcode);
          $username = \Yii::$app->user->identity->username;
+        $model = JudgmentMast::find()->where(['username'=>$username])->andwhere(['doc_id'=>$doc_id])->one();
          if ($model->load(Yii::$app->request->post())) {
-          $jcode = $model->judgment_code;
+          //$jcode = $model->judgment_code;
           $doc_id = $model->doc_id;
           $model->save();
            return $this->redirect('abstract-list');

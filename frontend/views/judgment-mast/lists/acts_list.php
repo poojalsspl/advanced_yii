@@ -26,7 +26,7 @@ $this->title = 'Acts & Sections Imposed ';
       <td><?= $modelSingle->act_group_desc ?></td>
       <td><?= $modelSingle->act_catg_desc ?></td>
       <td><?= $modelSingle->act_sub_catg_desc ?></td>
-      <td><a href="/advanced_yii/judgment-mast/acts-title?brcode=<?php echo $modelSingle->bareact_code; ?>&title=<?php echo $modelSingle->act_title ?>" ><?= $modelSingle->act_title ?></a></td>
+      <td><a href="/advanced_yii/judgment-mast/acts-title?brcode=<?php echo $modelSingle->bareact_code; ?>&title=<?php echo $modelSingle->sec_title ?>" ><?= $modelSingle->sec_title ?></a></td>
 
     </tr>
 

@@ -5,14 +5,14 @@ use frontend\models\JudgmentElement;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 
-$jcode  = '';
+$doc_id  = '';
    if($_GET)
 {
-    $jcode = $_GET['jcode'];
+    $doc_id = $_GET['doc_id'];
 }
 ?>
 <?php
-    $element  =  ArrayHelper::map(JudgmentElement::find()->where('judgment_code = :judgment_code', [':judgment_code' => $jcode])->all(),'element_code','element_name'); ?>
+    $element  =  ArrayHelper::map(JudgmentElement::find()->where('doc_id = :doc_id', [':doc_id' => $doc_id])->all(),'element_code','element_name'); ?>
 
 <script type="text/javascript">
 function add_row()

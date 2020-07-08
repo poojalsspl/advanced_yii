@@ -41,7 +41,7 @@ class JudgmentParties extends \yii\db\ActiveRecord
             [['appeal_numb'], 'string', 'max' => 250],
             [['username'],'string'],
             [['work_status'], 'string', 'max' => 2],
-            [['judgment_code'], 'exist', 'skipOnError' => true, 'targetClass' => JudgmentMast::className(), 'targetAttribute' => ['judgment_code' => 'judgment_code']],
+            /*[['judgment_code'], 'exist', 'skipOnError' => true, 'targetClass' => JudgmentMast::className(), 'targetAttribute' => ['judgment_code' => 'judgment_code']],*/
         ];
 
         

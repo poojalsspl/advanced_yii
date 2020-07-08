@@ -11,12 +11,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
 
 ?>
 <?php
-    $jcode  = '';
+    //$jcode  = '';
      $doc_id = '';
    
 if($_GET)
 {
-    $jcode = $_GET['jcode'];
+    //$jcode = $_GET['jcode'];
    $doc_id = $_GET['doc_id'];
    
 }
@@ -33,15 +33,15 @@ if($_GET)
 
 $judgment = ArrayHelper::map(JudgmentMast::find()
   //->andWhere(['not in','judgment_code',$j_code])
-  ->where(['judgment_code'=>$jcode])
+  ->where(['doc_id'=>$doc_id])
   ->all(),
-    'judgment_code',
+    'doc_id',
     function($result) {
 
         return $result['court_name'].'::'.$result['judgment_title'];
     });
 
-$master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
+$master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
     
     $JudgmentElement     = $master->judgmentElement;
     $JudgmentDatapoints  = $master->judgmentDatapoints;
@@ -56,8 +56,8 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <div class="tabs">
 
 
-<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$elementcls ]) ?>
-<?php echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$datapointscls ]) ?>
+<?php echo Html::a('Judgment Elements',[$element,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$elementcls ]) ?>
+<?php echo Html::a('Judgment DataPoints',[$datapoints,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$datapointscls ]) ?>
 
 
 </div>
@@ -67,7 +67,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 
 <div>
 <?php
-$j_elements = JudgmentElement::find('element_name,element_text,weight_perc')->where(['judgment_code'=>$jcode])->all();
+$j_elements = JudgmentElement::find('element_name,element_text,weight_perc')->where(['doc_id'=>$doc_id])->all();
 foreach($j_elements as $jud_element){
 
 ?>
@@ -126,7 +126,7 @@ foreach($j_elements as $jud_element){
                                 echo Html::activeHiddenInput($modelAddress, "[{$i}]id");
                             }
                            /* $element  = ArrayHelper::map(JudgmentElement::find()->all(), 'element_code', 'element_name'); */
-                          $element  =  ArrayHelper::map(JudgmentElement::find()->where('judgment_code = :judgment_code', [':judgment_code' => $jcode])->all(),'element_code','element_name');
+                          $element  =  ArrayHelper::map(JudgmentElement::find()->where('doc_id = :doc_id', [':doc_id' => $doc_id])->all(),'element_code','element_name');
                             ?>
                              
                          <div class="row">

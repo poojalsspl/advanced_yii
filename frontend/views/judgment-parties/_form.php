@@ -21,18 +21,18 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
 <!------start of form------>
 <?php
 
-  $jcode  = '';
+  //$jcode  = '';
    $doc_id = ''; 
   if($_GET)
 {
-    $jcode = $_GET['jcode'];
+    //$jcode = $_GET['jcode'];
      $doc_id = $_GET['doc_id'];
   
 }
 
 
-$judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcode])->all(),
-    'judgment_code',
+$judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->all(),
+    'doc_id',
     function($result) {
         return $result['court_name'].'::'.$result['judgment_title'];
     });
@@ -47,12 +47,12 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
     <div class="box-header with-border">
               <h3 class="box-title"></h3>
             </div>
-<?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
+<?= $form->field($model, 'doc_id')->widget(Select2::classname(), [
     'disabled'=>true,
     'data' => $judgment,
-     'initValueText' => $jcode,    
+     'initValueText' => $doc_id,    
     //'language' => '',
-    'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
+    'options' => ['placeholder' => 'Select Judgment Code','value'=>$doc_id],
 
 ])->label('Judgment Title'); ?>
      <div class="dynamic-rows rows col-xs-12">   
@@ -93,7 +93,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
        <?php $judgment = ArrayHelper::map(JudgmentMast::find()
     //->where(['not in','judgment_code',$j_code])
     ->all(),
-    'judgment_code',
+    'doc_id',
     function($result) {
         return $result['court_name'].'::'.$result['judgment_title'];
     });
@@ -104,16 +104,16 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['judgment_code'=>$jcod
               <h3 class="box-title"></h3>
             </div>
 
-            <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
+            <?= $form->field($model, 'doc_id')->widget(Select2::classname(), [
     'disabled'=>true,
     'data' => $judgment,
-     'initValueText' => $jcode,    
+     'initValueText' => $doc_id,    
     //'language' => '',
-    'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
+    'options' => ['placeholder' => 'Select Judgment Code','value'=>$doc_id],
 
 ])->label('Judgment Title'); ?>
 
-    <?php $parties = JudgmentParties::find()->where(['judgment_code'=>$model->judgment_code])->all(); ?>
+    <?php $parties = JudgmentParties::find()->where(['doc_id'=>$model->doc_id])->all(); ?>
          <label>Party Type</label>
          <label style="margin-left: 400px">Party Name (One Name in Each Row) </label>
          <label style="margin-left: 300px">Appeal Number</label>

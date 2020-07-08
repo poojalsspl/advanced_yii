@@ -123,6 +123,17 @@ class CourtMast extends \yii\db\ActiveRecord
         return $this->hasMany(JudgmentMast::className(), ['court_code' => 'court_code']);
     }
 
+    public function getCourtName($court)
+    {
+     $query = (new \yii\db\Query())
+     ->select('court_name')
+     ->from('court_mast')
+     ->where('court_code=:court_code', [':court_code' => $court]);
+     $command = $query->createCommand();
+     $rows = $command->queryAll();
+     return $rows[0]['court_name'];
+    }
+
      public static function getBenchList($id_cat) {
         $out = [];
          $models = CourtMast::find()

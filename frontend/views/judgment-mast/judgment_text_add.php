@@ -11,16 +11,15 @@ use yii\helpers\Url;
 
     if($_GET)
 {
-    $jcode = $_GET['jcode'];
+    //$jcode = $_GET['jcode'];
     $doc_id = $_GET['doc_id'];
 
     
 }
     $judgment = ArrayHelper::map(JudgmentMast::find()
-	//->andWhere(['not in','judgment_code',$j_code])
-	->where(['judgment_code'=>$jcode])
+	->where(['doc_id'=>$doc_id])
 	->all(),
-    'judgment_code',
+    'doc_id',
     function($result) {
         return $result['judgment_text'];
     });
