@@ -48,7 +48,7 @@ $mastcls = "btn-primary";
    
 ?>
 
-<div class="tabs">
+<div class="tabs" style="display: none;">
 <?= Html::a('Judgment1',['/judgment-mast/edit','id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
 <?= Html::a('Judgment2',['/judgment-mast/update','id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
 <?php echo Html::a('Lawyers Appeared',[$advocate,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$advocatecls ]) ?>
@@ -100,7 +100,7 @@ $mastcls = "btn-primary";
     <div class="box box-blue">
         <div class="box-body">
             <div class="col-md-12">
-               
+               <?= $form->field($model, 'edit_status')->checkBox() ?>
                 
                 <?= $form->field($model, 'judgment_text')->textarea(['rows' => 8]) ?>
                 
@@ -133,6 +133,15 @@ $mastcls = "btn-primary";
 <?php 
     $this->registerJs("CKEDITOR.replace('judgmentmast-judgment_text',{toolbar : 'Basic'})");
     $this->registerJs("CKEDITOR.replace('judgmentmast-judgment_text1',{toolbar : 'Basic'})");
+    $this->registerJs("
+
+    $('#judgmentmast-edit_status').on('click',function(){
+    console.log('test');
+     $('.tabs').toggle();
+
+    });
+
+    ");
 ?>
 
 

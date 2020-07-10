@@ -620,7 +620,9 @@ class JudgmentMastController extends Controller
         $model = JudgmentMast::find()->where(['username'=>$username])->andwhere(['doc_id'=>$id])->one();
         
         if ($model->load(Yii::$app->request->post())) {
-          //$jcode = $model->judgment_code;
+            if(!empty($_POST['JudgmentMast']['edit_status'])){
+          $model->edit_status = '1';
+          }
           $doc_id = $model->doc_id;
            Yii::$app->session->setFlash('success', "Updated successfully!!");
                 $model->save();
