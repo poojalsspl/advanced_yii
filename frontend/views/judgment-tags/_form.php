@@ -13,6 +13,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
 ?>
 
 
+<!--add tabs---->
+<?= $this->render("/judgment-mast/view_tabs") ?>
+<!--end of tab --->
 <?php 
 if($_GET)
 {
