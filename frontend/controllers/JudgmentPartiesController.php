@@ -68,9 +68,10 @@ class JudgmentPartiesController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $model = new JudgmentParties();
+        $modeljmast = JudgmentMast::find()->where(['doc_id'=>$doc_id])->andWhere(['username'=>$username])->one();
 
         if ($model->load(Yii::$app->request->post())) {
-
+             if(isset($_POST['JudgmentParties'], $_POST['JudgmentMast'])){
             $count =  count($_POST['JudgmentParties']['party_flag']);
             //$judgmentParties = $jcode;
             //$judgment_code = $jcode;
@@ -85,9 +86,14 @@ class JudgmentPartiesController extends Controller
             $model->party_flag = $_POST['JudgmentParties']['party_flag'][$i];
             $model->party_name = $_POST['JudgmentParties']['party_name'][$i]; 
             $model->appeal_numb = $_POST['JudgmentParties']['appeal_numb'][$i];           
-            $model->save(); 
+            $model->save();
+            if($model->save()){
+                $modeljmast->remark = $_POST['JudgmentMast']['remark'];
+                $modeljmast->save();
+                } 
             }
             } 
+        }
 
             $check = JudgmentParties::find()->select('work_status')->where(['doc_id'=>$doc_id])->one();
              $count = $check->work_status;
@@ -101,6 +107,7 @@ class JudgmentPartiesController extends Controller
         
             return $this->render('create', [
                 'model' => $model,
+                'modeljmast' => $modeljmast,
             ]);
        
       }

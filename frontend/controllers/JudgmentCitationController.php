@@ -70,8 +70,10 @@ class JudgmentCitationController extends Controller
         $username = \Yii::$app->user->identity->username;
         
         $model = new JudgmentCitation();
+        $modeljmast = JudgmentMast::find()->where(['doc_id'=>$doc_id])->andWhere(['username'=>$username])->one();
 
         if ($model->load(Yii::$app->request->post())) {
+            if(isset($_POST['JudgmentCitation'], $_POST['JudgmentMast'])){ 
         	$count =  count($_POST['JudgmentCitation']['citation']);
         	for($i=0;$i<$count;$i++)
             {
@@ -80,7 +82,12 @@ class JudgmentCitationController extends Controller
                 $model->username = $username;
                 $model->citation = $_POST['JudgmentCitation']['citation'][$i];
                 $model->save(false); 
+                if($model->save()){
+                $modeljmast->remark = $_POST['JudgmentMast']['remark'];
+                $modeljmast->save();
+                } 
             } 
+        }
 
             $check = JudgmentCitation::find()->select('work_status')->where(['doc_id'=>$doc_id])->one();
              $count = $check->work_status;
@@ -95,6 +102,7 @@ class JudgmentCitationController extends Controller
             
            return $this->render('create', [
                 'model' => $model,
+                'modeljmast' => $modeljmast,
             ]);
      }
 

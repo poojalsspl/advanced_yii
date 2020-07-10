@@ -109,12 +109,13 @@ class JudgmentRefController extends Controller
        $judgmentMastRef  =  JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
 
        $models = [new JudgmentRef()];
+       
        for($i = 1; $i < $count; $i++) {
             $models[] = new JudgmentRef();
         }
        if (Model::loadMultiple($models, Yii::$app->request->post()))
         {
-            
+           
             
          foreach ($models as $model) {
             $court = new CourtMast();
@@ -126,7 +127,9 @@ class JudgmentRefController extends Controller
             $model->username = $username;
             //Try to save the models. Validation is not needed as it's already been done.
             $model->save(false);
-            }
+            
+           
+        }
             $check = JudgmentRef::find()->select('work_status')->where(['doc_id'=>$doc_id])->one();
              $count = $check->work_status;
             if($count==''){ 
@@ -139,6 +142,7 @@ class JudgmentRefController extends Controller
 
         return $this->render('create', [
             'models' => $models,
+            
         ]);
     }
     

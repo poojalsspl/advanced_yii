@@ -68,8 +68,10 @@ class JudgmentJudgeController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $model = new JudgmentJudge();
+        $modeljmast = JudgmentMast::find()->where(['doc_id'=>$doc_id])->andWhere(['username'=>$username])->one();
 
         if ($model->load(Yii::$app->request->post())) {
+            if(isset($_POST['JudgmentJudge'], $_POST['JudgmentMast'])){
             $count =  count($_POST['JudgmentJudge']['judge_name']);
             for($i=0;$i<$count;$i++)
             {
@@ -78,7 +80,12 @@ class JudgmentJudgeController extends Controller
                 $model->username = $username;
                 $model->judge_name = $_POST['JudgmentJudge']['judge_name'][$i];
                 $model->save(false); 
+                if($model->save()){
+                $modeljmast->remark = $_POST['JudgmentMast']['remark'];
+                $modeljmast->save();
+                }
             } 
+        }
 
             $check = JudgmentJudge::find()->select('work_status')->where(['doc_id'=>$doc_id])->one();
              $count = $check->work_status;
@@ -93,6 +100,7 @@ class JudgmentJudgeController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modeljmast' => $modeljmast,
         ]);
     }
 

@@ -55,6 +55,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->a
     'options' => ['placeholder' => 'Select Judgment Code','value'=>$doc_id],
 
 ])->label('Judgment Title'); ?>
+<?php echo $form->field($modeljmast, 'remark')->textarea(['rows'=>6])->label();?>
      <div class="dynamic-rows rows col-xs-12">   
       <div class="dynamic-rows-field row">
 

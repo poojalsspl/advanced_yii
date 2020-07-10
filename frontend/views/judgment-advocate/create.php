@@ -15,6 +15,7 @@ $this->title = 'Advocates appearing as Respondent & Appellant';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modeljmast' => $modeljmast,
     ]) ?>
 
 </div>

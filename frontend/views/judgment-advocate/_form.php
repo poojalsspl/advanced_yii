@@ -11,6 +11,7 @@ use yii\helpers\Url;
 /* @var $model frontend\models\JudgmentAdvocate */
 /* @var $form yii\widgets\ActiveForm */
 $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['judgment-mast/index']];
+//print_r($modelj);
 ?>
 <!--add tabs---->
 <?= $this->render("/judgment-mast/view_tabs") ?>
@@ -63,6 +64,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
    
      ])->label('Judgment Title'); ?>
      <?php echo $form->field($model, 'doc_id')->hiddenInput(['value' => $doc_id])->label(false);?>
+     <?php echo $form->field($modeljmast, 'remark')->textarea(['rows'=>6])->label();?>
      <div class="dynamic-rows rows col-xs-12">	
 	  <div class="dynamic-rows-field row">
  
@@ -127,6 +129,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
 			])->label('Judgment Title'); ?>
 
        <?php $advocate = JudgmentAdvocate::find()->where(['doc_id'=>$model->doc_id])->all();    ?>
+       
 	<div class="dynamic-rows rows col-xs-12">
 		 <label>Select</label>
 		 <label style="margin-left: 400px">Lawyers Name (One Lawyer Name in Each Row) </label>

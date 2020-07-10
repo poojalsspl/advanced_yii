@@ -47,6 +47,7 @@ $judgment_title = implode($judgment,'');
     <br>
     <label>Judgment Title</label>
     <input type="text" value="<?php echo $judgment_title; ?>" readonly="readonly" class="form-control">
+   
     <br><br>
 
     <div class="panel panel-default">
