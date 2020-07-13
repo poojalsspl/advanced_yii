@@ -20,6 +20,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['in
     display: inline-block;
     width: 10%;
   }
+.tabs .btn.btn-block.btn-primary{
+  margin: 2px;
+}
 </style>
 
 <?php
@@ -44,21 +47,27 @@ $mastcls = "btn-primary";
     if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-primary";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-primary"; }
     if(!empty($JudgmentReferred)){ $ref           =  '/judgment-ref/update'; $refcls = "btn-primary"; } else { $ref =  '/judgment-ref/create'; $refcls = "btn-primary"; }
     if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-primary"; } else { $act =  '/judgment-act/create'; $actcls = "btn-primary"; }
-    if(!empty($JudgmentTags)){ $tag           =  '/judgment-tags/update'; $tagcls = "btn-primary"; } else { $tag =  '/judgment-tags/create'; $tagcls = "btn-primary"; }  
+    if(!empty($JudgmentTags)){ $tag           =  '/judgment-tags/update'; $tagcls = "btn-primary"; } else { $tag =  '/judgment-tags/create'; $tagcls = "btn-primary"; } 
+    /*if(!empty($JudgmentElement)){ $element           =  '/judgment-element/index'; $elementcls = "btn-success"; } else { $element =  '/judgment-element/create'; $elementcls = "btn-warning"; }*/
+    
+    /*if(!empty($JudgmentDatapoints)){ $datapoints   =  '/judgment-data-point/update'; $datapointscls = "btn-success";} else { $datapoints =  '/judgment-data-point/create1'; $datapointscls = "btn-warning"; }*/ 
    
 ?>
 
 <div class="tabs" style="display: none;">
-<?= Html::a('Judgment1',['/judgment-mast/edit','id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
-<?= Html::a('Judgment2',['/judgment-mast/update','id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$mastcls ]) ?>
-<?php echo Html::a('Lawyers Appeared',[$advocate,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$advocatecls ]) ?>
-<?= Html::a('Judges Bench',[$judge,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$judgecls ]) ?>
-<?= Html::a('Citations',[$citation,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$citationcls ]) ?>
-<?= Html::a('Parties',[$parties,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$partiescls ]) ?>
-<?php echo Html::a('Judgment Referred',[$ref,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$refcls ]) ?>
-<?php echo Html::a('Acts & Sections',[$act,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ]) ?>
-<?php echo Html::a('Judgment Tags',[$tag,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$tagcls ]) ?>
-<?php /*echo Html::a('Abstract',['judgment-mast/judgment-abstract','jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ])*/ ?>
+<?= Html::a('Edit Judgments',['/judgment-mast/edit','id'=>$doc_id],["class"=>"btn btn-block ".$mastcls ]) ?>
+<?= Html::a('Single Value FDP',['/judgment-mast/update','doc_id'=>$doc_id],["class"=>"btn btn-block ".$mastcls ]) ?>
+<?php echo Html::a('Lawyers',[$advocate,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$advocatecls ]) ?>
+<?= Html::a('Judges',[$judge,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$judgecls ]) ?>
+<?= Html::a('Citations',[$citation,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$citationcls ]) ?>
+<?= Html::a('Parties',[$parties,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$partiescls ]) ?>
+<?php echo Html::a('Referred',[$ref,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$refcls ]) ?>
+<?php echo Html::a('Acts & Sections',[$act,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$actcls ]) ?>
+<?php echo Html::a('Tags',[$tag,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$tagcls ]) ?>
+<?php //echo Html::a('Abstract',['judgment-mast/judgment-abstract','jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ]) ?>
+
+<?php //echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$elementcls ]) ?>
+<?php //echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%","class"=>"btn btn-block  ".$datapointscls ]) ?>
 </div>  
 <!---code for tabs------->
 
@@ -100,7 +109,7 @@ $mastcls = "btn-primary";
     <div class="box box-blue">
         <div class="box-body">
             <div class="col-md-12">
-               <?= $form->field($model, 'edit_status')->checkBox() ?>
+               <?= $form->field($model, 'edit_status')->checkBox()->label('<b>Check The box once you have completed all editing of the judgment text. Tabs for other Fixed data point will be displayed only after you complete the editing and check the box.</b>') ?>
                 
                 <?= $form->field($model, 'judgment_text')->textarea(['rows' => 8]) ?>
                 
@@ -136,7 +145,7 @@ $mastcls = "btn-primary";
     $this->registerJs("
 
     $('#judgmentmast-edit_status').on('click',function(){
-    console.log('test');
+    //console.log('test');
      $('.tabs').toggle();
 
     });

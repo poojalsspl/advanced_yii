@@ -22,6 +22,7 @@ use yii\data\SqlDataProvider;
  * @property int $u_id admin id
  * @property string|null $college_code
  * @property int $judgment_code
+ * @property string|null $doc_id
  * @property int|null $court_code
  * @property string|null $court_name
  * @property string|null $court_type
@@ -47,7 +48,6 @@ use yii\data\SqlDataProvider;
  * @property string|null $judgment_text1
  * @property string|null $search_tag
  * @property int|null $search_tag_count
- * @property string|null $doc_id
  * @property string|null $judgment_type
  * @property string|null $judgment_type1
  * @property int|null $jcatg_id
@@ -66,9 +66,10 @@ use yii\data\SqlDataProvider;
  * @property int|null $status_2 for_elements&datapoints
  * @property string|null $completion_status
  * @property string|null $completion_date
+ * @property int|null $edit_status 0 for incomplete 1 for complete
  * @property string|null $start_date
  * @property int $bench_code
-*/
+ */
 class JudgmentMast extends \yii\db\ActiveRecord
 {
     /**
@@ -111,11 +112,12 @@ class JudgmentMast extends \yii\db\ActiveRecord
 
          return [
            
-            [['u_id', 'court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'search_tag_count', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'judgment_length', 'approved', 'status_2', 'bench_code'], 'integer'],
+            [['u_id', 'court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'search_tag_count', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'judgment_length', 'approved', 'status_2', 'edit_status','bench_code'], 'integer'],
             [['judgment_date', 'judgment_date1', 'time', 'approved_date', 'completion_date', 'start_date'], 'safe'],
             [['judgment_abstract', 'judgment_analysis', 'judgment_text', 'judgment_text1'], 'string'],
             [['username'], 'string', 'max' => 50],
             [['college_code'], 'string', 'max' => 4],
+            [['doc_id'], 'string', 'max' => 40],
             [['court_name'], 'string', 'max' => 100],
             [['court_type', 'work_status'], 'string', 'max' => 2],
             [['appeal_numb', 'appeal_numb1'], 'string', 'max' => 250],
@@ -123,12 +125,11 @@ class JudgmentMast extends \yii\db\ActiveRecord
             [['judgment_title', 'disposition_text', 'bench_type_text', 'judgmnent_jurisdiction_text'], 'string', 'max' => 255],
             [['appeal_status'], 'string', 'max' => 10],
             [['search_tag'], 'string', 'max' => 300],
-            [['doc_id'], 'string', 'max' => 40],
             [['jcatg_description', 'jsub_catg_description'], 'string', 'max' => 150],
             [['overruled_by_judgment'], 'string', 'max' => 20],
             [['remark'], 'string', 'max' => 2000],
         ];
-    }
+}
 
     /**
      * @inheritdoc
@@ -136,38 +137,58 @@ class JudgmentMast extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'username'                 => 'Username',
+            'u_id'                     => 'U ID',
+            'college_code'             => 'College Code',
             'judgment_code'            => 'Judgment Code',
+            'doc_id'                   => 'Doc ID',
             'court_code'               => 'Court Code',
             'court_name'               => 'Court Name',
             'appeal_numb'              => 'Judgment Appeal Number',
+            'appeal_numb1'             => 'Appeal Numb1',
             'appeal_count'             => 'Appeal Count',
             'judgment_date'            => 'Judgment Date',
+            'judgment_date1'           => 'Judgment Date1',
             'judgment_title'           => 'Judgment Title',
             'appeal_status'            => 'Status',
+            'disposition_id'           => 'Judgment Disposition',
+            'disposition_id1'          => 'Disposition Id1',
+            'disposition_text'         => 'Disposition Text',
+            'bench_type_id'            => 'Bench Type',
+            'bench_type_id1'           => 'Bench Type Id1',
+            'bench_type_text'          => 'Bench Type Text',
+            'judgment_jurisdiction_id' => 'Jurisdiction',
+            'judgment_jurisdiction_id1' => 'Judgment Jurisdiction Id1',
+            'judgmnent_jurisdiction_text'=> 'Judgmnent Jurisdiction Text',
             'judgment_abstract'        => 'Judgment Abstract',
-            'judgment_text'            => 'Edited Judgment Text',
-            'judgment_text1'           => 'Backup Raw Judgment Text',
-            'doc_id'                   => 'Judgment Source Code',
+            'judgment_analysis'        => 'Judgment Analysis',
+            'judgment_text'            => 'Edited After Proof Reading Judgment Text. Dont forget to click on checkbox after completly editing the judgment text and format',
+            'judgment_text1'           => 'Raw Judgment Text cannot be edited and to be used as refrence while judgment editing the judgment text above',
+            'search_tag'               => 'Search Tag',
+            'search_tag_count'         => 'Search Tag Count', 
             'judgment_type'            => 'Judgment Type',
-            'jcatg_description'        => 'Judgment Main Category',
+            'judgment_type1'           => 'Judgment Type1',
             'jcatg_id'                 => 'Judgment Main Category',
-            'jsub_catg_description'    => 'Judgment Sub-category',
+            'jcatg_id1'                => 'Jcatg Id1',
+            'jcatg_description'        => 'Judgment Main Category',
             'jsub_catg_id'             => 'Jsub Catg ID',
+            'jsub_catg_id1'            => 'Jsub Catg Id1',
+            'jsub_catg_description'    => 'Judgment Sub-category',
             'overruled_by_judgment'    => 'If Existing Judgment Is Overruled By Another Judgment(Judgment Title:Date:Court Name)',
             'remark'                   => 'Data Collected from other source',
-            'bench_type_id'            => 'Bench Type',
-            'disposition_id'           => 'Judgment Disposition',
-            'judgment_jurisdiction_id' => 'Jurisdiction',
-            'search_tag'               => 'Search Tag',
-            'search_tag_count'         => 'Search Tag Count',   
-            'username'                 => 'Username',
+            'time'                     => 'Time',
+            'approved'                 => 'Approved',
+            'approved_date'            => 'Approved Date',
+            'work_status'              => 'Work Status',
+            'status_2'                 => 'Status 2',
+            'completion_status'        => 'Completion Status',
+            'completion_date'          => 'Completion Date',
+            'edit_satus'               => 'Check The box once you have completed all editing of the judgment text. Tabs for other Fixed data pooint will be displayed only after you complete the editing and check the box.', 
             'start_date'               => 'Allocation Date',
             'bench_code'               => 'Bench Code'
-            
-        ];
-
+         ];
         
-    }
+}
 
     /*public function attributeHints() {
         $labels = $this->attributeLabels();

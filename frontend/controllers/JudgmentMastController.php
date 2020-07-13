@@ -626,7 +626,13 @@ class JudgmentMastController extends Controller
           $doc_id = $model->doc_id;
            Yii::$app->session->setFlash('success', "Updated successfully!!");
                 $model->save();
-           return $this->redirect(['update', 'id' => $doc_id]);
+             $check = JudgmentMast::find()->select('edit_status')->where(['doc_id'=>$doc_id])->one();
+             $checkstatus = $check->edit_status;
+              if($checkstatus=='1'){
+           return $this->redirect(['update', 'doc_id' => $doc_id]);
+             }else {
+            return $this->redirect(['edit', 'id' => $doc_id]);
+             }
       }
       return $this->render('edit', [
             'model' => $model,
@@ -650,10 +656,10 @@ class JudgmentMastController extends Controller
     }
 
 
-    public function actionUpdate($id)
+    public function actionUpdate($doc_id)
     {
         $username = \Yii::$app->user->identity->username;
-        $model = JudgmentMast::find()->where(['username'=>$username])->andwhere(['doc_id'=>$id])->one();
+        $model = JudgmentMast::find()->where(['username'=>$username])->andwhere(['doc_id'=>$doc_id])->one();
         
         if ($model->load(Yii::$app->request->post())) {
           //$jcode = $model->judgment_code;
