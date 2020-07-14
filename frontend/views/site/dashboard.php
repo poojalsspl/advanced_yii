@@ -224,6 +224,7 @@ $this->title = 'Dashboard';
                               $certificate = $all_docs['passing_certificate'];
                               
                               $path = Yii::$app->homeUrl . 'frontend/web/uploads';
+                              $notavailable = Yii::$app->homeUrl . 'site/missing';
                              }
                              ?>
                           <ul class="list-group list-group-unbordered">
@@ -245,12 +246,20 @@ $this->title = 'Dashboard';
                             </li>
                             <li class="list-group-item" style="padding: 5px 3px;">
                             <b>Semester Marksheet</b><span class="pull-right">
-                            <a href="<?php echo $img = $path.'/'.$marksheet ; ?>" target="_blank" alt="pending"><?php if ($marksheet){echo "Preview";}else{echo"Pending";}?></a>
+                              <?php  if ($marksheet=''){  ?>
+                            <a href="<?php echo $img = $path.'/'.$marksheet ; ?>" target="_blank" alt="pending">Preview</a>
+                          <?php }else {?>
+                            <a href="<?php echo $notavailable; ?>" target="_blank" alt="pending">Pending</a>
+                          <?php } ?>
                             </span>
                             </li>
                             <li class="list-group-item" style="padding: 5px 3px;">
                             <b>Course Completion Certificate</b><span class="pull-right">
+                              <?php  if ($certificate=''){  ?>
                               <a href="<?php echo $img = $path.'/'.$certificate ; ?>" target="_blank" alt="pending">Preview</a>
+                              <?php }else {?>
+                               <a href="<?php echo $notavailable; ?>" target="_blank" alt="pending">Pending</a> 
+                               <?php } ?>
                             </span>
                             </li>
                            </ul>
@@ -266,16 +275,12 @@ $this->title = 'Dashboard';
                           <ul class="list-group list-group-unbordered">
                            <?php $other_courses = CourseMast::find()->select('course_name')->where(['!=', 'course_code', $course_code])->all();
                              foreach ($other_courses as $all_courses) {
-                               
-                            
-                            ?>
+                             ?>
                             <li class="list-group-item" style="padding: 5px 3px;">
                             <?php echo $all_courses['course_name'];?>
                             </li>
                             <?php } ?>
-                            
-                            
-                          </ul>
+                           </ul>
                         </div>
                     </div>
     
@@ -379,14 +384,14 @@ $this->title = 'Dashboard';
                                               $comp_fdp = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
                                               $comp_abstract = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['judgment_abstract' => null]])->count('judgment_abstract');
 
-                                            $sql="Select count(distinct('judgment_code')) as tot_count from judgment_element where username = '$username'";
+                                            $sql="Select count(distinct('doc_id')) as tot_count from judgment_element where username = '$username'";
                                             $command = Yii::$app->getDb()->createCommand($sql);
                                               $records = $command->queryAll();
                                               foreach ($records as $valuetot) {
                                               }
                                               $elecount = $valuetot['tot_count'];
 
-                                              $sqldp="Select count(distinct('judgment_code')) as tot_dpcount from judgment_data_point where username = '$username'";
+                                              $sqldp="Select count(distinct('doc_id')) as tot_dpcount from judgment_data_point where username = '$username'";
                                             $commanddp = Yii::$app->getDb()->createCommand($sqldp);
                                               $recordsdp = $commanddp->queryAll();
                                               foreach ($recordsdp as $dpvalue) {
@@ -499,7 +504,6 @@ $this->title = 'Dashboard';
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-uncited"><?= $tot_uncited;?></a></td>
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-referred"><?= $tot_ref;?></a></td>
                                                         <td><a href="/advanced_yii/judgment-mast/judgment-acts"><?= $tot_act;?></a></td>
-                                                        
                                                     </tr>
                                                 </table>
                                             </div>
