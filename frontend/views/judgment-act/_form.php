@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
     $doc_id = $_GET['doc_id'];
 }
 ?>
-<p>If you are not getting proper category, you may insert manually</p>
+<p>If you are not getting proper category, you may create manually</p>
 <a href="act?doc_id=<?php echo $doc_id?>" class="btn btn-success">Create</a>
 
 

@@ -116,41 +116,30 @@ class JudgmentActController extends Controller
            
     }
 
+    /*Code for not availabale bareact_desc and sections*/
     public function actionAct($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $model = new JudgmentAct();
+        $modeljmast = JudgmentMast::find()->select('judgment_title')->where(['doc_id'=>$doc_id])->andWhere(['username'=>$username])->one();
+        $j_title = $modeljmast->judgment_title;
 
         if ($model->load(Yii::$app->request->post()) ) {
-            $count =  count($_POST['JudgmentAct']['bareact_desc']);
-            for($i=0;$i<$count;$i++)
-            {
-            $model = new JudgmentAct();
-            
-             //$model->judgment_code = $jcode;
-             $model->j_doc_id = $doc_id;
-             $model->username = $username;
-             //$model->sec_title = $_POST['JudgmentAct']['sec_title'][$i] ;
-             $model->bareact_desc = $_POST['JudgmentAct']['bareact_desc'] ;
-             $model->save(); 
-            }
-             $model->save(false);
-    
-            $check = JudgmentAct::find()->select('work_status')->where(['j_doc_id'=>$doc_id])->one();
-             $count = $check->work_status;
-              if($count==''){ 
-                $date = date('Y-m-d');
-                \Yii::$app->db->createCommand("UPDATE judgment_act SET work_status = 'C' WHERE j_doc_id=".$doc_id)->execute();  
-                \Yii::$app->db->createCommand("UPDATE judgment_mast SET completion_date = '".$date."' WHERE doc_id=".$doc_id)->execute();                 
+            $count =  count($_POST['JudgmentAct']['sec_title']);
+              for($i=0;$i<$count;$i++)
+              {
+                $model = new JudgmentAct();
+                $model->j_doc_id = $doc_id;
+                $model->username = $username;
+                $model->judgment_title = $j_title;
+                $model->bareact_desc = $_POST['JudgmentAct']['bareact_desc'][$i];
+                $model->sec_title = $_POST['JudgmentAct']['sec_title'][$i];
+                $model->save();
+              }
+             Yii::$app->session->setFlash('success', "Created successfully!!");
+             return $this->redirect(['judgment-mast/success', 'doc_id'=>$doc_id]);
+           }
                 
-                 Yii::$app->session->setFlash('success', "Created successfully!!");
-                  $model->save(false);
-                
-            return $this->redirect(['judgment-mast/success', 'doc_id'=>$doc_id]);
-                }
-                
-        }
-         
         return $this->render('_form_new', [
             'model' => $model,
         ]);

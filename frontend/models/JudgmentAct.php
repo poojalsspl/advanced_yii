@@ -79,7 +79,7 @@ class JudgmentAct extends \yii\db\ActiveRecord
             'country_code' => 'Country Code',
             'country_shrt_name' => 'Country Shrt Name',
             'bareact_code' => 'Bareact Code',
-            'bareact_desc' => 'Bareact Desc',
+            'bareact_desc' => 'Bareact Description',
             'court_code' => 'Court Code',
             'court_name' => 'Court Name',
             'court_shrt_name' => 'Court Shrt Name',
