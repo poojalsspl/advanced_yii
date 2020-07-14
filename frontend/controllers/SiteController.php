@@ -332,6 +332,11 @@ class SiteController extends Controller
     { 
      return $this->render('branch');
     }
+
+    public function actionMissing()
+    {
+        return $this->render('missing');
+    }
     
      public function actionCollegeAnalytics()
     {   // for all states 
