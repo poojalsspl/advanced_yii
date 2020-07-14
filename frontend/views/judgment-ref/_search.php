@@ -17,9 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'judgment_code') ?>
-
-    <?= $form->field($model, 'doc_id') ?>
+   <?= $form->field($model, 'doc_id') ?>
 
     <?= $form->field($model, 'judgment_title') ?>
 

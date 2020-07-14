@@ -58,7 +58,6 @@ $master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
 <div class="tabs">
 <?= Html::a('Edit Judgments',['/judgment-mast/edit','id'=>$doc_id],["class"=>"btn btn-block ".$mastcls ]) ?>
 <?= Html::a('Single Value FDP',['/judgment-mast/update','doc_id'=>$doc_id],["class"=>"btn btn-block ".$mastcls ]) ?>
-
 <?php echo Html::a('Lawyers',[$advocate,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$advocatecls ]) ?>
 <?= Html::a('Judges',[$judge,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$judgecls ]) ?>
 
@@ -68,10 +67,8 @@ $master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
 <?php echo Html::a('Acts & Sections',[$act,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$actcls ]) ?>
 <?php echo Html::a('Tags',[$tag,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$tagcls ]) ?>
 <?php /*echo Html::a('Abstract',['judgment-mast/judgment-abstract','jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ])*/ ?>
-
 <?php //echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$elementcls ]) ?>
 <?php //echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%","class"=>"btn btn-block  ".$datapointscls ]) ?>
-
 
 </div>  
 <!---end of code for tabs------->

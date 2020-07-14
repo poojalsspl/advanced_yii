@@ -28,15 +28,15 @@ if($_GET)
 
 $judgment = ArrayHelper::map(JudgmentMast::find()
   //->andWhere(['not in','judgment_code',$j_code])
-  ->where(['judgment_code'=>$jcode])
+  ->where(['doc_id'=>$doc_id])
   ->all(),
-    'judgment_code',
+    'doc_id',
     function($result) {
 
         return $result['court_name'].'::'.$result['judgment_title'];
     });
 
-$master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
+$master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
     
     $JudgmentElement     = $master->judgmentElement;
     $JudgmentDatapoints  = $master->judgmentDatapoints;
@@ -51,8 +51,8 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <div class="tabs">
 
 
-<?php echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$elementcls ]) ?>
-<?php echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$datapointscls ]) ?>
+<?php echo Html::a('Judgment Elements',[$element,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$elementcls ]) ?>
+<?php echo Html::a('Judgment DataPoints',[$datapoints,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$datapointscls ]) ?>
 
 
 </div>
@@ -61,7 +61,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
 <!--end of tab --->
 
 <?php
- $judgmentElement = JudgmentElement::find()->where(['judgment_code'=>$jcode])->all();
+ $judgmentElement = JudgmentElement::find()->where(['doc_id'=>$doc_id])->all();
 ?>
     <table class="table table-bordered table-inverse">
   <thead>
@@ -95,14 +95,14 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
               <?php $element    = ArrayHelper::map(ElementMast::find()->all(), 'element_code', 'element_name'); 
 
               ?>
-                <?= $form->field($model, 'judgment_code')->widget(Select2::classname(), [
+                <?= $form->field($model, 'doc_id')->widget(Select2::classname(), [
     'data' => $judgment,
-    'initValueText' => $jcode,
+    'initValueText' => $doc_id,
     'disabled'=>true,
-    'options' => ['placeholder' => 'Select Judgment Code','value'=>$jcode],
+    'options' => ['placeholder' => 'Select Judgment Code','value'=>$doc_id],
    
      ])->label('Judgment Title'); ?>
-              <?= $form->field($model, 'judgment_code')->hiddenInput(['value'=>$jcode])->label(false); ?>
+              <?= $form->field($model, 'doc_id')->hiddenInput(['value'=>$doc_id])->label(false); ?>
               <?= $form->field($model, 'element_code')->widget(Select2::classname(), [
                   'data' => $element,
                   'options' => ['placeholder' => 'Select Judgment Element'],
@@ -110,7 +110,7 @@ $master = JudgmentMast::find()->where(['judgment_code'=>$jcode])->one();
                     "select2:select" => "function() { var val = $(this).val();  
               //console.log('val',val);              
               $('#judgmentelement-element_code').val(val);
-              var jcode = $('#judgmentelement-judgment_code').val();
+              var jcode = $('#judgmentelement-doc_id').val();
                     $.ajax({
                       url      : '/advanced_yii/judgment-element/element?id='+val,
                      success  : function(data) {

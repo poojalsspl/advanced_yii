@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Elements', 'url' => ['ind
         'model' => $model,
         'attributes' => [
             //'id',
-            'judgment_code',
+            //'judgment_code',
             //'element_code',
             'element_name',
             'element_text:ntext',

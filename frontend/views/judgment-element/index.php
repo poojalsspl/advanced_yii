@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'judgment_code',
+            //'judgment_code',
             'element_name',
             //'element_text:ntext',
              [
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id'=>$model->id]);
                 },*/
                'Edit' => function ($url, $model, $key) {
-                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id'=>$model->id,'jcode'=>$model->judgment_code,'doc_id'=>$model->doc_id]);
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id'=>$model->id,'doc_id'=>$model->doc_id]);
             },
              
                 'format' => 'raw',
