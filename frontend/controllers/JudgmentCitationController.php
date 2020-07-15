@@ -61,8 +61,7 @@ class JudgmentCitationController extends Controller
     }
 
     /**
-     * Creates a new JudgmentCitation model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Creates a new Multiple JudgmentCitation.
      * @return mixed
      */
     public function actionCreate($doc_id="")
@@ -106,28 +105,10 @@ class JudgmentCitationController extends Controller
             ]);
      }
 
-    public function actionCreatebkup($jcode="",$doc_id="")
-    {
-        $model = new JudgmentCitation();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->judgment_code = $jcode; 
-            //$model->doc_id = $doc_id;                
-                $model->save();  
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-          else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-
-       
-    }
 
     /**
-     * Updates an existing JudgmentCitation model.
-     * If update is successful, the browser will be redirected to the 'view' page.
+     * Updates an existing Multiple JudgmentCitation.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found

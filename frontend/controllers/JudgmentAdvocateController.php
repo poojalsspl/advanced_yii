@@ -62,8 +62,8 @@ class JudgmentAdvocateController extends Controller
     }
 
     /**
-     * Creates a new JudgmentAdvocate model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Creates a new Multiple JudgmentAdvocate .
+     * If creation is successful, the browser will be redirected to the another controller function.
      * @return mixed
      */
     public function actionCreate($doc_id="")
@@ -103,9 +103,6 @@ class JudgmentAdvocateController extends Controller
                 $model->save();
             return $this->redirect(['judgment-judge/create', 'doc_id'=>$doc_id]);
                 }
-                
-            
-            
         }
 
         return $this->render('create', [
@@ -114,23 +111,12 @@ class JudgmentAdvocateController extends Controller
         ]);
     }
 
-    public function actionCreatebkup()
-    {
-        $model = new JudgmentAdvocate();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
+   
 
     /**
-     * Updates an existing JudgmentAdvocate model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * Updates an existing Multiple JudgmentAdvocate .
+     * If update is successful, the browser will be redirected to the same page.
+     * @param integer $doc_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */

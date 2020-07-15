@@ -60,8 +60,7 @@ class JudgmentJudgeController extends Controller
     }
 
     /**
-     * Creates a new JudgmentJudge model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Creates a new Multiple JudgmentJudge .
      * @return mixed
      */
     public function actionCreate($doc_id="")
@@ -105,9 +104,8 @@ class JudgmentJudgeController extends Controller
     }
 
     /**
-     * Updates an existing JudgmentJudge model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * Updates an existing Multiple JudgmentJudge .
+     * @param integer $doc_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -137,10 +135,7 @@ class JudgmentJudgeController extends Controller
               Yii::$app->session->setFlash('Updated successfully!!');
                  $this->redirect(['update', 'doc_id'=>$doc_id ]);                    
               
-
-          
-       
-        } else {
+       } else {
             return $this->render('update', [
                 'model' => $model,
             ]);

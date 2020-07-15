@@ -60,8 +60,7 @@ class JudgmentPartiesController extends Controller
     }
 
     /**
-     * Creates a new JudgmentParties model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Creates a new multiple JudgmentParties .
      * @return mixed
      */
     public function actionCreate($doc_id="")
@@ -113,9 +112,9 @@ class JudgmentPartiesController extends Controller
       }
 
     /**
-     * Updates an existing JudgmentParties model.
+     * Updates an existing Multiple JudgmentParties .
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $doc_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */

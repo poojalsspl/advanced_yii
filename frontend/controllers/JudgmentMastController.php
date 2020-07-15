@@ -56,7 +56,7 @@ class JudgmentMastController extends Controller
     }
 
     /**
-     * Lists all JudgmentMast models.
+     * Lists all JudgmentMast models values.
      * @return mixed
      */
     
@@ -72,6 +72,9 @@ class JudgmentMastController extends Controller
         ]);
     }
 
+    /**
+    * created for testing piechart
+    */
     public function actionPie() {
     $username = \Yii::$app->user->identity->username;
     // $dataProvider = new ActiveDataProvider([
@@ -95,6 +98,9 @@ class JudgmentMastController extends Controller
     ]);
   }
 
+    /**
+    * created for testing columnchart
+    */
   public function actionColumn()
   {
     $model = new StateMast();
@@ -111,21 +117,19 @@ class JudgmentMastController extends Controller
 
   public function actionStategraph($id)
     {
-       // $dictionary = StateMast::find()->select(['word','synonym','defination'])->where(['id'=>$id])->asArray()->all();
-     //$result = Json::encode($dictionary);
-      $dataProvider = new ActiveDataProvider([
+     $dataProvider = new ActiveDataProvider([
         'query' => CollegeMast::find()->select(['count(city_code) AS total,city_name'])->where(['state_code'=>$id])->groupBy(['city_name']),
         'pagination' => false
         ]);
-      // $dictionary = CollegeMast::find()->select(['count(city_code) AS total,city_name'])->where(['state_code'=>$id])->groupBy(['city_name'])->all();
       $result = Json::encode($dataProvider);
      return $result;   
     }
   
 
-
-          
-        public function actionIndexbkup()
+    /**
+    * original index function
+    */
+      public function actionIndexbkup()
     {
         $searchModel = new JudgmentMastSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -139,7 +143,7 @@ class JudgmentMastController extends Controller
     
 
     /**
-     * Displays a single JudgmentMast model.
+     * Displays a single JudgmentMast model view.
      * @param integer $id
      * @return mixed
      */
@@ -151,7 +155,9 @@ class JudgmentMastController extends Controller
     }
 
     
-
+    /**
+    * no need 
+    */
     public function actionJudgmentview($jcode="")
 
     {
@@ -553,6 +559,20 @@ class JudgmentMastController extends Controller
          ]);
     } 
 
+    public function actionActsTitle($brcode,$title)
+    {
+       
+        $query = BareactDetl::find()
+        ->select('body')
+        ->where(['bareact_code'=>$brcode])
+        ->andWhere(['act_title'=> $title]);
+        $models = $query->all();
+        return $this->render('acts_title', [
+            'models' => $models,
+         ]);
+
+    }
+
    // List wise Analytics end
 
     
@@ -613,7 +633,10 @@ class JudgmentMastController extends Controller
         }
       
     }
-
+    
+    /**
+    * For judgment text only
+    */
     public function actionEdit($id)
     {
         $username = \Yii::$app->user->identity->username;
@@ -639,6 +662,9 @@ class JudgmentMastController extends Controller
         ]);
     }
 
+    /**
+    * no need 
+    */
     public function actionEditbkup($id)
     {
         $model = $this->findModel($id);
@@ -655,7 +681,9 @@ class JudgmentMastController extends Controller
         ]);
     }
 
-
+    /**
+    * Single Value FDP
+    */
     public function actionUpdate($doc_id)
     {
         $username = \Yii::$app->user->identity->username;
@@ -740,6 +768,9 @@ class JudgmentMastController extends Controller
         ]);
     }
 
+    /**
+    * NO NEED 
+    */
     public function actionUpdatebkup($id)
     {
         $model = $this->findModel($id);
@@ -824,7 +855,10 @@ class JudgmentMastController extends Controller
             'model' => $model,
         ]);
     }
-
+    
+    /**
+    * dependent dropdown value for courts
+    */
      public function actionSubcat() {
         $out = [];
         $statemodel = new CourtMast();
@@ -841,6 +875,10 @@ class JudgmentMastController extends Controller
          echo \yii\helpers\Json::encode(['output'=>'', 'selected'=>'']);
 
         }
+
+    /**
+    * when all modules complete, this page will display
+    */    
 
     public function actionSuccess($doc_id="")
     {
@@ -913,28 +951,18 @@ class JudgmentMastController extends Controller
 
       }
 
-    public function actionActsTitle($brcode,$title)
-    {
-       
-        $query = BareactDetl::find()
-        ->select('body')
-        ->where(['bareact_code'=>$brcode])
-        ->andWhere(['act_title'=> $title]);
-        $models = $query->all();
-        return $this->render('acts_title', [
-            'models' => $models,
-         ]);
+    
 
-    }
-
-
-
-
+   /** 
+   * NO NEED
+   */
     public function actionJudgment()
     {
-    
-            return $this->render('judgment');
+      return $this->render('judgment');
     }
+   /** 
+   * NO NEED
+   */
     public function actionJudgmenmast()
     {
       $judgmentmast = new JudgmentMast();
@@ -978,16 +1006,18 @@ class JudgmentMastController extends Controller
     
   
     }*/
+    /** 
+   * NO NEED
+   */
         public function actionJudgmentcitation()
     {
     return $this->render('judgment');
     }
-/*        public function actionJudgmentextremark()
-    {
 
-    }
-*/
-        public function actionJudgmentparties()
+    /** 
+   * NO NEED
+   */
+    public function actionJudgmentparties()
     {
     $judgmentAct       = new JudgmentAct();
     $judgmentAdvocate  = new JudgmentAdvocate();
@@ -999,7 +1029,9 @@ class JudgmentMastController extends Controller
     }
 
 
-
+   /** 
+   * NO NEED
+   */
     public function actionJudgmentjudge()
     {
 
@@ -1018,16 +1050,9 @@ class JudgmentMastController extends Controller
     }
 
     
-    
-
-
-    /**
-     * Updates an existing JudgmentMast model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    
+    /** 
+   * NO NEED
+   */
      public function actionMemcacheOverruled()
     {
       $cache = Yii::$app->cache;
@@ -1059,12 +1084,17 @@ class JudgmentMastController extends Controller
     }*/
     }
 
-
+    /**
+    * NO NEED
+    */
     public function actionJudgmentupdate($code='',$doc_id='')
     {
         
             return $this->render('judgmentupdate');
     }
+    /**
+    * NO NEED
+    */
     public function actionMemcacheRetrive()
     {
       $cache = Yii::$app->cache;
@@ -1113,7 +1143,6 @@ class JudgmentMastController extends Controller
   
     public function actionCourt($id)
     {
-    
      $court = CourtMast::find()->where(['court_code'=>$id])->one();
      $country_code = $court->country_code;
      $state        =  $court->state_code;
@@ -1124,10 +1153,10 @@ class JudgmentMastController extends Controller
     $result = Json::encode($state);
      return $result;          
     }
+
     public function actionJsubcateg($id)
     {
-    
-     $jsubCatg = JsubCatgMast::find()->select("jsub_catg_id,jsub_catg_description")->where(['jcatg_id'=>$id])->asArray()->all();     
+    $jsubCatg = JsubCatgMast::find()->select("jsub_catg_id,jsub_catg_description")->where(['jcatg_id'=>$id])->asArray()->all();     
     $result = Json::encode($jsubCatg);
      return $result;          
     }

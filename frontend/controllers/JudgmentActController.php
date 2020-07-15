@@ -63,7 +63,7 @@ class JudgmentActController extends Controller
     }
 
     /**
-     * Creates a new JudgmentAct model.
+     * Creates a new Multiple JudgmentAct.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -116,7 +116,10 @@ class JudgmentActController extends Controller
            
     }
 
-    /*Code for not availabale bareact_desc and sections*/
+    /**
+    *Code for not availabale bareact_desc and sections
+    * manual entry of barect_desc and section
+    */
     public function actionAct($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
@@ -146,6 +149,9 @@ class JudgmentActController extends Controller
            
     }
 
+     /**
+     *No need
+     */
      public function actionCreate1($jcode="",$doc_id="")
     {
          //$user_id = Yii::$app->user->identity->id;
@@ -212,7 +218,9 @@ class JudgmentActController extends Controller
             }
     }
 
-
+    /**
+     *No need
+     */
      public function actionCreate2($jcode="",$doc_id="")
     {
         $model = new JudgmentAct();
@@ -234,7 +242,9 @@ class JudgmentActController extends Controller
             }
     }
 
-
+    /**
+     *No need
+     */
     public function actionCreateBkup($jcode="",$doc_id="")//19/08/2019 pooja
     {
         $model = new JudgmentAct();
@@ -299,7 +309,10 @@ class JudgmentActController extends Controller
             'model' => $model,
         ]);
     }
-
+    
+    /**
+     *No need
+     */
     public function actionUpdateBKUP($jcode="",$doc_id="")
     {
         //$model = $this->findModel();
@@ -342,6 +355,10 @@ class JudgmentActController extends Controller
         //return $this->redirect(['index']);
     }
 
+    /**
+     *Used for fetching other details based on bareact_code passed from bareact_mast table
+     * ajax request 
+     */
     public function actionBareact($id)
     {
         

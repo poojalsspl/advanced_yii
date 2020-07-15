@@ -61,6 +61,7 @@ class JudgmentTagsController extends Controller
     /**
      * Creates a new JudgmentTags model.
      * If creation is successful, the browser will be redirected to the 'view' page.
+     * created for multiple values.
      * @return mixed
      */
     public function actionCreate($doc_id="")
@@ -85,7 +86,13 @@ class JudgmentTagsController extends Controller
             'model' => $model,
         ]);
     }
-
+     
+     /**
+     * Creates a new JudgmentTags model.
+     * Original function.
+     * It was created for single values.
+     * @return mixed
+     */
      public function actionCreatebkup()
     {
         $model = new JudgmentTags();
@@ -102,6 +109,7 @@ class JudgmentTagsController extends Controller
     /**
      * Updates an existing JudgmentTags model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     * Multiple values updation.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -140,6 +148,11 @@ class JudgmentTagsController extends Controller
     }
     }
 
+    /**
+     * Updates an JudgmentTags model for single values only.
+     * Original update function.
+     * It will not work from browser as update file is also changed w.r.t multiple  values  
+     */
     public function actionUpdatebkup($id)
     {
         $model = $this->findModel($id);

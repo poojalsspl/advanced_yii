@@ -102,6 +102,11 @@ class JudgmentRefController extends Controller
      
     }*/
 
+    /**
+     * Creates a new Multiple JudgmentRef.
+     * @return mixed
+     */
+
      public function actionCreate($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
@@ -147,18 +152,7 @@ class JudgmentRefController extends Controller
     }
     
 
-        public function actionCreatebkup()
-    {
-        $model = new JudgmentRef();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
+    
 
     // public function actionUpdate($jcode="",$doc_id="")
     //{
@@ -193,6 +187,11 @@ class JudgmentRefController extends Controller
         }     */
     //}
 
+    /**
+     * Update a new Multiple JudgmentRef .
+     * @return mixed
+     */
+
      public function actionUpdate($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
@@ -215,26 +214,10 @@ class JudgmentRefController extends Controller
         return $this->render('update', ['models' => $models]);
     }
 
+
     /**
-     * Updates an existing JudgmentRef model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdatebkup($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
-
+    * Used for previously create function,by clicking all data was store in db,wo manual entry
+    */
     public function actionAdddata($id,$jcode)
     {
       $username = \Yii::$app->user->identity->username;  
