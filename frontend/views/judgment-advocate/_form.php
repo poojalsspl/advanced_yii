@@ -64,6 +64,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
    
      ])->label('Judgment Title'); ?>
      <?php echo $form->field($model, 'doc_id')->hiddenInput(['value' => $doc_id])->label(false);?>
+     <p id="demo"></p>
      <?php echo $form->field($modeljmast, 'remark')->textarea(['rows'=>6])->label();?>
      <div class="dynamic-rows rows col-xs-12">	
 	  <div class="dynamic-rows-field row">
@@ -90,7 +91,10 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     <div class="col-xs-8">
     	<?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
     
-<?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
+<?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>&nbsp;
+<?= Html::button('Skip', ['name' => 'Skip', 'value' => 'true', 'class' => 'btn btn-warning skip-row']) ?>
+
+
      <?php if(!$model->isNewRecord) { ?>
  
  <?php } ?>
@@ -172,6 +176,8 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
     <div class="col-xs-8">
     <?= Html::button('Add row', ['name' => 'Add', 'value' => 'true', 'class' => 'btn btn-info addr-row']) ?>
     <?= Html::button('Delete row', ['name' => 'Delete', 'value' => 'true', 'class' => 'btn btn-danger deleted-row']) ?>
+    <?= Html::button('Skip', ['name' => 'Skip', 'value' => 'true', 'class' => 'btn btn-warning skip-row']) ?>
+
   	  
     
   	
@@ -199,6 +205,25 @@ if($model->isNewRecord){
 	$('.deleted-row').on('click',function(){
 		console.log('test');
 		$('.dynamic-rows-field').last().remove();
+	});
+	$('.skip-row').on('click',function(){
+		var doc =  $('#judgmentadvocate-doc_id').val();
+		var x;
+        var r= confirm('Are you sure ? There is no data available for this judgment.');
+        if (r==true){
+        	$.ajax({
+        		url : '/advanced_yii/judgment-advocate/skipdata?doc='+doc,
+        		dataType : 'json',
+        		success : function(data){
+        			window.location.href = "/advanced_yii/judgment-mast/update?doc_id="+doc;
+        		}
+        		});
+        }
+        else
+       {
+         x="You pressed Cancel! So now you can insert data";
+       }
+       $('#demo').html(x);
 	});
 
 	$('#submit-button').on("click",function(){
@@ -229,6 +254,7 @@ else{
 				$('.dynamic-rows-field').last().remove();
 		
 	});
+	
 
 	$('#submit-button').on("click",function(){
 		console.log('test');

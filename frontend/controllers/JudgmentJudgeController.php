@@ -104,6 +104,23 @@ class JudgmentJudgeController extends Controller
     }
 
     /**
+    * for skip data
+    * if user will click on skipp button from form, through ajax request below data will 
+    * ----save in db and redirect to judgment-mast/update form
+    */
+
+    public function actionSkipdata($doc=""){
+        $username = \Yii::$app->user->identity->username;
+        $model = Yii::$app->db->createCommand()->insert('judgment_judge', [
+        'doc_id' => $doc,
+        'username' => $username,
+        'work_status' => 'C', 
+        ])->execute();
+        $success_msg = Yii::$app->session->setFlash('success', "Updated successfully!!");
+        return $model;
+    }
+
+    /**
      * Updates an existing Multiple JudgmentJudge .
      * @param integer $doc_id
      * @return mixed
