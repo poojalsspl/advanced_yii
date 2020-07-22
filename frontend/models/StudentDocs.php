@@ -12,8 +12,8 @@ use Yii;
  * @property string|null $doc_tenth
  * @property string|null $doc_twelve
  * @property string|null $doc_id_proof
- * @property string $marksheet
- * @property string $passing_certificate
+ * @property string|null $marksheet
+ * @property string|null $passing_certificate
  */
 class StudentDocs extends \yii\db\ActiveRecord
 {
@@ -33,9 +33,12 @@ class StudentDocs extends \yii\db\ActiveRecord
         return [
             [['username'], 'string', 'max' => 50],
             [['doc_tenth', 'doc_twelve', 'doc_id_proof'], 'required'],
-             [['doc_tenth','doc_twelve','doc_id_proof','marksheet', 'passing_certificate'], 'file', 'extensions' => 'pdf',],
+             [['doc_tenth','doc_twelve','doc_id_proof','marksheet', 'passing_certificate'], 'file', 'extensions' => 'pdf'],
             //[['doc_tenth', 'doc_twelve', 'doc_id_proof'], 'string', 'max' => 30],
+            // [['marksheet', 'passing_certificate'], 'file','skipOnEmpty' => true],
+             
         ];
+
     }
 
 
@@ -51,7 +54,7 @@ class StudentDocs extends \yii\db\ActiveRecord
             'doc_tenth' => 'Doc Tenth',
             'doc_twelve' => 'Doc Twelve',
             'doc_id_proof' => 'Doc Id Proof',
-             'marksheet' => 'Marksheet',
+            'marksheet' => 'Marksheet',
             'passing_certificate' => 'Passing Certificate',
         ];
     }

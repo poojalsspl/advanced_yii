@@ -21,6 +21,10 @@ use yii\widgets\ActiveForm;
 
                     <?= $form->field($model, 'doc_id_proof')->fileInput()->label('Any of ID poof like Aadhar Card/Voter Card/Driving Licence') ?>
 
+                     <?= $form->field($model, 'marksheet')->fileInput()->label('Current Marksheet') ?>
+
+                      <?= $form->field($model, 'passing_certificate')->fileInput()->label('Final Degree/Certification') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

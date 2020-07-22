@@ -571,19 +571,25 @@ class SiteController extends Controller
                FileHelper::createDirectory($tot);
             }
             
+
             $doc_tenth = mt_rand(10000, 99999);
             $doc_twelve = mt_rand(100000, 999999);
             $doc_id_proof = mt_rand(1000000, 9999999);
+            $marksheet    = mt_rand(1000, 9999);
+            $passing_certificate = mt_rand(100, 999);
             $model->doc_tenth = UploadedFile::getInstance($model, 'doc_tenth');
             $model->doc_twelve = UploadedFile::getInstance($model, 'doc_twelve');
             $model->doc_id_proof = UploadedFile::getInstance($model, 'doc_id_proof');
-            // if ($model->marksheet){
-            //   $marksheet = mt_rand(1, 99);
-            //   $model->marksheet = UploadedFile::getInstance($model, 'marksheet');
-            //   $model->marksheet->saveAs('uploads/'.$path.'/'.$marksheet.'.'.$model->marksheet->extension );
-            //   $model->marksheet = $path.'/'.$marksheet.'.'.$model->marksheet->extension;
-            // }
+            $model->marksheet = UploadedFile::getInstance($model, 'marksheet');
+            $model->passing_certificate = UploadedFile::getInstance($model, 'passing_certificate');
 
+            /*if ($model->marksheet){
+              $marksheet = mt_rand(1, 99);
+              $model->marksheet = UploadedFile::getInstance($model, 'marksheet');
+              $model->marksheet->saveAs('uploads/'.$path.'/'.$marksheet.'.'.$model->marksheet->extension );
+              $model->marksheet = $path.'/'.$marksheet.'.'.$model->marksheet->extension;
+            }*/
+              //print_r($model);die;
             // if ($_POST['StudentDocs']['passing_certificate']){
             //   $passing_certificate = mt_rand(100, 999);
             //   $model->passing_certificate = UploadedFile::getInstance($model, 'passing_certificate');
@@ -594,10 +600,22 @@ class SiteController extends Controller
             $model->doc_tenth->saveAs('uploads/'.$path.'/'.$doc_tenth.'.'.$model->doc_tenth->extension );
             $model->doc_twelve->saveAs('uploads/'.$path.'/'.$doc_twelve.'.'.$model->doc_twelve->extension );
             $model->doc_id_proof->saveAs('uploads/'.$path.'/'.$doc_id_proof.'.'.$model->doc_id_proof->extension );
+            if ($model->marksheet){
+            $model->marksheet->saveAs('uploads/'.$path.'/'.$marksheet.'.'.$model->marksheet->extension );
+            }
+            if ($model->passing_certificate){
+            $model->passing_certificate->saveAs('uploads/'.$path.'/'.$passing_certificate.'.'.$model->passing_certificate->extension );
+            }
 
             $model->doc_tenth = $path.'/'.$doc_tenth.'.'.$model->doc_tenth->extension;
             $model->doc_twelve = $path.'/'.$doc_twelve.'.'.$model->doc_twelve->extension;
             $model->doc_id_proof = $path.'/'.$doc_id_proof.'.'.$model->doc_id_proof->extension;
+            if ($model->marksheet){
+            $model->marksheet = $path.'/'.$marksheet.'.'.$model->marksheet->extension;
+            }
+            if ($model->passing_certificate){
+            $model->passing_certificate = $path.'/'.$passing_certificate.'.'.$model->passing_certificate->extension;
+            }
 
             if ($model->save() && $user->SetStatus($id,'2')) {
                 Yii::$app->session->setFlash('success', "Documents Uploaded Successfully. Please wait for account verification"); 
