@@ -246,7 +246,7 @@ $this->title = 'Dashboard';
                             </li>
                             <li class="list-group-item" style="padding: 5px 3px;">
                             <b>Semester Marksheet</b><span class="pull-right">
-                              <?php  if ($marksheet=''){  ?>
+                              <?php  if ($marksheet!=''){  ?>
                             <a href="<?php echo $img = $path.'/'.$marksheet ; ?>" target="_blank" alt="pending">Preview</a>
                           <?php }else {?>
                             <a href="<?php echo $notavailable; ?>" target="_blank" alt="pending">Pending</a>
@@ -255,7 +255,7 @@ $this->title = 'Dashboard';
                             </li>
                             <li class="list-group-item" style="padding: 5px 3px;">
                             <b>Course Completion Certificate</b><span class="pull-right">
-                              <?php  if ($certificate=''){  ?>
+                              <?php  if ($certificate!=''){  ?>
                               <a href="<?php echo $img = $path.'/'.$certificate ; ?>" target="_blank" alt="pending">Preview</a>
                               <?php }else {?>
                                <a href="<?php echo $notavailable; ?>" target="_blank" alt="pending">Pending</a> 
@@ -509,6 +509,39 @@ $this->title = 'Dashboard';
                                             </div>
                                         </div>
                                     </li>
+                                    <!--null summary data start -->
+                                    <li>
+                                        <i class="fa fa-gg bg-maroon"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"></span>
+                                            <h3 class="timeline-header"><a href="#">Null Summary Data</a></h3>
+                                            <div class="timeline-body">
+                                                <table class="table table-striped">
+                                                    <tr>
+                                                        <th>Advocates</th>
+                                                        <th>Judges</th>
+                                                        <th>Citations Journals</th>
+                                                        <th>Judgment Referred</th>
+                                                        </tr>
+                                                     <?php
+                                                     $null_advocate = JudgmentAdvocate::find()->where(['is', 'advocate_name', new \yii\db\Expression('null')])->andwhere(['username'=>$username])->andWhere(['work_status'=>'C'])->count();
+                                                     $null_judge = JudgmentJudge::find()->where(['is', 'judge_name', new \yii\db\Expression('null')])->andwhere(['username'=>$username])->andWhere(['work_status'=>'C'])->count();
+                                                     $null_citation = JudgmentCitation::find()->where(['is', 'citation', new \yii\db\Expression('null')])->andwhere(['username'=>$username])->andWhere(['not', ['citation' => null]])->andWhere(['work_status'=>'C'])->count();
+                                                     $null_ref = JudgmentRef::find()->where(['is', 'judgment_title_ref', new \yii\db\Expression('null')])->andwhere(['username'=>$username])->andWhere(['work_status'=>'C'])->count();
+                                                     
+                                                     ?>
+
+                                                    <tr>
+                                                        <td><a href="#"><?= $null_advocate;?></a></td>
+                                                        <td><a href="#"><?= $null_judge;?></a></td>
+                                                        <td><a href="#"><?= $null_citation;?></a></td>
+                                                        <td><a href="#"><?= $null_ref;?></a></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!---null summary data end-->
                                     <li class="vdp" <?php if ($course_code == 'RCCLRW01'){ ?> hidden <?php   } ?>>  
                                         <i class="fa fa-circle bg-blue"></i>
                                         <div class="timeline-item">
