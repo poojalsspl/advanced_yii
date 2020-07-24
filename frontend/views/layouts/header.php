@@ -43,85 +43,8 @@ use yii\bootstrap\Nav;
                             ],
 
                             
-
-                            //  [
-                            //     'label' => 'Certification',
-                            //     'url' => ['site/about-pioneer'],
-                            //     'linkOptions' => [],
-                            // ],
-                            [
-                                'label' => 'Courses',
-                                'url' => '',
-                                'linkOptions' => [],
-                                'items' => [
-                                    [
-                                        'label' => 'Diploma',
-                                        'url' => '',
-                                        
-                                    ],
-                                    [
-                                        'label' => 'Workshop',
-                                        'url' => '',
-                                        'linkOptions' => [],
-                                        'items' => [
-                                            [
-                                                'label' => 'case law research',
-                                                'url' => ['site/college-analytics'],
-                                                'linkOptions' => [],
-                                            ],
-                                        ]
-                                        
-                                    ],
-                                    [
-                                        'label' => 'Certificate',
-                                        'url' => '',
-                                        'linkOptions' => [],
-                                        
-                                        
-                                    ],
-                                    
-                                ]
-                            ],
-
-
-                            [
-                                'label' => 'Analytics',
-                                'url' => '',
-                                'linkOptions' => [],
-                                'items' => [
-                                    [
-                                        'label' => 'Law college Analytics',
-                                        'url' => ['site/college-analytics']
-                                    ],
-                                    
-                                ]
-                            ],
-
-                            [
-                                'label' => 'FAQ',
-                                'url' => ['site/faq'],
-                                'linkOptions' => [],
-                            ],
-                           
-                          
-                           [
-                                'label' => 'Contact',
-                                'url' => '',
-                                'linkOptions' => [],
-                                'items' => [
-                                    [
-                                        'label' => 'Contact us Online',
-                                        'url' => ['site/contact']
-                                    ],
-                                    [
-                                        'label' => 'Branches',
-                                        'url' => ['site/branch']
-                                    ],
-                                    
-                                ]
-                            ],
-                            
-                          ];
+                         ];
+                         
                         if (Yii::$app->user->isGuest) {
                             $menuItems[] = ['label' => 'Login', 'url' => ['site/login']];
                             $menuItems[] = ['label' => 'Sign Up', 'url' => ['site/signup']];
