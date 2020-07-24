@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\models\JudgmentMast;
 use frontend\models\BareactMast;
-use frontend\models\BareactGroupMast;
 use frontend\models\JudgmentAct;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
@@ -79,6 +78,30 @@ foreach ($judgment as $key => $judgment_value) {
               <h3 class="box-title"></h3>
             </div>
     
+<!--   <input
+type="text"
+placeholder="language name"
+class="form-control flexdatalist"
+data-min-length="1"
+multiple="multiple"
+list="languages"
+name="language12"> -->
+<!--  <datalist id="languages">
+
+<option value="PHP">PHP</option>
+<option value="JavaScript">JavaScript</option>
+<option value="Cobol">Cobol</option>
+<option value="C#">C#</option>
+<option value="C++">C++</option>
+<option value="Java">Java</option>
+<option value="Pascal">Pascal</option>
+<option value="FORTRAN">FORTRAN</option>
+<option value="Lisp">Lisp</option>
+<option value="Swift">Swift</option>
+</datalist> --> 
+<div class="act-section">
+  
+</div>
 
  <?= $form->field($model, 'judgment_title')->textInput(['maxlength' => true ,'readonly'=>true,'value' => $judgment_value])->label() ?>
 
@@ -105,42 +128,15 @@ print_r($ids);*/
  <div class="row">  
 <div class="col-md-3 col-xs-12">
 
-     <?php 
-      $bareactgroupmast  = ArrayHelper::map(BareactGroupMast::find()->all(), 'act_group_code', 'act_group_desc');
-      //$bareactmast  = ArrayHelper::map(BareactMast::find()->all(), 'bareact_code', 'bareact_desc');
-      $bareactmast = ($model->bareact_code != "") ?  ArrayHelper::map(BareactMast::find()->where(["bareact_code"=>$model->bareact_code])->all(), 'bareact_code', 'bareact_desc') : "" ; ?>
-
-      
+     <?php  $bareactmast  = ArrayHelper::map(BareactMast::find()->all(), 'bareact_code', 'bareact_desc'); ?>
     
-             <?= $form->field($model, 'act_group_desc')->widget(Select2::classname(), [
-        'data' => $bareactgroupmast,
-        'options' => ['placeholder' => 'Bareact Group','value' => ($model->act_group_code != "") ? $model->act_group_code : ''],
-        'pluginEvents'=>[
-            "select2:select" => "function() { var val = $(this).val();                
-              $('#judgmentact-jcatg_id').val(val);
-                    $.ajax({
-                      url      : '/advanced_yii/judgment-act/bmst?id='+val,
-                      dataType : 'json',
-                      success  : function(data) {                                 
-                       $('#judgmentact-bareact_desc').empty();    
-                       $('#judgmentact-bareact_desc').append('<option>Select Bareact Category</option>');
-                        $.each(data, function(i, item){
-                        $('#judgmentact-bareact_desc').append('<option value='+item.bareact_code+'>'+item.bareact_desc+'</option>');
-                      });
-                          },
-                      error: function(xhr, textStatus, errorThrown){
-                           alert('No Braect Category found');
-                        }                                                         
-                      });
-             }"
-            ]
-         ]); ?>
+
+             <?php /*echo $form->field($model, "bareact_desc")->dropDownList($bareactmast,['prompt'=>''])->label('Element Name'); */?>
              <?= $form->field($model, 'bareact_desc')->widget(Select2::classname(), [
         'data' => $bareactmast,
-        'options' => ['placeholder' => 'Select Bareact Category'],
-         ]); ?>
+        'options' => ['placeholder' => 'Select Bareact'],
          
-
+          ]); ?>
     </div>
     <div class="act_data">
     <div class="col-md-3 col-xs-12">
@@ -209,37 +205,13 @@ $('#judgmentact-bareact_desc').on('change', function(){
  else
 $.ajax({
 //type     :'GET',
-url        : '/advanced_yii/judgment-act/bareact?id='+bareact_desc,
-dataType   : 'json',
+url        : '/advanced_yii/judgment-act/bgroupmst?id='+bareact_desc,
+dataType   : 'html',
 success    : function(data){
-let checkbox = '';
+
 console.log(typeof data);
- data.forEach(function(e){
-//console.log('e',e)
-catg_desc = e.act_catg_desc;
-catg_code = e.act_catg_code;
-sub_desc  = e.act_sub_catg_desc;
-sub_code  = e.act_sub_catg_code;
-group_desc = e.act_group_desc;
-group_code = e.act_group_code;
-sec_title  = e.sec_title;
-
-//console.log(sec_title);
-checkbox = checkbox + '<div class="col-md-2 col-xs-12"><input type="checkbox" name="JudgmentAct[sec_title][]" value="' + sec_title + '">'+sec_title+'</div>';
-
-
-});
-
-
-$('.act_row').html(checkbox);
-$('#judgmentact-act_catg_desc').val(catg_desc); 
-$('#judgmentact-act_catg_code').val(catg_code);
-$('#judgmentact-act_sub_catg_desc').val(sub_desc);
-$('#judgmentact-act_sub_catg_code').val(sub_code);
-$('#judgmentact-act_group_desc').val(group_desc);
-$('#judgmentact-act_group_code').val(group_code);
-
-        
+//$('.act-section').html(data);
+       
  },
                 
     });

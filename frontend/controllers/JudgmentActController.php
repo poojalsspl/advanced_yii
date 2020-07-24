@@ -74,6 +74,7 @@ class JudgmentActController extends Controller
 
         if ($model->load(Yii::$app->request->post()) ) {
             $count =  count($_POST['JudgmentAct']['sec_title']);
+            $judgmentMast = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
             for($i=0;$i<$count;$i++)
             {
 
@@ -82,6 +83,7 @@ class JudgmentActController extends Controller
              //$model->judgment_code = $jcode;
              $model->j_doc_id = $doc_id;
              $model->username = $username;
+             $model->judgment_title =  $judgmentMast->judgment_title;
              $model->bareact_code = $model->bareact_desc ;
              $model->sec_title = $_POST['JudgmentAct']['sec_title'][$i] ;
              $model->act_catg_desc = $_POST['JudgmentAct']['act_catg_desc'] ;
@@ -89,7 +91,6 @@ class JudgmentActController extends Controller
              $model->act_sub_catg_code = $_POST['JudgmentAct']['act_sub_catg_code'] ;
              $model->act_sub_catg_desc = $_POST['JudgmentAct']['act_sub_catg_desc'] ;
              $model->act_group_code = $_POST['JudgmentAct']['act_group_code'] ;
-             $model->act_group_desc = $_POST['JudgmentAct']['act_group_desc'] ;
              $model->bareact_code = $_POST['JudgmentAct']['bareact_desc'] ;
              $model->bareact_desc = $model->bareactDesc->bareact_desc;
              $model->save(); 
@@ -111,6 +112,50 @@ class JudgmentActController extends Controller
         }
          
         return $this->render('create', [
+            'model' => $model,
+        ]);
+           
+    }
+
+    /**
+    * for dependent bareact description in judgment act form
+    */
+    public function actionBmst($id)
+    {
+     $bareact = BareactMast::find()->where(['act_group_code'=>$id])->all();
+     $result = Json::encode($bareact);
+     return $result;
+
+    }
+
+    /**
+     *Used for fetching other details based on bareact_code passed from bareact_mast table
+     * ajax request 
+     */
+    public function actionBareact($id)
+    {
+        
+         $bareact = BareactDetl::find()->select(['act_group_code','act_group_desc','act_catg_code','act_catg_desc','act_sub_catg_code','act_sub_catg_desc','sec_title'])->where(['bareact_code'=>$id])->andWhere(['!=', 'level', '0'])->orderBy('sno,level')->asArray()->all();
+          $result = Json::encode($bareact);
+          // return 'test';
+          /* return $this->render('view1', [
+            'model' => $bareact,
+         ]);*/
+     return $result;   
+    }
+
+
+      public function actionCreateNew($doc_id="")
+    {
+        $username = \Yii::$app->user->identity->username;
+        $model = new JudgmentAct();
+        $this->view->registerJsFile("/advanced_yii/frontend/web/flexdatalist/jquery.js",['depends' => 'yii\web\JqueryAsset']);
+        $this->view->registerJsFile("/advanced_yii/frontend/web/flexdatalist/jquery.flexdatalist.js",['depends' => 'yii\web\JqueryAsset']);
+        $this->view->registerJsFile("/advanced_yii/frontend/web/flexdatalist/jquery.flexdatalist.min.js",['depends' => 'yii\web\JqueryAsset']);
+        $this->view->registerCssFile("/advanced_yii/frontend/web/flexdatalist/jquery.flexdatalist.min.css");
+        //die;
+         
+        return $this->render('dependent_act', [
             'model' => $model,
         ]);
            
@@ -147,117 +192,6 @@ class JudgmentActController extends Controller
             'model' => $model,
         ]);
            
-    }
-
-     /**
-     *No need
-     */
-     public function actionCreate1($jcode="",$doc_id="")
-    {
-         //$user_id = Yii::$app->user->identity->id;
-        $model = new JudgmentAct();
-        $model->judgment_code = $jcode;
-            $modelsBareact = [new BareactDetl];
-            if ($model->load(Yii::$app->request->post())) {
-            $modelsBareact = JudgmentAct::createMultiple(BareactDetl::classname());
-            //print_r($modelsBareact);die;
-            JudgmentAct::loadMultiple($modelsBareact, Yii::$app->request->post());
-
-            /*if (Yii::$app->request->isAjax) {
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                return ArrayHelper::merge(
-                    ActiveForm::validateMultiple($modelsBareact),
-                    ActiveForm::validate($model)
-                );
-            }
-*/
-             $valid = $model->validate();
-                         if ($valid) {
-                $transaction = \Yii::$app->db->beginTransaction();
-                try {
-                    if ($flag = $model->save(false)) {
-                        foreach ($modelsBareact as $modelBareact) {
-                        //$modelBareact->invc_numb = $model->invc_numb;
-                        $act_group_desc = $modelBareact->act_group_desc;
-                        $act_catg_desc = $modelBareact->act_catg_desc;
-                        $act_title = $modelBareact->act_title;
-                        $doc_id = $modelBareact->doc_id;
-                        
-                       
-                        
-
-                        if (! ($flag = $modelBareact->save(false))) {
-                                $transaction->rollBack();
-                                break;
-                            }
-                        }
-                    }
-                   
- 
-                    if ($flag) {
-                        $transaction->commit();
-                        return $this->redirect(['view', 'id' => $model->id]);
-                    }
-
-                  
-                } catch (Exception $e) {
-                    $transaction->rollBack();
-                }
-            }
-
-
-
-           // $model->save(false);
-           // return $this->redirect(['view', 'id' => $model->id]);
-        }else{
-
-            return $this->render('create1', [
-            'model' => $model,
-            'modelsBareact' => (empty($modelsBareact)) ? [new BareactDetl] : $modelsBareact,
-        ]);
-            }
-    }
-
-    /**
-     *No need
-     */
-     public function actionCreate2($jcode="",$doc_id="")
-    {
-        $model = new JudgmentAct();
-
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->judgment_code = $jcode;
- 
-             \Yii::$app->db->createCommand()->batchInsert('judgment_act', ['judgment_code','j_doc_id','act_group_desc', 'act_catg_desc'], [
-    [$jcode,$doc_id,'Public Utilities', 30],
-    [$jcode,$doc_id,'Legal Ethics & justice( stamp  Act) ', 20],
-    [$jcode,$doc_id,'Religion', 25]])->execute();
-           // $model->save(false);
-            return $this->redirect(['view', 'id' => $model->id]);
-        }else{
-
-        return $this->render('create2', [
-            'model' => $model,
-        ]);
-            }
-    }
-
-    /**
-     *No need
-     */
-    public function actionCreateBkup($jcode="",$doc_id="")//19/08/2019 pooja
-    {
-        $model = new JudgmentAct();
-        if ($model->load(Yii::$app->request->post()) ) {
-            $model->judgment_code = $jcode;
-            $model->save(false);
-            return $this->redirect(['view', 'id' => $model->id]);
-        }else{
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-            }
     }
 
 
@@ -355,23 +289,7 @@ class JudgmentActController extends Controller
         //return $this->redirect(['index']);
     }
 
-    /**
-     *Used for fetching other details based on bareact_code passed from bareact_mast table
-     * ajax request 
-     */
-    public function actionBareact($id)
-    {
-        
-         $bareact = BareactDetl::find()->select(['act_group_code','act_group_desc','act_catg_code','act_catg_desc','act_sub_catg_code','act_sub_catg_desc','sec_title'])->where(['bareact_code'=>$id])->andWhere(['!=', 'level', '0'])->orderBy('sno,level')->asArray()->all();
-     $result = Json::encode($bareact);
-
-     // return 'test';
-     
-     /* return $this->render('view1', [
-            'model' => $bareact,
-        ]);*/
-     return $result;   
-    }
+    
 
 
 
