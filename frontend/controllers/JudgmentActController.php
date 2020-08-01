@@ -144,6 +144,18 @@ class JudgmentActController extends Controller
      return $result;   
     }
 
+    public function actionBareactSection($id)
+    {
+        
+         $bareact = BareactDetl::find()->select(['sec_title'])->where(['bareact_code'=>$id])->andWhere(['!=', 'level', '0'])->orderBy('sno,level')->asArray()->all();
+          $result = Json::encode($bareact);
+          // return 'test';
+          /* return $this->render('view1', [
+            'model' => $bareact,
+         ]);*/
+     return $result;   
+    }
+
 
       public function actionCreateNew($doc_id="")
     {
@@ -158,6 +170,24 @@ class JudgmentActController extends Controller
         return $this->render('dependent_act', [
             'model' => $model,
         ]);
+
+           
+    }
+
+    public function actionCreateNewbkup($doc_id="")
+    {
+        $username = \Yii::$app->user->identity->username;
+        $model = new JudgmentAct();
+        $this->view->registerJsFile("/advanced_yii/frontend/web/flexdatalist/jquery.js",['depends' => 'yii\web\JqueryAsset']);
+        $this->view->registerJsFile("/advanced_yii/frontend/web/flexdatalist/jquery.flexdatalist.js",['depends' => 'yii\web\JqueryAsset']);
+        $this->view->registerJsFile("/advanced_yii/frontend/web/flexdatalist/jquery.flexdatalist.min.js",['depends' => 'yii\web\JqueryAsset']);
+        $this->view->registerCssFile("/advanced_yii/frontend/web/flexdatalist/jquery.flexdatalist.min.css");
+        //die;
+         
+        return $this->render('dependent_act', [
+            'model' => $model,
+        ]);
+
            
     }
 
