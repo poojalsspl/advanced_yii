@@ -89,10 +89,7 @@ class JudgmentAct extends \yii\db\ActiveRecord
         ];
     }
 
-     public function getBareactGroupMast()
-    {
-      return $this->hasOne(BareactGroupMast::className(), ['act_group_desc' => 'act_group_desc']);
-    }
+     
 
      public function getBareact($id){
         echo "hello";
@@ -129,6 +126,11 @@ class JudgmentAct extends \yii\db\ActiveRecord
         unset($model, $formName, $post);
 
         return $models;
+    }
+
+    public function getBareactGroupMast()
+    {
+      return $this->hasOne(BareactGroupMast::className(), ['act_group_code' => 'act_group_code']);
     }
 
      public function getBareactDesc()

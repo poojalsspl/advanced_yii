@@ -74,11 +74,12 @@ foreach ($judgment as $key => $judgment_value) {
 
  <div class="row">  
 <div class="col-md-3 col-xs-12">
+  
+ <?php
+  $bareactgroupmast  = ArrayHelper::map(BareactGroupMast::find()->all(), 'act_group_code', 'act_group_desc'); 
 
-     <?php $bareactgroupmast  = ArrayHelper::map(BareactGroupMast::find()->all(), 'act_group_code', 'act_group_desc'); 
-
-
-     $bareactmast = ($model->bareact_code != "") ?  ArrayHelper::map(BareactMast::find()->where(["bareact_code"=>$model->bareact_code])->all(), 'bareact_code', 'bareact_desc') : "" ; ?>
+   $bareactmast = ($model->bareact_code != "") ?  ArrayHelper::map(BareactMast::find()->where(["bareact_code"=>$model->bareact_code])->all(), 'bareact_code', 'bareact_desc') : "" ;
+ ?>
      <?= $form->field($model, 'act_group_desc')->widget(Select2::classname(), [
         'data' => $bareactgroupmast,
         'options' => ['placeholder' => 'Bareact Group','value' => ($model->act_group_code != "") ? $model->act_group_code : ''],
@@ -102,48 +103,52 @@ foreach ($judgment as $key => $judgment_value) {
              }"
             ]
          ]); ?>
+
+         <?= $form->field($model, 'act_group_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
     
-     <?= $form->field($model, 'bareact_desc')->widget(Select2::classname(), [
+     
+           
+    </div>
+    
+    <div class="col-md-3 col-xs-12">
+      
+      <?= $form->field($model, 'bareact_desc')->widget(Select2::classname(), [
         'data' => $bareactmast,
         'options' => ['placeholder' => 'Select Bareact'],
          
           ]); ?>
-    </div>
-    
-    <div class="col-md-3 col-xs-12">
-        <?= $form->field($model, 'act_catg_desc')->hiddenInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label(false) ?>
-         <?= $form->field($model, 'act_catg_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
+      <?= $form->field($model, 'bareact_code')->hiddenInput(['maxlength' => true])->label(false) ?>
+        
+         
     </div>
     <div class="col-md-3 col-xs-12">
         <?= $form->field($model, 'act_sub_catg_desc')->hiddenInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label(false) ?>
          <?= $form->field($model, 'act_sub_catg_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
     </div>  
     <div class="col-md-3 col-xs-12">
-        <?= $form->field($model, 'act_group_desc')->hiddenInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label(false) ?>
-         <?= $form->field($model, 'act_group_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
+      <?= $form->field($model, 'act_catg_code')->hiddenInput(['maxlength' => true ,'value' => ''])->label(false) ?>
+        <?= $form->field($model, 'act_catg_desc')->hiddenInput(['maxlength' => true ,'readonly'=>true,'value' => ''])->label(false) ?>
+         
     </div>  
   </div>
   <div class="row">
     <label>Please Select Section after Bareact Selection</label>
-  <input
+<!--   <input
 type="text"
 placeholder="Sections"
 class="form-control flexdatalist"
 data-min-length="1"
 multiple="multiple"
 list="bareactss"
-name="sec_title"> 
+name="sec_title">  -->
+
+ <?php echo $form->field($model, 'sec_title', [
+           'inputOptions' => ['multiple' => 'multiple', 'class' => 'form-control flexdatalist','list'=>'bareactss']
+     ])->textInput()->input('text', ['placeholder' => "Sections"])->label(false); ?>
 <datalist id="bareactss">
 </datalist> 
 </div>
-  <div class="row">
- <div class="col-md-6 col-xs-12">
-   <?= $form->field($model, 'j_doc_id')->hiddenInput(['maxlength' => true ,'readonly'=>true,'value' => $doc_id])->label(false) ?>
-</div>
- <div class="col-md-6 col-xs-12">
-   <?= $form->field($model, 'bareact_code')->hiddenInput(['maxlength' => true])->label(false) ?>
- </div>
-</div>
+
 
 
     <div class="form-group">
@@ -164,7 +169,7 @@ name="sec_title">
 $('#judgmentact-bareact_desc').on('change', function(){
     var bareact_desc = $(this).val();
 
- console.log(bareact_desc);
+ //console.log(bareact_desc);
  if(bareact_desc=='')
  {
     alert('Please Select Bareact');
@@ -175,14 +180,16 @@ $.ajax({
 url        : '/advanced_yii/judgment-act/bareact-section?id='+bareact_desc,
 dataType   : 'json',
 success    : function(data){
-
-console.log(typeof data);
-//$('#bareactss').html(data);
+//console.log(typeof data);
 $('#bareactss').empty(); 
-//$('#bareactss').append('<option>Select Sections</option>');
 $.each(data, function(i, item){
 $('#bareactss').append('<option value='+item.sec_title+'>'+item.sec_title+'</option>');
+$('#judgmentact-act_catg_desc').val(item.act_catg_desc); 
+$('#judgmentact-act_catg_code').val(item.act_catg_code);
+$('#judgmentact-act_sub_catg_desc').val(item.act_sub_catg_desc);
+$('#judgmentact-act_sub_catg_code').val(item.act_sub_catg_code);
 });
+
        
  },
                 
@@ -190,5 +197,7 @@ $('#bareactss').append('<option value='+item.sec_title+'>'+item.sec_title+'</opt
 //console.log(bareact_desc);
 }); 
 
+
 SCRIPT;
+
 $this->registerJs($customScript, \yii\web\View::POS_READY);?>

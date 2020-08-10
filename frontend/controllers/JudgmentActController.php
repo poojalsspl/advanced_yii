@@ -8,6 +8,7 @@ use frontend\models\JudgmentMast;
 use frontend\models\JudgmentActSearch;
 use frontend\models\BareactDetl;
 use frontend\models\BareactMast;
+use frontend\models\BareactGroupMast;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -128,11 +129,12 @@ class JudgmentActController extends Controller
 
     }
 
+    
     /**
      *Used for fetching other details based on bareact_code passed from bareact_mast table
      * ajax request 
      */
-    public function actionBareact($id)
+    public function actionBareactSection($id)
     {
         
          $bareact = BareactDetl::find()->select(['act_group_code','act_group_desc','act_catg_code','act_catg_desc','act_sub_catg_code','act_sub_catg_desc','sec_title'])->where(['bareact_code'=>$id])->andWhere(['!=', 'level', '0'])->orderBy('sno,level')->asArray()->all();
@@ -144,20 +146,7 @@ class JudgmentActController extends Controller
      return $result;   
     }
 
-    public function actionBareactSection($id)
-    {
-        
-         $bareact = BareactDetl::find()->select(['sec_title'])->where(['bareact_code'=>$id])->andWhere(['!=', 'level', '0'])->orderBy('sno,level')->asArray()->all();
-          $result = Json::encode($bareact);
-          // return 'test';
-          /* return $this->render('view1', [
-            'model' => $bareact,
-         ]);*/
-     return $result;   
-    }
-
-
-      public function actionCreateNew($doc_id="")
+    public function actionCreateNew($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $model = new JudgmentAct();
@@ -165,7 +154,32 @@ class JudgmentActController extends Controller
         $this->view->registerJsFile("/advanced_yii/frontend/web/flexdatalist/jquery.flexdatalist.js",['depends' => 'yii\web\JqueryAsset']);
         $this->view->registerJsFile("/advanced_yii/frontend/web/flexdatalist/jquery.flexdatalist.min.js",['depends' => 'yii\web\JqueryAsset']);
         $this->view->registerCssFile("/advanced_yii/frontend/web/flexdatalist/jquery.flexdatalist.min.css");
-        //die;
+        if ($model->load(Yii::$app->request->post()) ) {
+            $sec_title =  $_POST['JudgmentAct']['sec_title'];
+            $explode_title = explode(",", $sec_title);
+            
+        $judgmentMast = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
+        foreach ($explode_title as  $value) {
+            $model = new JudgmentAct();
+            $model->j_doc_id = $doc_id;
+            $model->username = $username;
+            $model->judgment_title = $judgmentMast->judgment_title;
+            $model->act_group_code = $_POST['JudgmentAct']['act_group_desc'];
+            $model->act_group_desc = $model->bareactGroupMast->act_group_desc;
+            $model->bareact_code = $_POST['JudgmentAct']['bareact_desc'];
+            $model->bareact_desc = $model->bareactDesc->bareact_desc;
+            $model->act_catg_desc = $_POST['JudgmentAct']['act_catg_desc'];
+            $model->act_catg_code = $_POST['JudgmentAct']['act_catg_code'];
+            $model->act_sub_catg_desc = $_POST['JudgmentAct']['act_sub_catg_desc'];
+            $model->act_sub_catg_code = $_POST['JudgmentAct']['act_sub_catg_code'];
+            $model->sec_title = $value; 
+            $model->save();
+            }
+            $model->save(false);
+            Yii::$app->session->setFlash('success', "Created successfully!!");
+                  $model->save(false);
+            return $this->redirect(['judgment-mast/success', 'doc_id'=>$doc_id]);
+         }             
          
         return $this->render('dependent_act', [
             'model' => $model,
@@ -173,6 +187,8 @@ class JudgmentActController extends Controller
 
            
     }
+
+    
 
     public function actionCreateNewbkup($doc_id="")
     {
