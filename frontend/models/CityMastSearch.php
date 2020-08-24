@@ -64,12 +64,12 @@ class CityMastSearch extends CityMast
         ]);
 
         $query->andFilterWhere(['like', 'city_name', $this->city_name])
-            ->andFilterWhere(['like', 'shrt_name', $this->shrt_name])
-            ->andFilterWhere(['like', 'state_name', $this->state_name])
-            ->andFilterWhere(['like', 'state_shrt_name', $this->state_shrt_name])
-            ->andFilterWhere(['like', 'country_name', $this->country_name])
-            ->andFilterWhere(['like', 'country_shrt_name', $this->country_shrt_name])
-            ->andFilterWhere(['like', 'court_stat', $this->court_stat]);
+            ->andFilterWhere(['like', 'shrt_name', $this->shrt_name]);
+            //->andFilterWhere(['like', 'state_name', $this->state_name])
+            //->andFilterWhere(['like', 'state_shrt_name', $this->state_shrt_name])
+            //->andFilterWhere(['like', 'country_name', $this->country_name])
+            //->andFilterWhere(['like', 'country_shrt_name', $this->country_shrt_name])
+            //->andFilterWhere(['like', 'court_stat', $this->court_stat]);
 
         return $dataProvider;
     }

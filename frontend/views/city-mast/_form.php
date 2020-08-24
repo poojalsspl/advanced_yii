@@ -18,17 +18,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'state_code')->textInput() ?>
 
-    <?= $form->field($model, 'state_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'state_shrt_name')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'country_code')->textInput() ?>
 
-    <?= $form->field($model, 'country_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'country_shrt_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'court_stat')->textInput(['maxlength' => true]) ?>
+    
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

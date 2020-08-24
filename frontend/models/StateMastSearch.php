@@ -17,8 +17,8 @@ class StateMastSearch extends StateMast
     public function rules()
     {
         return [
-            [['state_code', 'country_code', 'status'], 'integer'],
-            [['state_name', 'shrt_name', 'zone', 'country_name', 'country_shrt_name', 'cr_date'], 'safe'],
+            [['state_code', 'country_code' ], 'integer'],
+            [['state_name', 'shrt_name', 'zone',  'crdt'], 'safe'],
         ];
     }
 
@@ -60,16 +60,15 @@ class StateMastSearch extends StateMast
         $query->andFilterWhere([
             'state_code' => $this->state_code,
             'country_code' => $this->country_code,
-            'cr_date' => $this->cr_date,
-            'status' => $this->status,
-            'country_name' => $this->country_name,
+            'crdt' => $this->crdt,
+            
+            
         ]);
 
         $query->andFilterWhere(['like', 'state_name', $this->state_name])
             ->andFilterWhere(['like', 'shrt_name', $this->shrt_name])
-            ->andFilterWhere(['like', 'zone', $this->zone])
-            ->andFilterWhere(['like', 'country_name', $this->country_name])
-            ->andFilterWhere(['like', 'country_shrt_name', $this->country_shrt_name]);
+            ->andFilterWhere(['like', 'zone', $this->zone]);
+            
 
         return $dataProvider;
     }

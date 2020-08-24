@@ -14,23 +14,10 @@ use frontend\models\CountryMast;
 
     <?php $form = ActiveForm::begin(); ?>
     <?php $country = ArrayHelper::map(CountryMast::find()->all(), 'country_code', 'country_name'); ?>
-     <?= $form->field($model, 'country_name')->dropDownList($country, ['prompt' => 'Select Country',"onchange"=>"
-                                                   var code = $('#statemast-country_name').val();
-                                                    $.ajax({
-                                                          //type     :'GET',
-                                                            url      : '/cjadmin/state-mast/country?id='+code,
-                                                            dataType: 'json',
-                                                            success  : function(data) {
-                                                   console.log(data); 
+     <?= $form->field($model, 'country_code')->dropDownList($country, ['prompt' => 'Select Country']) ?>
+    
 
-                                                              $('#statemast-country_shrt_name').val(data.shrt_name);
-                                                              $('#statemast-country_code').val(data.country_code);
-                                                          }
-                                                         
-                                                          });"]) ?>
-    <?= $form->field($model, 'country_shrt_name')->textInput(['maxlength' => true,'readonly'=>true]) ?>
-
-    <?= $form->field($model, 'country_code')->textInput(['maxlength' => true,'readonly'=>true]) ?>
+    
 
     <?= $form->field($model, 'state_name')->textInput(['maxlength' => true]) ?>
 
@@ -40,9 +27,9 @@ use frontend\models\CountryMast;
 
     
 
-    <?= $form->field($model, 'cr_date')->textInput() ?>
+    <?= $form->field($model, 'crdt')->textInput() ?>
 
-    <?= $form->field($model, 'status')->textInput() ?>
+    
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

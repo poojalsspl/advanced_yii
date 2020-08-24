@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'city_name',
             'shrt_name',
             'state_code',
-            'state_name',
+            //'state_name',
             //'state_shrt_name',
             //'country_code',
             //'country_name',

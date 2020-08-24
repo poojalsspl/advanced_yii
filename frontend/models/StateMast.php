@@ -33,7 +33,7 @@ class StateMast extends \yii\db\ActiveRecord
 
         return [
             [['country_code'], 'required'],
-            [['country_code', 'population'], 'integer'],
+            [['country_code'], 'integer'],
             [['crdt'], 'safe'],
             [['state_name'], 'string', 'max' => 25],
             [['shrt_name'], 'string', 'max' => 10],
@@ -55,7 +55,7 @@ class StateMast extends \yii\db\ActiveRecord
             'zone' => 'Zone',
             'country_code' => 'Country Code',
             'crdt' => 'Crdt',
-            'population' => 'Population',
+            
         ];
     }
 
