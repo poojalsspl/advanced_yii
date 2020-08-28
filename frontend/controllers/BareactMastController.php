@@ -5,9 +5,11 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\BareactMast;
 use frontend\models\BareactMastSearch;
+use frontend\models\BareactSubcatgMast;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * BareactMastController implements the CRUD actions for BareactMast model.
@@ -86,8 +88,16 @@ class BareactMastController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->bareact_code]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->act_catg_code = $model->act_catg_desc;
+            $model->act_catg_desc = $model->bareactCatg->act_catg_desc;
+            if($model->act_sub_catg_desc){
+              $model->act_sub_catg_code = $model->act_sub_catg_desc; 
+              $model->act_sub_catg_desc = $model->bareactSubCatg->act_sub_catg_desc; 
+            }
+            $model->save(false);
+            //return $this->redirect(['view', 'id' => $model->bareact_code]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -116,6 +126,14 @@ class BareactMastController extends Controller
      * @return BareactMast the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
+
+    public function actionBsubcatg($id)
+    {
+       $jsubCatg = BareactSubcatgMast::find()->select("act_sub_catg_code,act_sub_catg_desc")->where(['act_catg_code'=>$id])->asArray()->all();     
+       $result = Json::encode($jsubCatg);
+       return $result;          
+    }
+
     protected function findModel($id)
     {
         if (($model = BareactMast::findOne($id)) !== null) {

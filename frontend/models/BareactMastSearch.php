@@ -40,7 +40,8 @@ class BareactMastSearch extends BareactMast
      */
     public function search($params)
     {
-        $query = BareactMast::find();
+        $username = \Yii::$app->user->identity->username;
+        $query = BareactMast::find()->where(['username'=>$username]);
 
         // add conditions that should always apply here
 

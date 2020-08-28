@@ -63,14 +63,14 @@ class BareactMast extends \yii\db\ActiveRecord
             'bareact_code' => 'Bareact Code',
             'bareact_desc' => 'Bareact Description',
             'act_group_code' => 'Act Group Code',
-            'act_group_desc' => 'Act Group Desc',
+            'act_group_desc' => 'Act Group Description',
             'act_catg_code' => 'Act Catg Code',
-            'act_catg_desc' => 'Act Catg Desc',
+            'act_catg_desc' => 'Act Category Description',
             'act_status' => 'Act Status',
             'enact_date' => 'Enact Date',
             'ref_doc_id' => 'Ref Doc ID',
             'act_sub_catg_code' => 'Act Sub Catg Code',
-            'act_sub_catg_desc' => 'Act Sub Catg Desc',
+            'act_sub_catg_desc' => 'Act Sub Category Description',
             'tot_section' => 'Tot Section',
             'tot_chap' => 'Tot Chap',
             'country_code' => 'Country Code',
@@ -100,6 +100,24 @@ class BareactMast extends \yii\db\ActiveRecord
         // Execute the command:
         $rows = $command->queryAll();
          return $rows[0]['bareact_desc'];
+     }
+
+
+     public function getTruncatedBareact(){
+        if (strlen($this->bareact_desc)<=50) 
+            return $this->bareact_desc;
+        else 
+            return substr($this->bareact_desc,0,50).'...';
+        
+
+     }
+
+     public function getBareactCatg(){
+        return $this->hasOne(BareactCatgMast::className(), ['act_catg_code' => 'act_catg_code']);
+     }
+
+     public function getBareactSubCatg(){
+        return $this->hasOne(BareactSubcatgMast::className(), ['act_sub_catg_code' => 'act_sub_catg_code']);
      }
 
     

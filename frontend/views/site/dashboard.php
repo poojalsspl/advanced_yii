@@ -75,7 +75,7 @@ $this->title = 'Dashboard';
                                 $city = CityMast::find('city_name')->where(['city_code'=>$city_code])->one();
                                 $city_name = $city->city_name;
 
-                                $path = Yii::$app->homeUrl . 'frontend/web/uploads/profile_img';
+                                $path = Yii::$app->homeUrl . '/uploads/profile_img';
                                 $image = $value['profile_pic'];
                                 if ($image==""){$image = "profile.jpg";}
 
@@ -223,7 +223,7 @@ $this->title = 'Dashboard';
                               $marksheet = $all_docs['marksheet'];
                               $certificate = $all_docs['passing_certificate'];
                               
-                              $path = Yii::$app->homeUrl . 'frontend/web/uploads';
+                              $path = Yii::$app->homeUrl . 'uploads';
                               $notavailable = Yii::$app->homeUrl . 'site/missing';
                              }
                              ?>
@@ -310,8 +310,10 @@ $this->title = 'Dashboard';
                                                 <a class="btn btn-primary" href="/advanced_yii/project/create">Project Report</a>
                                                 <?php }else{ ?>
                                                  <a class="btn btn-primary" href="/advanced_yii/project/update?id=<?php echo $project_id ;?>">Project Report</a>
-                                                <?php }  } ?>
+                                                <?php }  ?>
+                                                <a class="btn btn-primary" href="/advanced_yii/bareact-mast">State Bareact</a>
 
+                                                 <?php } ?>   
                                                  <?php if ($course_code == 'RDCLRA01'){ ?>  
                                                 <a class="btn btn-primary" href="/advanced_yii/judgment-mast/j-element-list">Stage - 2</a>
 
