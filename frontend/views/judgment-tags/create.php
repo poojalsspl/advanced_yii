@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\JudgmentTags */
 
-$this->title = 'Create Judgment Tags';
+$this->title = 'Judgment Tags : ';
 
 ?>
 <div class="judgment-tags-create">

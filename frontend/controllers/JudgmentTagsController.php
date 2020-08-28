@@ -68,18 +68,22 @@ class JudgmentTagsController extends Controller
     {
         $username = \Yii::$app->user->identity->username;
         $model = new JudgmentTags();
-
+        $modeljmast = JudgmentMast::find()->where(['doc_id'=>$doc_id])->andWhere(['username'=>$username])->one();
+        
         if ($model->load(Yii::$app->request->post())) {
              $count =  count($_POST['JudgmentTags']['tag_name']);
              for($i=0;$i<$count;$i++)
                 {
                     $model = new JudgmentTags();
                     $model->doc_id = $doc_id;
+                    $model->judgment_title = $modeljmast->judgment_title;
                     $model->tag_name = $_POST['JudgmentTags']['tag_name'][$i];
                     $model->tag_value = $_POST['JudgmentTags']['tag_value'][$i];
                     $model->save();
                 }    
-            return $this->redirect(['view', 'id' => $model->id]);
+            //
+            Yii::$app->session->setFlash('success', "Created successfully!!");
+            return $this->redirect(['update', 'doc_id' => $model->doc_id]);
         }
 
         return $this->render('create', [
@@ -118,6 +122,7 @@ class JudgmentTagsController extends Controller
     {
        $username = \Yii::$app->user->identity->username;
        $model =  JudgmentTags::find()->where(['doc_id'=>$doc_id])->one();
+       $modeljmast = JudgmentMast::find()->where(['doc_id'=>$doc_id])->andWhere(['username'=>$username])->one();
        $judgmentTag =$model->doc_id;
        $tag = new JudgmentTags();
        if($tag->load(Yii::$app->request->post())) {
@@ -131,6 +136,7 @@ class JudgmentTagsController extends Controller
          { 
          $jtags = new JudgmentTags();  
          $jtags->doc_id = $doc_id;
+         $jtags->judgment_title = $modeljmast->judgment_title;
          $jtags->tag_name = $_POST['JudgmentTags']['tag_name'][$i];
          $jtags->tag_value = $_POST['JudgmentTags']['tag_value'][$i];
          $jtags->save();

@@ -93,6 +93,8 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
 			])->label('Judgment Title'); ?>
     <?php $tags = JudgmentTags::find()->where(['doc_id'=>$model->doc_id])->all();    ?>
      <div class="dynamic-rows rows col-xs-12">
+      <label>Tag Name</label>
+      <label style="margin-left: 380px">Tag Value</label>
      	<?php foreach ($tags as $tag) { ?>
           <div class="dynamic-rows-field row" data-id="<?= $tag->id ?>">
           	<div class="col-xs-4">
