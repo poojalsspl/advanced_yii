@@ -66,16 +66,23 @@ class BareactMastController extends Controller
     public function actionCreate()
     {
         $model = new BareactMast();
+        $qry = Yii::$app->db->createCommand("SELECT max(CAST(bareact_code AS SIGNED)) + 1 FROM bareact_mast");
+        $maxbareact = $qry->queryScalar();
+
         $modeldetl = new BareactDetl();
+        $maxdetl = BareactDetl::find()->max('id');
         
         if($model->load(Yii::$app->request->post())) {
             if(isset($_POST['BareactMast'], $_POST['BareactDetl'])){
+            $model->bareact_code = $maxbareact;
             $model->act_group_desc = $model->bareactGrp->act_group_desc;
             $model->act_catg_desc = $model->bareactCatg->act_catg_desc;
+            $model->act_sub_catg_code =  $model->act_sub_catg_desc;
             $model->act_sub_catg_desc = $model->bareactSubCatg->act_sub_catg_desc;
             $model->save(false);
             if($model->save()){ 
             $modeldetl->body = $_POST['BareactDetl']['body'];
+            $modeldetl->id = $maxdetl+1;
             $modeldetl->bareact_code = $model->bareact_code;
             $modeldetl->bareact_desc = $model->bareact_desc;
             $modeldetl->act_group_code = $model->act_group_code;
@@ -98,25 +105,7 @@ class BareactMastController extends Controller
         
     }
 
-     /**
-    * dependent dropdown value for bareact subcategory
-    */
-     public function actionSubcat() {
-        $out = [];
-        $subcatgmodel = new BareactSubcatgMast();
-        if (isset($_POST['depdrop_parents'])) {
-            
-        $parents = $_POST['depdrop_parents'];
-        if ($parents != null) {
-            $cat_id = $parents[0];
-            $out =  $subcatgmodel->getBareactList($cat_id); 
-                   return \yii\helpers\Json::encode(['output'=>$out, 'selected'=>'']);
-        }
-        }
-
-         echo \yii\helpers\Json::encode(['output'=>'', 'selected'=>'']);
-
-        }
+    
 
     /**
      * Updates an existing BareactMast model.
@@ -133,6 +122,7 @@ class BareactMastController extends Controller
             if ($modeldetl->load(Yii::$app->request->post())) {
             $model->act_group_desc = $model->bareactGrp->act_group_desc;
             $model->act_catg_desc = $model->bareactCatg->act_catg_desc;
+            $model->act_sub_catg_code =  $model->act_sub_catg_desc;
             $model->act_sub_catg_desc = $model->bareactSubCatg->act_sub_catg_desc;
             $model->save(false);
             if($model->save()){

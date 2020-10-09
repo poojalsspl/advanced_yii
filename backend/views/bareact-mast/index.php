@@ -29,7 +29,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'act_catg_desc',
             'act_sub_catg_desc',
-           ['class' => 'yii\grid\ActionColumn'],
+           
+
+           ['class' => 'yii\grid\ActionColumn',
+            'header'=>'Actions',
+            'template' => '{View}{Edit}', 
+            'buttons' => [
+                
+               'View' => function ($url, $model, $key) {
+                
+                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id'=>$model->bareact_code]);
+            
+            },
+            'Edit' => function ($url, $model, $key) {
+                
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id'=>$model->bareact_code]);
+            
+            },
+             
+                'format' => 'raw',
+
+              ],
+                 'contentOptions' => [ "class"=>'action-btns', 'width'=>''],
+        ],
         ],
     ]); ?>
 <?php Pjax::end(); ?></div>

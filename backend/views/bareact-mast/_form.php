@@ -8,7 +8,7 @@ use frontend\models\BareactSubcatgMast;
 use frontend\models\BareactDetl;
 use yii\helpers\ArrayHelper;
 use kartik\daterange\DateRangePicker;
-use kartik\widgets\DepDrop;
+use kartik\select2\Select2;
 
 
 /* @var $this yii\web\View */
@@ -33,16 +33,34 @@ use kartik\widgets\DepDrop;
     <?php $bareactCatg = ArrayHelper::map(BareactCatgMast::find()->all(), 'act_catg_code', 'act_catg_desc'); ?>
 
         
-    <?= $form->field($model, 'act_catg_desc')->dropDownList($bareactCatg, ['prompt' => 'Select Category','id'=>'catg-code',
-        'value' => (!$model->isNewRecord) ? $model->act_catg_code : '',
-        "onchange"=>"
-                      var code = $(this).val();
-                      $('#bareactmast-act_catg_code').val(code);
-                      "]) ?>                                           
+    <?= $form->field($model, 'act_catg_desc')->widget(Select2::classname(), [
+            'data' => $bareactCatg,           
+            'options' => ['placeholder' => 'Select Bareact Category','value' => ($model->act_catg_code != "") ? $model->act_catg_code : ''],
+      'pluginEvents'=>[
+            "select2:select" => "function() { var val = $(this).val();                
+              $('#bareactmast-act_catg_code').val(val);
+                    $.ajax({
+                      url      : '/advanced_yii/bareact-mast/bsubcatg?id='+val,
+                      dataType : 'json',
+                      success  : function(data) {                                 
+                       $('#bareactmast-act_sub_catg_desc').empty();    
+                       $('#bareactmast-act_sub_catg_desc').append('<option> </option>');
+                        $.each(data, function(i, item){
+                        $('#bareactmast-act_sub_catg_desc').append('<option value='+item.act_sub_catg_code+'>'+item.act_sub_catg_desc+'</option>');
+                      });
+                          },
+                      error: function(xhr, textStatus, errorThrown){
+                           alert('No Sub Category found');
+                        }                                                         
+                      });
+             }"
+            ]
+
+             ]); ?>                                           
 
     <?= $form->field($model, 'act_catg_code')->textInput(['maxlength' => true,'readonly'=>true]) ?>
 
-    <?php $bareactSubCatg = ArrayHelper::map(BareactSubcatgMast::find()->all(), 'act_sub_catg_code', 'act_sub_catg_desc'); ?>
+    
 
     <?php /* $form->field($model, 'act_sub_catg_desc')->dropDownList($bareactSubCatg, ['prompt' => 'Select SubCategory',
         'value' => (!$model->isNewRecord) ? $model->act_sub_catg_code : '',
@@ -50,14 +68,12 @@ use kartik\widgets\DepDrop;
                       var code = $(this).val();
                       $('#bareactmast-act_sub_catg_code').val(code);
                       "]) */?> 
-    <?= $form->field($model, 'act_sub_catg_desc')->widget(DepDrop::classname(), [
-    'options'=>['id'=>'subcatg-code'],
-    'pluginOptions'=>[
-        'depends'=>['catg-code'],
-        'placeholder'=>'Select...',
-        'url'=>\yii\helpers\Url::to(['/bareact-mast/subcat'])
-    ]
-]);  ?>                                                          
+           <?php 
+      $act_sub_catg_desc = ($model->act_sub_catg_code != "") ?  ArrayHelper::map(BareactSubcatgMast::find()->where(["act_sub_catg_code"=>$model->act_sub_catg_code])->all(), 'act_sub_catg_code', 'act_sub_catg_desc') : "" ; ?>  
+      
+      <?= $form->field($model, 'act_sub_catg_desc')->dropDownList([
+        'data' => $act_sub_catg_desc,
+        ]);?>                                              
 
     <?php /*$form->field($model, 'act_sub_catg_code')->textInput(['maxlength' => true,'readonly'=>true]) */ ?>
 
@@ -75,6 +91,8 @@ use kartik\widgets\DepDrop;
     ?>
     
     <?= $form->field($model, 'bareact_desc')->textInput() ?>
+
+    <?= $form->field($model, 'rule_flag')->radioList(['Y' => 'Yes', 'N' => 'No']); ?>
 
     
     <?php echo $form->field($modeldetl, 'body')->textarea(['rows'=>6])->label();?>

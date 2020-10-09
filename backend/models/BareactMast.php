@@ -17,6 +17,7 @@ use Yii;
  * @property string $bareact_catg_name
  * @property integer $tot_section
  * @property integer $tot_chap
+ * @property integer $rule_flag
  * @property string $Enactment_date
  * @property string $bareact_text
  *
@@ -46,6 +47,7 @@ class BareactMast extends \yii\db\ActiveRecord
             [['bareact_desc'], 'string', 'max' => 255],
             [['act_group_desc', 'act_status', 'country_name'], 'string', 'max' => 25],
             [['act_catg_desc', 'act_sub_catg_desc'], 'string', 'max' => 100],
+            [['rule_flag'], 'string', 'max' => 1],
             [['ref_doc_id'], 'string', 'max' => 10],
             [['bareact_code'], 'unique'],
         ];
@@ -63,15 +65,16 @@ class BareactMast extends \yii\db\ActiveRecord
             'bareact_desc' => 'Bareact Description',
             'act_group_code' => 'Act Group Code',
             'act_group_desc' => 'Act Group Description',
-            'act_catg_code' => 'Act Catg Code',
-            'act_catg_desc' => 'Act Catg Description',
+            'act_catg_code' => 'Act Category Code',
+            'act_catg_desc' => 'Act Category Description',
             'act_status' => 'Act Status',
             'enact_date' => 'Enact Date',
             'ref_doc_id' => 'Ref Doc ID',
-            'act_sub_catg_code' => 'Act Sub Catg Code',
-            'act_sub_catg_desc' => 'Act Sub Catg Description',
+            'act_sub_catg_code' => 'Act Sub Category Code',
+            'act_sub_catg_desc' => 'Act Sub Category Description',
             'tot_section' => 'Tot Section',
             'tot_chap' => 'Tot Chap',
+            'rule_flag' => 'Rule Flag',
             'country_code' => 'Country Code',
             'country_name' => 'Country Name',
         ];
