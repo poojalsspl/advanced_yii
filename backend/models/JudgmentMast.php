@@ -31,7 +31,6 @@ use Yii;
  * @property int|null $judgment_jurisdiction_id1
  * @property string|null $judgmnent_jurisdiction_text
  * @property string|null $judgment_abstract
- * @property string|null $judgment_analysis
  * @property string|null $judgment_text
  * @property string|null $judgment_text1
  * @property string|null $search_tag
@@ -76,7 +75,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             
             [['u_id', 'court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'approved', 'status_2'], 'integer'],
             [['judgment_date', 'judgment_date1', 'time', 'approved_date', 'completion_date', 'start_date'], 'safe'],
-            [['judgment_abstract', 'judgment_analysis', 'judgment_text', 'judgment_text1'], 'string'],
+            [['judgment_abstract', 'judgment_text', 'judgment_text1'], 'string'],
             [['username'], 'string', 'max' => 50],
             [['college_code'], 'string', 'max' => 4],
             [['court_name'], 'string', 'max' => 100],
@@ -122,7 +121,6 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'judgment_jurisdiction_id1' => 'Judgment Jurisdiction Id1',
             'judgmnent_jurisdiction_text' => 'Judgmnent Jurisdiction Text',
             'judgment_abstract' => 'Judgment Abstract',
-            'judgment_analysis' => 'Judgment Analysis',
             'judgment_text' => 'Judgment Text',
             'judgment_text1' => 'Judgment Text1',
             'search_tag' => 'Search Tag',

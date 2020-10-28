@@ -25,7 +25,7 @@ foreach ($student_name as $student) {
 
     <h1><?php //echo Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <h1><?php echo 'List of judgments allocated ' ?></h1>
+    <h1><?php echo 'List of judgments allocated for <b>Fixed Data Points</b>' ?></h1>
 
 
    
@@ -39,8 +39,16 @@ foreach ($student_name as $student) {
             'judgment_title',
             'court_name',
             'judgment_date',
-            'completion_date',
             'start_date',
+            'completion_date',
+            [
+            'label'=>'Custom Link',
+            'format'=>'raw',
+            'value' => function($data){
+                $url = "http://www.bsourcecode.com";
+                return Html::a('Complete', $url, ['title' => 'Go']); 
+            }
+           ],
             
 
            ['class' => 'yii\grid\ActionColumn',
@@ -49,7 +57,9 @@ foreach ($student_name as $student) {
             'buttons' => [
                 
                'Edit' => function ($url, $model, $key) {
-                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['edit', 'id'=>$model->doc_id]);
+                 
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'doc_id'=>$model->doc_id]);
+           
             },
              
                 'format' => 'raw',

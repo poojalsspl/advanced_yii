@@ -71,7 +71,7 @@ class ProjectController extends Controller
             $date = date('Y-m-d');
             $model->start_date = $date;
             $model->save();
-            return $this->redirect(['index']);
+            return $this->redirect(['/site/dashboard']);
         }
 
         return $this->render('create', [
@@ -105,7 +105,7 @@ class ProjectController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['/site/dashboard']);
         }
 
         return $this->render('update', [

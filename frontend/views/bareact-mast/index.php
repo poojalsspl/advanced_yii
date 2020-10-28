@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\BareactMastSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Bareact Masts';
+$this->title = 'Bare-act Lists';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bareact-mast-index">

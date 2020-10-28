@@ -29,10 +29,34 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'first_name',
             'last_name',
+            [
+              'header'=>'Status',
+              'value'=> function($data)
+              { 
+                   return  Html::a(Yii::t('app', ' {modelClass}', [
+                          'modelClass' => 'details',
+                          ]), ['view-data','id'=>$data->id], ['class' => 'btn btn-success', 'id' => 'popupModal']);      
+              },
+              'format' => 'raw'
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]); 
+      
 
+    ?>
+     <?php yii\bootstrap\Modal::begin(['id' =>'modal']);?>
 
+<?php
+yii\bootstrap\Modal::end();
+    $this->registerJs("$(function() {
+   $('#popupModal').click(function(e) {
+     e.preventDefault();
+     $('#modal').modal('show').find('.modal-body')
+     .load($(this).attr('href'));
+   });
+});");
+
+?>
 </div>

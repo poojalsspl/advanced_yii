@@ -13,22 +13,27 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
     display: inline-block;
     width: 10%;
   }
+  #act_row{
+    font-size: 16px;
+    text-align: justify;
+  }
 </style>
 <!--add tabs---->
 <?php
 
-    $jcode  = '';
+    
     $doc_id = '';
   
 if($_GET)
 {
-    $jcode = $_GET['jcode'];
+    
     $doc_id = $_GET['doc_id'];
 }
-
+$username = Yii::$app->user->identity->username;
 $judgment = ArrayHelper::map(JudgmentMast::find()
   //->andWhere(['not in','judgment_code',$j_code])
   ->where(['doc_id'=>$doc_id])
+  ->andWhere(['username'=>$username])
   ->all(),
     'doc_id',
     function($result) {
@@ -52,7 +57,7 @@ $master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
 
 
 <?php echo Html::a('Judgment Elements',[$element,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$elementcls ]) ?>
-<?php echo Html::a('Judgment DataPoints',[$datapoints,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$datapointscls ]) ?>
+<?php //echo Html::a('Judgment DataPoints',[$datapoints,'doc_id'=>$doc_id],["style"=>"width:12%;margin:2px","class"=>"btn btn-block  ".$datapointscls ]) ?>
 
 
 </div>
@@ -61,21 +66,22 @@ $master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
 <!--end of tab --->
 
 <?php
- $judgmentElement = JudgmentElement::find()->where(['doc_id'=>$doc_id])->all();
+ $judgmentElement = JudgmentElement::find()->where(['doc_id'=>$doc_id])->andWhere(['username'=>$username])->all();
 ?>
     <table class="table table-bordered table-inverse">
   <thead>
     <tr>
-      <th>#</th>
+      
       <th>Element Name </th>
       <th>Weitage % </th>
       <th>Element Text </th>
+
     </tr>
   </thead>
   <tbody>
   <?php foreach ($judgmentElement as $judgmentElementSingle) { ?>
     <tr>
-      <th scope="row"><?= $judgmentElementSingle->id ?></th>
+      
       <td><?= $judgmentElementSingle->element_name ?></td>
       <td><?= $judgmentElementSingle->weight_perc ?></td>
       <td><?= $judgmentElementSingle->element_text ?></td>
@@ -129,6 +135,7 @@ $master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
              <?= $form->field($model, 'element_text')->textarea(['rows' => 6])->label(false); ?> 
              <?= $form->field($model, 'weight_perc')->textInput()->label(); ?>
              <?= $form->field($model, 'specify')->textInput()->label(); ?>
+             <?= $form->field($modeljmast, 'clestatus')->checkBox(); ?>
           <div class="form-group">
          <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
            </div> 

@@ -31,7 +31,8 @@ if($_GET)
    
 }
 
-$judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->all(),
+$username = Yii::$app->user->identity->username;
+$judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->andWhere(['username'=>$username])->all(),
     'doc_id',
     function($result) {
         return $result['court_name'].'::'.$result['judgment_title'];

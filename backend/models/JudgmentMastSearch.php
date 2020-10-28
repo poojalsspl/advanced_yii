@@ -17,7 +17,7 @@ class JudgmentMastSearch extends JudgmentMast
     public function rules()
     {
         return [
-            [['username', 'college_code', 'court_name', 'court_type', 'appeal_numb', 'appeal_numb1', 'judgment_date', 'judgment_date1', 'judgment_title', 'appeal_status', 'disposition_text', 'bench_type_text', 'judgmnent_jurisdiction_text', 'judgment_abstract', 'judgment_analysis', 'judgment_text', 'judgment_text1', 'search_tag', 'doc_id', 'judgment_type', 'judgment_type1', 'jcatg_description', 'jsub_catg_description', 'overruled_by_judgment', 'remark', 'time', 'approved_date', 'completion_status', 'completion_date', 'start_date'], 'safe'],
+            [['username', 'college_code', 'court_name', 'court_type', 'appeal_numb', 'appeal_numb1', 'judgment_date', 'judgment_date1', 'judgment_title', 'appeal_status', 'disposition_text', 'bench_type_text', 'judgmnent_jurisdiction_text', 'judgment_abstract', 'judgment_text', 'judgment_text1', 'search_tag', 'doc_id', 'judgment_type', 'judgment_type1', 'jcatg_description', 'jsub_catg_description', 'overruled_by_judgment', 'remark', 'time', 'approved_date', 'completion_status', 'completion_date', 'start_date'], 'safe'],
             [['judgment_code', 'court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'approved', 'work_status', 'status_2'], 'integer'],
         ];
     }
@@ -93,7 +93,6 @@ class JudgmentMastSearch extends JudgmentMast
             ->andFilterWhere(['like', 'bench_type_text', $this->bench_type_text])
             ->andFilterWhere(['like', 'judgmnent_jurisdiction_text', $this->judgmnent_jurisdiction_text])
             ->andFilterWhere(['like', 'judgment_abstract', $this->judgment_abstract])
-            ->andFilterWhere(['like', 'judgment_analysis', $this->judgment_analysis])
             ->andFilterWhere(['like', 'judgment_text', $this->judgment_text])
             ->andFilterWhere(['like', 'judgment_text1', $this->judgment_text1])
             ->andFilterWhere(['like', 'search_tag', $this->search_tag])

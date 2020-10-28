@@ -16,8 +16,10 @@ use yii\helpers\Url;
 
     
 }
+   $username = Yii::$app->user->identity->username;
     $judgment = ArrayHelper::map(JudgmentMast::find()
 	->where(['doc_id'=>$doc_id])
+    ->andWhere(['username'=>$username])
 	->all(),
     'doc_id',
     function($result) {
@@ -27,8 +29,9 @@ use yii\helpers\Url;
 
     ?>
   
-    <div class="col-md-12 magintop box-footer box-footer-custom">
+    <div class="col-md-12 magintop box-footer box-footer-custom" style="overflow-y: auto; height: 250px;text-align: left;">
         <span><?php //print_r($judgment); 
           echo implode(" ",$judgment);
     ?></span>
     </div>
+    

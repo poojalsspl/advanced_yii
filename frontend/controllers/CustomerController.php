@@ -44,6 +44,15 @@ class CustomerController extends Controller
         ]);
     }
 
+      public function actionViewData($id)
+    {
+        $model = Customer::findOne($id);
+        //print_r($model);
+        return $model->first_name." ".$model->last_name;
+        //return 'testing';
+        //return $this->renderAjax('view', ['id' => $model->id]);
+    }
+
     public function actionCreate()
     {
         $modelCustomer = new Customer;

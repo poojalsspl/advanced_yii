@@ -123,31 +123,42 @@ class JudgmentRefController extends Controller
            
             
          foreach ($models as $model) {
+            if($model->court_code_ref){
             $court = new CourtMast();
             $court_name =  $court->getCourtName($model->court_code_ref);
             $model->court_name_ref = $court_name ;
+            }
             $model->judgment_title = $judgmentMastRef->judgment_title;
             //$model->judgment_code = $jcode;
             $model->doc_id = $doc_id;
             $model->username = $username;
+            $model->work_status = 'C';
             //Try to save the models. Validation is not needed as it's already been done.
             $model->save(false);
             
            
         }
-            $check = JudgmentRef::find()->select('work_status')->where(['doc_id'=>$doc_id])->one();
-             $count = $check->work_status;
-            if($count==''){ 
-                \Yii::$app->db->createCommand("UPDATE judgment_ref SET work_status = 'C' WHERE doc_id=".$doc_id." ")->execute();                
-                Yii::$app->session->setFlash('success', "Created successfully!!");
+            
+             Yii::$app->session->setFlash('success', "Created successfully!!");
                 $model->save(false);
-            return $this->redirect(['judgment-act/create', 'doc_id'=>$doc_id]);
+            return $this->redirect(['judgment-act/create-new', 'doc_id'=>$doc_id]);
         }
-        }
+        
 
         return $this->render('create', [
             'models' => $models,
             
+        ]);
+    }
+
+     public function actionCreateNew($doc_id="")
+    {
+        $model = new JudgmentRef();
+        $court = CourtMast::find()->all();
+        return $this->render('_formnew', [
+            'model' => $model,
+            'court' => $court,
+             
         ]);
     }
     
@@ -200,14 +211,18 @@ class JudgmentRefController extends Controller
 
         if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
             foreach ($models as $model) {
+                if($model->court_code_ref){
              $court = new CourtMast();
             $court_name =  $court->getCourtName($model->court_code_ref);
             $model->court_name_ref = $court_name ;
+            }
             //$model->judgment_code = $jcode;
             $model->doc_id = $doc_id;
             $model->username = $username;
+            $model->work_status = 'C';
                 $model->save(false);
             }
+             Yii::$app->session->setFlash('Updated successfully!!');
             $this->redirect(['update', 'doc_id'=>$doc_id ]);
         }
 

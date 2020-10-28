@@ -22,9 +22,10 @@ if($_GET)
 	
 	$doc_id = $_GET['doc_id'];
 }
-
+$username = Yii::$app->user->identity->username;
 $judgment = ArrayHelper::map(JudgmentMast::find()
 	->where(['doc_id'=>$doc_id])
+  ->andWhere(['username'=>$username])
 	->all(),
     'doc_id',
     function($result) {
@@ -159,7 +160,7 @@ else{
 		$customScript = <<< SCRIPT
 	$('.addr-row').on('click',function(){
 		$('.judgmenttags-tag_name').attr('name','JudgmentTags[tag_name][]')
-		$('.dynamic-rows').append('<div class="dynamic-rows-field row"  data-id=""><div class="col-xs-4"><div class="form-group field-judgmenttags-tag_name has-success"><input type="text" id="judgmenttags-tag_name" class="form-control judgmenttags-tag_name" name="JudgmentTags[tag_name][]" aria-invalid="false" value=""><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmenttags-tag_value has-success"><input type="text" id="judgmenttags-tag_value" class="form-control judgmenttags-tag_value" name="JudgmentTags[tag_value][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div><input type="hidden" name="JudgmentTags[id][]"></div></div></div>');	
+		$('.dynamic-rows').append('<div class="dynamic-rows-field row"  data-id=""><div class="col-xs-4"><div class="form-group field-judgmenttags-tag_name has-success"><input type="text" id="judgmenttags-tag_name" class="form-control judgmenttags-tag_name" name="JudgmentTags[tag_name][]" aria-invalid="false" value=""><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmenttags-tag_value has-success"><input type="text" id="judgmenttags-tag_value" class="form-control judgmenttags-tag_value" name="JudgmentTags[tag_value][]"  aria-invalid="false"><div class="help-block"></div></div><input type="hidden" name="JudgmentTags[id][]"></div></div></div>');	
 	});
 		$('.deleted-row').on('click',function(){
 		//console.log('test');

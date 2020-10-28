@@ -32,7 +32,7 @@ class JudgmentTags extends \yii\db\ActiveRecord
             [['tag_value'], 'integer'],
             [['doc_id'], 'string', 'max' => 40],
             [['judgment_title'], 'string', 'max' => 255],
-            [['tag_name'], 'string', 'max' => 20],
+            [['tag_name'], 'string'],
         ];
     }
 

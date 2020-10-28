@@ -82,8 +82,10 @@ class JudgmentTagsController extends Controller
                     $model->save();
                 }    
             //
+            $date = date('Y-m-d');
+            \Yii::$app->db->createCommand("UPDATE judgment_mast SET completion_date = '".$date."' WHERE doc_id=".$doc_id)->execute();
             Yii::$app->session->setFlash('success', "Created successfully!!");
-            return $this->redirect(['update', 'doc_id' => $model->doc_id]);
+            return $this->redirect(['judgment-mast/success', 'doc_id'=>$doc_id]);
         }
 
         return $this->render('create', [

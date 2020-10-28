@@ -65,7 +65,7 @@ class JudgmentActController extends Controller
 
     /**
      * Creates a new Multiple JudgmentAct.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * create with checkbox selection .
      * @return mixed
      */
     public function actionCreate($doc_id="")
@@ -123,6 +123,7 @@ class JudgmentActController extends Controller
     */
     public function actionBmst($id)
     {
+     //$username = \Yii::$app->user->identity->username;
      $bareact = BareactMast::find()->where(['act_group_code'=>$id])->all();
      $result = Json::encode($bareact);
      return $result;
@@ -146,7 +147,10 @@ class JudgmentActController extends Controller
      return $result;   
     }
 
-    public function actionCreateNew($doc_id="")
+    /**
+    * create form with datalist option
+    */
+     public function actionCreateNew($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $model = new JudgmentAct();
@@ -173,12 +177,14 @@ class JudgmentActController extends Controller
             $model->act_sub_catg_desc = $_POST['JudgmentAct']['act_sub_catg_desc'];
             $model->act_sub_catg_code = $_POST['JudgmentAct']['act_sub_catg_code'];
             $model->sec_title = $value; 
+            $model->work_status = 'C';
             $model->save();
             }
             $model->save(false);
+                
             Yii::$app->session->setFlash('success', "Created successfully!!");
                   $model->save(false);
-            return $this->redirect(['judgment-mast/success', 'doc_id'=>$doc_id]);
+            
          }             
          
         return $this->render('dependent_act', [

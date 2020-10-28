@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['ju
   
 }
 
-
-$judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->all(),
+$username = Yii::$app->user->identity->username;
+$judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->andWhere(['username'=>$username])->all(),
     'doc_id',
     function($result) {
         return $result['court_name'].'::'.$result['judgment_title'];
@@ -62,11 +62,10 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->a
       <div class="dynamic-rows-field row">
 
         <div class="col-xs-2">  
-            <?= $form->field($model, (!$model->isNewRecord) ? 'party_flag' : 'party_flag[]')->dropDownList(["1"=>"Petitioner","2"=>"Appellant","3"=>"Applicant","4"=>"Defendant","5"=>"Respondent","6"=>"Intervener"])->label('Party Type') ?>
+            <?= $form->field($model, (!$model->isNewRecord) ? 'party_flag' : 'party_flag[]')->dropDownList(["1"=>"Petitioner","2"=>"Appellant","3"=>"Applicant","4"=>"Defendant","5"=>"Respondent","6"=>"Intervener"],['prompt'=>'Select...'])->label('Party Type') ?>
         </div>
         <div class="col-xs-6">
-                <?= $form->field($model, (!$model->isNewRecord) ? 'party_name' : 'party_name[]' )->textInput(['maxlength' => true,
-                'class'=>'judgmentparties-party_name form-control'])->label('Party Name(One Name in Each Row)') ?> 
+                <?= $form->field($model, (!$model->isNewRecord) ? 'party_name' : 'party_name[]' )->textInput(['class'=>'judgmentparties-party_name form-control'])->label('Party Name(One Name in Each Row)') ?> 
         </div>
          <div class="col-xs-4">
              <?= $form->field($model, (!$model->isNewRecord) ? 'appeal_numb' : 'appeal_numb[]' )->textInput(['class'=>'judgmentparties-appeal_numb form-control'])->label('Appeal Number') ?> 
@@ -131,6 +130,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->a
               <div class="col-xs-2">
                 <div class="form-group field-judgmentparties-party_flag has-success">
                   <select id="judgmentparties-party_flag" class="form-control" name="JudgmentParties[party_flag][]" aria-invalid="false">
+                    <option>Select..</option>
                     <option value="1" <?= ($adv->party_flag == '1' ? 'selected' : '') ?>>Petitioner</option>
                     <option value="2" <?= ($adv->party_flag == '2' ? 'selected' : '') ?>>Appellant</option>
                     <option value="3" <?= ($adv->party_flag == '3' ? 'selected' : '') ?>>Applicant</option>
@@ -144,7 +144,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->a
               <div class="col-xs-6">
                 <div class="form-group field-judgmentparties-party_name has-success">
                   
-                  <input type="text" id="judgmentparties-party_name" class="form-control judgmentparties-party_name" name="JudgmentParties[party_name][]" maxlength="50" aria-invalid="false" value="<?= $adv->party_name ?>">
+                  <input type="text" id="judgmentparties-party_name" class="form-control judgmentparties-party_name" name="JudgmentParties[party_name][]" aria-invalid="false" value="<?= $adv->party_name ?>">
                   <div class="help-block"></div>
                 </div>
            <!--  <input type="hidden" name="JudgmentParties[judgment_party_id][]" value="<?= $adv->judgment_party_id ?>"> -->
@@ -186,7 +186,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()->where(['doc_id'=>$doc_id])->a
 if($model->isNewRecord){
     $customScript = <<< SCRIPT
     $('.addr-row').on('click',function(){
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-2"><div class="form-group field-judgmentparties-party_flag has-success"><label class="control-label" for="judgmentparties-party_flag"></label><select id="judgmentparties-party_flag" class="form-control" name="JudgmentParties[party_flag][]" aria-invalid="false"><option value="1">Petitioner</option><option value="2">Appellant</option><option value="3">Applicant</option><option value="4">Defendant</option><option value="5">Respondent</option><option value="6">Intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentparties-party_name has-success"><label class="control-label" for="judgmentparties-party_name"></label><input type="text" id="judgmentparties-party_name" class="form-control judgmentparties-party_name" name="JudgmentParties[party_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div><div class="col-xs-4"><div class="form-group field-judgmentparties-appeal_numb has-success"><label class="control-label" for="judgmentparties-appeal_numb"></label><input type="text" id="judgmentparties-appeal_numb" class="form-control judgmentparties-appeal_numb" name="JudgmentParties[appeal_numb][]" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');    
+        $('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-2"><div class="form-group field-judgmentparties-party_flag has-success"><label class="control-label" for="judgmentparties-party_flag"></label><select id="judgmentparties-party_flag" class="form-control" name="JudgmentParties[party_flag][]" aria-invalid="false"><option>Select..</option><option value="1">Petitioner</option><option value="2">Appellant</option><option value="3">Applicant</option><option value="4">Defendant</option><option value="5">Respondent</option><option value="6">Intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentparties-party_name has-success"><label class="control-label" for="judgmentparties-party_name"></label><input type="text" id="judgmentparties-party_name" class="form-control judgmentparties-party_name" name="JudgmentParties[party_name][]" aria-invalid="false"><div class="help-block"></div></div></div><div class="col-xs-4"><div class="form-group field-judgmentparties-appeal_numb has-success"><label class="control-label" for="judgmentparties-appeal_numb"></label><input type="text" id="judgmentparties-appeal_numb" class="form-control judgmentparties-appeal_numb" name="JudgmentParties[appeal_numb][]" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');    
     });
     $('.deleted-row').on('click',function(){
         console.log('test');
@@ -235,7 +235,7 @@ else{
         $customScript = <<< SCRIPT
     $('.addr-row').on('click',function(){
         $('.judgmentparties-party_name').attr('name','JudgmentParties[party_name][]')
-        $('.dynamic-rows').append('<div class="dynamic-rows-field row" data-id=""><div class="col-xs-2"><div class="form-group field-judgmentparties-party_flag has-success"><label class="control-label" for="judgmentparties-party_flag"></label><select id="judgmentparties-party_flag" class="form-control" name="JudgmentParties[party_flag][]" aria-invalid="false"><option value="1">Petitioner</option><option value="2">Appellant</option><option value="3">Applicant</option><option value="4">Defendant</option><option value="5">Respondent</option><option value="6">Intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentparties-party_name has-success"><label class="control-label" for="judgmentparties-party_name"></label><input type="text" id="judgmentparties-party_name" class="form-control judgmentparties-party_name" name="JudgmentParties[party_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div><div class="col-xs-4"><div class="form-group field-judgmentparties-appeal_numb has-success"><label class="control-label" for="judgmentparties-appeal_numb"></label><input type="text" id="judgmentparties-appeal_numb" class="form-control judgmentparties-appeal_numb" name="JudgmentParties[appeal_numb][]"  aria-invalid="false"><div class="help-block"></div></div><input type="hidden" name="JudgmentParties[judgment_party_id][]" value=""></div></div></div>');    
+        $('.dynamic-rows').append('<div class="dynamic-rows-field row" data-id=""><div class="col-xs-2"><div class="form-group field-judgmentparties-party_flag has-success"><label class="control-label" for="judgmentparties-party_flag"></label><select id="judgmentparties-party_flag" class="form-control" name="JudgmentParties[party_flag][]" aria-invalid="false"><option>Select..</option><option value="1">Petitioner</option><option value="2">Appellant</option><option value="3">Applicant</option><option value="4">Defendant</option><option value="5">Respondent</option><option value="6">Intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentparties-party_name has-success"><label class="control-label" for="judgmentparties-party_name"></label><input type="text" id="judgmentparties-party_name" class="form-control judgmentparties-party_name" name="JudgmentParties[party_name][]" aria-invalid="false"><div class="help-block"></div></div></div><div class="col-xs-4"><div class="form-group field-judgmentparties-appeal_numb has-success"><label class="control-label" for="judgmentparties-appeal_numb"></label><input type="text" id="judgmentparties-appeal_numb" class="form-control judgmentparties-appeal_numb" name="JudgmentParties[appeal_numb][]"  aria-invalid="false"><div class="help-block"></div></div><input type="hidden" name="JudgmentParties[judgment_party_id][]" value=""></div></div></div>');    
     });
     $('.deleted-row').on('click',function(){
             var data_id = $('.dynamic-rows-field').last().attr('data-id');        

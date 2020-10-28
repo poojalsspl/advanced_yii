@@ -30,10 +30,11 @@ if($_GET)
 <!--add tabs---->
 <?php
 
-
+$username = Yii::$app->user->identity->username;
 $judgment = ArrayHelper::map(JudgmentMast::find()
   //->andWhere(['not in','judgment_code',$j_code])
   ->where(['doc_id'=>$doc_id])
+  ->andWhere(['username'=>$username])
   ->all(),
     'doc_id',
     function($result) {
@@ -67,7 +68,7 @@ $master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
 
 <div>
 <?php
-$j_elements = JudgmentElement::find('element_name,element_text,weight_perc')->where(['doc_id'=>$doc_id])->all();
+$j_elements = JudgmentElement::find('element_name,element_text,weight_perc')->where(['doc_id'=>$doc_id])->andWhere(['username'=>$username])->all();
 foreach($j_elements as $jud_element){
 
 ?>

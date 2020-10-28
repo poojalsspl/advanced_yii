@@ -6,6 +6,7 @@ use Yii;
 use frontend\models\JudgmentElement;
 use frontend\models\JudgmentElementSearch;
 use frontend\models\ElementMast;
+use frontend\models\JudgmentMast;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,31 +66,46 @@ class JudgmentElementController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($jcode="",$doc_id="")
+    public function actionCreate($doc_id="")
     {
         $username = \Yii::$app->user->identity->username;
         $model = new JudgmentElement();
-        $model->judgment_code = $jcode;
+        $modeljmast = JudgmentMast::find()->where(['doc_id'=>$doc_id])->andWhere(['username'=>$username])->one();
         $model->doc_id = $doc_id;
         $model->username = $username;
         
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) || $modeljmast->load(Yii::$app->request->post())) {
         	 $element_text = $_POST['JudgmentElement']['element_text'];
-
             $element = new ElementMast();
             $element_name =  $element->getElementName($model->element_code);
             $model->element_name = $element_name ;
-
+            $model->work_status = 'C'; 
             $element_word = str_word_count($element_text);
             $model->element_word_length = $element_word;
-           
-              
             $model->save();
-            return $this->redirect(['create','jcode'=>$jcode, 'doc_id' => $doc_id]);
+            if($model->save()){
+                 if(!empty($_POST['JudgmentMast']['clestatus'])){
+                $modeljmast->clestatus = 'C';
+                $date = date('Y-m-d');
+                $modeljmast->cledate = $date;
+                $modeljmast->save();
+                }else{
+                $modeljmast->clestatus = NULL;
+                $modeljmast->cledate = NULL;
+                $modeljmast->save();
+                }
+          
+             }
+            return $this->redirect(['create',
+                'doc_id' => $doc_id,
+                'modeljmast' => $modeljmast,
+            ]);
+            
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modeljmast' => $modeljmast,
         ]);
     }
 
@@ -130,7 +146,7 @@ class JudgmentElementController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id,$jcode,$doc_id)
+    public function actionUpdate($id,$doc_id)
     {
         $username = \Yii::$app->user->identity->username;
         $model = $this->findModel($id);

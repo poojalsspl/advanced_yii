@@ -301,24 +301,32 @@ $this->title = 'Dashboard';
                                             <span class="time"></span>
                                             <h3 class="timeline-header"><a href="#"></a></h3>
                                             <div class="timeline-body">
-                                             
-                                               <a class="btn btn-primary" href="/advanced_yii/judgment-mast/index">Judgments</a>
-                                               <?php if ($course_code == 'RCCLRW01'){ ?>
+                                               <?php if ($course_code == 'RCCLRW01' || $course_code == 'CLA0001'){ ?>
+                                               <a class="btn btn-primary" href="/advanced_yii/judgment-mast/proof-read">Proof Reading</a>
+                                               <?php } ?>
+                                               <a class="btn btn-primary" href="/advanced_yii/judgment-mast/index">Fixed Data Points</a>
+                                               <?php if ($course_code == 'RDCLRA01' || $course_code == 'CLA0001'){ ?>
+                                                <a class="btn btn-primary" href="/advanced_yii/judgment-mast/abstract-list">Head Notes</a>
+                                                <a class="btn btn-primary" href="/advanced_yii/judgment-mast/j-element-list">Case Law Elements</a>
+                                                <?php } ?>
+                                                <?php if ($course_code == 'RCCLRW01' || $course_code == 'CLA0001'){ ?>
+                                                <a class="btn btn-primary" href="/advanced_yii/bareact-mast">Acts Categorisation</a>
+                                                <?php } ?>
+                                                <?php if ($course_code == 'RDCLRA01' || $course_code == 'CLA0001'){ ?>
+                                                <a class="btn btn-primary" href="/advanced_yii/articles/index">Articles</a>
                                                <?php $pro_check = Project::find()->where(['username'=>$username])->one();
                                                 $project_id = $pro_check['id'];
                                                 if ($project_id == ''){ ?>
-                                                <a class="btn btn-primary" href="/advanced_yii/project/create">Project Report</a>
+                                                <a class="btn btn-primary" href="/advanced_yii/project/create">Project</a>
                                                 <?php }else{ ?>
-                                                 <a class="btn btn-primary" href="/advanced_yii/project/update?id=<?php echo $project_id ;?>">Project Report</a>
+                                                 <a class="btn btn-primary" href="/advanced_yii/project/update?id=<?php echo $project_id ;?>">Project</a>
                                                 <?php }  ?>
-                                                <a class="btn btn-primary" href="/advanced_yii/bareact-mast">State Bareact</a>
-
-                                                 <?php } ?>   
-                                                 <?php if ($course_code == 'RDCLRA01'){ ?>  
-                                                <a class="btn btn-primary" href="/advanced_yii/judgment-mast/j-element-list">Stage - 2</a>
-
-                                                <a class="btn btn-primary" href="/advanced_yii/articles/sample">Stage - 3</a>
-                                                <?php   } ?>
+                                                <?php } ?>
+                                                <?php if ($course_code == 'RDCLRA01') { ?>
+                                                <a class="btn btn-primary" href="#">VDP</a>      
+                                                 <?php } ?>
+                                                 
+                                                
                                             </div>
                                         </div>
                                     </li>
@@ -370,106 +378,11 @@ $this->title = 'Dashboard';
                                                 </div>
                                         </div>
                                     </li>
-                                    <li>
-                                      <i class="fa fa-asterisk bg-aqua"></i>
-                                      <div class="timeline-item">
-                                        <!-- <span class="time"></span>
-                                        <h3 class="timeline-header"><a href="#"></a></h3> -->
-                                        <div class="timeline-body">
-                                          <table class="table table-striped">
-                                            <tr>
-                                              <th>Name</th>
-                                              <th>Completed</th>
-                                              <th>Pending</th>
-                                            </tr>
-                                            <?php
-                                              $comp_fdp = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
-                                              $comp_abstract = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['judgment_abstract' => null]])->count('judgment_abstract');
-
-                                            $sql="Select count(distinct('doc_id')) as tot_count from judgment_element where username = '$username'";
-                                            $command = Yii::$app->getDb()->createCommand($sql);
-                                              $records = $command->queryAll();
-                                              foreach ($records as $valuetot) {
-                                              }
-                                              $elecount = $valuetot['tot_count'];
-
-                                              $sqldp="Select count(distinct('doc_id')) as tot_dpcount from judgment_data_point where username = '$username'";
-                                            $commanddp = Yii::$app->getDb()->createCommand($sqldp);
-                                              $recordsdp = $commanddp->queryAll();
-                                              foreach ($recordsdp as $dpvalue) {
-                                              }
-                                              $dpcount = $dpvalue['tot_dpcount'];
-
-                                              $comp_article = Articles::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
-
-                                            
-
-                                            ?>
-                                            <tr>
-                                              <td>FIXED DATA POINTS</td>
-                                              <td><button class="bg-green"><?= $comp_fdp;?></button></td>
-                                              <td></td>
-                                            </tr>
-                                            <tr>
-                                              <td>ABSTRACT</td>
-                                              <td><button class="bg-green"><?= $comp_abstract?></button></td>
-                                              <td></td>
-                                            </tr>
-                                            <tr>
-                                              <td>ELEMENTS</td>
-                                              <td><button class="bg-green"><?=$elecount?></button></td>
-                                              <td></td>
-                                            </tr>
-                                            <tr>
-                                              <td>VARIABLE DATA POINTS</td>
-                                              <td><button class="bg-green"><?=$dpcount?></button></td>
-                                              <td></td>
-                                            </tr>
-                                            <tr>
-                                              <td>LEGAL ARTICLE</td>
-                                              <td><button class="bg-green"><?= $comp_article?></button></td>
-                                              <td></td>
-                                            </tr>
-                                            <tr>
-                                              <td>PROJECT REPORT</td>
-                                              <td></td>
-                                              <td></td>
-                                            </tr>
-                                          </table>
-                                        </div>
-                                      </div>
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-book bg-purple"></i>
-                                        <div class="timeline-item">
-                                            <span class="time"></span>
-                                            <h3 class="timeline-header"><a href="#">Syllabus</a></h3>
-                                            <div class="timeline-body">
-                                              <table class="table table-striped">
-                                                  <tr>
-                                                      <th>Name</th>
-                                                      <th>Total</th>
-                                                      <th>Allotted Days</th>
-                                                      <th>Stage</th>
-                                                  </tr>
-                                                  <?php
-                            $syllabus_all = SyllabusDetail::find('syllabus_catg_name,tot_count,tot_days,stage')->where(['course_code'=>$course_code])->all();
-                            foreach($syllabus_all as $syllabus){
-                            ?>
-                                                  <tr>
-                                                      <td><?= $syllabus->syllabus_catg_name;?></td>
-                                                      <td><?= $syllabus->tot_count;?></td>
-                                                      <td><?= $syllabus->tot_days; ?></td>
-                                                      <td><?= $syllabus->stage; ?></td>
-                                                  </tr>
-                                                  <?php } ?>
-                                              </table>  
-                                            </div>
-                                        </div>
-                                    </li>
+           
+  
                                     <li class="time-label">
                                         <span class="bg-green">
-                                          Analytics Summary
+                                          Quantitative Analysis Summary
                                         </span>  
                                     </li>
                                     <li>
@@ -544,7 +457,7 @@ $this->title = 'Dashboard';
                                         </div>
                                     </li>
                                     <!---null summary data end-->
-                                    <li class="vdp" <?php if ($course_code == 'RCCLRW01'){ ?> hidden <?php   } ?>>  
+                                    <li class="vdp" <?php if ($course_code == 'RCCLRW01' || $course_code == 'CLA0001'){ ?> hidden <?php   } ?>>  
                                         <i class="fa fa-circle bg-blue"></i>
                                         <div class="timeline-item">
                                             <span class="time"></span>
@@ -574,7 +487,7 @@ $this->title = 'Dashboard';
                             </div>
                             <div class="tab-pane" id="activity">
                                                 <!-- Post -->
-                            <h2><center>Graphical Representation of Data Points</center></h2>
+                            <h2><center>Graphical Research Analysis</center></h2>
                   <div class="row">
                   <div class="col-sm-6" style="border: 1px solid #000000">
                     <h5><b><a target="_blank" href="/advanced_yii/site/chart-disposition"><center>Disposition</center></a></b></h5>

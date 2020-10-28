@@ -90,7 +90,7 @@ $jcatg_description = ArrayHelper::map(JcatgMast::find()->orderBy('jcatg_descript
                       dataType : 'json',
                       success  : function(data) {                                 
                        $('#judgmentmast-jsub_catg_description').empty();    
-                       $('#judgmentmast-jsub_catg_description').append('<option>Select Sub Category</option>');
+                       $('#judgmentmast-jsub_catg_description').append('<option> </option>');
                         $.each(data, function(i, item){
                         $('#judgmentmast-jsub_catg_description').append('<option value='+item.jsub_catg_id+'>'+item.jsub_catg_description+'</option>');
                       });

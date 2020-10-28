@@ -47,16 +47,16 @@ $master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
     if(!empty($JudgmentCitation)){ $citation =  '/judgment-citation/update'; $citationcls = "btn-primary";} else { $citation =  '/judgment-citation/create';  $citationcls = "btn-primary"; } 
     if(!empty($JudgmentParties)){ $parties   =  '/judgment-parties/update'; $partiescls = "btn-primary";} else { $parties =  '/judgment-parties/create'; $partiescls = "btn-primary"; } if(!empty($JudgmentReferred)){ $ref           =  '/judgment-ref/update'; $refcls = "btn-primary"; } else { $ref =  '/judgment-ref/create'; $refcls = "btn-primary"; }
    
-    if(!empty($JudgmentAct)){ $act           =  '/judgment-act/update'; $actcls = "btn-primary"; } else { $act =  '/judgment-act/create'; $actcls = "btn-primary"; }
-    if(!empty($JudgmentTags)){ $tag           =  '/judgment-tags/update'; $tagcls = "btn-primary"; } else { $tag =  '/judgment-tags/create'; $tagcls = "btn-primary"; }
+    if(!empty($JudgmentAct)){ $act           =  '/judgment-act/create-new'; $actcls = "btn-primary"; } else { $act =  '/judgment-act/create-new'; $actcls = "btn-primary"; }
+    // if(!empty($JudgmentTags)){ $tag           =  '/judgment-tags/update'; $tagcls = "btn-primary"; } else { $tag =  '/judgment-tags/create'; $tagcls = "btn-primary"; }
        
     /*if(!empty($JudgmentElement)){ $element           =  '/judgment-element/index'; $elementcls = "btn-success"; } else { $element =  '/judgment-element/create'; $elementcls = "btn-warning"; }
      if(!empty($JudgmentDatapoints)){ $datapoints   =  '/judgment-data-point/update'; $datapointscls = "btn-success";} else { $datapoints =  '/judgment-data-point/create1'; $datapointscls = "btn-warning"; }*/
 
 ?>
-
+<br>
 <div class="tabs">
-<?= Html::a('Edit Judgments',['/judgment-mast/edit','id'=>$doc_id],["class"=>"btn btn-block ".$mastcls ]) ?>
+
 <?= Html::a('Single Value FDP',['/judgment-mast/update','doc_id'=>$doc_id],["class"=>"btn btn-block ".$mastcls ]) ?>
 <?php echo Html::a('Lawyers',[$advocate,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$advocatecls ]) ?>
 <?= Html::a('Judges',[$judge,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$judgecls ]) ?>
@@ -65,7 +65,7 @@ $master = JudgmentMast::find()->where(['doc_id'=>$doc_id])->one();
 <?= Html::a('Parties',[$parties,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$partiescls ]) ?>
 <?php echo Html::a('Referred',[$ref,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$refcls ]) ?>
 <?php echo Html::a('Acts & Sections',[$act,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$actcls ]) ?>
-<?php echo Html::a('Tags',[$tag,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$tagcls ]) ?>
+<?php //echo Html::a('Tags',[$tag,'doc_id'=>$doc_id],["class"=>"btn btn-block ".$tagcls ]) ?>
 <?php /*echo Html::a('Abstract',['judgment-mast/judgment-abstract','jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"margin:2px","class"=>"btn btn-block  ".$actcls ])*/ ?>
 <?php //echo Html::a('Judgment Elements',[$element,'jcode'=>$jcode,'doc_id'=>$doc_id],["style"=>"width:12%","class"=>"btn btn-block  ".$elementcls ]) ?>
 <?php //echo Html::a('Judgment DataPoints',[$datapoints,'jcode'=>$jcode],["style"=>"width:12%","class"=>"btn btn-block  ".$datapointscls ]) ?>

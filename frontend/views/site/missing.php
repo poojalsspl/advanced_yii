@@ -16,6 +16,10 @@ $this->title = 'Record Not Found';
             </div>
         </div>
     </div>
+    <div class="row">
+        <p>If you want to upload document, you may upload document </p>
+        <a href="<?php echo Yii::$app->params['domainName']?>/site/student-doc" class="btn btn-primary">Upload Document</a>
+    </div>
 </div>
 
 

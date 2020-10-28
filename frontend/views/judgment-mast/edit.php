@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /* @var $model backend\models\JudgmentMast */
 /* @var $form yii\widgets\ActiveForm */
 $cache = Yii::$app->cache;
-$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['proof-read']];
 
 ?>
 <style type="text/css">
@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Judgment Allocated', 'url' => ['in
 .tabs .btn.btn-block.btn-primary{
   margin: 2px;
 }
+
 </style>
 
 <?php
@@ -73,6 +74,7 @@ $mastcls = "btn-primary";
 
 
 <!------start of form------>
+<br>
 <div class="template">
     <div class ="body-content">
         <?php $form = ActiveForm::begin(); ?>
@@ -109,7 +111,7 @@ $mastcls = "btn-primary";
     <div class="box box-blue">
         <div class="box-body">
             <div class="col-md-12">
-               <?= $form->field($model, 'edit_status')->checkBox()->label('<b>Check The box once you have completed all editing of the judgment text. Tabs for other Fixed data point will be displayed only after you complete the editing and check the box.</b>') ?>
+               <?= $form->field($model, 'prstatus')->checkBox()->label('<b>Check The box once you have completed all editing of the judgment text. Tabs for other Fixed data point will be displayed only after you complete the editing and check the box. Click on submit button after check the checkbox.</b>') ?>
                 
                 <?= $form->field($model, 'judgment_text')->textarea(['rows' => 8]) ?>
                 
@@ -118,6 +120,10 @@ $mastcls = "btn-primary";
                 
                 <?= $form->field($model, 'judgment_text1')->textarea(['readonly'=>true]) ?>
                 </div>
+             <div class="col-md-12 col-xs-12">
+                
+                <?= $form->field($model, 'judgment_text_data_remove')->textarea([]) ?>
+             </div>    
                      
         </div>
     </div>
@@ -142,11 +148,13 @@ $mastcls = "btn-primary";
 <?php 
     $this->registerJs("CKEDITOR.replace('judgmentmast-judgment_text',{toolbar : 'Basic'})");
     $this->registerJs("CKEDITOR.replace('judgmentmast-judgment_text1',{toolbar : 'Basic'})");
+    $this->registerJs("CKEDITOR.replace('judgmentmast-judgment_text_data_remove',{toolbar : 'Basic'})");
     $this->registerJs("
 
     $('#judgmentmast-edit_status').on('click',function(){
+      confirm('Once submitted it can not be update again. Are you sure ? ');
     //console.log('test');
-     $('.tabs').toggle();
+     //$('.tabs').toggle();
 
     });
 

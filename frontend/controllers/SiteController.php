@@ -692,13 +692,10 @@ class SiteController extends Controller
      {
          $id = Yii::$app->user->identity->id;
          $username = Yii::$app->user->identity->username;
-        $sql = (new \yii\db\Query());
-        $sql->select(['userid','student_name','college_name','course_code','course_name','course_fees','course_status','enrol_no','semester','regs_date','start_date','completion_date','result_date','cert_delvdate','dob','gender','profile_pic','city_code','state_code','country_code','pincode','mobile','email','qual_desc','address','stage'])
-           ->from('student')
-           ->where('userid=:userid', [':userid' => $id]);
-        $command = $sql->createCommand();
-     
-        $model = $command->queryAll(); 
+         $model = Student::find()->where(['email'=>$username])->all();
+         $course_code = $model[0]['course_code'];
+
+         
         /*    judgment   */
         $tot_judgment = JudgmentMast::find()->where(['username'=>$username])->count(); 
         $tot_judgment_worked = JudgmentMast::find()->where(['username'=>$username])->andWhere(['not', ['completion_date' => null]])->count();
@@ -743,6 +740,8 @@ class SiteController extends Controller
         'query' => JudgmentAct::find()->select(['count(bareact_code) AS total,bareact_desc'])->where(['username'=>$username])->andWhere(['work_status'=>'C'])->groupBy(['bareact_desc']),
         'pagination' => false
         ]);
+
+      
 
          return $this->render('dashboard', [
             'model' => $model,

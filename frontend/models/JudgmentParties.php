@@ -36,7 +36,7 @@ class JudgmentParties extends \yii\db\ActiveRecord
     {
         return [
             [['judgment_code'], 'integer'],
-            [['party_name'], 'string', 'max' => 50],
+            [['party_name'], 'string'],
             [['party_flag', 'exam_status'], 'string', 'max' => 1],
             [['appeal_numb'], 'string', 'max' => 250],
             [['username'],'string'],

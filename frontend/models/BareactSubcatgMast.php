@@ -49,27 +49,16 @@ class BareactSubcatgMast extends \yii\db\ActiveRecord
     {
         return [
             'act_sub_catg_code' => 'Act Sub Catg Code',
-            'act_sub_catg_desc' => 'Act Sub Catg Desc',
-            'short_desc' => 'Short Desc',
-            'act_catg_code' => 'Act Catg Code',
-            'act_catg_desc' => 'Act Catg Desc',
+            'act_sub_catg_desc' => 'Act Sub Category Description',
+            'short_desc' => 'Short Description',
+            'act_catg_code' => 'Act Category Code',
+            'act_catg_desc' => 'Act Catg Description',
             'act_group_code' => 'Act Group Code',
-            'act_group_desc' => 'Act Group Desc',
+            'act_group_desc' => 'Act Group Description',
             'country_code' => 'Country Code',
             'country_name' => 'Country Name',
         ];
     }
 
-    public static function getBareactList($id_cat) {
-        $out = [];
-         $models = BareactSubcatgMast::find()
-        ->where('act_catg_code = :act_catg_code')
-        ->addParams([':act_catg_code' => $id_cat])
-        ->all();
-       foreach ($models as $i => $subcatg) {
-          //  print_r($state);
-       $out[] = ['id' => $subcatg['act_sub_catg_code'], 'name' => $subcatg['act_sub_catg_desc']];
-        }
-       return $out;
-         }
+
 }

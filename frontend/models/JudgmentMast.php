@@ -43,7 +43,7 @@ use yii\data\SqlDataProvider;
  * @property int|null $judgment_jurisdiction_id1
  * @property string|null $judgmnent_jurisdiction_text
  * @property string|null $judgment_abstract
- * @property string|null $judgment_analysis
+ * @property string|null $judgment_text_data_remove
  * @property string|null $judgment_text
  * @property string|null $judgment_text1
  * @property string|null $search_tag
@@ -64,11 +64,20 @@ use yii\data\SqlDataProvider;
  * @property string|null $approved_date
  * @property string|null $work_status
  * @property int|null $status_2 for_elements&datapoints
+ * @property string|null $start_date
  * @property string|null $completion_status
  * @property string|null $completion_date
- * @property int|null $edit_status 0 for incomplete 1 for complete
- * @property string|null $start_date
+ * @property int|null $edit_status
+ * @property string|null $judgment_status
  * @property int $bench_code
+ * @property string|null $prstatus
+ * @property string|null $prdate
+ * @property string|null $fdpstatus
+ * @property string|null $fdpdate
+ * @property string|null $hnstatus
+ * @property string|null $hndate
+ * @property string|null $clestatus
+ * @property string|null $cledate
  */
 class JudgmentMast extends \yii\db\ActiveRecord
 {
@@ -114,14 +123,14 @@ class JudgmentMast extends \yii\db\ActiveRecord
            
             [['u_id', 'court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'search_tag_count', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'judgment_length', 'approved', 'status_2', 'edit_status','bench_code'], 'integer'],
             [['judgment_date', 'judgment_date1', 'time', 'approved_date', 'completion_date', 'start_date'], 'safe'],
-            [['judgment_abstract', 'judgment_analysis', 'judgment_text', 'judgment_text1'], 'string'],
+            [['judgment_abstract', 'judgment_text_data_remove', 'judgment_text', 'judgment_text1'], 'string'],
             [['username'], 'string', 'max' => 50],
             [['college_code'], 'string', 'max' => 4],
             [['doc_id'], 'string', 'max' => 40],
             [['court_name'], 'string', 'max' => 100],
-            [['court_type', 'work_status'], 'string', 'max' => 2],
+            [['court_type', 'work_status', 'judgment_status'], 'string', 'max' => 2],
             [['appeal_numb', 'appeal_numb1'], 'string', 'max' => 250],
-            [['appeal_count', 'judgment_type', 'judgment_type1', 'completion_status'], 'string', 'max' => 1],
+            [['appeal_count', 'judgment_type', 'judgment_type1', 'completion_status', 'prstatus', 'fdpstatus', 'hnstatus', 'clestatus'], 'string', 'max' => 1],
             [['judgment_title', 'disposition_text', 'bench_type_text', 'judgmnent_jurisdiction_text'], 'string', 'max' => 255],
             [['appeal_status'], 'string', 'max' => 10],
             [['search_tag'], 'string', 'max' => 300],
@@ -129,6 +138,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             [['overruled_by_judgment'], 'string', 'max' => 20],
             [['remark'], 'string', 'max' => 2000],
         ];
+
 }
 
     /**
@@ -144,7 +154,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'doc_id'                   => 'Doc ID',
             'court_code'               => 'Court Code',
             'court_name'               => 'Court Name',
-            'appeal_numb'              => 'Judgment Appeal Number',
+            'appeal_numb'              => 'Case Number',
             'appeal_numb1'             => 'Appeal Numb1',
             'appeal_count'             => 'Appeal Count',
             'judgment_date'            => 'Judgment Date',
@@ -161,7 +171,7 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'judgment_jurisdiction_id1' => 'Judgment Jurisdiction Id1',
             'judgmnent_jurisdiction_text'=> 'Judgmnent Jurisdiction Text',
             'judgment_abstract'        => 'Judgment Abstract',
-            'judgment_analysis'        => 'Judgment Analysis',
+            'judgment_text_data_remove'        => 'Removed Junk Data from Judgment',
             'judgment_text'            => 'Edited After Proof Reading Judgment Text. Dont forget to click on checkbox after completly editing the judgment text and format',
             'judgment_text1'           => 'Raw Judgment Text cannot be edited and to be used as refrence while judgment editing the judgment text above',
             'search_tag'               => 'Search Tag',
@@ -185,7 +195,15 @@ class JudgmentMast extends \yii\db\ActiveRecord
             'completion_date'          => 'Completion Date',
             'edit_satus'               => 'Check The box once you have completed all editing of the judgment text. Tabs for other Fixed data pooint will be displayed only after you complete the editing and check the box.', 
             'start_date'               => 'Allocation Date',
-            'bench_code'               => 'Bench Code'
+            'bench_code'               => 'Bench Code',
+            'prstatus'                 => 'Proof Read status',
+            'prdate'                   => 'Proof Read date',
+            'fdpstatus'                => 'Fdp status',
+            'fdpdate'                  => 'Fdp date',
+            'hnstatus'                 => 'Head Note status',
+            'hndate'                   => 'Head Note date',
+            'clestatus'                => 'Element completion status',
+            'cledate'                  => 'Element date',
          ];
         
 }

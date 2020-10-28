@@ -129,6 +129,27 @@ class JudgmentAdvocateController extends Controller
 
     }
 
+    public function actionAdvocatedata(){
+        return $_POST['advocate_flag'];
+
+    }
+
+    public function actionAdvocate($doc_id=""){
+        $username = \Yii::$app->user->identity->username;
+        //$model = new JudgmentAdvocate();
+        $model =  JudgmentAdvocate::find()->where(['doc_id'=>$doc_id])->one();
+       //$flg = $model->advocate_flag;
+        
+        
+        
+         
+
+        return $this->render('create_new', [
+            'model' => $model,
+            
+        ]);
+    }
+
    
 
     /**
@@ -200,13 +221,13 @@ class JudgmentAdvocateController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionAdvocate($id)
+   /* public function actionAdvocate($id)
     {
      $state = JudgmentMast::find()->select(['respondant_adv','respondant_adv_count','appellant_adv','appellant_adv_count'])->where(['judgment_code'=>$id])->asArray()->one();
      $result = Json::encode($state);
      return $result;       
         //return $this->redirect(['index']);
-    }
+    }*/
 
     /**
      * Finds the JudgmentAdvocate model based on its primary key value.

@@ -88,7 +88,7 @@ class JudgmentActController extends Controller
         $modelUsername = $model->username;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->jcode]);
+            return $this->redirect(['view', 'id' => $model->judgment_code]);
         }
 
         return $this->render('update', [

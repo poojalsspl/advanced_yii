@@ -72,6 +72,17 @@ class JudgmentMastController extends Controller
         ]);
     }
 
+    public function actionProofRead()
+    {
+        $searchModel = new JudgmentMastSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('proof_read', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
     * created for testing piechart
     */
@@ -643,43 +654,26 @@ class JudgmentMastController extends Controller
         $model = JudgmentMast::find()->where(['username'=>$username])->andwhere(['doc_id'=>$id])->one();
         
         if ($model->load(Yii::$app->request->post())) {
-            if(!empty($_POST['JudgmentMast']['edit_status'])){
-          $model->edit_status = '1';
+            if(!empty($_POST['JudgmentMast']['prstatus'])){
+          $model->prstatus = 'C';
+          $date = date('Y-m-d');
+          $model->prdate = $date;
+          }else{
+          $model->prstatus = NULL;
+          $model->prdate = NULL;
           }
           $doc_id = $model->doc_id;
            Yii::$app->session->setFlash('success', "Updated successfully!!");
                 $model->save();
-             $check = JudgmentMast::find()->select('edit_status')->where(['doc_id'=>$doc_id])->one();
-             $checkstatus = $check->edit_status;
-              if($checkstatus=='1'){
-           return $this->redirect(['update', 'doc_id' => $doc_id]);
-             }else {
-            return $this->redirect(['edit', 'id' => $doc_id]);
-             }
+          return $this->redirect(['edit', 'id' => $doc_id]);
+            
       }
       return $this->render('edit', [
             'model' => $model,
         ]);
     }
 
-    /**
-    * no need 
-    */
-    public function actionEditbkup($id)
-    {
-        $model = $this->findModel($id);
-        $username = \Yii::$app->user->identity->username;
-        if ($model->load(Yii::$app->request->post())) {
-          $jcode = $model->judgment_code;
-          $doc_id = $model->doc_id;
-           Yii::$app->session->setFlash('success', "Updated successfully!!");
-                $model->save();
-           return $this->redirect(['update', 'id' => $jcode]);
-      }
-      return $this->render('edit', [
-            'model' => $model,
-        ]);
-    }
+    
 
     /**
     * Single Value FDP
@@ -918,7 +912,14 @@ class JudgmentMastController extends Controller
          $username = \Yii::$app->user->identity->username;
         $model = JudgmentMast::find()->where(['username'=>$username])->andwhere(['doc_id'=>$doc_id])->one();
          if ($model->load(Yii::$app->request->post())) {
-          //$jcode = $model->judgment_code;
+           if(!empty($_POST['JudgmentMast']['hnstatus'])){
+          $model->hnstatus = 'C';
+          $date = date('Y-m-d');
+          $model->hndate = $date;
+          }else{
+          $model->hnstatus = NULL;
+          $model->hndate = NULL;
+          }
           $doc_id = $model->doc_id;
           $model->save();
            return $this->redirect('abstract-list');
@@ -937,15 +938,19 @@ class JudgmentMastController extends Controller
 
    public function actionJElementList()
     {
-        $username = \Yii::$app->user->identity->username;
-        $query = JudgmentMast::find()
-        ->select('judgment_code,court_code,court_name,judgment_date,judgment_title,doc_id')
-        ->where(['username'=>$username])
-        ->limit(200);
-        $models = $query->all();
-          
-        return $this->render('stage2/elements_list', [
-            'models' => $models,
+        // $username = \Yii::$app->user->identity->username;
+        // $query = JudgmentMast::find()
+        // ->select('court_code,court_name,judgment_date,judgment_title,doc_id,clestatus')
+        // ->where(['username'=>$username])
+        // ->limit(200);
+        // $models = $query->all();
+
+        $searchModel = new JudgmentMastSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+         return $this->render('stage2/elements_list', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
            
          ]);
 
@@ -1160,6 +1165,7 @@ class JudgmentMastController extends Controller
     $result = Json::encode($jsubCatg);
      return $result;          
     }
+    
 
     /*public function actionIndex()
     {*/

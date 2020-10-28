@@ -13,19 +13,31 @@ use frontend\models\JudgmentMast;
 
     <h1></h1>
    
-    <h1><?php echo 'Abstract Writing for the judgments ' ?></h1>
+    <h1><?php echo '<b>Abstract Writing</b> for the judgments ' ?></h1>
 
 <?php Pjax::begin(); ?>    
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'columns' => [
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'judgment_title',
             'court_name',
             [
              'attribute'=>'judgment_abstract',
              'value'=>'truncatedAbstract',//show limited characters
+            ],
+            [
+              'attribute'=>'hnstatus',
+              'format'=>'raw',
+              'value' => function ($model) {
+                if ($model->hnstatus == 'C'){
+                  return '<b>Completed</b>';
+                  } else {
+                  return '<p style="color:red">Pending</p>';
+                  }
+               },
             ],
             
             
@@ -36,7 +48,7 @@ use frontend\models\JudgmentMast;
             'buttons' => [
                 
                'Edit' => function ($url, $model, $key) {
-                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['judgment-abstract', 'id'=>$model->judgment_code]);
+                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['judgment-abstract', 'doc_id'=>$model->doc_id]);
             },
              
                 'format' => 'raw',

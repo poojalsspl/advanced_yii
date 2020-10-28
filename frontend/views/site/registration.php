@@ -40,7 +40,8 @@ $this->title = 'Student';
 
 <div class="template">
     <div class ="body-content">
-        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+        <?php $form = ActiveForm::begin(['options' => ['autocomplete' => 'off','enctype' => 'multipart/form-data']]); ?>
+        
         <div class="col-md-12">
             <div class="row">
                 <div class="box box-blue">

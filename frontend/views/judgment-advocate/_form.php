@@ -36,9 +36,11 @@ if($_GET)
     
 }
 
+$username = Yii::$app->user->identity->username;
 $judgment = ArrayHelper::map(JudgmentMast::find()
 	//->andWhere(['not in','judgment_code',$j_code])
 	->where(['doc_id'=>$doc_id])
+	->andWhere(['username'=>$username])
 	->all(),
     'doc_id',
     function($result) {
@@ -70,7 +72,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
 	  <div class="dynamic-rows-field row">
  
     	<div class="col-xs-4">	
-    		<?= $form->field($model, (!$model->isNewRecord) ? 'advocate_flag' : 'advocate_flag[]')->dropDownList(["1"=>"Petitioner","2"=>"Appellant","3"=>"Applicant","4"=>"Defendant","5"=>"Respondent","6"=>"Intervener"])->label('select'); ?>
+    		<?= $form->field($model, (!$model->isNewRecord) ? 'advocate_flag' : 'advocate_flag[]')->dropDownList(["1"=>"Petitioner","2"=>"Appellant","3"=>"Applicant","4"=>"Defendant","5"=>"Respondent","6"=>"Intervener"],['prompt'=>'Select...'])->label('select'); ?>
     	</div>
     	<div class="col-xs-6">
     			<?= $form->field($model, (!$model->isNewRecord) ? 'advocate_name' : 'advocate_name[]' )->textInput(['maxlength' => true,
@@ -147,6 +149,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
 				<div class="form-group field-judgmentadvocate-advocate_flag has-success">
 					<label class="control-label" for="judgmentadvocate-advocate_flag"></label>
 					<select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false" >
+						<option>Select..</option>
 						<option value="1" <?= ($adv->advocate_flag == '1' ? 'selected' : '') ?> >Petitioner</option>
 						<option value="2" <?= ($adv->advocate_flag == '2' ? 'selected' : '') ?> >Appellant</option>
 						<option value="3" <?= ($adv->advocate_flag == '3' ? 'selected' : '') ?> >Applicant</option>
@@ -200,7 +203,7 @@ $judgment = ArrayHelper::map(JudgmentMast::find()
 if($model->isNewRecord){
 	$customScript = <<< SCRIPT
 	$('.addr-row').on('click',function(){
-		$('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-4"><div class="form-group field-judgmentadvocate-advocate_flag has-success"><select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false"><option value="1">Petitioner</option><option value="2">Appellant</option><option value="3">Applicant</option><option value="4">Defendant</option><option value="5">Respondent</option><option value="6">Intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentadvocate-advocate_name has-success"><input type="text" id="judgmentadvocate-advocate_name" class="form-control judgmentadvocate-advocate_name" name="JudgmentAdvocate[advocate_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');	
+		$('.dynamic-rows').append('<div class="dynamic-rows-field row"><div class="col-xs-4"><div class="form-group field-judgmentadvocate-advocate_flag has-success"><select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false"><option>Select..</option><option value="1">Petitioner</option><option value="2">Appellant</option><option value="3">Applicant</option><option value="4">Defendant</option><option value="5">Respondent</option><option value="6">Intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentadvocate-advocate_name has-success"><input type="text" id="judgmentadvocate-advocate_name" class="form-control judgmentadvocate-advocate_name" name="JudgmentAdvocate[advocate_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div></div></div></div>');	
 	});
 	$('.deleted-row').on('click',function(){
 		console.log('test');
@@ -246,7 +249,7 @@ else{
 		$customScript = <<< SCRIPT
 	$('.addr-row').on('click',function(){
 		$('.judgmentadvocate-advocate_name').attr('name','JudgmentAdvocate[advocate_name][]')
-		$('.dynamic-rows').append('<div class="dynamic-rows-field row"  data-id=""><div class="col-xs-4"><div class="form-group field-judgmentadvocate-advocate_flag has-success"><select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false"><option value="1">Petitioner</option><option value="2">Appellant</option><option value="3">Applicant</option><option value="4">Defendant</option><option value="5">Respondent</option><option value="6">Intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentadvocate-advocate_name has-success"><input type="text" id="judgmentadvocate-advocate_name" class="form-control judgmentadvocate-advocate_name" name="JudgmentAdvocate[advocate_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div><input type="hidden" name="JudgmentAdvocate[id][]"></div></div></div>');	
+		$('.dynamic-rows').append('<div class="dynamic-rows-field row"  data-id=""><div class="col-xs-4"><div class="form-group field-judgmentadvocate-advocate_flag has-success"><select id="judgmentadvocate-advocate_flag" class="form-control" name="JudgmentAdvocate[advocate_flag][]" aria-invalid="false"><option>Select..</option><option value="1">Petitioner</option><option value="2">Appellant</option><option value="3">Applicant</option><option value="4">Defendant</option><option value="5">Respondent</option><option value="6">Intervener</option></select><div class="help-block"></div></div></div><div class="col-xs-6"><div class="form-group field-judgmentadvocate-advocate_name has-success"><input type="text" id="judgmentadvocate-advocate_name" class="form-control judgmentadvocate-advocate_name" name="JudgmentAdvocate[advocate_name][]" maxlength="50" aria-invalid="false"><div class="help-block"></div></div><input type="hidden" name="JudgmentAdvocate[id][]"></div></div></div>');	
 	});
 		$('.deleted-row').on('click',function(){
 		//console.log('test');

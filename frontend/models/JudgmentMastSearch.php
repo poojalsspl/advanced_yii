@@ -17,9 +17,10 @@ class JudgmentMastSearch extends JudgmentMast
      */
     public function rules()
     {
+        
         return [
-            [['judgment_code', 'court_code', 'jcatg_id', 'jsub_catg_id'], 'integer'],
-            [['court_name', 'appeal_numb', 'judgment_date', 'judgment_title', 'appeal_status','judgment_abstract', 'judgment_text', 'judgment_type', 'jcatg_description', 'jsub_catg_description','overruled_by_judgment','completion_date','start_date'], 'safe'],
+            [['username', 'college_code', 'doc_id', 'court_name', 'court_type', 'appeal_numb', 'appeal_numb1', 'appeal_count', 'judgment_date', 'judgment_date1', 'judgment_title', 'appeal_status', 'disposition_text', 'bench_type_text', 'judgmnent_jurisdiction_text', 'judgment_abstract', 'judgment_text_data_remove', 'judgment_text', 'judgment_text1', 'search_tag', 'judgment_type', 'judgment_type1', 'jcatg_description', 'jsub_catg_description', 'overruled_by_judgment', 'remark', 'time', 'approved_date', 'work_status', 'start_date', 'completion_status', 'completion_date', 'judgment_status', 'prstatus', 'prdate', 'fdpstatus', 'fdpdate', 'hnstatus', 'hndate', 'clestatus', 'cledate'], 'safe'],
+            [['u_id', 'judgment_code', 'court_code', 'disposition_id', 'disposition_id1', 'bench_type_id', 'bench_type_id1', 'judgment_jurisdiction_id', 'judgment_jurisdiction_id1', 'search_tag_count', 'jcatg_id', 'jcatg_id1', 'jsub_catg_id', 'jsub_catg_id1', 'judgment_length', 'approved', 'status_2', 'edit_status', 'bench_code'], 'integer'],
         ];
     }
 
@@ -42,7 +43,8 @@ class JudgmentMastSearch extends JudgmentMast
     public function search($params)
     {
         $username = \Yii::$app->user->identity->username;
-        $query = JudgmentMast::find()->where(['username'=>$username]);
+        $current_date = date('Y-m-d');
+        $query = JudgmentMast::find()->where(['username'=>$username])->andWhere(['<=', 'start_date', $current_date]);
 
         // add conditions that should always apply here
 
@@ -79,7 +81,8 @@ class JudgmentMastSearch extends JudgmentMast
             ->andFilterWhere(['like', 'jcatg_description', $this->jcatg_description])
             ->andFilterWhere(['like', 'jsub_catg_description', $this->jsub_catg_description])
             ->andFilterWhere(['like', 'overruled_by_judgment', $this->overruled_by_judgment])
-            ->andFilterWhere(['like', 'completion_date', $this->completion_date]);
+            ->andFilterWhere(['like', 'completion_date', $this->completion_date])
+            ->andFilterWhere(['like', 'prstatus', $this->prstatus]);
            
             
 
@@ -93,7 +96,8 @@ class JudgmentMastSearch extends JudgmentMast
     public function searchabstract($params)
     {
         $username = \Yii::$app->user->identity->username;
-        $query = JudgmentMast::find()->where(['username'=>$username]);
+        $current_date = date('Y-m-d');
+        $query = JudgmentMast::find()->where(['username'=>$username])->andWhere(['<=', 'start_date', $current_date]);
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -103,7 +107,7 @@ class JudgmentMastSearch extends JudgmentMast
             return $dataProvider;
              }
          $query->andFilterWhere([
-            'judgment_code' => $this->judgment_code,
+            'doc_id' => $this->doc_id,
             'court_code' => $this->court_code,
           ]);
           $query->andFilterWhere(['like', 'court_name', $this->court_name])
