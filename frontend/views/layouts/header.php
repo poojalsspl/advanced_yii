@@ -41,27 +41,27 @@ use yii\bootstrap\Nav;
                                 'url' => ['site/index'],
                                 'linkOptions' => [],
                             ],
-                             [
-                                'label' => 'Courses',
-                                'url' => '',
-                                'linkOptions' => [],
-                                'items' => [
-                                    [
-                                        'label' => 'Diploma',
-                                        'url' => ['/course-mast/view/?id=RDCLRA01'],
+                            //  [
+                            //     'label' => 'Courses',
+                            //     'url' => '',
+                            //     'linkOptions' => [],
+                            //     'items' => [
+                            //         [
+                            //             'label' => 'Diploma',
+                            //             'url' => ['/course-mast/view/?id=RDCLRA01'],
                                         
-                                    ],
-                                    [
-                                        'label' => 'Workshop',
-                                        'url' => ['/course-mast/view/?id=RCCLRW01'],
-                                    ],
-                                    [
-                                        'label' => 'Certificate',
-                                        'url' => ['/course-mast/view/?id=CLA0001'],
-                                    ],
+                            //         ],
+                            //         [
+                            //             'label' => 'Workshop',
+                            //             'url' => ['/course-mast/view/?id=RCCLRW01'],
+                            //         ],
+                            //         [
+                            //             'label' => 'Certificate',
+                            //             'url' => ['/course-mast/view/?id=CLA0001'],
+                            //         ],
                                     
-                                ]
-                            ],
+                            //     ]
+                            // ],
 
                             
                          ];
