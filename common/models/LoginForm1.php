@@ -7,13 +7,13 @@ use yii\base\Model;
 /**
  * Login form
  */
-class LoginForm extends Model
+class LoginForm1 extends Model
 {
     public $username;
     public $password;
-    public $rememberMe = true;
+    //public $rememberMe = true;
 
-    private $_user;
+    private $_student;
 
 
     /**
@@ -25,7 +25,7 @@ class LoginForm extends Model
             // username and password are both required
             [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
+            //['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
         ];
@@ -38,14 +38,9 @@ class LoginForm extends Model
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validatePassword($attribute, $params)
+    public function validatePassword($password)
     {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
-            }
-        }
+        return $this->password === $password;
     }
 
     /**
@@ -55,8 +50,9 @@ class LoginForm extends Model
      */
     public function login()
     {
+        //print_r($_user);
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            return Yii::$app->student->login($this->getUser());
         }
         
         return false;
@@ -71,19 +67,20 @@ class LoginForm extends Model
      */
     protected function getUser()
     {
-        if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+
+        if ($this->_student === null) {
+            $this->_student = MktStudent::findByUsername($this->username);
         }
 
-        return $this->_user;
+        return $this->_student;
     }
 
     
 
-    public function SetStatus($id,$log_det){
-        \Yii::$app->db->createCommand("UPDATE user SET log_det=:log_det WHERE id=:id")
+    public function SetStatus($id,$log_status){
+        \Yii::$app->db->createCommand("UPDATE mkt_student SET log_status=:log_status WHERE id=:id")
         ->bindValue(':id', $id)
-        ->bindValue(':log_det', $log_det)
+        ->bindValue(':log_status', $log_status)
         ->execute();
 
         return true;

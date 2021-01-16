@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\LoginForm1;
 use common\models\User;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ChangePasswordForm;
@@ -27,6 +28,7 @@ use frontend\models\CityMast;
 use frontend\models\CollegeMast;
 use frontend\models\JudgmentMast;
 use frontend\models\JudgmentAct;
+use frontend\models\MktStudent;
 use app\models\CourseMast;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -136,6 +138,10 @@ class SiteController extends Controller
             ]);
         }
     }
+
+    
+
+     
 
     public function actionLoginbkup1()
     {
@@ -262,8 +268,7 @@ class SiteController extends Controller
     /*static pages start*/
     public function actionAbout()
     {
-
-        return $this->render('about');
+       return $this->render('about');
     }
     
     public function actionFaq()
@@ -534,6 +539,11 @@ class SiteController extends Controller
 
      }
 
+    
+
+   
+    
+
      public function actionEdits($uid)
     {
         $model = Student::find()->where(['userid' => $uid])->one();
@@ -783,6 +793,101 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+   
+ /*marketing survey signup*/
+    public function actionMktSignup()
+     {
+      $this->layout = 'survey';
+      $model = new MktStudent();
+      if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        Yii::$app->session->setFlash('success', "Thank You for Registration.<br> Please login for further information.");
+             return $this->redirect(['mkt-login']);
+        }
+ 
+        return $this->render('signup_mkt', [
+            'model' => $model,
+        ]);
+     }
+
+     /*marketing survey login*/
+    public function actionMktLogin()
+    {
+       $this->layout = 'survey'; 
+        $model = new LoginForm1();
+       if ($model->load(Yii::$app->request->post())){
+       $username = $_POST['LoginForm1']['username'];
+       $password = $_POST['LoginForm1']['password'];
+       $_SESSION["username"] = $username;
+       $_SESSION["password"] = $password;
+
+      return $this->redirect(['mkt-registration']);
+
+       }
+
+         return $this->render('mkt_login', [
+                'model' => $model,
+            ]);
+        
+    }
+
+    /*marketing survey registration*/
+        public function actionMktRegistration()
+     {
+        $this->layout = 'survey';
+         $check_data = MktStudent::find()->where(['username'=>$_SESSION["username"]])->andWhere(['password'=>$_SESSION["password"]])->one();
+          if(empty($check_data)){
+           Yii::$app->session->setFlash('error', "Incorrect username or password.");
+          return $this->redirect(['mkt-login']); 
+          } else{
+          $model = MktStudent::find()->where(['username'=>$_SESSION["username"]])->one();
+              if($model->log_status == '0'){
+                if (Yii::$app->request->post()) {
+                  $model->load(\Yii::$app->request->post());
+                  $url = 'uploads/survey_docs/';
+                  if (!file_exists($url)) 
+                  {
+                    FileHelper::createDirectory($url);
+                  }
+                  $document = mt_rand(10000, 99999);
+                  $model->document = UploadedFile::getInstance($model, 'document');
+                  $model->document->saveAs('uploads/survey_docs/'.$document.'.'.$model->document->extension);
+                  $model->document = $document.'.'.$model->document->extension;
+                  $model->regs_date = date('Y-m-d');
+                  $model->log_status = '1';
+                  if ($model->save()){
+                    Yii::$app->session->setFlash('success', "Student profile updated."); 
+                    return $this->redirect(['student-dashboard']);
+                  }else{
+                    Yii::$app->session->setFlash('error', "Student information not saved.");
+                  }
+                }
+              }
+              if($model->log_status == '1'){
+                return $this->redirect(['student-dashboard']);    
+              }
+          }
+          return $this->render('mkt_registration', [
+            'model' => $model,
+        ]);
+
+     }
+
+     /*marketing survey student dashboard*/
+     public function actionStudentDashboard(){
+      $this->layout = 'survey';
+    // return 'login user is : '.$_SESSION["username"];
+       return $this->render('student_dashboard');    
+     }
+
+    /*marketing survey student logout*/
+     public function actionStudentLogout()
+    {
+        session_unset();
+        session_destroy();
+        return $this->redirect('http://www.lawhub.in/');
+    }
+
 
    
 
