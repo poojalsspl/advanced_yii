@@ -29,12 +29,17 @@ use frontend\models\CollegeMast;
 use frontend\models\JudgmentMast;
 use frontend\models\JudgmentAct;
 use frontend\models\MktStudent;
+use frontend\models\AdvocateMast;
+use frontend\models\AdvocateMastSearch;
+use frontend\models\AdvocateSurvey;
+use frontend\models\SurveyMast;
 use app\models\CourseMast;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use frontend\models\StatecollegelistView;
 use yii\data\ActiveDataProvider;
 use frontend\models\WebArticles;
+use yii\helpers\Json;
 /**
  * Site controller
  */
@@ -805,7 +810,7 @@ class SiteController extends Controller
              return $this->redirect(['mkt-login']);
         }
  
-        return $this->render('signup_mkt', [
+        return $this->render('survey/signup_mkt', [
             'model' => $model,
         ]);
      }
@@ -825,7 +830,7 @@ class SiteController extends Controller
 
        }
 
-         return $this->render('mkt_login', [
+         return $this->render('survey/mkt_login', [
                 'model' => $model,
             ]);
         
@@ -867,7 +872,7 @@ class SiteController extends Controller
                 return $this->redirect(['student-dashboard']);    
               }
           }
-          return $this->render('mkt_registration', [
+          return $this->render('survey/mkt_registration', [
             'model' => $model,
         ]);
 
@@ -876,8 +881,8 @@ class SiteController extends Controller
      /*marketing survey student dashboard*/
      public function actionStudentDashboard(){
       $this->layout = 'survey';
-    // return 'login user is : '.$_SESSION["username"];
-       return $this->render('student_dashboard');    
+      $student = MktStudent::find()->where(['username'=>$_SESSION["username"]])->one();
+    return $this->render('survey/student_dashboard',['student'=>$student]);    
      }
 
     /*marketing survey student logout*/
@@ -888,8 +893,97 @@ class SiteController extends Controller
         return $this->redirect('http://www.lawhub.in/');
     }
 
+    /*marketing survey advocate registration*/
+     public function actionAdvocateRegistration()
+    {
+        $this->layout = 'survey';
+        $model = new AdvocateMast();     
+                if (Yii::$app->request->post()) {
+                  $model->load(\Yii::$app->request->post());
+                  $url = 'uploads/survey_docs/advocate/';
+                  if (!file_exists($url)) 
+                  {
+                    FileHelper::createDirectory($url);
+                  }
+                  if(!empty($_SESSION["username"])){
+                  $model->mkt_username = $_SESSION["username"];
+                   }
+                  if(!empty($model->court_code)){
+                  $model->court_name  =  $model->courtCode->court_name;
+                }
+                 $model->image = UploadedFile::getInstance($model, 'image');
+                
+                 
+                  if ($model->save() && $model->upload()){
+                    Yii::$app->session->setFlash('success', "Registration Complete."); 
+                    return $this->redirect(['student-dashboard']);
+                  }else{
+                    Yii::$app->session->setFlash('error', "information not saved.");
+                  }
+                }
+              
+            return $this->render('survey/advocate_registration', [
+            'model' => $model,
+        ]);
+    }
 
-   
+    /*marketing survey advocate list*/
+    public function actionAdvocateIndex(){
+      $this->layout = 'survey';
+       $searchModel = new AdvocateMastSearch();
+       $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('survey/advocate_index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    } 
+
+    /*marketing survey form*/
+    public function actionSurvey(){
+      $this->layout = 'survey';
+      $model = new AdvocateSurvey();
+      
+      $survey=SurveyMast::find()
+      ->select('distinct(surv_code) as surv_code,surv_que')
+      ->all();
+
+      if ($model->load(Yii::$app->request->post())) {
+        $count =  count($_POST['AdvocateSurvey']['surv_id']);
+
+         for($i=0;$i<$count;$i++)
+            {
+              $model = new AdvocateSurvey();
+              $model->surv_code = $_POST['AdvocateSurvey']['surv_code'][$i];
+              $model->surv_id = $_POST['AdvocateSurvey']['surv_id'][$i];
+              $model->surv_date = date('Y-m-d');
+              $model->adv_id = $_POST['AdvocateSurvey']['adv_id'];
+              $model->mkt_username = $_POST['AdvocateSurvey']['mkt_username'];
+              $model->save(); 
+              
+            }
+            if($model->save()){
+              \Yii::$app->db->createCommand("UPDATE advocate_mast SET surv_status = '1' WHERE   adv_id=".$model->adv_id."")->execute(); 
+            }
+        Yii::$app->session->setFlash('success', "Thank you for giving survey");
+        return $this->redirect(['student-dashboard']);
+      }
+      return $this->render('survey/survey', [
+            'model' => $model,
+            'survey' => $survey,
+            ]);
+    }
+
+    /*marketing survey ajax call*/
+    public function actionSurveyans($id){
+     
+      $survey=SurveyMast::find()
+      ->select('id,surv_ans')
+      ->where(['surv_code'=>$id])
+      ->all();
+       return $result = Json::encode($survey);
+
+    }
 
     public function actionSignupbkup()
     {
