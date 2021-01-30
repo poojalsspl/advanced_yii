@@ -881,8 +881,9 @@ class SiteController extends Controller
      /*marketing survey student dashboard*/
      public function actionStudentDashboard(){
       $this->layout = 'survey';
+      $count = AdvocateMast::find()->where(['mkt_username'=>$_SESSION["username"]])->count();
       $student = MktStudent::find()->where(['username'=>$_SESSION["username"]])->one();
-    return $this->render('survey/student_dashboard',['student'=>$student]);    
+    return $this->render('survey/student_dashboard',['student'=>$student,'count'=>$count]);    
      }
 
     /*marketing survey student logout*/

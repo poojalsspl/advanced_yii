@@ -1,7 +1,10 @@
 <?php
 use yii\helpers\Url;
+use frontend\models\AdvocateMast;
 
-$url = Url::base(true);
+//$url = Url::base(true);
+$countsurvey = AdvocateMast::find()->where(['mkt_username'=>$_SESSION["username"]])->andWhere(['surv_status'=>'1'])->count();
+//$countsurvey = '7';
 ?>
 <h3><center><?= $student->student_name; ?></center></h3><br>
 
@@ -17,30 +20,50 @@ $url = Url::base(true);
                   
 
                 </div>
-                <div class="col-md-6">
-                  <p class="text-center">
-                    <strong>Goal Completion</strong>
-                  </p>
+                <div class="col-md-8">
+                  <!-- Info boxes -->
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-black-tie"></i></span>
 
-                  <div class="progress-group">
-                    <span class="progress-text">Advocate Registration</span>
-                    <span class="progress-number"><b>0</b>/<?= $student->allocated_qty; ?></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Advocate Registration</span>
+              <span class="info-box-number"><b><?= $count; ?></b>/<?= $student->allocated_qty; ?></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-check"></i></span>
 
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-aqua" style="width: 0%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
+            <div class="info-box-content">
+              <span class="info-box-text">Survey Completion</span>
+              <span class="info-box-number"><b><?= $countsurvey; ?></b>/<?= $student->allocated_qty; ?></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
 
-                  <div class="progress-group">
-                    <span class="progress-text">Survey Completion</span>
-                    <span class="progress-number"><b>0</b>/<?= $student->allocated_qty; ?></span>
+        <!-- fix for small devices only -->
+        <div class="clearfix visible-sm-block"></div>
 
-                    <div class="progress sm">
-                      <div class="progress-bar progress-bar-green" style="width: 0%"></div>
-                    </div>
-                  </div>
-                  <!-- /.progress-group -->
+        
+        
+      </div>
+      <!-- /.row -->
+                 
+
+                  
+
+                  
                 </div>
                 <!-- /.col -->
                
