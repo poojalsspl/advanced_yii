@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use frontend\models\MktStudent;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\AdvocateMastSearch */
@@ -9,6 +11,7 @@ use yii\grid\GridView;
 
 $this->title = 'Advocate Masts';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="advocate-mast-index">
 
@@ -30,11 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'advocate_name',
             'email_id:email',
             'dob',
-            'gender',
-            //'mobile',
+            //'gender',
+            'mobile',
             //'image',
             //'court_code',
-            'court_name',
+           // 'court_name',
             //'country_code',
             //'state_code',
             //'city_code',
@@ -42,9 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
             //'regs_year',
             //'qual_type',
             //'mkt_username',
-            //'crdt',
+            'crdt:date',
+            // [
+            //     'attribute' => 'crdt',
+            //     'label' => 'Create Date',
+            // ],
 
-            //['class' => 'yii\grid\ActionColumn'],
+       
         ],
     ]); ?>
 

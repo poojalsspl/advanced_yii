@@ -7,7 +7,7 @@ use Yii;
 /**
  * This is the model class for table "mkt_student".
  *
- * @property int $id
+ * @property int $std_id
  * @property string $username
  * @property string|null $password
  * @property string|null $regs_date
@@ -17,7 +17,7 @@ use Yii;
  * @property int|null $qual_year
  * @property string|null $edu_status
  * @property string|null $dob
- * @property int|null $mobile_number
+ * @property string|null $mobile_number
  * @property string|null $document
  * @property int|null $country_code
  * @property int|null $state_code
@@ -47,8 +47,10 @@ class MktStudent extends \yii\db\ActiveRecord implements \yii\web\IdentityInterf
         return [
             [['username','password'], 'required'],
             [['regs_date', 'dob', 'start_date', 'end_date'], 'safe'],
-            [['qual_year', 'mobile_number', 'country_code', 'state_code', 'city_code', 'allocated_qty', 'target_qty'], 'integer'],
+            [['qual_year', 'country_code', 'state_code', 'city_code', 'allocated_qty', 'target_qty'], 'integer'],
             [['username'], 'string', 'max' => 50],
+            [['mobile_number'], 'number'],
+            [['mobile_number'], 'match', 'pattern' => '/^[6-9][0-9]{9}$/'],
             [['password', 'qual_name'], 'string', 'max' => 25],
             [['student_name', 'college_name', 'univ_name'], 'string', 'max' => 100],
             [['gender', 'edu_status'], 'string', 'max' => 1],
@@ -63,7 +65,7 @@ class MktStudent extends \yii\db\ActiveRecord implements \yii\web\IdentityInterf
     public function attributeLabels()
     {
         return [
-            'id' => 'Id',
+            'std_id' => 'Id',
             'username' => 'Username',
             'password' => 'Password',
             'regs_date' => 'Regs Date',
