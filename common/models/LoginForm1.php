@@ -78,8 +78,8 @@ class LoginForm1 extends Model
     
 
     public function SetStatus($id,$log_status){
-        \Yii::$app->db->createCommand("UPDATE mkt_student SET log_status=:log_status WHERE id=:id")
-        ->bindValue(':id', $id)
+        \Yii::$app->db->createCommand("UPDATE mkt_student SET log_status=:log_status WHERE std_id=:std_id")
+        ->bindValue(':std_id', $id)
         ->bindValue(':log_status', $log_status)
         ->execute();
 
