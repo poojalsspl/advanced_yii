@@ -66,12 +66,11 @@ use yii\bootstrap\Nav;
                             
                          ];
                          
-                        if (empty($_SESSION["username"])) {
-                            $menuItems[] = ['label' => 'Login', 'url' => ['site/mkt-login']];
-                            $menuItems[] = ['label' => 'Sign Up', 'url' => ['site/mkt-signup']];
+                        if (empty($_SESSION["email_id"])) {
+                            $menuItems[] = ['label' => 'Login', 'url' => ['site/adv-login']];
+                            //$menuItems[] = ['label' => 'Sign Up', 'url' => ['site/-signup']];
                         } else {
-                           $menuItems[] = ['label' => 'Dashboard', 'url' => ['site/student-dashboard']]; 
-                           $menuItems[] = ['label' => 'Logout', 'url' => ['site/student-logout'], 'data-method' => 'post'];
+                           $menuItems[] = ['label' => 'Logout', 'url' => ['site/advocate-logout'], 'data-method' => 'post'];
                            
                   
                         }
