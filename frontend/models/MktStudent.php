@@ -8,26 +8,33 @@ use Yii;
  * This is the model class for table "mkt_student".
  *
  * @property int $std_id
+ * @property string $referral_code
+ * @property string|null $lawhub_id
  * @property string $username
  * @property string|null $password
  * @property string|null $regs_date
  * @property string|null $student_name
  * @property string|null $gender
  * @property string|null $qual_name
- * @property int|null $qual_year
- * @property string|null $edu_status
+ * @property string|null $qual_year
+ * @property string|null $edu_status ongoing 0/completed 1
  * @property string|null $dob
  * @property string|null $mobile_number
  * @property string|null $document
  * @property int|null $country_code
  * @property int|null $state_code
  * @property int|null $city_code
+ * @property string|null $addr
+ * @property int|null $pincode
  * @property string|null $college_name
  * @property string|null $univ_name
  * @property int|null $allocated_qty
- * @property int|null $target_qty
+ * @property int|null $target_survey
  * @property string|null $start_date
  * @property string|null $end_date
+ * @property int $log_status
+ * @property string|null $course_code
+ * @property string|null $course_name
  */
 class MktStudent extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -46,17 +53,23 @@ class MktStudent extends \yii\db\ActiveRecord implements \yii\web\IdentityInterf
     {
         return [
             [['username','password'], 'required'],
-            [['regs_date', 'dob', 'start_date', 'end_date'], 'safe'],
-            [['qual_year', 'country_code', 'state_code', 'city_code', 'allocated_qty', 'target_qty'], 'integer'],
-            [['username'], 'string', 'max' => 50],
+            [['regs_date', 'qual_year', 'dob', 'start_date', 'end_date'], 'safe'],
+            [['country_code', 'state_code', 'city_code', 'pincode', 'allocated_qty', 'target_survey', 'log_status'], 'integer'],
+            [['referral_code', 'mobile_number'], 'string', 'max' => 10],
+            [['lawhub_id'], 'string', 'max' => 12],
+            [['username', 'course_name'], 'string', 'max' => 50],
             [['mobile_number'], 'number'],
             [['mobile_number'], 'match', 'pattern' => '/^[6-9][0-9]{9}$/'],
             [['password', 'qual_name'], 'string', 'max' => 25],
             [['student_name', 'college_name', 'univ_name'], 'string', 'max' => 100],
             [['gender', 'edu_status'], 'string', 'max' => 1],
             [['document'], 'string', 'max' => 200],
+            [['addr'], 'string', 'max' => 300],
+            [['course_code'], 'string', 'max' => 8],
             [['username'], 'unique'],
         ];
+
+        
     }
 
     /**
@@ -66,6 +79,8 @@ class MktStudent extends \yii\db\ActiveRecord implements \yii\web\IdentityInterf
     {
         return [
             'std_id' => 'Id',
+            'referral_code' => 'Referral code',
+            'lawhub_id' => 'Lawhub ID',
             'username' => 'Username',
             'password' => 'Password',
             'regs_date' => 'Regs Date',
@@ -80,12 +95,17 @@ class MktStudent extends \yii\db\ActiveRecord implements \yii\web\IdentityInterf
             'country_code' => 'Country Code',
             'state_code' => 'State Code',
             'city_code' => 'City Code',
+            'addr' => 'Addr',
+            'pincode' => 'Pincode',
             'college_name' => 'College Name',
             'univ_name' => 'Univ Name',
             'allocated_qty' => 'Allocated Qty',
-            'target_qty' => 'Target Qty',
+            'target_survey' => 'Target Survey',
             'start_date' => 'Start Date',
             'end_date' => 'End Date',
+            'log_status' => 'Log Status',
+            'course_code' => 'Course Code',
+            'course_name' => 'Course Name',       
         ];
     }
 
