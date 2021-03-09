@@ -22,21 +22,24 @@ $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed201
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="hold-transition sidebar-mini sidebar-collapse <?= \dmstr\helpers\AdminLteHelper::skinClass()?>">
+<body class="hold-transition skin-blue sidebar-mini">
 <?php $this->beginBody() ?>
-<div class="wrapper">
+<!-- <div class="wrapper"> -->
 
     <?= $this->render(
         'surveyheader.php',
         ['directoryAsset' => $directoryAsset]
     ) ?>
 
+   
+   
+
     <?= $this->render(
         'content.php',
         ['content' => $content, 'directoryAsset' => $directoryAsset]
     ) ?><br><br><br><br>
 
-</div>
+<!-- </div> -->
 <div class="footer-wrapper footer-custom">
     <?= $this->render(
         'surveyfooter.php',

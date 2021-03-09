@@ -70,28 +70,12 @@ $this->title = 'Student Signup';
                             <div class="col-md-4 col-xs-12">
 
 
-                               <?= $form->field($model, 'dob')->widget(DateRangePicker::classname(), [
-                                   'pluginOptions'=>[
-                                   'singleDatePicker'=>true,
-                                   'showDropdowns'=>true,
-                                   'locale'=>['format' => 'YYYY-MM-DD'],
-                                    ],
-                                   ]);
-                               ?>
-
+                              
                               
                                  <?php
   echo $form->field($model, 'state_code')->dropDownList($state, ['id'=>'state_code','prompt'=>'Select...'])->label('State');?>
                                 
-                              
-
-                            </div>
-                            <div class="col-md-4 col-xs-12">
-                       
-         <?= $form->field($model, 'gender')->radioList(['M' => 'Male', 'F' => 'Female'])->label('Gender'); ?>                   
-
-                                                                                                                               
-                                   <?=$form->field($model, 'city_code')->widget(DepDrop::classname(), [
+                               <?=$form->field($model, 'city_code')->widget(DepDrop::classname(), [
                                     'data'=>ArrayHelper::map(CityMast::find()->all(), 'city_code', 'city_name' ),
                                     'options'=>['placeholder' => 'Select city'],
                                     'pluginOptions'=>[
@@ -100,8 +84,26 @@ $this->title = 'Student Signup';
                                     'url'=>\yii\helpers\Url::to(['/site/getcity'])
                                     ]
                                 ])->label('City');?>
+
+                            </div>
+                            <div class="col-md-4 col-xs-12">
+                       
+                        
+                               <?= $form->field($model, 'dob')->widget(DateRangePicker::classname(), [
+                                   'pluginOptions'=>[
+                                   'singleDatePicker'=>true,
+                                   'showDropdowns'=>true,
+                                   'minDate'=>'1950-01-01',
+                                   'maxDate'=>date('Y-m-d'),
+                                   'locale'=>['format' => 'YYYY-MM-DD'],
+                                    ],
+                                   ]);
+                               ?>
+
+                                                                                                                               
+                                  
                                                                
-                               
+                               <?= $form->field($model, 'gender')->radioList(['M' => 'Male', 'F' => 'Female'])->label('Gender'); ?>    
   
                             </div> 	
 
