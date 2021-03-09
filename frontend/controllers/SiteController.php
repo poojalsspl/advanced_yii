@@ -870,10 +870,20 @@ class SiteController extends Controller
        if ($model->load(Yii::$app->request->post())){
        $username = $_POST['LoginForm1']['username'];
        $password = $_POST['LoginForm1']['password'];
+     $modeldata = MktStudent::find()->where(['username'=>$username])->andWhere(['password'=>$password])->one();
+     if(!empty($modeldata)){
+
        $_SESSION["username"] = $username;
        $_SESSION["password"] = $password;
       return $this->redirect(['student-dashboard']);
+       }else{
+        Yii::$app->session->setFlash('error', "Invalid Username or password.");
+        return $this->render('survey/mkt_login', [
+                'model' => $model,
+            ]);
        }
+
+     }
          return $this->render('survey/mkt_login', [
                 'model' => $model,
             ]);
@@ -927,7 +937,7 @@ class SiteController extends Controller
       $student = MktStudent::find()->where(['username'=>$_SESSION["username"]])->one();
       $sid = $student->std_id;
       $count = AdvocateMast::find()->where(['std_id'=>$sid])->count();
-      $help = MktStudentDoc::find()->where(['std_id'=>$sid])->orderBy('sno')->all();
+      $help = MktStudentDoc::find()->where(['survey_id'=>'1'])->orderBy('sno')->all();
     return $this->render('survey/student_dashboard',['student'=>$student,'count'=>$count,'help'=>$help]);    
      }
 
@@ -944,7 +954,7 @@ class SiteController extends Controller
     {
         session_unset();
         session_destroy();
-        return $this->redirect('http://www.lawhub.in/');
+        return $this->redirect('http://localhost/advanced_yii/site/adv-login');
     }
 
     /*marketing survey advocate registration*/
@@ -973,7 +983,7 @@ class SiteController extends Controller
                  
                  
                   if ($model->save()){
-                    $surveymodel = SurveyQuestions::find()->select('distinct(question_id) question_id,survey_id,catg_code,question_name')->where(['survey_id'=>'1'])->all();
+                    $surveymodel = SurveyQuestions::find()->select('distinct(question_id) question_id,survey_id,catg_code,question_name')->where(['survey_id'=>'1'])->orderBy('catg_code')->all();
                     foreach($surveymodel as $surveyque) {
                      $usersurvey = new UserSurvey();
                      $usersurvey->std_id = $sid;
@@ -1004,15 +1014,22 @@ class SiteController extends Controller
        if ($model->load(Yii::$app->request->post())){
        $email_id = $_POST['LoginForm2']['email_id'];
        $password = $_POST['LoginForm2']['password'];
-       $_SESSION["email_id"] = $email_id;
-       $_SESSION["password"] = $password;
-      return $this->redirect(['advocate-dashboard']);
+       $modeldata = AdvocateMast::find()->where(['email_id'=>$email_id])->andWhere(['password'=>$password])->one();
+       if(!empty($modeldata)){
+          $_SESSION["email_id"] = $email_id;
+          $_SESSION["password"] = $password;
+          return $this->redirect(['advocate-dashboard']);
+       }else{
+        Yii::$app->session->setFlash('error', "Invalid Username or password.");
+        return $this->render('survey/advlogin', [
+                'model' => $model,
+            ]);
+       }
+       
        }
          return $this->render('survey/advlogin', [
                 'model' => $model,
             ]);
-   
-
     }
 
      /*marketing survey advocate dashboard*/
@@ -1052,9 +1069,21 @@ class SiteController extends Controller
     /*marketing survey */
     public function actionSurvey($adv_id){
       $this->layout = 'advocatesurvey'; 
-      $surveyques = UserSurvey::find()->select('question_id,question_name,survey_id')->where(['survey_id'=>'1'])->andWhere(['adv_id'=>$adv_id])->andWhere(['is', 'answer', new \yii\db\Expression('null')])->orderBy(['question_id'=> SORT_ASC])->one();
+      $surveyques = UserSurvey::find()->select('question_id,question_name,survey_id,catg_code')->where(['survey_id'=>'1'])->andWhere(['adv_id'=>$adv_id])->andWhere(['is', 'answer', new \yii\db\Expression('null')])->one();
+
       
       if(!empty($surveyques)){
+
+        $count_ques = UserSurvey::find()->where(['survey_id'=>'1'])->andWhere(['adv_id'=>$adv_id])->count('question_id');
+
+     $count_null_ans = UserSurvey::find()->where(['survey_id'=>'1'])->andWhere(['adv_id'=>$adv_id])->andWhere(['is', 'answer', new \yii\db\Expression('null')])->count();
+
+     if ($count_ques == $count_null_ans) {
+         \Yii::$app->db->createCommand("UPDATE advocate_mast SET surv_compstatus = 'P' WHERE adv_id=".$adv_id."")->execute(); 
+     }else if($count_ques > $count_null_ans){
+           \Yii::$app->db->createCommand("UPDATE advocate_mast SET surv_compstatus = 'PC' WHERE adv_id=".$adv_id."")->execute();
+     }
+
       $ques_id =  $surveyques->question_id;
       $surv_id =  $surveyques->survey_id;
 
@@ -1062,8 +1091,10 @@ class SiteController extends Controller
 
       $model = UserSurvey::find()->where(['survey_id'=>'1'])->andWhere(['adv_id'=>$adv_id])->andWhere(['question_id'=> $ques_id])->one();
       if ($model->load(Yii::$app->request->post())) {
+        //var_dump($_POST['UserSurvey']['answer']);die;
+
         $model->answer = $_POST['UserSurvey']['answer'];
-        if($_POST['UserSurvey']['answer']>1){
+        if(is_array($_POST['UserSurvey']['answer'])){
           $model->answer = implode(',', $_POST['UserSurvey']['answer']);
         }
         $model->save();
@@ -1077,11 +1108,32 @@ class SiteController extends Controller
         'model' => $model,
       ]); 
     }else{
-      \Yii::$app->db->createCommand("UPDATE advocate_mast SET surv_status = '1' WHERE adv_id=".$adv_id."")->execute(); 
+        $advocatemodel = AdvocateMast::find()->select('surv_status')->where(['adv_id'=>$adv_id])->one();
+        if($advocatemodel->surv_status == '0'){
+         return $this->SurveyFinal($adv_id);
+        }else{
+       $today = date('Y-m-d');
+      \Yii::$app->db->createCommand("UPDATE advocate_mast SET surv_status = '2',surv_date = '".$today."',surv_compstatus = 'C' WHERE adv_id=".$adv_id."")->execute(); 
       return $this->render('survey/survey_success'); 
+    }
     }
 
     }
+
+
+
+    public function SurveyFinal($adv_id){
+        $this->layout = 'advocatesurvey'; 
+        $surveyall = UserSurvey::find()->where(['survey_id'=>'1'])->andWhere(['adv_id'=>$adv_id])->all();
+         
+        \Yii::$app->db->createCommand("UPDATE advocate_mast SET surv_status = '1',surv_compstatus = 'C' WHERE adv_id=".$adv_id."")->execute(); 
+        
+        return $this->render('survey/survey_final',[
+         'surveyall' => $surveyall
+        ]);
+    }
+
+
 
     /*marketing survey success*/
     public function actionSurveySuccess(){
