@@ -18,9 +18,10 @@ class AdvocateMastSearch extends AdvocateMast
     public function rules()
     {
         return [
-            [['adv_id', 'mobile', 'court_code', 'country_code', 'state_code', 'city_code', 'regs_year', 'qual_type'], 'integer'],
-            [['advocate_name', 'email_id', 'dob', 'gender', 'image', 'court_name', 'regs_numb', 'mkt_username', 'crdt'], 'safe'],
+            [['adv_id', 'court_code', 'country_code', 'state_code', 'city_code', 'regs_year', 'qual_type', 'std_id', 'surv_status'], 'integer'],
+             [['referral_code', 'advocate_name', 'email_id', 'password', 'dob', 'gender', 'mobile', 'image', 'court_name', 'regs_numb', 'mkt_username', 'surv_date', 'surv_compstatus', 'crdt'], 'safe'],
         ];
+
     }
 
     /**
@@ -70,16 +71,19 @@ class AdvocateMastSearch extends AdvocateMast
             'city_code' => $this->city_code,
             'regs_year' => $this->regs_year,
             'qual_type' => $this->qual_type,
+            'surv_compstatus' => $this->surv_compstatus,
             'crdt' => $this->crdt,
         ]);
 
+         
         $query->andFilterWhere(['like', 'advocate_name', $this->advocate_name])
             ->andFilterWhere(['like', 'email_id', $this->email_id])
             ->andFilterWhere(['like', 'gender', $this->gender])
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'court_name', $this->court_name])
             ->andFilterWhere(['like', 'regs_numb', $this->regs_numb])
-            ->andFilterWhere(['like', 'mkt_username', $this->mkt_username]);
+            ->andFilterWhere(['like', 'mkt_username', $this->mkt_username])
+            ->andFilterWhere(['like', 'surv_compstatus', $this->surv_compstatus]);
 
         return $dataProvider;
     }
@@ -88,7 +92,7 @@ class AdvocateMastSearch extends AdvocateMast
     {
         $username = $_SESSION['username'];
         $student = MktStudent::find()->select('std_id')->where(['username'=>$username])->one();
-        $query = AdvocateMast::find()->where(['std_id'=>$student->std_id])->andWhere(['surv_status'=>'1']);
+        $query = AdvocateMast::find()->where(['std_id'=>$student->std_id])->andWhere(['surv_status'=>'2']);
 
         // add conditions that should always apply here
 
@@ -115,6 +119,7 @@ class AdvocateMastSearch extends AdvocateMast
             'city_code' => $this->city_code,
             'regs_year' => $this->regs_year,
             'qual_type' => $this->qual_type,
+            'surv_compstatus' => $this->surv_compstatus,
             'crdt' => $this->crdt,
         ]);
 
@@ -124,7 +129,8 @@ class AdvocateMastSearch extends AdvocateMast
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'court_name', $this->court_name])
             ->andFilterWhere(['like', 'regs_numb', $this->regs_numb])
-            ->andFilterWhere(['like', 'mkt_username', $this->mkt_username]);
+            ->andFilterWhere(['like', 'mkt_username', $this->mkt_username])
+            ->andFilterWhere(['like', 'surv_compstatus', $this->surv_compstatus]);
 
         return $dataProvider;
     }

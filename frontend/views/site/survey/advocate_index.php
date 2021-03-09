@@ -24,6 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
+        'options' => [
+           'class' => 'table-responsive',
+          ],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -32,9 +35,25 @@ $this->params['breadcrumbs'][] = $this->title;
             //'adv_id',
             'advocate_name',
             'email_id:email',
-            'dob',
+            //'dob',
             //'gender',
             'mobile',
+            //'surv_compstatus',
+            [
+              'attribute'=>'surv_compstatus',
+              'format'=>'raw',
+              'value' => function ($model) {
+                if ($model->surv_compstatus == 'C'){
+                  return '<p style="color:green">Completed</p>';
+                  } 
+                  if ($model->surv_compstatus == 'PC'){
+                  return '<b>Partially Complete</b>';
+                  } 
+                  if ($model->surv_compstatus == 'P') {
+                  return '<p style="color:red">Pending</p>';
+                  }
+               },
+            ],
             //'image',
             //'court_code',
            // 'court_name',
@@ -45,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'regs_year',
             //'qual_type',
             //'mkt_username',
-            'crdt:date',
+           // 'crdt:date',
             // [
             //     'attribute' => 'crdt',
             //     'label' => 'Create Date',

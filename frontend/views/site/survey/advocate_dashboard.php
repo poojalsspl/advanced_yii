@@ -7,7 +7,7 @@
 
 </div>
 
-<div class="col-md-4">
+     <div class="col-md-4">
             
             <div class="form-group">
             	<label>Name</label>
@@ -29,8 +29,17 @@
             	<label>Gender </label>
                 <input type="text" class="form-control"  value="<?= $gender ?>" readonly="readonly">
             </div>
-           <?php $adv_id = $model->adv_id ; ?>
-            <a href="<?php echo Yii::$app->params['domainName'].'site/survey?adv_id='.$adv_id; ?>" class="btn btn-success">Survey Status</a>
+           <?php $adv_id = $model->adv_id ; 
+           if($model->surv_compstatus=='C'){?>
+
+            <a href="<?php echo Yii::$app->params['domainName'].'site/survey?adv_id='.$adv_id; ?>" class="btn btn-success">Complete</a>
+        <?php } else if($model->surv_compstatus=='PC'){ ?>
+
+             <a href="<?php echo Yii::$app->params['domainName'].'site/survey?adv_id='.$adv_id; ?>" class="btn btn-warning">Partially complete</a>
+        <?php } else if($model->surv_compstatus=='P'){ ?>     
+
+            <a href="<?php echo Yii::$app->params['domainName'].'site/survey?adv_id='.$adv_id; ?>" class="btn btn-danger">Pending</a>
+        <?php } ?>
 
 </div>
 

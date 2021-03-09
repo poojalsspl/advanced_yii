@@ -24,6 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
+        'options' => [
+           'class' => 'table-responsive',
+          ],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -32,9 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'adv_id',
             'advocate_name',
             'email_id:email',
-            'dob',
+            //'dob',
             //'gender',
             'mobile',
+            //'surv_compstatus',
             //'image',
             //'court_code',
             //'court_name',
@@ -46,10 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'qual_type',
             //'mkt_username',
             //'crdt:date',
-            [
-                'attribute' => 'crdt',
-                'label' => 'Create Date',
-            ],
+            // [
+            //     'attribute' => 'crdt',
+            //     'label' => 'Create Date',
+            // ],
 
     
         ],

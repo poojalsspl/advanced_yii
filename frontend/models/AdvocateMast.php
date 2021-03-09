@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "advocate_mast".
  *
  * @property int $adv_id
+ * @property string|null $referral_code
  * @property string|null $advocate_name
  * @property string|null $email_id
  * @property string|null $password
@@ -48,9 +49,11 @@ class AdvocateMast extends \yii\db\ActiveRecord
         return [
             [['dob', 'surv_date', 'crdt'], 'safe'],
             [['court_code', 'country_code', 'state_code', 'city_code', 'regs_year', 'qual_type','std_id', 'surv_status'], 'integer'],
+            [['referral_code', 'mobile'], 'string', 'max' => 10],
             [['mobile'], 'number'],
             [['mobile'], 'match', 'pattern' => '/^[6-9][0-9]{9}$/'],
             [['email_id'], 'email'],
+            [['email_id'], 'unique'],
             [['advocate_name', 'court_name'], 'string', 'max' => 100],
             [['email_id','password','advocate_name','dob','state_code','city_code'], 'required'],
             [['email_id', 'mkt_username'], 'string', 'max' => 50],
@@ -58,9 +61,10 @@ class AdvocateMast extends \yii\db\ActiveRecord
             //[['image'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
             [['password', 'regs_numb'], 'string', 'max' => 25],
             [['gender'], 'string', 'max' => 1],
-            [['mobile'], 'string'],
             [['surv_compstatus'], 'string', 'max' => 2],
         ];
+
+       
 
          
     }
@@ -72,6 +76,7 @@ class AdvocateMast extends \yii\db\ActiveRecord
     {
         return [
             'adv_id' => 'Adv ID',
+            'referral_code' => 'Referral Code',
             'advocate_name' => 'Advocate Name',
             'email_id' => 'Email(login username)',
             'password' => 'Password',
@@ -93,6 +98,7 @@ class AdvocateMast extends \yii\db\ActiveRecord
             'surv_date' => 'Survey Date',
             'surv_compstatus' => 'Survey Completion status',
             'crdt' => 'Create Date',
+
         ];
     }
 
