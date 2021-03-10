@@ -983,12 +983,13 @@ class SiteController extends Controller
                  
                  
                   if ($model->save()){
-                    $surveymodel = SurveyQuestions::find()->select('distinct(question_id) question_id,survey_id,catg_code,question_name')->where(['survey_id'=>'1'])->orderBy('catg_code')->all();
+                    $surveymodel = SurveyQuestions::find()->select('distinct(question_id) question_id,survey_id,sno,catg_code,question_name')->where(['survey_id'=>'1'])->all();
                     foreach($surveymodel as $surveyque) {
                      $usersurvey = new UserSurvey();
                      $usersurvey->std_id = $sid;
                      $usersurvey->adv_id = $model->adv_id;
                      $usersurvey->survey_id = $surveyque->survey_id;
+                     $usersurvey->sno = $surveyque->sno;
                      $usersurvey->catg_code = $surveyque->catg_code;
                      $usersurvey->question_id = $surveyque->question_id;
                      $usersurvey->question_name = $surveyque->question_name;
@@ -1069,7 +1070,7 @@ class SiteController extends Controller
     /*marketing survey */
     public function actionSurvey($adv_id){
       $this->layout = 'advocatesurvey'; 
-      $surveyques = UserSurvey::find()->select('question_id,question_name,survey_id,catg_code')->where(['survey_id'=>'1'])->andWhere(['adv_id'=>$adv_id])->andWhere(['is', 'answer', new \yii\db\Expression('null')])->one();
+      $surveyques = UserSurvey::find()->select('question_id,question_name,survey_id,catg_code')->where(['survey_id'=>'1'])->andWhere(['adv_id'=>$adv_id])->andWhere(['is', 'answer', new \yii\db\Expression('null')])->orderBy(['sno'=>SORT_ASC])->one();
 
       
       if(!empty($surveyques)){

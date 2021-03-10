@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int|null $survey_id
  * @property string|null $survey_name
+ * @property int $sno
  * @property int|null $catg_code
  * @property int|null $question_id
  * @property string $question_name
@@ -32,7 +33,7 @@ class SurveyQuestions extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['survey_id', 'catg_code', 'question_id', 'type_id', 'option_id'], 'integer'],
+            [['survey_id', 'sno', 'catg_code', 'question_id', 'type_id', 'option_id'], 'integer'],
             [['question_name'], 'required'],
             [['survey_name', 'question_name'], 'string', 'max' => 200],
             [['answer'], 'string', 'max' => 100],
@@ -47,6 +48,7 @@ class SurveyQuestions extends \yii\db\ActiveRecord
         return [
             'survey_id' => 'Survey ID',
             'survey_name' => 'Survey Name',
+            'sno' => 'Serial Number',
             'catg_code' => 'Catg Code',
             'question_id' => 'Question ID',
             'question_name' => 'Question Name',

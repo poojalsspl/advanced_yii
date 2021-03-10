@@ -11,6 +11,7 @@ use Yii;
  * @property int $std_id
  * @property int $adv_id
  * @property int|null $survey_id
+ * @property int $sno
  * @property int|null $catg_code
  * @property int|null $question_id
  * @property string|null $question_name
@@ -33,7 +34,7 @@ class UserSurvey extends \yii\db\ActiveRecord
     {
         return [
             [['u_id', 'std_id', 'adv_id'], 'required'],
-            [['u_id', 'std_id', 'adv_id', 'survey_id', 'catg_code', 'question_id'], 'integer'],
+            [['u_id', 'std_id', 'adv_id', 'survey_id', 'sno', 'catg_code', 'question_id'], 'integer'],
             [['answer'], 'string', 'max' => 200],
             [['question_name'], 'string', 'max' => 100],
             [['u_id'], 'unique'],
@@ -50,6 +51,7 @@ class UserSurvey extends \yii\db\ActiveRecord
             'std_id' => 'Std ID',
             'adv_id' => 'Adv ID',
             'survey_id' => 'Survey ID',
+            'sno' => 'Serial Number',
             'catg_code' => 'Catg Code',
             'question_id' => 'Question ID',
             'question_name' => 'Question',
